@@ -1,9 +1,0 @@
-# only the site itself is uploaded
-*
-!index.html
-!katalog.html
-!404.html
-!vercel.json
-!assets/
-!assets/img/
-!assets/img/**
