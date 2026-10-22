@@ -144,9 +144,9 @@ unl_html = f'''
     <h2>{"".join(f'<span class="l {lg} cn">{e(unl[lg][0])}</span>' for lg in ("en", "uz", "ru"))}</h2>
   </header>
   <article class="rec" data-id="unlisted" style="--tx:2.2deg;--ty:-1.6deg;--rz:-0.4deg">
-    <div class="sheet charred" style="clip-path:{torn(999, jit=1.15, nick=0.22)}">
+    <div class="sheet charred" style="clip-path:{torn(999, jit=0.8, nick=0.13)}">
       <div class="fibre"></div>
-      <div class="print dead"><div class="static"></div><span class="pno">{unl['code']}</span></div>
+      <div class="print dead"><div class="static"></div><span class="pno" style="color:#8c1a17">{unl['code']}</span><span class="noplate">NO PLATE ON FILE</span></div>
       <div class="body">
         <div class="row"><span class="cls">NOMEN QUOD NEMO POSUIT</span><span class="dots"></span><span class="no">{unl['code']}</span></div>
         <div class="lat">{unl['lat']}</div>
@@ -273,6 +273,8 @@ h1 em{font-style:italic;color:#c9bda4}
   filter:sepia(.14) saturate(.92) contrast(1.03);opacity:0;transition:opacity .8s,transform 1.4s}
 .print img.on{opacity:1}
 .rec:hover .print img{transform:scale(1.018)}
+.noplate{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;
+  font-family:var(--type);font-size:8px;letter-spacing:.34em;color:#7a1512;opacity:.85}
 .pno{position:absolute;left:9px;bottom:7px;font-family:var(--type);font-size:8px;letter-spacing:.26em;
   color:#6d5b43}
 .tape{position:absolute;width:74px;height:22px;background:rgba(206,186,142,.62);
@@ -280,10 +282,11 @@ h1 em{font-style:italic;color:#c9bda4}
   clip-path:polygon(0 6%,100% 0,98% 94%,2% 100%)}
 .tape.tl{left:-16px;top:-9px;transform:rotate(-7deg)}
 .tape.tr{right:-14px;top:-7px;transform:rotate(5deg)}
-.print.dead{background:#100c0a;border-color:rgba(140,26,23,.35);overflow:hidden}
-.print.dead .static{position:absolute;inset:0;
+.print.dead{background:#070505;border-color:rgba(140,26,23,.4);overflow:hidden;aspect-ratio:3/2;
+  box-shadow:0 16px 26px -12px rgba(0,0,0,.8), inset 0 0 60px rgba(0,0,0,.9)}
+.print.dead .static{position:absolute;inset:0;opacity:.22;mix-blend-mode:screen;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23s)' opacity='.42'/%3E%3C/svg%3E");
-  animation:drift 7s steps(6) infinite;opacity:.55}
+  animation:drift 7s steps(6) infinite}
 @keyframes drift{0%{transform:translate3d(0,0,0)}25%{transform:translate3d(-2%,2%,0)}50%{transform:translate3d(2%,-2%,0)}75%{transform:translate3d(-1%,-1%,0)}100%{transform:translate3d(0,0,0)}}
 
 /* ink */
@@ -349,6 +352,9 @@ footer .note{text-transform:none;letter-spacing:.03em;font-family:var(--serif);f
   line-height:1.75;color:#7d7466;max-width:66ch}
 footer b{color:#b8ad9a;font-weight:400;display:block;margin-bottom:8px;letter-spacing:.26em}
 footer a{color:var(--gild);text-decoration:none;border-bottom:1px solid rgba(176,138,74,.35)}
+footer .note.music{font-size:12px;color:#6a6255;border-top:1px solid rgba(233,226,211,.08);padding-top:16px;margin-top:8px}
+footer .note.music span{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--gild);margin-right:8px}
 footer a:hover{color:#e2c894}
 
 @media(max-width:880px){
@@ -507,10 +513,12 @@ HTMLDOC = f"""<!DOCTYPE html>
 <footer>
   <div><b>Bureau of Unquiet Records</b>Vol. IV · Index<br>Tashkent · MMXXVI</div>
   <p class="note">{''.join(f'<span class="l {lg}">{e(UI[lg]["note"])}</span>' for lg in ("en","uz","ru"))}
-  <br><br>Background: <b>Vessel — “Red Sex”</b> (Punish, Honey, 2014) · Tri Angle Records, published by Mute.
-  Played from the rights holders’ official YouTube channel via the YouTube embed — no audio file is hosted here.
-  Listen / buy: <a href="https://vesseluk.bandcamp.com/track/red-sex" target="_blank" rel="noopener">Bandcamp</a> ·
-  <a href="https://music.apple.com/us/album/punish-honey/903921561" target="_blank" rel="noopener">Apple Music</a>.</p>
+  </p>
+  <p class="note music"><span>Background</span>
+  Vessel — “Red Sex” (Punish, Honey, 2014 · Tri Angle Records, published by Mute).
+  Streamed from the rights holders’ official YouTube channel via the YouTube embed; no audio file is hosted here.
+  <a href="https://vesseluk.bandcamp.com/track/red-sex" target="_blank" rel="noopener">Bandcamp</a> ·
+  <a href="https://music.apple.com/us/album/punish-honey/903921561" target="_blank" rel="noopener">Apple Music</a></p>
 </footer>
 
 <script>
