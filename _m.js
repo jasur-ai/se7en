@@ -1,0 +1,21 @@
+const { chromium } = require('playwright');
+(async () => {
+  const b = await chromium.launch({args:['--no-sandbox']});
+  const m = await b.newPage({viewport:{width:390,height:844}});
+  await m.goto('file:///home/user/katalog.html');
+  await m.waitForTimeout(700);
+  await m.evaluate(()=>window.scrollTo(0, document.querySelector('#cls1').offsetTop+120));
+  await m.waitForTimeout(600);
+  await m.screenshot({path:'/tmp/m1.png'});
+  const d = await b.newPage({viewport:{width:1440,height:900}});
+  await d.goto('file:///home/user/index.html');
+  await d.waitForTimeout(700);
+  await d.click('text=ENTER THE DOSSIER');
+  await d.waitForTimeout(900);
+  await d.evaluate(()=>document.querySelector('#bestiary').scrollIntoView());
+  await d.waitForTimeout(700);
+  await d.evaluate(()=>document.querySelector('.card').click());
+  await d.waitForTimeout(1000);
+  await d.screenshot({path:'/tmp/m2.png'});
+  await b.close();
+})();

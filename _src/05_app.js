@@ -551,7 +551,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
     $("#veil").classList.add("gone");
     document.body.classList.add("awake");
     setTimeout(()=>{ $("#veil").style.display="none"; }, 1200);
-    SND.start();
+    // official track first (streamed from the rights holders' channel);
+    // the synthesised bed takes over only if the player is blocked.
+    let radioOK = false;
+    if(window.RADIO){ try{ RADIO.play(); radioOK = true; }catch(e){} }
+    if(radioOK){
+      setTimeout(()=>{ if(!RADIO.ready && !RADIO.failed){ SND.start(); } }, 3200);
+    } else { SND.start(); }
     setTimeout(()=>{ document.getElementById("sins").scrollIntoView({behavior:"smooth",block:"start"}); }, 900);
   });
 
