@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yetti Halokatli Gunoh (7 Deadly Sins) — To'liq Ilmiy, Mifologik va Horror Arxivi</title>
+<style>
+  :root {
+    --bg: #0b0a0e;
+    --surface: #15131c;
+    --surface2: #1e1b29;
+    --border: #2e2940;
+    --gold: #d4af37;
+    --crimson: #c92a3e;
+    --text: #eae6f3;
+    --muted: #9e97b0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: radial-gradient(circle at top, #1a1426 0%, var(--bg) 55%);
+    color: var(--text);
+    line-height: 1.65;
+    padding-bottom: 60px;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 36px 24px 26px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(201,42,62,0.14) 0%, rgba(11,10,14,0.92) 100%);
+  }
+  .badge {
+    display: inline-block;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(212,175,55,0.4);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: clamp(24px, 4vw, 38px);
+    color: #fff;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  header p {
+    max-width: 780px;
+    margin: 0 auto 18px;
+    color: var(--muted);
+    font-size: 15px;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .search-wrap {
+    max-width: 540px;
+    margin: 0 auto;
+    position: relative;
+  }
+  #searchInput {
+    width: 100%;
+    padding: 11px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 14px;
+    font-family: system-ui, sans-serif;
+    outline: none;
+  }
+  #searchInput:focus { border-color: var(--gold); }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 16px;
+    background: rgba(21,19,28,0.92);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+  .tab-btn {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .tab-btn:hover { color: #fff; border-color: var(--gold); }
+  .tab-btn.active {
+    background: linear-gradient(135deg, #8f1d2c, var(--crimson));
+    color: #fff;
+    border-color: var(--crimson);
+  }
+  main {
+    max-width: 1120px;
+    margin: 28px auto;
+    padding: 0 20px;
+  }
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .section-title {
+    font-size: 24px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    border-left: 4px solid var(--crimson);
+    padding-left: 12px;
+  }
+  .section-sub {
+    font-family: system-ui, sans-serif;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color: rgba(212,175,55,0.55); transform: translateY(-2px); }
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 10px;
+  }
+  .sin-tag {
+    font-family: system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 999px;
+    letter-spacing: 0.8px;
+  }
+  .card h3 { font-size: 19px; color: #fff; margin-bottom: 6px; }
+  .card p, .card li {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 13.8px;
+    color: #d6d0e5;
+    margin-bottom: 8px;
+  }
+  .card ul { padding-left: 18px; }
+  .meta-box {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-family: system-ui, sans-serif;
+    font-size: 12.5px;
+    border-left: 3px solid var(--gold);
+  }
+  .meta-box strong { color: var(--gold); }
+  blockquote {
+    font-style: italic;
+    color: #f3e6c8;
+    background: rgba(212,175,55,0.07);
+    border-left: 3px solid var(--gold);
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    margin: 10px 0;
+    font-size: 13.5px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0 26px;
+    font-family: system-ui, sans-serif;
+    font-size: 13px;
+    background: var(--surface);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .table-wrap { overflow-x: auto; margin-bottom: 8px; }
+  th, td {
+    padding: 11px 13px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--surface2); color: var(--gold); font-weight: 700; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .horror-banner {
+    background: linear-gradient(135deg, rgba(201,42,62,0.18), rgba(21,19,28,0.95));
+    border: 1px solid rgba(201,42,62,0.45);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .horror-banner h3 { color: #ff6b7d; margin-bottom: 6px; }
+  .search-hit-count {
+    font-family: system-ui, sans-serif;
+    font-size: 12px;
+    color: var(--gold);
+    margin-top: 8px;
+    min-height: 18px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">SALIGIA • 1997–2026 ENSIKLOPEDIK DOSYE</div>
+  <h1>Yetti Halokatli Gunoh (7 Deadly Sins)</h1>
+  <p>Creature/legend fan-tadqiqoti: <strong>26 ta Markaziy Osiyo qorong'u mifi</strong> (13 demon + 6 muqaddas la'nat + 7 "zulmat darvozasi"), Alvasti, Ajina, Yalmog'iz, O'bir, Gur-e Amir la'nati, Mizdaxhan soati — va ularning <strong>7 halokatli gunoh bo'yicha to'liq xaritasi</strong>.</p>
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="Barcha bo'limlardan qidirish (masalan: Pride, Lyutsifer, Tarrare, Se7en, Konchita, G'azzoliy)...">
+    <div class="search-hit-count" id="hitCount"></div>
+  </div>
+</header>
+
+<nav id="tabs">
+  <button class="tab-btn active" data-tab="site">1. deadlysins.com Tahlili</button>
+  <button class="tab-btn" data-tab="sins">2. 7 Gunoh Katalogi</button>
+  <button class="tab-btn" data-tab="theology">3. Rasmiy Tarix & Dinlar</button>
+  <button class="tab-btn" data-tab="myths">4. Iblislar & Miflar</button>
+  <button class="tab-btn" data-tab="horror">5. Creepypasta & Qo'rqinchli Hikoyalar</button>
+  <button class="tab-btn" data-tab="culture">6. Real Tarix & Fan-Nazariyalar</button>
+  <button class="tab-btn" data-tab="compare">7. Versiyalar Qiyosi & Reytinglar</button>
+  <button class="tab-btn" data-tab="uzb">8. O'zbekiston (UZB) Tahlili</button>
+  <button class="tab-btn" data-tab="dark">9. Markaziy Osiyo Qorong'u Miflar</button>
+</nav>
+
+<main>
+
+  <!-- TAB 1: DEADLYSINS.COM AUDIT -->
+  <section class="section active" id="tab-site">
+    <h2 class="section-title">deadlysins.com — Sayt Anatomiyasi va Barcha 16 Sahifa Auditi</h2>
+    <p class="section-sub">1997-yilda amerikalik o't o'chiruvchi-paramedik va horror/fantastika yozuvchisi <strong>Adam R. Shannon</strong> (<em>adamrshannon.com</em>) tomonidan yaratilgan klassik ensiklopedik veb-resurs.</p>
+
+    <div class="grid">
+      <div class="card searchable">
+        <h3>Sayt Pasporti va San'at Asarlari</h3>
+        <p>Squarespace platformasida ishlovchi <strong>deadlysins.com</strong> klassik teologik iqtiboslar (Avliyo Avgustin, Foma Akvinskiy, Imom G'azzoliy, Budda) bilan zamonaviy o'tkir kinoyani ("Why you do it") uyg'unlashtiradi.</p>
+        <ul>
+          <li><strong>Bosh sahifa tasviri:</strong> Gustave Doré — <em>"The Vision of Hell"</em> (Dante Do'zaxi gravyurasi).</li>
+          <li><strong>Gunoh sahifalari gravyuralari:</strong> Pieter Bruegel Katta (1558), Hieronymus Bosch va Georg Pencz (XVI asr).</li>
+          <li><strong>Do'zax jazolari manbasi:</strong> Ernst & Johanna Lehner — <em>"The Picture Book of Devils, Demons and Witchcraft"</em>.</li>
+          <li><strong>Maxsus e'tirof:</strong> <em>"The Travelers' Guide to Hell"</em> kitobining 6-betida sayt rasman tilga olingan.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>Ezguliklar Tizimi (/virtues)</h3>
+        <p>Sayt gunohlarga qarshi qalqon sifatida 5 ta tarixiy ro'yxatni keltiradi:</p>
+        <ul>
+          <li><strong>4 Kardinal fazilat (Yunon falsafasi):</strong> Prudence (Mulohaza), Temperance (Tiymoq), Courage (Jasorat), Justice (Adolat).</li>
+          <li><strong>3 Teologik fazilat (Avliyo Pavlus):</strong> Faith (Iymon), Hope (Umid), Love/Charity (Muhabbat).</li>
+          <li><strong>7 Zid fazilat (Prudentiy, "Psychomachia", ~410-yil):</strong> Humility, Kindness, Abstinence, Chastity, Patience, Liberality, Diligence.</li>
+          <li><strong>7 Jismoniy Rahmdillik Amali:</strong> Ochni to'ydirish, chanqoqqa suv berish, musofirga boshpana, yalang'ochni kiyintirish, bemor va mahbusni yo'qlash, mayyitni ko'mish.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>Vatikan 2008 va Mahatma Gandi Ro'yxatlari</h3>
+        <p><strong>/modern-social-sins (Monsenyor J. Jirotti, 2008):</strong> 1) Ekologiyani buzish, 2) Genetik manipulyatsiya, 3) Behayo boylik to'plash, 4) Qashshoqlik yaratish, 5) Narkotrafik, 6) Axloqsiz ilmiy tajribalar, 7) Fundamental inson huquqlarini buzish.</p>
+        <p><strong>/gandhi (Mahatma Gandining 7 Ijtimoiy Gunohi):</strong> Mehnatsiz boylik, Vijdonsiz lazzat, Insoniyliksiz ilm, Xaraktersiz bilim, Prinsipsiz siyosat, Axloqsiz tijorat, Fidoiyliksiz ibodat.</p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Yashirin va Pop-Madaniy Sahifalar (/dwarfs, /castaways, /guinea-worm)</h3>
+        <ul>
+          <li><strong>/dwarfs ("Oppog'oy va 7 gunoh"):</strong> R.S. Gwynn she'ri — o'rmondagi kulbada 7 gunohga xizmat qilib aqldan ozgan Oppog'oy oq otliq shahzodadan ham qochib monastirga kirib ketadi.</li>
+          <li><strong>/castaways ("Gilligan's Island"):</strong> 7 qahramon — Sartrning Do'zaxidagi 7 gunoh (Gilligan = Sloth, har gal qutqaruvni buzadi).</li>
+          <li><strong>/guinea-worm (Yashirin qora yumor):</strong> <em>"Save the Guinea Worm Foundation"</em> — Jonatan Svift uslubidagi satira bo'lib, odamlarni o'z tanasida parazit rishta qurtini boqishga chaqirish orqali inson kibrini masxara qiladi.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: THE 7 SINS CARDS -->
+  <section class="section" id="tab-sins">
+    <h2 class="section-title">Yetti Halokatli Gunohning To'liq Dosyesi</h2>
+    <p class="section-sub">Har bir gunohning <strong>deadlysins.com</strong> pasporti, lotincha ildizi, Do'zax jazosi, qarama-qarshi fazilati va psixologik anatomiyasi.</p>
+
+    <div class="grid">
+      <div class="card searchable">
+        <div class="card-header">
+          <h3>1. Pride / Superbia (Kibr)</h3>
+          <span class="sin-tag" style="background:#5c2d91;color:#fff;">Ot • Binafsharang</span>
+        </div>
+        <blockquote>"Farishtalarni iblisga aylantirgan narsa — kibr; insonlarni farishtadek qiladigan narsa — kamtarlikdir." — Avliyo Avgustin</blockquote>
+        <p><strong>Ta'rifi:</strong> O'z qobiliyati va ustunligiga telbalarcha ishonish, Yaratganning inoyatini rad etish. Barcha gunohlar onasi va darvozasi (<em>Hubris / Vanity</em>).</p>
+        <div class="meta-box">
+          <strong>Do'zaxdagi jazo:</strong> G'ildirakka bog'lab suyaklarni sindirish (<em>Broken on the wheel</em>).<br>
+          <strong>Dante Arofatida:</strong> Yelkasida ulkan tosh ko'tarib ikki bukilib yurish.<br>
+          <strong>Zid fazilat:</strong> Humility (Kamtarlik) • <strong>Iblis:</strong> Lucifer • <strong>Osmon jismi:</strong> Quyosh.
+        </div>
+      </div>
+
+      <div class="card searchable">
+        <div class="card-header">
+          <h3>2. Envy / Invidia (Hasad)</h3>
+          <span class="sin-tag" style="background:#1f6f43;color:#fff;">It • Yashil</span>
+        </div>
+        <blockquote>"Muruvvat yaqinining yutug'idan quvonsa, hasad uning yutug'idan motam tutadi." — Foma Akvinskiy</blockquote>
+        <p><strong>Ta'rifi:</strong> Birovning baxti, husni, maqomi va ne'matini ko'rolmaslik, uning zavol topishini istash. Jozef Epshteyn ta'biri bilan aytganda: <em>"7 gunoh ichida hatto bir lahzalik lazzat ham bermaydigan yagona gunoh!"</em></p>
+        <div class="meta-box">
+          <strong>Do'zaxdagi jazo:</strong> Muzdek suvga tashlab qo'yish (<em>Put in freezing water</em>).<br>
+          <strong>Dante Arofatida:</strong> Ko'z qovoqlari temir sim bilan tikib tashlanadi.<br>
+          <strong>Zid fazilat:</strong> Kindness (Xayrixohlik) • <strong>Iblis:</strong> Leviathan • <strong>Osmon jismi:</strong> Oy.
+        </div>
+      </div>
+
+      <div class="card searchable">
+        <div class="card-header">
+          <h3>3. Gluttony / Gula (Mechkaylik)</h3>
+          <span class="sin-tag" style="background:#b85d14;color:#fff;">Cho'chqa • To'q sariq</span>
+        </div>
+        <blockquote>"Kimning g'ami qorniga kiradigan narsa bo'lsa, uning qadri qornidan chiqadigan narsaga tengdir." — Imom G'azzoliy</blockquote>
+        <p><strong>Ta'rifi:</strong> Tana ehtiyojidan ortiqcha yeb-ichish, mastlik va isrofgarlikka qul bo'lish. Akvinskiy mechkaylikning 5 shaklini ko'rsatgan: <em>shoshilib, saralab, haddan ko'p, ochko'zlarcha va bevaqt</em> yeyish.</p>
+        <div class="meta-box">
+          <strong>Do'zaxdagi jazo:</strong> Kalamush, qurbaqa va ilonlarni majburlab yedirish.<br>
+          <strong>Dante Do'zaxida:</strong> Sasigan loy va do'l ostida Tserber tomonidan g'ajilish.<br>
+          <strong>Zid fazilat:</strong> Abstinence / Temperance (Parhez) • <strong>Iblis:</strong> Beelzebub.
+        </div>
+      </div>
+
+      <div class="card searchable">
+        <div class="card-header">
+          <h3>4. Lust / Luxuria (Shahvat)</h3>
+          <span class="sin-tag" style="background:#1d4ed8;color:#fff;">Sigir • Ko'k</span>
+        </div>
+        <blockquote>"Har birimiz ichimizda gugurt qutisi bilan tug'ilamiz, lekin ularni yolg'iz o'zimiz yoqolmaymiz." — Laura Esquivel</blockquote>
+        <p><strong>Ta'rifi:</strong> Aql va axloq chegarasini buzuvchi jismoniy-shahvoniy tashnalik; boshqa insonni shaxs emas, lazzat obyekti sifatida ko'rish.</p>
+        <div class="meta-box">
+          <strong>Do'zaxdagi jazo:</strong> Olov va oltingugurt tutunida bo'g'ib yoqish (<em>Smothered in fire and brimstone</em>).<br>
+          <strong>Dante Do'zaxida:</strong> To'xtovsiz qora bo'ronda uchib yurish.<br>
+          <strong>Zid fazilat:</strong> Chastity (Iffat) • <strong>Iblis:</strong> Asmodeus.
+        </div>
+      </div>
+
+      <div class="card searchable">
+        <div class="card-header">
+          <h3>5. Anger / Ira (G'azab / Qahr)</h3>
+          <span class="sin-tag" style="background:#b91c1c;color:#fff;">Ayiq • Qizil</span>
+        </div>
+        <blockquote>"G'azablanganingda gapir — shunda bir umr afsuslanadigan eng zo'r nutqingni so'zlaysan." — Ambrose Bierce</blockquote>
+        <p><strong>Ta'rifi:</strong> Muhabbat va aql me'yorini uloqtirib, qasos, zo'ravonlik va nafrat oloviga taslim bo'lish.</p>
+        <div class="meta-box">
+          <strong>Do'zaxdagi jazo:</strong> Tiriklayin a'zolarni bo'laklab tashlash (<em>Dismembered alive</em>).<br>
+          <strong>Dante Do'zaxida:</strong> Qora Stiks botqog'ida bir-birini tishlab g'ajish.<br>
+          <strong>Zid fazilat:</strong> Patience (Sabr-toqat) • <strong>Iblis:</strong> Satan / Amon.
+        </div>
+      </div>
+
+      <div class="card searchable">
+        <div class="card-header">
+          <h3>6. Greed / Avaritia (Ochko'zlik)</h3>
+          <span class="sin-tag" style="background:#a16207;color:#fff;">Qurbaqa • Sariq</span>
+        </div>
+        <blockquote>"Yer yuzi har bir insonning ehtiyojini qondirishga yetadi, lekin har kimning ochko'zligiga emas." — Mahatma Gandi</blockquote>
+        <p><strong>Ta'rifi:</strong> Ruhiy qadriyatlarni va o'zgalar haqqini tepkilab, boylik, hokimiyat va mulk yig'ishga telbalarcha mukkasidan ketish.</p>
+        <div class="meta-box">
+          <strong>Do'zaxdagi jazo:</strong> Qaynoq yog'da tiriklayin qaynatish (<em>Boiled alive in oil</em>).<br>
+          <strong>Dante Arofatida:</strong> Yuztuban qora tuproqqa bog'lab tashlanish.<br>
+          <strong>Zid fazilat:</strong> Liberality / Charity (Saxovat) • <strong>Iblis:</strong> Mammon.
+        </div>
+      </div>
+
+      <div class="card searchable">
+        <div class="card-header">
+          <h3>7. Sloth / Acedia (Dangasalik / G'aflat)</h3>
+          <span class="sin-tag" style="background:#0284c7;color:#fff;">Echki • Och ko'k</span>
+        </div>
+        <blockquote>"Hayotni sevasanmi? Unda vaqtni behuda sovurma, chunki hayot vaqtdan iboratdir." — Benjamin Franklin</blockquote>
+        <p><strong>Ta'rifi:</strong> Jismoniy yalqovlikdan ham chuqurroq tushuncha — <em>Akedia</em> ("parvo qilmaslik"): ruhiy loqaydlik, ezgulik qilishga erinish, yovuzlikka befarq qarab turish.</p>
+        <div class="meta-box">
+          <strong>Do'zaxdagi jazo:</strong> Zaharli ilonlar to'la chuqurga tashlash (<em>Thrown into snake pits</em>).<br>
+          <strong>Dante Arofatida:</strong> Bir soniya ham tinmay yugurish.<br>
+          <strong>Zid fazilat:</strong> Diligence (G'ayrat) • <strong>Iblis:</strong> Belphegor.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 3: THEOLOGY & WORLD RELIGIONS -->
+  <section class="section" id="tab-theology">
+    <h2 class="section-title">Rasmiy Tarix, Teologiya va Jahon Dinlari Qiyosiy Tahlili</h2>
+    <p class="section-sub">Misr cho'llaridagi zohidlardan tortib Imom G'azzoliyning "Muhlikot" nazariyasi va Sharq falsafasigacha.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Davr / Yil</th>
+          <th>Mutafakkir / Manba</th>
+          <th>Kiritgan inqilobiy o'zgarishi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="searchable">
+          <td><strong>Milodiy ~375</strong></td>
+          <td><strong>Evagriy Pontiyskiy</strong><br><em>Praktikos, Antirrhetikos</em></td>
+          <td>Misr cho'lida rohiblar ongiga hujum qiluvchi <strong>8 ta yovuz o'y (Logismoi)</strong> ro'yxatini tuzdi: Mechkaylik, Zino, Pulparastlik, Qayg'u (<em>Lype</em>), G'azab, Ruhiy falajlik (<em>Akedia</em> — "Tush paytidagi iblis"), Shuhratparastlik, Kibr.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>Milodiy ~420</strong></td>
+          <td><strong>Ioann Kassian</strong><br><em>Institutes, Conferences</em></td>
+          <td>Evagriyning 8 illatini yunonchadan lotinchaga tarjima qilib, Marsel monastirlari orqali butun G'arbiy Yevropaga yoydi.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>Milodiy 590</strong></td>
+          <td><strong>Papa Buyuk Grigoriy I</strong><br><em>Moralia in Job</em></td>
+          <td>8 talikni kanonik <strong>7 gunohga</strong> keltirdi: Shuhratparastlikni Kibrga, Qayg'uni Dangasalikka qo'shdi va ro'yxatga <strong>Hasad (Invidia)</strong>ni kiritdi. Shu asosda <strong>SALIGIA</strong> akronimi tug'ildi.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>XI asr oxiri</strong></td>
+          <td><strong>Imom Abu Homid G'azzoliy</strong><br><em>Ihyou ulumid-din (Rub' ul-Muhlikot)</em></td>
+          <td>Islom axloqshunosligida qalbni halok qiluvchi illatlarni tizimlashtirdi: <em>Qorin va Farj shahvati, G'azab-hiqd, Hasad, Baxillik va mol sevgisi, Obro'parastlik-riyo, Kibr-'ujb, G'aflat</em>.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>1265–1274</strong></td>
+          <td><strong>Foma Akvinskiy</strong><br><em>Summa Theologiae</em></td>
+          <td>7 gunohni <strong>"Vitia Capitalia" (Bosh/Buloq illatlar)</strong> deb atadi va har birini tabiiy insoniy intilishning buzilgan shakli sifatida asosladi.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>1308–1321</strong></td>
+          <td><strong>Dante Aligyeri</strong><br><em>Ilohiy Komediya</em></td>
+          <td>Arofat tog'ining 7 pog'onasi va Do'zax xalqalarida <strong>Contrapasso</strong> (qilmishga mos teskari yoki aynan jazo) tamoyilini badiiy cho'qqiga chiqardi.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>Qadimgi Hindiston</strong></td>
+          <td><strong>Hinduizm & Buddizm</strong><br><em>Arishadvarga & Mula-Klesha</em></td>
+          <td>Hinduizmda ongning 6 dushmani (<em>Kama, Krodha, Lobha, Moha, Mada, Matsarya</em>); Buddizmda Hayot charxpalagi markazidagi Uch/Besh zahar (Cho'chqa — G'aflat, Xo'roz — Shahvat/Nafs, Ilon — G'azab + Kibr va Hasad).</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- TAB 4: DEMONOLOGY & MYTHS -->
+  <section class="section" id="tab-myths">
+    <h2 class="section-title">Demonologiya (7 Shahzoda) va Antik Mifologiya Dahshatlari</h2>
+    <p class="section-sub">Piter Binsfeldning 1589-yilgi demonologik tasnifi, okkult grimoirlar va qadimgi xalqlarning qonli afsonalari.</p>
+
+    <div class="grid">
+      <div class="card searchable">
+        <h3>Do'zaxning 7 Shahzodasi (Binsfeld, 1589)</h3>
+        <ul>
+          <li><strong>Lucifer (Kibr):</strong> Osmon taxtini ko'zlab qulagan "Tong yulduzi".</li>
+          <li><strong>Mammon (Ochko'zlik):</strong> Oltin va xazina quli; hatto jannatda ham yerga qarab oltin izlagan ruh (Milton).</li>
+          <li><strong>Asmodeus (Shahvat):</strong> <em>Tobit kitobi</em>da Soraning 7 kuyovini nikoh kechasida bo'g'ib o'ldirgan iblis.</li>
+          <li><strong>Leviathan (Hasad):</strong> Ummon tubidagi olov purkovchi bahaybat dengiz ajdahosi.</li>
+          <li><strong>Beelzebub (Mechkaylik):</strong> "Pashshalar hukmdori" — o'laksa va chirindi ustidagi ochko'z maxluq.</li>
+          <li><strong>Satan / Amon (G'azab):</strong> Qirg'in va intiqom olovi rahnamosi.</li>
+          <li><strong>Belphegor (Dangasalik):</strong> <em>Dictionnaire Infernal</em>da unitazda o'tirgan holda chizilgan, odamlarni "tekin boylik" xayoli bilan yalqov qiluvchi iblis.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>Qirol Erisixton — O'z Go'shtini Yegan Podshoh (Gluttony)</h3>
+        <p>Yunon mifologiyasidagi eng qo'rqinchli tana-dahshati (Ovidiy, <em>Metamorfozalar</em>): Demetraning muqaddas emanini kesgan shoh ichiga Ochlik ma'budasi <strong>Limos</strong> kirib oladi. Erisixton butun xazinasini, yerlarini, hatto qizini ham sotib yeydi. Hech narsasi qolmagach, <strong>o'z qo'llari va tana go'shtini tishlab uzib yeb</strong> o'ladi!</p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Vendigo — Muz Yurakli Odamxo'r (Gluttony & Greed)</h3>
+        <p>Shimoliy Amerika Algonkin hindularining eng dahshatli folklori: ochko'zlik va nafs tufayli boshqa inson go'shtini tatib ko'rgan kimsa <strong>Vendigo</strong>ga aylanadi — lablari o'z-o'zini yeyishdan qonga belangan, suyaklari terisini yorib chiqqan, qancha odam yesa shuncha ochlikdan dod soladigan muz maxluq.</p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Nioba, Araxna, Fafnir va Aglavra</h3>
+        <ul>
+          <li><strong>Nioba (Kibr):</strong> Maqtanchoqligi uchun Apollon va Artemida uning 14 farzandini kamondan otib o'ldiradi; Nioba abadiy yig'laydigan qoyatoshga aylanadi.</li>
+          <li><strong>Araxna (Kibr):</strong> Ma'buda Afinani kashtada yengib, abadiy o'rgimchakka aylantiriladi.</li>
+          <li><strong>Aglavra (Hasad):</strong> Singlisiga hasad qilgani uchun qop-qora tosh haykalga aylanib qotib qoladi.</li>
+          <li><strong>Fafnir (Ochko'zlik):</strong> Otasini oltin uchun o'ldirib, la'natlangan zaharli ajdahoga aylanadi.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 5: HORROR, CREEPYPASTA & URBAN LEGENDS -->
+  <section class="section" id="tab-horror">
+    <h2 class="section-title">Qo'rqinchli Hikoyalar, Creepypasta, Shahar Afsonalari va Trillerlar</h2>
+    <p class="section-sub">Oddiy forum postlaridan tortib, odamning etini junjiktiruvchi psixologik horror hikoyalarigacha.</p>
+
+    <div class="horror-banner searchable">
+      <h3>Creepypasta Klassikasi #1: "The Seven Deadly Sins" (Oila Qotilining Qonli Maktubi)</h3>
+      <p>Internetning oltin davrida <em>MrCreepyPasta</em> tomonidan o'qilgan eng mudhish hikoya. Ota o'z joniga qasd qilish oldidan yozgan maktubida devorda qizil bo'yoqda paydo bo'lgan <strong>"SINS OF YOUR FOREFATHERS, SINS YOU CAN'T HIDE"</strong> yozuvidan keyin oilasida kechgan 7 yillik dahshatni tasvirlaydi: xotinining xiyonati va pichoq bilan qornini yorib o'lishi, yuragi xasta qizchasining ovqatga bo'kib shifoxonaga tushishi va qayt qilishi, go'dak ukasiga hasad qilib shkafga yashirinishi... <strong>Final tvisti:</strong> O'quvchi oxirgi satrlarda anglab yetadiki, 7 yil davomida la'nat emas, balki <strong>aqldan ozgan otaning o'zi</strong> qizini majburlab ovqatlantirib-qusdirgan, go'dak o'g'lini va qizini o'ldirgan hamda qizining sochi va kiyimidan sirtmoq yasab o'zini osishga tayyorlanmoqda!</p>
+    </div>
+
+    <div class="grid">
+      <div class="card searchable">
+        <h3>Creepypasta #2: "The Seven Deadly Songs"</h3>
+        <p><em>FantasyPhantom</em> asari: Montana shtatidagi inspektor Endryu kекsa ruhoniydan kumush haykalcha va <code>5163742</code> raqamli sirli CD-disk (<em>Messiah of Silver</em>) oladi. Diskdagi 7 trek uni uyqusida transga tushirib, 7 ta halokatli gunohni vahshiylarcha bajarishga majbur qiladi. Endryu halok bo'lgach, sobiq xotini Jenis mashinada uxlab yotgan qizchasi bilan uyga qaytarkan, diskni magnitofonga qo'ymoqchi bo'ladi...</p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Shahar Afsonasi: "Do'zaxning 7 Darvozasi" (Pensilvaniya)</h3>
+        <p>York okrugi, <strong>Hellam Township (Toad Road)</strong> o'rmonidagi mashhur amerika afsonasi: XX asr boshida yonib ketgan jinnixona yoki okkultist shifokor o'rmonga 7 ta darvoza qurgan. Kunduz kuni faqat 1-darvoza ko'rinadi; qolgan 6 tasi faqat tunda paydo bo'ladi. <strong>5-darvozadan</strong> o'tgan odam aqldan ozadi, <strong>7-darvozadan</strong> o'tgan esa Do'zaxga qulab izsiz yo'qoladi. (Tarixiy asos: doktor Garold Belknapning darvozasi va tosh qurbaqa haykallari).</p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Evillious Chronicles: Banika Konchita va 7 La'natlangan Idish</h3>
+        <p>Yapon ijodkori <strong>mothy (Akuno-P)</strong> yaratgan gotik-horror olamida 7 iblis 7 buyumda yashaydi. Ayniqsa <strong>Mechkaylik (Evil Food Eater Conchita)</strong> hikoyasi dahshatli: gersoginya Banika Konchita avval zahar va chirindilarni, so'ng o'z oshpazini pishirib yeydi; qasrda hech kim qolmagach, <strong>o'z a'zolarini bittalab chaynaydi</strong> va hatto Mechkaylik iblisini ham yutib yuboradi!</p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Devid Fincherning "Se7en" (1995) Filmi — 7 Qotillik</h3>
+        <p> Seriyali qotil Jon Dou gunohkorlarni o'z gunohi bilan o'ldiradi: 1) <strong>Gluttony</strong> — qorni yorilguncha ovqatlantirish; 2) <strong>Greed</strong> — advokat o'z tanasidan 1 funt go'sht kesadi; 3) <strong>Sloth</strong> — 365 kun to'shakka bog'lab chiritilgan tirik murda; 4) <strong>Lust</strong> — tig'li qurol qotilligi; 5) <strong>Pride</strong> — yuzi kesilgan model; 6) <strong>Envy</strong> — qutidagi Treysining boshi; 7) <strong>Wrath</strong> — detektiv Millsning qasos o'qi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 6: REAL HISTORY & POP CULTURE -->
+  <section class="section" id="tab-culture">
+    <h2 class="section-title">Tarixdagi Real Shaxslar va Internet Fan-Nazariyalari</h2>
+    <p class="section-sub">Hujjatlashtirilgan tibbiy-tarixiy dahshatlar va bolalar multfilmlari ortidagi mashhur Reddit nazariyalari.</p>
+
+    <div class="grid">
+      <div class="card searchable">
+        <h3>Tarrare (1772–1798) — Real Hayotdagi Mechkaylik Maxluqi</h3>
+        <p>Fransuz harbiy jarrohi <strong>doktor Persi</strong> tomonidan hujjatlashtirilgan: 45 kg vaznli yigit tirik mushuklar, ilonlar, tosh va savat-savat olmalarni butunligicha yutgan; tanasidan chidab bo'lmas badbo'y hid anqigan. Kasalxonada <strong>murdaxonalardagi jasadlarni g'ajigani</strong> va <strong>14 oylik go'dak yo'qolgach</strong> haydalgan!</p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Yelizaveta Batori va Mark Krass</h3>
+        <ul>
+          <li><strong>Grafinya Batori (Pride / Vanity):</strong> Qarishdan qo'rqib, Vengriyadagi qasrida yuzlab yosh qizlarning qonida cho'milgan "Qonli Grafinya"; umrining oxirigacha derazasiz xonaga tiriklayin g'ishtlab tashlangan.</li>
+          <li><strong>Mark Litsiniy Krass (Greed):</strong> Rimning eng ochko'z boyvachchasi; parfiyaliklar uning og'ziga <strong>eritilgan qaynoq oltin quyib</strong> o'ldirishgan.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>SpongeBob SquarePants (Gubka Bob) Nazariyasi</h3>
+        <p>Reddit va TikTokdagi mashhur nazariya: <strong>Patrik</strong> = Sloth, <strong>Mr. Krabs</strong> = Greed, <strong>Plankton</strong> = Envy, <strong>Skvidvard</strong> = Wrath, <strong>Sendi</strong> = Pride, <strong>Geri</strong> = Gluttony, <strong>Gubka Bob / Perl</strong> = Lust. Ssenariynavis Dag Lourens (Plankton ovozi) bu o'xshashlik tasodifiy komediya arxetipi ekanini tasdiqlagan.</p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Willy Wonka, Ed Edd n Eddy va Anime Olami</h3>
+        <ul>
+          <li><strong>Willy Wonka:</strong> Shokolad fabrikasi — gunohkor bolalar uchun Arofat sinovi (Avgustus — Mechkaylik, Veruka — Ochko'zlik, Vayolet — Kibr, Mayk — Dangasalik/G'azab, Bobojon Jo — 20 yil to'shakda yotgan Dangasalik!).</li>
+          <li><strong>Fullmetal Alchemist:</strong> 7 Gomunkul ironiyasi — har biri aynan o'z gunohining teskarisi tufayli halok bo'ladi (Greed do'stlari uchun jonini fido qiladi, Pride kibridan kechib oddiy bola tanasiga muhtoj qoladi).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 7: COMPARISON & GLOBAL RATINGS -->
+  <section class="section" id="tab-compare">
+    <h2 class="section-title">Global Versiyalar Solishtirmasi va Omma Reytinglari</h2>
+    <p class="section-sub">Qaysi talqinni jahon auditoriyasi eng iliq qabul qilgan? IMDb, Rotten Tomatoes, MyAnimeList, Steam va Box Office empirik tahlili.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>O'rin</th>
+          <th>Asar / Loyiha</th>
+          <th>Yondashuv Modeli</th>
+          <th>IMDb / MAL / Steam</th>
+          <th>Rotten Tomatoes (Omma)</th>
+          <th>Nega Omma Sevgan (yoki Tanqid Qilgan)?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="searchable">
+          <td><strong>#1</strong></td>
+          <td><strong>Fullmetal Alchemist: Brotherhood</strong> (2009)</td>
+          <td>Falsafiy Ironiya & Insonparvarlik</td>
+          <td><strong>9.1 / 10</strong> IMDb<br><strong>9.10</strong> MAL (#1 Anime)</td>
+          <td><strong>93%</strong> (Tanqidchi: 100%)</td>
+          <td>Gunoh — insonning soyasi; uni kesib tashlash xudolikka emas, bo'shliqqa olib boradi. <em>Greed</em>ning fidoyiligi — mutlaq cho'qqi.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>#2</strong></td>
+          <td><strong>Se7en</strong> (David Fincher, 1995)</td>
+          <td>Realistik Neo-Nuar & Contrapasso</td>
+          <td><strong>8.6 / 10</strong> IMDb<br>(2 000 000+ ovoz, Top #20)</td>
+          <td><strong>95%</strong> ($329.8 mln kassa)</td>
+          <td>Quruq pand-nasihatsiz shafqatsiz psixologik realizm; megapolisdagi loqaydlikni fosh etuvchi unutib bo'lmas final.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>#3</strong></td>
+          <td><strong>The Binding of Isaac: Repentance</strong></td>
+          <td>Psixologik Roguelike Allegoriya</td>
+          <td><strong>97%</strong> Steam<br>(280 000+ sharh)</td>
+          <td>—</td>
+          <td>Bolalik travmasi va diniy fanatizm prizmasidan 7 gunohning Chuqur o'yin mexanikasiga aylantirilishi.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>#4</strong></td>
+          <td><strong>Hazbin Hotel / Helluva Boss</strong> (2019–2026)</td>
+          <td>Myuzikl-Satira & Terapevtik Tavba</td>
+          <td><strong>7.6–7.8 / 10</strong> IMDb<br>(1 mlrd+ Spotify tinglov)</td>
+          <td><strong>84–87%</strong> (109 davlatda #1)</td>
+          <td>Z-avlod fenomeni: "Do'zaxdagi ruh ham o'zgara oladimi?" savoli va yorqin obrazlar; lekin an'anaviy qatlamda bahsli.</td>
+        </tr>
+        <tr class="searchable">
+          <td><strong>#5</strong></td>
+          <td><strong>Nanatsu no Taizai</strong> (Anime, 2014–2021)</td>
+          <td>Qahramonlik Fentezi Subversiyasi</td>
+          <td><strong>7.6 / 10</strong> IMDb<br>(S1-2: 8.6; S3-5: 4.9–6.8)</td>
+          <td><strong>75%</strong> (Netflix 127 davlat #1)</td>
+          <td><em>Escanor (Pride)</em> va <em>Ban (Greed)</em> kultga aylandi, ammo 3-mavsumdagi yomon animatsiya va bachkana <em>Lust</em> hazillari ommani bezdirdi.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- TAB 8: UZBEKISTAN LOCAL CONTEXT -->
+  <section class="section" id="tab-uzb">
+    <h2 class="section-title">O'zbekiston (UZB) Uchun Maxsus Madaniy, Adabiy va Media Tahlil</h2>
+    <p class="section-sub">Najmiddin Kubro va Navoiydan tortib Abdulla Oripov, Tohir Malik, Nazar Eshonqul va zamonaviy O'zbekiston YouTube/Kino bozorigacha.</p>
+
+    <div class="horror-banner searchable">
+      <h3>Muhim Lingvistik Kashfiyot: "Nafs" — Bitta Gunoh Emas, Barcha 7 Gunohning Dvigatelidir!</h3>
+      <p>Ko'plab havaskor tarjimalarda <em>Gluttony</em> ham, <em>Greed</em> ham bir xil "Ochko'zlik", <em>Lust</em> esa "Nafs" deb xato beriladi. O'zbek mentalitetida to'g'ri milliy tizim: <strong>1) Kibr va Manmanlik (Riyo)</strong>, <strong>2) Hasad va Ichqoralik</strong>, <strong>3) Mechkaylik va Isrof</strong>, <strong>4) Shahvatparastlik va Xiyonat</strong>, <strong>5) G'azab va Qahr</strong>, <strong>6) Ochko'zlik va Ta'magirlik</strong>, <strong>7) G'aflat va Loqaydlik</strong>.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card searchable">
+        <h3>1. Najmiddin Kubro & Alisher Navoiy (Mumtoz Ildiz)</h3>
+        <ul>
+          <li><strong>Shayx Najmiddin Kubro (Xiva, 1145–1221):</strong> <em>"Favoih ul-jamol"</em> asarida nafsning <strong>7 maqomi</strong> (<em>ammora, lavvoma, mulhama, mutma'inna, roziya, marziya, komila</em>) va ularga xos <strong>7 ruhiy rang</strong> nazariyasini yaratgan!</li>
+          <li><strong>Alisher Navoiy:</strong> <em>"Mahbub ul-qulub"</em>da aynan <strong>"muhlikalar" (halokatli illatlar)</strong> atamasini qo'llab, jamiyat tiplarini fosh etgan; <em>"Lison ut-tayr"</em>dagi <strong>7 Vodiy</strong> esa Dantening 7 pog'onali Arofat tog'iga Sharqona javobdir.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>2. O'zbek Xalq Ertaklarida Sof "Contrapasso"</h3>
+        <ul>
+          <li><strong>"Zumrad va Qimmat":</strong> Qimmat — Dangasalik, Hasad, Ochko'zlik va Kibr timsoli. Qizil sandiqdan chiqqan <strong>ilonlar va ajdaho jazosi</strong> G'arb demonologiyasidagi <em>Sloth</em> jazosi bilan bir xil!</li>
+          <li><strong>"Oltin tarvuz":</strong> Ochko'z va hasadgo'y boy oltin o'rniga tarvuz ichidan chiqqan <strong>zaharli qovoqarilar</strong> bilan jazolanadi.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>3. Fitrat, Abdulla Oripov, Tohir Malik va Nazar Eshonqul</h3>
+        <ul>
+          <li><strong>Abdurauf Fitrat:</strong> <em>"Shaytonning Tangriga isyoni"</em> (1924) va <em>"Qiyomat"</em> — Kibr va Isyonning o'zbek dramaturgiyasidagi cho'qqisi.</li>
+          <li><strong>Abdulla Oripov:</strong> Dantening <em>"Do'zax"</em> tarjimoni ("Italiya Oltin Yulduzi" medali sohibi) va narigi dunyo tarozisi tasvirlangan mashhur <strong>"Jannatga yo'l"</strong> (1978) dostoni muallifi.</li>
+          <li><strong>Tohir Malik — "Shaytanat":</strong> O'zbekiston tarixidagi #1 kult serial va asar: <em>Asadbek</em> (Kibr/Qahr), <em>Hosilboyvachcha</em> (Mechkaylik/Ochko'zlik), <em>Kesakpolvon</em> (Hasad/Xasislik), <em>Elchin</em> (Qasos/G'azab).</li>
+          <li><strong>Nazar Eshonqul — "Qora kitob" & "Qo'l":</strong> O'zbek modern gotik-psixologik nasrida gunoh va tazarru.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>4. O'zbekiston Media Bozori Uchun Yutib Chiquvchi Formula</h3>
+        <p>O'zbek auditoriyasi satanik simvolika va 18+ sahnalarni rad etadi, ammo <strong>"Qaytar dunyo / Nafsning 7 tuzog'i"</strong> psixologik trilleri (*Se7en* + *Shaytanat* + *Jannatga yo'l* sintezi) ni portlatib kutib oladi! O'zbek YouTube segmentida chuqur kino-falsafiy video-esselar hozir <strong>mutlaqo bo'sh oltin nisha (Blue Ocean)</strong> hisoblanadi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 9: CENTRAL ASIAN DARK MYTHS -->
+  <section class="section" id="tab-dark">
+    <h2 class="section-title">Markaziy Osiyo Qorong'u Miflar: 26 Xronika va 7 Gunoh Xaritasi</h2>
+    <p class="section-sub">Temur, Ulug'bek, Bobur, xonliklar hududi — ya'ni Movarounnahr, Xorazm, Dashti Qipchoq, Farg'ona, Tohariston va Xurosan. Har bir mif akademik etnografiya, xalq rivoyati va chet elda chop etilgan ommabop maqola bilan tekshirilgan. <strong>Qorqinch indeksi</strong> = Dahshat×2 + Hayotiylik×1,5 + Tarqalish + Ildiz + Potensial (100 ballik shkala).</p>
+
+    <div class="horror-banner searchable">
+      <h3>7 Gunoh ustunligi (UZB standarti)</h3>
+      <p><strong>1. Kibr</strong> (Pride) · <strong>2. Hasad</strong> (Envy) · <strong>3. Mechkaylik</strong> (Gluttony) · <strong>4. Shahvat</strong> (Lust) · <strong>5. G'azab</strong> (Wrath) · <strong>6. Ochko'zlik</strong> (Greed) · <strong>7. G'aflat</strong> (Sloth). Ballar (0–10) mifning <em>harakatga keltiruvchi ehtirosi</em>ni ko'rsatadi — bu ayblash emas, funksional xarita.</p>
+      <p style="margin-top:8px;"><strong>Yig'indi natija (26 mif, maks. 260):</strong> G'azab <strong>162</strong> → Kibr <strong>153</strong> → Ochko'zlik <strong>147</strong> → G'aflat 129 → Hasad 109 → Shahvat 107 → Mechkaylik 100. Ya'ni mintaqa dark-mifologiyasining asosiy tonusi — <em>zulm</em>, ikkinchi — <em>hukmdor g'ururi</em>. "Birinchi gunoh" bo'yicha esa Kibr va G'aflat teng yetakchi (5 dan).</p>
+    </div>
+
+    <div class="grid">
+      <div class="card searchable">
+        <h3>Qatlam I–II: Isyon va tug'ruq</h3>
+        <ul>
+          <li><strong>Iblis / Shayton</strong> — <em>istikbar</em>, birinchi gunoh. Qur'on: Baqara 34, A'rof 12. <strong>Kibr 10</strong> · Indeks 88.</li>
+          <li><strong>Alvasti</strong> — tug'ruq paytida o'pkani olib qochadi; agar qonli o'pkani suvga tashlasa — ayol o'ladi. <em>"Alvasti bosdi"</em> = uyqu falaji (sleep paralysis). Mis pichoq bilan soch kesish — asirlik. <strong>Hasad 9</strong> · <strong>Indeks 96 (#1)</strong>.</li>
+          <li><strong>Ajina</strong> — o'z joniga qasd qilgan ayol ruhi; sehrli kitob, chaqa, taroq. Buyumni qo'lga kiritsang — bir umr tobe. <strong>Shahvat 9</strong> · Indeks 92.</li>
+          <li><strong>Suv egasi</strong> — har ariq, quduq, ko'lning xo'jayini; <em>"suv bosdi"</em>. <strong>Shahvat 7</strong> · Indeks 81.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>Qatlam III: Yovvoyi tabiat</h3>
+        <ul>
+          <li><strong>Yalmog'iz kampir</strong> — kallası tuya, bo'yni ilon, yetti kallali; <em>"yamlab yutuvchi"</em>. Etimologiya: <em>yal</em> (ilon) + <em>mog'iz</em>. <strong>Mechkaylik 10</strong> · Indeks 94 (#2).</li>
+          <li><strong>Dev</strong> — yetti qavat yer ostida; dev qizi motivi; <em>Alpomish</em>. <strong>Ochko'zlik 8</strong> · Indeks 87.</li>
+          <li><strong>Ajdarho / Zahhok</strong> — <em>Avesto</em> Aži Dahāka, <em>Shohnoma</em>; yelkasidagi ikki ilon har kuni ikki yigit miyasi bilan boqiladi; Kova va Navro'z. <strong>Ochko'zlik 10</strong> · Indeks 86.</li>
+          <li><strong>G'uliyaybon</strong> — fors <em>gul-i yabon</em> (cho'l g'uli); oyoqlari orqaga qaragan; kurashga chorlaydi; uxlagan odamning oyoq kaftini yalaydi. <strong>G'azab 7</strong> · Indeks 83.</li>
+          <li><strong>Almas (almasti)</strong> — junli yovvoyi odam; ayollarni o'g'irlaydi. <strong>Shahvat 7</strong> · Indeks 77.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>Qatlam IV–VI: O'liklar, yo'l va egallash</h3>
+        <ul>
+          <li><strong>O'bir (ubyr)</strong> — jodugarning ichidagi ikkinchi jon; olov shari bo'lib uchadi; qon va sut so'radi; yaralansa — yara jodugarda ko'rinadi. <strong>Tiriklayin ko'mish</strong> amaliyoti qayd etilgan. <strong>Mechkaylik 9</strong> · Indeks 90 (#4).</li>
+          <li><strong>Qo'naqay</strong> — oyog'i xom teridan qayish; yelkasiga sakrab, yugurtirib o'ldiradi. <strong>G'azab 7</strong> · Indeks 80.</li>
+          <li><strong>Jin / "jin urdi"</strong> — chilla, zarb, dam, isiriq; <em>jinlar bazmi</em> (xaroba va qabristondagi jinlar to'yi). <strong>G'aflat 8</strong> · Indeks 82.</li>
+          <li><strong>Arvoh</strong> — ajdod ruhi; qabrni bezovta qilsang yoki yasni buzsang — zararli. <em>O'liklar karvoni</em> motivi. <strong>G'aflat 9</strong> · Indeks 84.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>Qatlam VII–VIII: Muqaddas la'nat va darvozalar</h3>
+        <ul>
+          <li><strong>Gur-e Amir (1941)</strong> — 20-iyun qabr ochildi, 22-iyun Barbarossa. <em>"Mendan ham dahshatliroq bosqinchi"</em> yozuvi — keyin qurilgan folklor; Semyonov faqat geneaologiya va oyatlarni topgan. <strong>Kibr 9</strong> · Indeks 89.</li>
+          <li><strong>Siyoh Choh</strong> — Buxoro "Qora quduq"i; Stoddart va Konolli (1842); chayon va qurt. <strong>G'azab 8</strong> · Indeks 88.</li>
+          <li><strong>Kalyan minorasi</strong> — muqaddas minora + qatl platformasi ("O'lim minorasi"). <strong>G'azab 9</strong> · Indeks 85.</li>
+          <li><strong>Mizdaxhan "Dunyo soati"</strong> — har yili bir g'isht tushadi; Shamun-Nabi 25 m tobuti ichi bo'sh chiqqan (1966). <strong>G'aflat 9</strong> · Indeks 86.</li>
+          <li><strong>Kan-i Gut</strong> — "halokat koni"; Ibn Sino; Xudoyorxon katorgasi; <em>"barsa kelmas"</em>. <strong>Ochko'zlik 10</strong> · Indeks 79.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="color:var(--gold); font-size:19px; margin:26px 0 12px;">To'liq matritsa: 26 mif × 7 gunoh</h3>
+    <div class="table-wrap searchable">
+      <table>
+        <thead><tr><th>Mif</th><th>Kibr</th><th>Hasad</th><th>Mechkaylik</th><th>Shahvat</th><th>G'azab</th><th>Ochko'zlik</th><th>G'aflat</th></tr></thead>
+        <tbody>
+          <tr><td>Iblis / Shayton</td><td><strong>10</strong></td><td>6</td><td>3</td><td>4</td><td>5</td><td>4</td><td>5</td></tr>
+          <tr><td>Yalmog'iz kampir</td><td>6</td><td>6</td><td><strong>10</strong></td><td>2</td><td>8</td><td>8</td><td>2</td></tr>
+          <tr><td>Ajina</td><td>5</td><td>6</td><td>3</td><td><strong>9</strong></td><td>7</td><td>3</td><td>5</td></tr>
+          <tr><td>Alvasti</td><td>3</td><td><strong>9</strong></td><td>5</td><td>7</td><td>6</td><td>5</td><td>6</td></tr>
+          <tr><td>Dev</td><td>7</td><td>4</td><td>8</td><td>5</td><td>8</td><td><strong>8</strong></td><td>2</td></tr>
+          <tr><td>Ajdarho / Zahhok</td><td>8</td><td>3</td><td>7</td><td>4</td><td>8</td><td><strong>10</strong></td><td>3</td></tr>
+          <tr><td>G'uliyaybon</td><td>4</td><td>3</td><td>6</td><td>6</td><td><strong>7</strong></td><td>5</td><td>6</td></tr>
+          <tr><td>O'bir</td><td>3</td><td>6</td><td><strong>9</strong></td><td>4</td><td>6</td><td>7</td><td>3</td></tr>
+          <tr><td>Qo'naqay</td><td>2</td><td>2</td><td>4</td><td>3</td><td><strong>7</strong></td><td>5</td><td>6</td></tr>
+          <tr><td>Jin / possessiya</td><td>6</td><td>5</td><td>4</td><td>6</td><td>6</td><td>3</td><td><strong>8</strong></td></tr>
+          <tr><td>Suv egasi</td><td>3</td><td>2</td><td>3</td><td><strong>7</strong></td><td>5</td><td>5</td><td>6</td></tr>
+          <tr><td>Arvoh</td><td>5</td><td>4</td><td>3</td><td>3</td><td>6</td><td>4</td><td><strong>9</strong></td></tr>
+          <tr><td>Almas</td><td>4</td><td>3</td><td>5</td><td><strong>7</strong></td><td>6</td><td>4</td><td>5</td></tr>
+          <tr><td>Gur-e Amir la'nati</td><td><strong>9</strong></td><td>3</td><td>2</td><td>2</td><td>8</td><td>7</td><td>4</td></tr>
+          <tr><td>Ulug'bek fojiasi</td><td><strong>9</strong></td><td><strong>8</strong></td><td>2</td><td>3</td><td>7</td><td>6</td><td>3</td></tr>
+          <tr><td>Bobur: zahar / jon</td><td>4</td><td><strong>7</strong></td><td>2</td><td>3</td><td>6</td><td>5</td><td>2</td></tr>
+          <tr><td>Siyoh Choh</td><td>7</td><td>4</td><td>2</td><td>3</td><td><strong>8</strong></td><td>7</td><td>3</td></tr>
+          <tr><td>Kalyan minorasi</td><td>8</td><td>5</td><td>2</td><td>3</td><td><strong>9</strong></td><td>5</td><td>3</td></tr>
+          <tr><td>Bibi-Xonim bo'sasi</td><td>6</td><td>6</td><td>2</td><td><strong>10</strong></td><td>7</td><td>3</td><td>3</td></tr>
+          <tr><td>Mizdaxhan soati</td><td>6</td><td>4</td><td>2</td><td>2</td><td>4</td><td>5</td><td><strong>9</strong></td></tr>
+          <tr><td>Chilpyk (daxma)</td><td><strong>7</strong></td><td>2</td><td>2</td><td>2</td><td>3</td><td>4</td><td><strong>9</strong></td></tr>
+          <tr><td>Barsakelmes</td><td>7</td><td>2</td><td>3</td><td>2</td><td>3</td><td><strong>7</strong></td><td>7</td></tr>
+          <tr><td>Kan-i Gut</td><td>4</td><td>3</td><td>3</td><td>2</td><td>6</td><td><strong>10</strong></td><td>4</td></tr>
+          <tr><td>Shaytan Jiga</td><td>4</td><td>2</td><td>3</td><td>3</td><td>5</td><td>3</td><td>6</td></tr>
+          <tr><td>Moynaq</td><td>7</td><td>2</td><td>3</td><td>2</td><td>4</td><td><strong>9</strong></td><td>7</td></tr>
+          <tr><td>Iskanderkul</td><td><strong>9</strong></td><td>2</td><td>2</td><td>3</td><td>7</td><td>5</td><td>3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color:var(--gold); font-size:19px; margin:26px 0 12px;">Har gunohning chempioni</h3>
+    <div class="table-wrap searchable">
+      <table>
+        <thead><tr><th>Gunoh</th><th>1-o'rin</th><th>2–3-o'rin</th><th>Mantiq</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Kibr</strong></td><td>Iblis / Shayton (10)</td><td>Gur-e Amir, Ulug'bek, Iskanderkul (9)</td><td>"Men yaxshiroqman" — birinchi gunoh; hokimiyat g'ururi real fojialarga aylanadi.</td></tr>
+          <tr><td><strong>Hasad</strong></td><td>Alvasti (9)</td><td>Ulug'bek/Abdu Latif (8), Ajina va Bobur (6–7)</td><td>Hasad hayotning boshlanishiga (ona/chaqaloq) qaratiladi; "ko'z tegdi" rituali.</td></tr>
+          <tr><td><strong>Mechkaylik</strong></td><td>Yalmog'iz (10)</td><td>O'bir (9), Dev (8)</td><td>"Yamlab yutish" — to'ymaslik; qon va sut bilan oziqlanish.</td></tr>
+          <tr><td><strong>Shahvat</strong></td><td>Bibi-Xonim bo'sasi (10)</td><td>Ajina (9), Alvasti / Suv egasi / Almas (7)</td><td>Go'zallik → asirlik → o'lim; suv bo'yida kechadi.</td></tr>
+          <tr><td><strong>G'azab</strong></td><td>Kalyan minorasi (9)</td><td>Siyoh Choh, Dev, Ajdarho (8)</td><td>Hokimiyat qo'lidagi qurol: minora, zindon, qatl; mif uni "adolat" deb oqlaydi.</td></tr>
+          <tr><td><strong>Ochko'zlik</strong></td><td>Kan-i Gut (10)</td><td>Ajdarho (10), Moynaq (9)</td><td>Uch ochko'zlik: oltin, xazina, suv/paxta — har biri o'lik makon yaratadi.</td></tr>
+          <tr><td><strong>G'aflat</strong></td><td>Mizdaxhan soati, Chilpyk, Arvoh (9)</td><td>Jin (8), Barsakelmes / Moynaq (7)</td><td>Eng "jim" gunoh: dunyo soatini sanamaslik, o'limni unutish, o'tmishni bezovta qilish.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid" style="margin-top:24px;">
+      <div class="card searchable">
+        <h3>TOP-10: Eng qorqinchli</h3>
+        <ol>
+          <li><strong>Alvasti</strong> — 96 · har kecha takrorlanadigan uyqu falaji</li>
+          <li><strong>Yalmog'iz kampir</strong> — 94 · tana deformatsiyasi + bolalarni yeyish</li>
+          <li><strong>Ajina</strong> — 92 · go'zallik niqobi ostidagi asirlik</li>
+          <li><strong>O'bir</strong> — 90 · tiriklayin ko'mish amaliyoti</li>
+          <li><strong>Gur-e Amir la'nati</strong> — 89 · real qabr, real urush</li>
+          <li><strong>Siyoh Choh</strong> — 88 · chayonli quduq, ikki ofitser</li>
+          <li><strong>Dev</strong> — 87 · yetti qavat yer osti</li>
+          <li><strong>Mizdaxhan soati</strong> — 86 · orqaga sanash</li>
+          <li><strong>Kalyan minorasi</strong> — 85 · muqaddas minora — qatl joyi</li>
+          <li><strong>Barsakelmes</strong> — 84 · "borsang qaytmaysan"</li>
+        </ol>
+      </div>
+
+      <div class="card searchable">
+        <h3>Nega ular hali tirik?</h3>
+        <ul>
+          <li><strong>Tana xotirasi:</strong> sleep paralysis, gallyutsinatsiya — mifni har avlod o'zi "uchratadi".</li>
+          <li><strong>Reproduktiv travma:</strong> tug'ruq va chaqaloq o'limi uchun "aybdor" topish mexanizmi.</li>
+          <li><strong>Ekologik xotira:</strong> suv, yer osti boyliklari — olishning narxi bor.</li>
+          <li><strong>Siyosiy xotira:</strong> zulm qilgan hukmdor avlodi qolmaydi.</li>
+          <li><strong>Ijtimoiy nazorat:</strong> mif — bolalar uchun kodlangan xavfsizlik texnikasi.</li>
+          <li><strong>Post-sovet mistika bozori:</strong> NLO va "qorong'u joylar" nashrlari (Barsakelmes, Shaytan Jiga) — ilmiy emas, madaniy fakt.</li>
+        </ul>
+      </div>
+
+      <div class="card searchable">
+        <h3>Ijodkorlar uchun formula</h3>
+        <ul>
+          <li><strong>Psixologik triller:</strong> Alvasti + Ajina + O'bir — real tibbiy holat + xalq demonologiyasi.</li>
+          <li><strong>Dark fantasy / komiks:</strong> "Yetti tuzoq" — har gunoh — bir darvoza, har darvoza — bir mavjudot.</li>
+          <li><strong>Found-footage horror:</strong> Barsakelmes, Moynaq, Chilpyk, Kan-i Gut — haqiqiy lokatsiya, dekor kerak emas.</li>
+          <li><strong>YouTube video-esse:</strong> Gur-e Amir, Ulug'bek, Bobur, Mizdaxhan — O'zbek segmentida nisha deyarli bo'sh.</li>
+          <li><strong>Adabiyot:</strong> Arvoh, Jin, Suv egasi — "yangi gotika" (Nazar Eshonqul an'anasi + qadimgi mif).</li>
+        </ul>
+        <p style="margin-top:10px;"><em>Qoida: satanik simvolika va ochiq 18+ sahnalardan voz kechish; final — "demon o'ldirildi" emas, "insondagi gunoh ochildi"; har loyihada bitta haqiqiy joy.</em></p>
+      </div>
+
+      <div class="card searchable">
+        <h3>Manbalar (qisqa)</h3>
+        <p>Dallos, <em>Albasty</em> (Acta Ethnographica Hungarica, 2019) · Snesarev, <em>Relikty domusul'manskikh verovaniy</em> (1969) · Basilov, Suxareva · Jo'rayev & O'rayeva, <em>O'zbek mifologiyasi</em> (2019) · Eshonqulov, <em>O'zbek folklorida dev obrazi</em> (1996) · <em>Mifi narodov mira</em> (1972) · Narshaxiy, <em>Buxoro tarixi</em> · Gulbadan Begim, <em>Humoyun-noma</em> · Ibn Sino (Kan-i Gut) · Gerasimov ekspeditsiyasi va Semyonov tarjimalari · Times of Central Asia, Qalam.global, Knife.media, Advantour, OrexCA, Uzbekistan.travel, REN TV, Haunted Silence.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const buttons = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.section');
+  const searchInput = document.getElementById('searchInput');
+  const hitCount = document.getElementById('hitCount');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      searchInput.value = '';
+      hitCount.textContent = '';
+      document.querySelectorAll('.searchable').forEach(el => el.style.display = '');
+      buttons.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    const items = document.querySelectorAll('.searchable');
+    if (!q) {
+      items.forEach(el => el.style.display = '');
+      sections.forEach((s, idx) => s.classList.toggle('active', idx === 0));
+      buttons.forEach((b, idx) => b.classList.toggle('active', idx === 0));
+      hitCount.textContent = '';
+      return;
+    }
+    sections.forEach(s => s.classList.add('active'));
+    let matches = 0;
+    items.forEach(el => {
+      const match = el.textContent.toLowerCase().includes(q);
+      el.style.display = match ? '' : 'none';
+      if (match) matches++;
+    });
+    hitCount.textContent = `Topilgan ma'lumot bloklari: ${matches} ta`;
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <svg class="hero-compass" viewBox="0 0 600 600" fill="none" aria-hidden="true">
+    <g class="spin">
+      <circle cx="300" cy="300" r="290" stroke="#9d1119" stroke-width=".5" opacity=".35"/>
+      <circle cx="300" cy="300" r="232" stroke="#ece5d9" stroke-width=".35" opacity=".14"/>
+      <circle cx="300" cy="300" r="200" stroke="#9d1119" stroke-width=".6" opacity=".45"/>
+      <circle cx="300" cy="300" r="120" stroke="#ece5d9" stroke-width=".3" opacity=".10"/>
+      <path d="M300 100 L456.4 175.3 L495 344.5 L386.7 480.2 L213.3 480.2 L105 344.5 L143.6 175.3 Z" stroke="#9d1119" stroke-width=".5" opacity=".5"/>
+      <g stroke="#ece5d9" stroke-width=".35" opacity=".17">
+        <path d="M300 300 L300 100"/><path d="M300 300 L456.4 175.3"/><path d="M300 300 L495 344.5"/>
+        <path d="M300 300 L386.7 480.2"/><path d="M300 300 L213.3 480.2"/><path d="M300 300 L105 344.5"/><path d="M300 300 L143.6 175.3"/>
+      </g>
+      <g fill="#d4202c" opacity=".85">
+        <circle cx="300" cy="100" r="3"/><circle cx="456.4" cy="175.3" r="3"/><circle cx="495" cy="344.5" r="3"/>
+        <circle cx="386.7" cy="480.2" r="3"/><circle cx="213.3" cy="480.2" r="3"/><circle cx="105" cy="344.5" r="3"/><circle cx="143.6" cy="175.3" r="3"/>
+      </g>
+      <g fill="#ece5d9" opacity=".28" font-family="monospace" font-size="9">
+        <text x="300" y="86" text-anchor="middle">I</text><text x="472" y="170" text-anchor="middle">II</text>
+        <text x="511" y="348" text-anchor="middle">III</text><text x="392" y="498" text-anchor="middle">IV</text>
+        <text x="208" y="498" text-anchor="middle">V</text><text x="89" y="348" text-anchor="middle">VI</text>
+        <text x="128" y="170" text-anchor="middle">VII</text>
+      </g>
+    </g>
+  </svg>
+
+  <div class="hero-inner">
+    <p class="hero-kicker"><span data-i18n="hero.kicker">A field dossier of Central Asian darkness</span> <i>· Vol. III ·</i></p>
+    <h1 class="hero-title"><span data-i18n="hero.t1">The</span><span data-i18n="hero.t2">Seven</span></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-lede" data-i18n="hero.lede">From the steppe of the Golden Horde to the gates of Samarkand: <b>26 dark myths</b>, six historical curses and seven places where the landscape itself refuses to forget — measured against the seven deadly sins.</p>
+    <div class="hero-meta">
+      <div><b>26</b><span data-i18n="hero.m1">Dark myths</span></div>
+      <div><b>06</b><span data-i18n="hero.m2">Sacred curses</span></div>
+      <div><b>07</b><span data-i18n="hero.m3">Gates of silence</span></div>
+      <div><b>03</b><span data-i18n="hero.m4">Languages</span></div>
+    </div>
+  </div>
+  <div class="scroll-cue" data-i18n="hero.scroll">Scroll</div>
+</section>
+
+<!-- ══ 01 · THE SEVEN ══ -->
+<section class="band" id="sins">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-num">01</div>
+      <div class="sec-titles">
+        <p class="kicker" data-i18n="sins.kicker">The axis</p>
+        <h2 data-i18n="sins.title">Seven sins, seven instruments</h2>
+        <p data-i18n="sins.sub">The Latin West fixed the list; the East never stopped arguing with it. Below are the seven instruments through which every myth in this dossier is scored — with the Uzbek terminology used here, which corrects the mistranslations common in local encyclopaedias.</p>
+      </div>
+      <div class="tail" data-i18n="sins.tail">SALIGIA<br>590 — 2026</div>
+    </div>
+    <div class="sin-grid" id="sinGrid"></div>
+  </div>
+</section>
+
+<!-- ══ 02 · BESTIARY ══ -->
+<section class="band" id="bestiary">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-num">02</div>
+      <div class="sec-titles">
+        <p class="kicker" data-i18n="bes.kicker">The bestiary</p>
+        <h2 data-i18n="bes.title">Thirteen inhabitants</h2>
+        <p data-i18n="bes.sub">Not one of these beings was invented for entertainment. Each is a survival manual, a diagnosis, or a verdict — written in the only language a village would remember: fear.</p>
+      </div>
+      <div class="tail" data-i18n="bes.tail">13 entities<br>3 source strata</div>
+    </div>
+    <div class="filters" id="besFilters" data-reveal>
+      <span class="lab" data-i18n="bes.filter">Filter by sin</span>
+      <button class="chip on" data-f="all" data-i18n="f.all">All</button>
+      <button class="chip" data-f="0">I</button>
+      <button class="chip" data-f="1">II</button>
+      <button class="chip" data-f="2">III</button>
+      <button class="chip" data-f="3">IV</button>
+      <button class="chip" data-f="4">V</button>
+      <button class="chip" data-f="5">VI</button>
+      <button class="chip" data-f="6">VII</button>
+    </div>
+    <div class="best-grid" id="bestGrid"></div>
+  </div>
+</section>
+
+<!-- ══ 03 · CURSES ══ -->
+<section class="band" id="curses">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-num">03</div>
+      <div class="sec-titles">
+        <p class="kicker" data-i18n="cur.kicker">Sacred curses</p>
+        <h2 data-i18n="cur.title">Where history became myth</h2>
+        <p data-i18n="cur.sub">Six documented events. No invented monsters — real graves, real executions, real wars. The horror lies in this: the event happened, and only the explanation is folklore.</p>
+      </div>
+      <div class="tail" data-i18n="cur.tail">Verified events<br>Folkloric causes</div>
+    </div>
+    <div class="tl" id="curseList"></div>
+  </div>
+</section>
+
+<!-- ══ 04 · GEOGRAPHY ══ -->
+<section class="band" id="geography">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-num">04</div>
+      <div class="sec-titles">
+        <p class="kicker" data-i18n="geo.kicker">Dark geography</p>
+        <h2 data-i18n="geo.title">Seven gates of silence</h2>
+        <p data-i18n="geo.sub">Myth is not only a story — it is nailed to a place. These seven locations carry their legends in stone, salt and bone, and they remain the cheapest sets a Central Asian filmmaker will ever have.</p>
+      </div>
+      <div class="tail" data-i18n="geo.tail">Open terrain<br>No permits for fiction</div>
+    </div>
+    <div class="geo-grid" id="geoGrid"></div>
+  </div>
+</section>
+
+<!-- ══ 05 · MATRIX ══ -->
+<section class="band" id="matrix">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-num">05</div>
+      <div class="sec-titles">
+        <p class="kicker" data-i18n="mat.kicker">The matrix</p>
+        <h2 data-i18n="mat.title">Twenty-six myths, seven sins</h2>
+        <p data-i18n="mat.sub">Each score from 0 to 10 marks the passion that drives the myth — not an accusation, a functional map. Click any row to open its full entry.</p>
+      </div>
+      <div class="tail" id="matTail">26 × 7<br>0 — 10</div>
+    </div>
+    <div class="matrix-scroll" data-reveal>
+      <table class="matrix" id="matrixTable"></table>
+    </div>
+    <div class="legend">
+      <span data-i18n="mat.legend">Intensity</span>
+      <div class="scale" id="scale"></div>
+      <span data-i18n="mat.legend2">0 → 10</span>
+      <span style="margin-left:auto" id="matHint"></span>
+    </div>
+    <div class="agg" id="aggWrap">
+      <p class="kicker" data-i18n="mat.agg">Regional verdict · sum of all 26 entries</p>
+      <div id="aggBars"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 06 · DOCTRINE ══ -->
+<section class="band" id="doctrine">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-num">06</div>
+      <div class="sec-titles">
+        <p class="kicker" data-i18n="doc.kicker">Doctrine</p>
+        <h2 data-i18n="doc.title">Six frames, one question</h2>
+        <p data-i18n="doc.sub">Every tradition asked the same thing — why does a human being choose the worse option — and each answered with a different architecture. The local Sufi answer is the one this dossier trusts most.</p>
+      </div>
+      <div class="tail" data-i18n="doc.tail">Evagrius → Kubro<br>4th — 13th c.</div>
+    </div>
+    <div class="doc-grid" id="docGrid"></div>
+    <div data-reveal style="margin-top:44px">
+      <p class="kicker" data-i18n="doc.termK">Terminology · the local correction</p>
+      <table class="term-table" id="termTable"></table>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07 · CRAFT ══ -->
+<section class="band" id="craft">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-num">07</div>
+      <div class="sec-titles">
+        <p class="kicker" data-i18n="cr.kicker">Craft</p>
+        <h2 data-i18n="cr.title">For those who will film this</h2>
+        <p data-i18n="cr.sub">A field manual, not a mood board. Central Asia is a blue ocean for psychological horror — but only if the work respects the two things this region will not forgive: mockery of faith, and cheap gore.</p>
+      </div>
+      <div class="tail" data-i18n="cr.tail">Six formats<br>Three rules</div>
+    </div>
+    <div class="craft-grid" id="craftGrid"></div>
+    <div class="rules" data-reveal>
+      <h3 data-i18n="cr.rulesTitle">Three rules, non-negotiable</h3>
+      <ol id="rulesList"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 08 · SOURCES ══ -->
+<section class="band" id="sources">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-num">08</div>
+      <div class="sec-titles">
+        <p class="kicker" data-i18n="src.kicker">Sources</p>
+        <h2 data-i18n="src.title">What this dossier stands on</h2>
+        <p data-i18n="src.sub">Three strata, always separated: academic ethnography, living oral tradition, and popular press — including foreign travel writing, cited as legend rather than fact.</p>
+      </div>
+      <div class="tail" data-i18n="src.tail">Academic · Oral · Press</div>
+    </div>
+    <div class="src-grid" id="srcGrid"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <div class="foot-brand">The Seven</div>
+      <p style="font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-2);margin:18px 0 0;line-height:2.1" data-i18n="foot.line">A field dossier of Central Asian darkness · Vol. III<br>Compiled 2026 · Tashkent</p>
+    </div>
+    <div class="foot-col">
+      <b data-i18n="foot.navt">Navigate</b>
+      <a href="#bestiary">Bestiary</a> · <a href="#curses">Curses</a><br>
+      <a href="#geography">Geography</a> · <a href="#matrix">Matrix</a><br>
+      <a href="#craft">Craft</a> · <a href="#sources">Sources</a><br>
+      <a href="katalog.html" style="color:var(--gild)">Index of Unquiet Names ↗</a>
+      <p id="footBuilt" style="margin-top:14px;text-transform:none;letter-spacing:.06em;line-height:1.9;color:var(--muted-2)"></p>
+    </div>
+    <div class="foot-col">
+      <b data-i18n="foot.dis">Disclaimer</b>
+      <span data-i18n="foot.dist">Myths are presented as cultural record, not belief. Historical events are separated from later folkloric additions. Nothing here is an instruction.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ DRAWER ══ -->
+<div id="scrim"></div>
+<aside id="drawer" aria-hidden="true" aria-label="Entry">
+  <div class="dr-head">
+    <button class="dr-close" id="drClose" aria-label="Close">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <div class="dr-kind" id="drKind"></div>
+    <h2 class="dr-title" id="drTitle"></h2>
+    <div class="dr-sub" id="drSub"></div>
+  </div>
+  <figure class="dr-fig" id="drFig">
+    <img id="drPlate" alt="">
+    <figcaption id="drPlateCap"></figcaption>
+  </figure>
+  <div class="dr-body">
+    <p class="dr-para" id="drPara"></p>
+    <div class="prov" id="drProv"></div>
+    <div class="dr-sec"><h4 id="lblThreat"></h4><p id="drThreat"></p></div>
+    <div class="dr-sec"><h4 id="lblWard"></h4><p id="drWard"></p></div>
+    <div class="dr-sec"><h4 id="lblProfile"></h4><div class="bars" id="drBars"></div></div>
+    <div class="dr-sec"><h4 id="lblSrc"></h4><p id="drSrc"></p></div>
+    <div class="dr-sec"><h4 id="lblSinList">Sin index</h4><div class="sin-list" id="drSinList"></div></div>
+    <div class="dr-meta" id="drMeta"></div>
+  </div>
+</aside>
+
+<!-- ══ AUDIO DOCK ══ -->
+<div id="dock">
+  <button class="play" id="playBtn" aria-label="Play">
+    <svg id="icoPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>
+    <svg id="icoPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+  </button>
+  <div class="dock-meta">
+    <div class="dock-t" id="dockTitle">Red Sex — Vessel</div>
+    <div class="dock-s" id="dockSub">Loading</div>
+  </div>
+  <div class="eq" id="eq"><i></i><i></i><i></i><i></i></div>
+  <input id="vol" type="range" min="0" max="100" value="38" aria-label="Volume">
+</div>
+
+<audio id="bgm" loop preload="none"></audio>

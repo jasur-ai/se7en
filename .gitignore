@@ -1,0 +1,22 @@
+# dependencies & local tooling
+node_modules/
+package-lock.json
+package.json
+.cache/
+.venv/
+__pycache__/
+
+# raw / intermediate image sources (plates are committed in assets/img/*.jpg)
+assets/img/raw/
+image-search/
+
+# local scratch
+_shot*.js
+_tmp/
+
+# tool caches
+.npm/
+.local/
+.arena/
+.nvm/
+trash/
