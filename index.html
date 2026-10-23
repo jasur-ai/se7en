@@ -1368,8 +1368,8 @@ body.fast main{ animation:none !important }
     linear-gradient(90deg, rgba(0,0,0,.62), transparent 22%, transparent 78%, rgba(0,0,0,.42)),
     repeating-linear-gradient(93deg, rgba(255,235,210,.016) 0 1px, transparent 1px 7px),
     repeating-linear-gradient(88deg, rgba(110,48,32,.07) 0 3px, rgba(0,0,0,.10) 3px 12px),
-    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(118,30,20,.26), transparent 62%),
-    linear-gradient(180deg,#221a16 0%,#150f0d 48%,#0d0908 100%);
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(126,32,20,.30), transparent 62%),
+    linear-gradient(180deg,#1a1411 0%,#100c0a 48%,#080606 100%);
   box-shadow:
     0 0 90px rgba(0,0,0,.86) inset,
     0 0 46px rgba(0,0,0,.72),
@@ -1423,7 +1423,7 @@ body.fast main{ animation:none !important }
 #veil .seam .beam{
   width:1px;
   background:linear-gradient(180deg, rgba(255,120,80,.04), rgba(255,168,126,.9) 20%, rgba(255,96,60,.55) 60%, rgba(255,120,80,.05));
-  box-shadow:0 0 44px 9px rgba(212,58,36,.34), 0 0 150px 46px rgba(150,30,20,.26);
+  box-shadow:0 0 58px 13px rgba(226,84,54,.42), 0 0 190px 60px rgba(150,30,20,.30);
 }
 #veil .seam .haze{
   width:34vw; left:50%;
@@ -1645,6 +1645,19 @@ table.matrix tbody tr:hover{ transform:translate3d(4px,0,26px) }
   #dock #vol{width:46px}
   #dock .dock-credit{display:none}
 }
+
+/* ── the chrome waits for the door ──────────────────────────────
+   the veil is transparent while it opens, and a 3D-transformed door
+   paints on its own layer, so the fixed bars must not slide in until
+   the room is actually open. */
+.topbar{ transition:transform .9s cubic-bezier(.19,.9,.22,1) 2s }
+#dock{
+  opacity:0; transform:translateY(14px);
+  transition:opacity .7s ease 2.15s, transform .8s cubic-bezier(.19,.9,.22,1) 2.15s;
+}
+body.awake #dock{ opacity:1; transform:none }
+body.fast .topbar{ transition-delay:0s }
+body.fast #dock{ transition-delay:0s }
 </style>
 <script>
 /* ═══════════════════════════════════════════════════════════════
