@@ -27,3 +27,10 @@ _dbg*.js
 _livecheck.js
 _audio_raw/
 .config/
+_audiocheck.js
+_doorframes.js
+_doorpose.js
+_live_door.js
+_mobdoor.js
+_sfxtest.js
+_vid.js
