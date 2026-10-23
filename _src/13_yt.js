@@ -86,8 +86,11 @@ const YTQ = (() => {
     if (!player) return;
     try {
       player.playVideo();
-      if (wantSound) { player.unMute(); player.setVolume(vol); }
-      else { player.mute(); player.setVolume(0); }
+      // unmute straight away and keep the level at zero: the browser then
+      // never sees an "unmute without a gesture" later, and the ramp at the
+      // doors is only a volume change
+      try { player.unMute(); } catch(e){}
+      player.setVolume(wantSound ? vol : 0);
     } catch (e) {}
   }
 
@@ -168,11 +171,19 @@ const YTQ = (() => {
     start(){
       wantSound = true;
       muted = false;
-      if (!ready) { kick(); return; }
-      try { player.unMute(); } catch(e){}
-      play();
-      fadeTo(Math.max(1, vol), 2200);
       document.body.classList.remove("yt-muted");
+      if (!ready) { kick(); return; }
+      try { player.unMute(); player.setVolume(0); player.playVideo(); } catch(e){}
+      fadeTo(vol, 2600);
+      // if the player will not run, the site's own score takes the night
+      setTimeout(() => {
+        let st = -1;
+        try { st = player.getPlayerState(); } catch(e){}
+        if (st !== 1 && st !== 3) {
+          const S = snd();
+          if (S && !S.playing) { try { S.start(); } catch(e){} }
+        }
+      }, 3200);
     },
     next(){ try { player && player.nextVideo(); } catch(e){} },
     prev(){ try { player && player.previousVideo(); } catch(e){} },

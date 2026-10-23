@@ -323,6 +323,39 @@ const SFX = (() => {
   }
 
   /* ── the whole entrance, timed against the door keyframes ── */
+
+  /* the flash leaves a hole in your ears */
+  function ring(g, t, dur){
+    const c = g.c;
+    const o = c.createOscillator(), gn = c.createGain();
+    o.type = "sine";
+    o.frequency.setValueAtTime(5400, t);
+    o.frequency.exponentialRampToValueAtTime(3900, t + dur);
+    gn.gain.setValueAtTime(0.0001, t);
+    gn.gain.exponentialRampToValueAtTime(0.035, t + 0.08);
+    gn.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(gn).connect(g.out);
+    o.start(t); o.stop(t + dur + 0.2);
+  }
+
+  /* something in the room has caught */
+  function fire(g, t, dur){
+    const c = g.c;
+    const src = c.createBufferSource();
+    src.buffer = g.noise; src.loop = true;
+    const bp = c.createBiquadFilter();
+    bp.type = "bandpass"; bp.frequency.value = 780; bp.Q.value = 0.55;
+    const gn = c.createGain();
+    gn.gain.setValueAtTime(0.0001, t);
+    gn.gain.exponentialRampToValueAtTime(0.085, t + 0.8);
+    gn.gain.setValueAtTime(0.085, t + Math.max(1, dur - 1.2));
+    gn.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(bp).connect(gn).connect(g.out);
+    src.start(t); src.stop(t + dur);
+    const pops = Math.max(4, Math.round(dur * 5));
+    for (let i = 0; i < pops; i++) crack(g, t + Math.random() * dur, 0.10 + Math.random() * 0.22);
+  }
+
   function sequence(g, t0){
     clank(g, t0 + 0.00, 0.55);      // hasp lifts
     clank(g, t0 + 0.085, 0.34);     // second bolt
@@ -366,6 +399,8 @@ const SFX = (() => {
     powerUp(){ const c = this.ensure(); if (c) powerUp(bus, c.currentTime + 0.02); },
     drone(d){ const c = this.ensure(); if (c) drone(bus, c.currentTime + 0.02, d); },
     paper(){ const c = this.ensure(); if (c) paper(bus, c.currentTime + 0.01); },
+    ring(d){ const c = this.ensure(); if (c) ring(bus, c.currentTime + 0.015, d || 4.5); },
+    fire(d){ const c = this.ensure(); if (c) fire(bus, c.currentTime + 0.02, d || 6); },
 
     /* QA hook: render the same sequence offline and report levels */
     probe(seconds){

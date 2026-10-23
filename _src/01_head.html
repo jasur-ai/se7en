@@ -476,6 +476,7 @@ body.awake #dock{transform:translateY(0)}
       </div>
     </div>
     <div class="edge"></div>
+    <div class="fire"></div>
     <div class="grain"></div>
   </div>
 
@@ -495,7 +496,19 @@ body.awake #dock{transform:translateY(0)}
 
   <div class="print" id="print">
     <canvas id="printCanvas"></canvas>
-    <div class="cap"><span data-i18n="in.cap1">Plate I · exposure 1</span><b data-i18n="in.cap2">Do not look at what is behind you</b></div>
+    <div class="embers"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <svg class="fx" aria-hidden="true" width="0" height="0">
+    <filter id="flameEdge" x="-45%" y="-45%" width="190%" height="190%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.010 0.028" numOctaves="3" seed="11" result="n">
+        <animate attributeName="baseFrequency" dur="7s" values="0.010 0.028;0.016 0.046;0.010 0.028" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="70" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+  <div class="flames" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    <b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b>
   </div>
   <div class="hint" id="hint" data-i18n="in.hint">Take the print — drag it</div>
 
