@@ -2995,7 +2995,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     if (hero) hero.classList.add("arrive");
     setTimeout(()=>{ $("#veil").classList.add("gone"); }, 1250);
     SND.start();
-    setTimeout(()=>{ document.getElementById("sins").scrollIntoView({behavior:"smooth",block:"start"}); }, 2600);
+    /* the doors open onto the hero and stay there — the visitor leaves
+       when they choose to scroll, not because the page shoved them on */
   });
 
   $("#prevBtn").addEventListener("click", ()=>SND.next(-1));
