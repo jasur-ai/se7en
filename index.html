@@ -3540,5 +3540,31 @@ const DEPTH = (() => {
   const run = () => window.cutHeadings();
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
+
+  /* ── 6 · reveal safety net ─────────────────────────────────────
+     IntersectionObserver misses elements when the page is jumped
+     (nav anchors, restored scroll position, deep links): the target
+     lands inside the viewport without ever crossing its edge, so a
+     whole section header can stay invisible. Sweep on scroll and on
+     hash change and reveal anything that is actually on screen. */
+  (function revealSafetyNet(){
+    let raf = 0;
+    const sweep = () => {
+      raf = 0;
+      const vh = innerHeight || 800;
+      document.querySelectorAll("[data-reveal]:not(.in)").forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.94 && r.bottom > -40) el.classList.add("in");
+      });
+    };
+    const queue = () => { if (!raf) raf = requestAnimationFrame(sweep); };
+    addEventListener("scroll", queue, { passive: true });
+    addEventListener("resize", queue, { passive: true });
+    addEventListener("hashchange", () => setTimeout(queue, 80));
+    document.addEventListener("click", e => {
+      if (e.target.closest('a[href^="#"]')) setTimeout(queue, 120);
+    }, true);
+    setTimeout(queue, 300);
+  })();
 })();
 </script></body></html>
