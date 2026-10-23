@@ -439,7 +439,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     setTimeout(()=>{
       $$(".band").forEach((b, i) => b.style.setProperty("--arrive-delay", (i * 60) + "ms"));
     }, 700);
-    SND.start();
+    // the score: the playlist if it is up, otherwise our own
+    if (window.YTQ && YTQ.available()) YTQ.start(); else SND.start();
   }
   window.openDossier = openDossier;
 
@@ -470,7 +471,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
     document.body.classList.add("awake", "fast");
     if (heroEl) heroEl.classList.add("arrive");
     // the browser will not play audio without a gesture — arm it once
-    const arm = () => { SND.start(); removeEventListener("pointerdown", arm); removeEventListener("keydown", arm); };
+    const arm = () => {
+      if (window.YTQ && YTQ.available()) YTQ.start(); else SND.start();
+      removeEventListener("pointerdown", arm); removeEventListener("keydown", arm);
+    };
     addEventListener("pointerdown", arm, { passive: true });
     addEventListener("keydown", arm);
   }
