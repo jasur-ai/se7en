@@ -202,6 +202,126 @@ const SFX = (() => {
     lfo.start(t); lfo.stop(t + dur + 0.1);
   }
 
+
+  /* ── small sounds for the room ──────────────────────────────── */
+  function beep(g, t, n){
+    const c = g.c;
+    const f = n === 3 ? 784 : n === 2 ? 660 : 554;
+    const o = c.createOscillator(); o.type = "triangle"; o.frequency.value = f;
+    const gn = c.createGain();
+    gn.gain.setValueAtTime(0.0001, t);
+    gn.gain.linearRampToValueAtTime(0.16, t + 0.008);
+    gn.gain.exponentialRampToValueAtTime(0.0006, t + 0.16);
+    o.connect(gn); pan(g, gn, 0);
+    o.start(t); o.stop(t + 0.2);
+  }
+
+  function shutter(g, t){
+    // mirror up, curtain, mirror down
+    [0, 0.055, 0.12].forEach((d, i) => {
+      const c = g.c;
+      const s = c.createBufferSource(); s.buffer = g.noise;
+      const bp = c.createBiquadFilter(); bp.type = "bandpass";
+      bp.frequency.value = 1400 + i * 900; bp.Q.value = 1.1;
+      const gn = c.createGain();
+      gn.gain.setValueAtTime(0.0001, t + d);
+      gn.gain.linearRampToValueAtTime(0.5 - i * 0.12, t + d + 0.004);
+      gn.gain.exponentialRampToValueAtTime(0.0006, t + d + 0.07);
+      s.connect(bp); bp.connect(gn); pan(g, gn, (i - 1) * 0.2);
+      s.start(t + d); s.stop(t + d + 0.12);
+    });
+    const c = g.c;
+    const o = c.createOscillator(); o.type = "square"; o.frequency.value = 220;
+    const og = c.createGain();
+    og.gain.setValueAtTime(0.0001, t);
+    og.gain.linearRampToValueAtTime(0.07, t + 0.006);
+    og.gain.exponentialRampToValueAtTime(0.0004, t + 0.09);
+    o.connect(og); pan(g, og, 0); o.start(t); o.stop(t + 0.12);
+  }
+
+  function printer(g, t, dur){
+    dur = dur || 2.2;
+    const c = g.c;
+    // motor
+    const o = c.createOscillator(); o.type = "sawtooth"; o.frequency.value = 58;
+    const lp = c.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 220; lp.Q.value = 3;
+    const mg = c.createGain();
+    mg.gain.setValueAtTime(0.0001, t);
+    mg.gain.linearRampToValueAtTime(0.05, t + 0.12);
+    mg.gain.setValueAtTime(0.05, t + dur - 0.3);
+    mg.gain.exponentialRampToValueAtTime(0.0006, t + dur);
+    o.connect(lp); lp.connect(mg); pan(g, mg, 0.22);
+    o.start(t); o.stop(t + dur + 0.05);
+    o.frequency.setValueAtTime(58, t);
+    o.frequency.linearRampToValueAtTime(46, t + dur);
+    // stepper ticks, uneven like a real feed
+    let tt = t + 0.06;
+    while (tt < t + dur - 0.2){
+      const s = c.createBufferSource(); s.buffer = g.noise;
+      const bp = c.createBiquadFilter(); bp.type = "bandpass";
+      bp.frequency.value = 2100 + Math.random() * 900; bp.Q.value = 6;
+      const gn = c.createGain();
+      const a = 0.07 + Math.random() * 0.08;
+      gn.gain.setValueAtTime(0.0001, tt);
+      gn.gain.linearRampToValueAtTime(a, tt + 0.002);
+      gn.gain.exponentialRampToValueAtTime(0.0004, tt + 0.03);
+      s.connect(bp); bp.connect(gn); pan(g, gn, 0.3);
+      s.start(tt); s.stop(tt + 0.05);
+      tt += 0.048 + Math.random() * 0.035;
+    }
+  }
+
+  function powerUp(g, t){
+    const c = g.c;
+    const o = c.createOscillator(); o.type = "sawtooth"; o.frequency.value = 49;
+    const lp = c.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 160;
+    const gn = c.createGain();
+    gn.gain.setValueAtTime(0.0001, t);
+    gn.gain.linearRampToValueAtTime(0.09, t + 0.5);
+    gn.gain.linearRampToValueAtTime(0.04, t + 1.8);
+    gn.gain.exponentialRampToValueAtTime(0.0005, t + 2.4);
+    o.connect(lp); lp.connect(gn); pan(g, gn, 0);
+    o.start(t); o.stop(t + 2.5);
+    for (let i = 0; i < 7; i++){
+      const d = t + Math.random() * 1.2;
+      const s = c.createBufferSource(); s.buffer = g.noise;
+      const bp = c.createBiquadFilter(); bp.type = "highpass"; bp.frequency.value = 2600;
+      const ng = c.createGain();
+      ng.gain.setValueAtTime(0.0001, d);
+      ng.gain.linearRampToValueAtTime(0.05 + Math.random() * 0.05, d + 0.003);
+      ng.gain.exponentialRampToValueAtTime(0.0003, d + 0.05);
+      s.connect(bp); bp.connect(ng); pan(g, ng, (Math.random() - .5) * .8);
+      s.start(d); s.stop(d + 0.08);
+    }
+  }
+
+  function drone(g, t, dur){
+    dur = dur || 2.4;
+    const c = g.c;
+    const a = c.createOscillator(), b = c.createOscillator();
+    a.type = "sine"; b.type = "triangle";
+    a.frequency.value = 42; b.frequency.value = 63.4;
+    const gn = c.createGain();
+    gn.gain.setValueAtTime(0.0001, t);
+    gn.gain.linearRampToValueAtTime(0.16, t + dur * 0.45);
+    gn.gain.linearRampToValueAtTime(0.09, t + dur * 0.8);
+    gn.gain.exponentialRampToValueAtTime(0.0005, t + dur);
+    a.connect(gn); b.connect(gn); pan(g, gn, 0);
+    a.start(t); b.start(t); a.stop(t + dur + .05); b.stop(t + dur + .05);
+  }
+
+  function paper(g, t){
+    const c = g.c;
+    const s = c.createBufferSource(); s.buffer = g.noise;
+    const bp = c.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 3200; bp.Q.value = .9;
+    const gn = c.createGain();
+    gn.gain.setValueAtTime(0.0001, t);
+    gn.gain.linearRampToValueAtTime(0.16, t + 0.02);
+    gn.gain.exponentialRampToValueAtTime(0.0005, t + 0.28);
+    s.connect(bp); bp.connect(gn); pan(g, gn, 0);
+    s.start(t); s.stop(t + 0.32);
+  }
+
   /* ── the whole entrance, timed against the door keyframes ── */
   function sequence(g, t0){
     clank(g, t0 + 0.00, 0.55);      // hasp lifts
@@ -240,6 +360,13 @@ const SFX = (() => {
       if (weight === "heavy") { boom(bus, t, 0.28); whisper(bus, t + 0.02, 0.7, 0.05); }
       else clank(bus, t, 0.12);
     },
+    beep(n){ const c = this.ensure(); if (c) beep(bus, c.currentTime + 0.01, n); },
+    shutter(){ const c = this.ensure(); if (c) shutter(bus, c.currentTime + 0.01); },
+    printer(d){ const c = this.ensure(); if (c) printer(bus, c.currentTime + 0.02, d); },
+    powerUp(){ const c = this.ensure(); if (c) powerUp(bus, c.currentTime + 0.02); },
+    drone(d){ const c = this.ensure(); if (c) drone(bus, c.currentTime + 0.02, d); },
+    paper(){ const c = this.ensure(); if (c) paper(bus, c.currentTime + 0.01); },
+
     /* QA hook: render the same sequence offline and report levels */
     probe(seconds){
       seconds = seconds || 5;

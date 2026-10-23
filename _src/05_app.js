@@ -415,41 +415,65 @@ document.addEventListener("DOMContentLoaded", ()=>{
   addEventListener("scroll", ()=>{ progress(); activeNav(); }, { passive:true });
   progress(); activeNav();
 
-  // enter — the click is the gesture that lets the score begin
-  let openedAt = 0;
+  // ── entry ────────────────────────────────────────────────────
+  let openedAt = 0, opened = false;
   const veilEl = $("#veil");
+  const heroEl = document.getElementById("hero");
   const skipDoors = () => {
     if (veilEl.classList.contains("gone")) return;
     veilEl.classList.add("skip");
     document.body.classList.add("fast");
     setTimeout(()=>veilEl.classList.add("gone"), 260);
   };
-  $("#enterBtn").addEventListener("click", (e)=>{
-    e.stopPropagation();
-    if (veilEl.classList.contains("opening")) return;
+
+  function openDossier(){
+    if (opened) return;
+    opened = true;
     openedAt = performance.now();
+    veilEl.style.display = "";
     veilEl.classList.add("opening");
     document.body.classList.add("awake");
-    const hero = document.getElementById("hero");
-    if (hero) hero.classList.add("arrive");
-    /* the door gives up in stages: hasp, timber, hinge, weight */
-    if (window.SFX) SFX.enter();
+    if (heroEl) heroEl.classList.add("arrive");
+    if (window.SFX) SFX.enter();               // the door has its own voice
     setTimeout(()=>veilEl.classList.add("gone"), 2450);
     setTimeout(()=>{
       $$(".band").forEach((b, i) => b.style.setProperty("--arrive-delay", (i * 60) + "ms"));
     }, 700);
     SND.start();
-    /* the doors open onto the hero and stay there — the visitor leaves
-       when they choose to scroll, not because the page shoved them on */
-  });
-  /* any second press anywhere skips the ceremony — the veil is
-     pointer-events:none while it opens, so listen on the document */
+  }
+  window.openDossier = openDossier;
+
+  $("#enterBtn").addEventListener("click", (e)=>{ e.stopPropagation(); openDossier(); });
+
+  /* a second press anywhere skips the ceremony */
   document.addEventListener("click", ()=>{
     if (!veilEl.classList.contains("opening")) return;
     if (veilEl.classList.contains("gone")) return;
     if (performance.now() - openedAt < 450) return;
     skipDoors();
   }, true);
+
+  /* the intro hands over here: title ignites, then the doors */
+  addEventListener("dossier:open", ()=>{ veilEl.style.display = ""; openDossier(); });
+
+  /* repeat visits: straight in, no veil, no ceremony */
+  const introPending = !!(window.INTRO && INTRO.willRun && INTRO.willRun());
+  if (introPending){
+    if (window.INTRO && INTRO.mount) INTRO.mount();
+    veilEl.style.display = "none";
+  } else {
+    // no intro this time: take the set down before it can ever be seen
+    const introEl = document.getElementById("intro");
+    if (introEl) introEl.remove();
+    opened = true;
+    veilEl.classList.add("gone");
+    document.body.classList.add("awake", "fast");
+    if (heroEl) heroEl.classList.add("arrive");
+    // the browser will not play audio without a gesture — arm it once
+    const arm = () => { SND.start(); removeEventListener("pointerdown", arm); removeEventListener("keydown", arm); };
+    addEventListener("pointerdown", arm, { passive: true });
+    addEventListener("keydown", arm);
+  }
 
   $("#prevBtn").addEventListener("click", ()=>{ if(window.SFX) SFX.tap("light"); SND.next(-1); });
   $("#nextBtn").addEventListener("click", ()=>{ if(window.SFX) SFX.tap("light"); SND.next(1); });

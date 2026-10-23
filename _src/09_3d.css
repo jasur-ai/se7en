@@ -471,3 +471,13 @@ table.matrix tbody tr:hover{ transform:translate3d(4px,0,26px) }
 body.awake #dock{ opacity:1; transform:none }
 body.fast .topbar{ transition-delay:0s }
 body.fast #dock{ transition-delay:0s }
+
+/* ── performance: do not lay out or paint sections that are offscreen ──
+   the dossier is ~25 000 px tall with 33 plates; without this the
+   browser keeps every one of them alive while you scroll. */
+section.band{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 1200px;
+}
+section.band:first-of-type{ content-visibility:visible }
+@media (prefers-reduced-motion: reduce){ #depth, .depth-grid{ display:none } }

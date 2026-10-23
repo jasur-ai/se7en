@@ -34,3 +34,6 @@ _live_door.js
 _mobdoor.js
 _sfxtest.js
 _vid.js
+
+# intro QA harnesses
+_intro*.js

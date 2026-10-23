@@ -464,6 +464,63 @@ body.awake #dock{transform:translateY(0)}
 <div class="vignette" aria-hidden="true"></div>
 <div class="rule-top" id="ruleTop" aria-hidden="true"></div>
 
+<!-- ══ INTRO · the room with the camera (first visit only) ══ -->
+<div id="intro" aria-hidden="true">
+  <div class="room">
+    <div class="plate">
+      <span class="blood"></span>
+      <span class="bulbglow"></span>
+      <span class="camled"></span>
+      <div class="printer" id="printer">
+        <span class="spill"></span><span class="sheet"></span><span class="led"></span>
+      </div>
+    </div>
+    <div class="edge"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="finder">
+    <video id="camFeed" playsinline muted autoplay></video>
+    <div class="scan"></div>
+    <div class="vig"></div>
+    <div class="frame"><i></i><i></i><i></i><i></i></div>
+    <div class="cross"></div>
+    <div class="rec"><b></b> REC</div>
+    <div class="meta">F 2.8 &nbsp;·&nbsp; 1/60 &nbsp;·&nbsp; ISO 1600<br><b id="introTrack">—</b></div>
+  </div>
+
+  <canvas id="camShot" style="display:none"></canvas>
+  <div class="count" id="count"><span class="ring"></span><span class="sweep"></span><b></b></div>
+  <div class="flash" id="flash"></div>
+
+  <div class="print" id="print">
+    <canvas id="printCanvas"></canvas>
+    <div class="cap"><span data-i18n="in.cap1">Plate I · exposure 1</span><b data-i18n="in.cap2">Do not look at what is behind you</b></div>
+  </div>
+  <div class="hint" id="hint" data-i18n="in.hint">Take the print — drag it</div>
+
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <p class="gate-kicker" data-i18n="in.kicker">Before the dossier · observation clause</p>
+      <h2 data-i18n="in.title">Terms of Observation</h2>
+      <p class="gate-lead" data-i18n="in.lead">This room is fitted with a camera…</p>
+      <div class="gate-body">
+        <p data-i18n="in.p1"></p>
+        <p data-i18n="in.p2"></p>
+        <p data-i18n="in.p3"></p>
+      </div>
+      <div class="gate-acts">
+        <button id="introStart" class="gate-allow"><i></i><span data-i18n="in.allow">Allow camera</span></button>
+        <button id="introDecline" class="gate-decline" data-i18n="in.decline">Continue without camera</button>
+      </div>
+      <p class="gate-fine" data-i18n="in.fine">No upload · no analytics · no storage</p>
+    </div>
+  </div>
+
+  <button class="skip" id="introSkip" data-i18n="in.skip">skip</button>
+  <div class="blackout"></div>
+</div>
+
 <!-- ══ VEIL ══ -->
 <div id="veil">
   <div class="seam" aria-hidden="true"><i class="beam"></i><i class="haze"></i><i class="dust"></i></div>
