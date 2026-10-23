@@ -129,6 +129,7 @@
     <div class="matrix-scroll" data-reveal>
       <table class="matrix" id="matrixTable"></table>
     </div>
+    <div class="mtx-hint"><span class="bar" aria-hidden="true"></span><span data-i18n="mat.hint">Drag sideways for all seven sins</span><span class="bar" aria-hidden="true"></span></div>
     <div class="legend">
       <span data-i18n="mat.legend">Intensity</span>
       <div class="scale" id="scale"></div>
@@ -217,12 +218,7 @@
     <div class="foot-col">
       <b data-i18n="foot.dis">Disclaimer</b>
       <span data-i18n="foot.dist">Myths are presented as cultural record, not belief. Historical events are separated from later folkloric additions. Nothing here is an instruction.</span>
-      <span style="display:block;margin-top:14px;text-transform:none;letter-spacing:.04em;color:#5f574e">
-        Music: <b style="font-weight:400;color:#a99e8d">Vessel — “Red Sex”</b> (Punish, Honey, 2014 · Tri Angle Records / Mute).
-        Streamed from the rights holders’ official YouTube channel — no audio file is hosted here.
-        <a href="https://www.youtube.com/watch?v=rTSh2gnrbD4" target="_blank" rel="noopener" style="color:#b08a4a">Source ↗</a> ·
-        <a href="https://vesseluk.bandcamp.com/track/red-sex" target="_blank" rel="noopener" style="color:#b08a4a">Buy</a>
-      </span>
+      <div id="musicCredits" class="music-credits"></div>
     </div>
   </div>
 </footer>
@@ -264,8 +260,16 @@
     <div class="dock-t" id="dockTitle">Red Sex — Vessel</div>
     <div class="dock-s" id="dockSub">Loading</div>
   </div>
+  <div class="dock-steps">
+    <button class="step" id="prevBtn" aria-label="Previous score">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button class="step" id="nextBtn" aria-label="Next score">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
   <div class="eq" id="eq"><i></i><i></i><i></i><i></i></div>
-  <input id="vol" type="range" min="0" max="100" value="38" aria-label="Volume">
+  <input id="vol" type="range" min="0" max="100" value="42" aria-label="Volume">
+  <a class="dock-credit" id="dockCredit" href="#" target="_blank" rel="noopener" aria-label="Score credit">CC ↗</a>
 </div>
 
-<audio id="bgm" loop preload="none"></audio>

@@ -43,13 +43,13 @@ const I18N = {
     "foot.navt": "Navigate", "foot.dis": "Disclaimer",
     "foot.dist": "Myths are presented as cultural record, not belief. Historical events are separated from later folkloric additions. Nothing here is an instruction.",
     "lbl.threat": "Mode of harm", "lbl.ward": "Ward", "lbl.profile": "Sin profile", "lbl.src": "Sources",
-    "dock.playing": "Now playing", "dock.paused": "Paused", "dock.synth": "Synthesised bed · add the master file to /assets/audio",
-    "dock.volume": "Volume", "dock.bed": "synthesised bed", "type.demon": "Entity", "type.curse": "Historical curse", "type.place": "Site",
+    "dock.playing": "Now playing", "dock.paused": "Paused", "dock.synth": "Self-hosted score · four recordings, crossfaded",
+    "dock.volume": "Volume", "dock.bed": "score", "type.demon": "Entity", "type.curse": "Historical curse", "type.place": "Site",
     "meta.region": "Region", "meta.layer": "Stratum", "meta.index": "Index", "meta.year": "Date",
-    "count.myths": "entries", "mat.open": "Click a row for the full entry",
+    "count.myths": "entries", "mat.open": "Click a row for the full entry", "mat.hint": "Drag sideways",
     "prov.h": "Provenance", "prov.acad": "Academic ethnography", "prov.oral": "Living oral tradition", "prov.press": "Popular press & travel writing",
     "prov.note": "Strata are kept separate: what a scholar recorded, what a village still says, and what a magazine printed. The last is cited as legend, not as evidence.",
-    "sin.entries": "Entries ruled by this sin", "sin.open": "Open", "foot.built": "Bundled audio: synthesised bed. Add your own master files in assets/audio/."
+    "sin.entries": "Entries ruled by this sin", "sin.open": "Open", "foot.built": "Score: four self-hosted ambient recordings, crossfaded. Each is licensed for reuse and credited below."
   },
   uz: {
     "veil.kicker": "Tadqiqot dosyesi · cheklangan",
@@ -92,13 +92,13 @@ const I18N = {
     "foot.navt": "Bo‘limlar", "foot.dis": "Ogohlantirish",
     "foot.dist": "Miflar e'tiqod emas, madaniy yozuv sifatida berilgan. Tarixiy voqealar keyingi folklor qo‘shimchalaridan ajratilgan. Bu yerdagi hech narsa ko‘rsatma emas.",
     "lbl.threat": "Zarar mexanizmi", "lbl.ward": "Himoya", "lbl.profile": "Gunoh profili", "lbl.src": "Manbalar",
-    "dock.playing": "Ijro etilmoqda", "dock.paused": "To‘xtatilgan", "dock.synth": "Sintezlangan fon · asl faylni /assets/audio ga qo‘shing",
-    "dock.volume": "Ovoz", "dock.bed": "sintezlangan fon", "type.demon": "Mavjudot", "type.curse": "Tarixiy la'nat", "type.place": "Joy",
+    "dock.playing": "Ijro etilmoqda", "dock.paused": "To‘xtatilgan", "dock.synth": "Ichki partitura · to‘rtta yozuv, kesishuvchi",
+    "dock.volume": "Ovoz", "dock.bed": "partitura", "type.demon": "Mavjudot", "type.curse": "Tarixiy la'nat", "type.place": "Joy",
     "meta.region": "Hudud", "meta.layer": "Qatlam", "meta.index": "Indeks", "meta.year": "Sana",
-    "count.myths": "yozuv", "mat.open": "To‘liq yozuv uchun qatorni bosing",
+    "count.myths": "yozuv", "mat.open": "To‘liq yozuv uchun qatorni bosing", "mat.hint": "Chetga suring",
     "prov.h": "Kelib chiqishi", "prov.acad": "Akademik etnografiya", "prov.oral": "Tirik og‘zaki an'ana", "prov.press": "Ommabop matbuot va sayyohlik nashrlari",
     "prov.note": "Qatlamlar ajratilgan: olim yozib olgani, qishloq hali aytayotgani va jurnal chop etgani. Oxirgisi dalil emas, afsona sifatida keltirilgan.",
-    "sin.entries": "Shu gunoh hukmron bo‘lgan yozuvlar", "sin.open": "Ochish", "foot.built": "Ichki audio: sintezlangan fon. O‘z fayllaringizni assets/audio/ ga qo‘ying."
+    "sin.entries": "Shu gunoh hukmron bo‘lgan yozuvlar", "sin.open": "Ochish", "foot.built": "Partitura: to‘rtta ichki ambient yozuv, kesishuvchi. Har biri litsenziyaga ega va pastda ko‘rsatilgan."
   },
   ru: {
     "veil.kicker": "Полевое досье · ограничено",
@@ -141,13 +141,13 @@ const I18N = {
     "foot.navt": "Навигация", "foot.dis": "Оговорка",
     "foot.dist": "Мифы приводятся как культурная запись, а не как верование. Исторические события отделены от позднейших фольклорных наслоений. Ничто здесь не является инструкцией.",
     "lbl.threat": "Механизм вреда", "lbl.ward": "Защита", "lbl.profile": "Профиль греха", "lbl.src": "Источники",
-    "dock.playing": "Сейчас играет", "dock.paused": "Пауза", "dock.synth": "Синтезированный фон · добавьте файл в /assets/audio",
-    "dock.volume": "Громкость", "dock.bed": "синтезированный фон", "type.demon": "Существо", "type.curse": "Проклятие", "type.place": "Место",
+    "dock.playing": "Сейчас играет", "dock.paused": "Пауза", "dock.synth": "Собственная партитура · четыре записи, с перекрёстным затуханием",
+    "dock.volume": "Громкость", "dock.bed": "партитура", "type.demon": "Существо", "type.curse": "Проклятие", "type.place": "Место",
     "meta.region": "Регион", "meta.layer": "Слой", "meta.index": "Индекс", "meta.year": "Дата",
-    "count.myths": "записей", "mat.open": "Нажмите строку, чтобы открыть запись",
+    "count.myths": "записей", "mat.open": "Нажмите строку, чтобы открыть запись", "mat.hint": "Потяните вбок",
     "prov.h": "Происхождение", "prov.acad": "Академическая этнография", "prov.oral": "Живая устная традиция", "prov.press": "Популярная пресса и путеводители",
     "prov.note": "Слои разделены: что записал учёный, что деревня говорит до сих пор и что напечатал журнал. Последнее — легенда, а не доказательство.",
-    "sin.entries": "Записи, подвластные этому греху", "sin.open": "Открыть", "foot.built": "Встроенное аудио: синтезированный фон. Свои файлы кладите в assets/audio/."
+    "sin.entries": "Записи, подвластные этому греху", "sin.open": "Открыть", "foot.built": "Партитура: четыре собственные эмбиент-записи с перекрёстным затуханием. Каждая лицензирована и указана ниже."
   }
 };
 

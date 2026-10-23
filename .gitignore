@@ -21,3 +21,9 @@ _tmp/
 .nvm/
 trash/
 .sudo_as_admin_successful
+
+# local diagnostics
+_dbg*.js
+_livecheck.js
+_audio_raw/
+.config/

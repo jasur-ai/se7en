@@ -347,164 +347,7 @@ function closeDrawer(){
   document.body.classList.remove("locked");
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   AUDIO ENGINE
-   master file first, synthesised bed as fallback
-   ═══════════════════════════════════════════════════════════════ */
-const SND = {
-  ctx:null, master:null, filter:null, oscs:[], noise:null, lfo:null,
-  el:null, mode:"idle", playing:false, vol:Number(store.get("vol",38))/100,
-  root:"A3",
-  note(n){
-    const m = /^([A-G])(#|b)?(\d)$/.exec(n||"A3");
-    if(!m) return 55;
-    const base = {C:16.3516,D:18.3540,E:20.6017,F:21.8268,G:24.4997,A:27.5,B:30.8677}[m[1]];
-    const semi = m[2]==="#"?1:m[2]==="b"?-1:0;
-    return base * Math.pow(2, semi/12) * Math.pow(2, +m[3]);
-  },
-  feats(){
-    try{ return !!(window.AudioContext||window.webkitAudioContext); }catch(e){ return false; }
-  },
-  init(){
-    if(this.ctx || !this.feats()) return;
-    const AC = window.AudioContext||window.webkitAudioContext;
-    const ctx = this.ctx = new AC();
-    const master = this.master = ctx.createGain();
-    master.gain.value = 0;
-    const filter = this.filter = ctx.createBiquadFilter();
-    filter.type = "lowpass"; filter.frequency.value = 340; filter.Q.value = 3.4;
-    filter.connect(master); master.connect(ctx.destination);
-
-    const mk = (type, mult, det, gain, dest) => {
-      const o = ctx.createOscillator(); o.type = type; o.detune.value = det;
-      o.frequency.value = this.note(this.root) * mult;
-      const g = ctx.createGain(); g.gain.value = gain;
-      o.connect(g); g.connect(dest || filter); o.start();
-      return o;
-    };
-    this.oscs.push(mk("sawtooth",1,-7,0.16));
-    this.oscs.push(mk("sawtooth",1.5,9,0.085));
-    this.oscs.push(mk("sine",0.5,0,0.20));
-
-    // slow filter movement
-    const lfo = ctx.createOscillator(); lfo.frequency.value = 0.045;
-    const lg = ctx.createGain(); lg.gain.value = 150;
-    lfo.connect(lg); lg.connect(filter.frequency); lfo.start(); this.lfo = lfo;
-
-    // pink-ish noise bed
-    const len = ctx.sampleRate * 4;
-    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-    const ch = buf.getChannelData(0);
-    let b0=0,b1=0,b2=0;
-    for(let i=0;i<len;i++){
-      const w = Math.random()*2-1;
-      b0 = 0.99765*b0 + w*0.0990460;
-      b1 = 0.96300*b1 + w*0.2965164;
-      b2 = 0.57000*b2 + w*1.0526913;
-      ch[i] = (b0+b1+b2+w*0.1848)*0.16;
-    }
-    const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
-    const bp = ctx.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=760; bp.Q.value=0.65;
-    const ng = ctx.createGain(); ng.gain.value = 0.05;
-    src.connect(bp); bp.connect(ng); ng.connect(master); src.start();
-    this.noise = { src, bp, ng };
-
-    // slow tremolo
-    const tr = ctx.createOscillator(); tr.frequency.value = 0.062;
-    const tg = ctx.createGain(); tg.gain.value = 0.035;
-    tr.connect(tg); tg.connect(master.gain); tr.start();
-
-    this.mode = "synth";
-  },
-  target(){ return Math.pow(this.vol, 1.35) * 0.30; },
-  async start(){
-    if(this.playing) return;
-    // 1 · try the master file
-    if(!this.el){
-      const el = this.el = $("#bgm");
-      el.src = MUSIC.master;
-      el.volume = this.vol;
-    }
-    if(this.mode !== "synth" && !this.fileFailed){
-      let p;
-      try{ p = this.el.play(); }
-      catch(e){ this.fileFailed = true; p = null; }
-      if(p && p.catch){
-        try{ await p; this.mode = "file"; this.playing = true; this.ui(true); return; }
-        catch(e){ this.fileFailed = true; }
-      } else { this.mode="file"; this.playing = true; this.ui(true); return; }
-    }
-    this.init();
-    if(!this.ctx) { this.ui(false); return; }
-    if(this.ctx.state === "suspended") await this.ctx.resume();
-    const now = this.ctx.currentTime;
-    this.master.gain.cancelScheduledValues(now);
-    this.master.gain.setValueAtTime(this.master.gain.value, now);
-    this.master.gain.linearRampToValueAtTime(this.target(), now + 4.5);
-    this.playing = true; this.mode = "synth"; this.ui(true);
-  },
-  stop(){
-    if(this.mode === "file" && this.el){ this.el.pause(); }
-    if(this.master && this.ctx){
-      const now = this.ctx.currentTime;
-      this.master.gain.cancelScheduledValues(now);
-      this.master.gain.setValueAtTime(this.master.gain.value, now);
-      this.master.gain.linearRampToValueAtTime(0, now + 1.2);
-    }
-    this.playing = false; this.ui(false);
-  },
-  toggle(){ this.playing ? this.stop() : this.start(); },
-  setVol(v){
-    this.vol = Math.max(0, Math.min(1, v));
-    store.set("vol", Math.round(this.vol*100));
-    if(this.el) this.el.volume = this.vol;
-    if(this.master && this.ctx && this.playing){
-      const now = this.ctx.currentTime;
-      this.master.gain.linearRampToValueAtTime(this.target(), now + 0.6);
-    }
-  },
-  /* optional per-sin masters: assets/audio/01-pride.mp3 etc. */
-  async sinkTrack(sinId){
-    const src = MUSIC.perSin[sinId];
-    if(!src || this._lastSin === sinId) return;
-    this._lastSin = sinId;
-    const el = this.el || (this.el = $("#bgm"));
-    const prevMode = this.mode;
-    try{
-      el.volume = 0; el.src = src;
-      await el.play();
-      this.mode = "file"; this.playing = true; this.ui(true);
-      const target = this.vol; let i = 0;
-      const iv = setInterval(()=>{ i++; el.volume = Math.min(target, target*i/18); if(i>=18) clearInterval(iv); }, 55);
-    }catch(e){
-      this.mode = prevMode; this.ui(this.playing);
-    }
-  },
-  setRoot(x){
-    let note;
-    if(typeof x === "number") note = SINS[Math.max(0,Math.min(6,x))].root;
-    else if(byId(x)) note = SINS[byId(x).scores.indexOf(Math.max.apply(null, byId(x).scores))].root;
-    else note = (SINS.find(s=>s.id===x)||SINS[0]).root;
-    this.root = note;
-    if(!this.ctx || !this.oscs.length) return;
-    const f = this.note(note), now = this.ctx.currentTime;
-    this.oscs[0].frequency.linearRampToValueAtTime(f, now+2.6);
-    this.oscs[1].frequency.linearRampToValueAtTime(f*1.5, now+2.6);
-    this.oscs[2].frequency.linearRampToValueAtTime(f*0.5, now+2.6);
-  },
-  ui(on){
-    const p1 = $("#icoPlay"), p2 = $("#icoPause"), eq = $("#eq");
-    if(p1) p1.style.display = on ? "none" : "block";
-    if(p2) p2.style.display = on ? "block" : "none";
-    if(eq) eq.classList.toggle("live", !!on);
-    $("#sndBtn") && $("#sndBtn").classList.toggle("on", !!on);
-    const title = $("#dockTitle"), sub = $("#dockSub");
-    if(!title) return;
-    title.textContent = "Red Sex — Vessel";
-    const mode = this.mode === "file" ? "" : " · " + t("dock.bed");
-    sub.textContent = on ? t("dock.playing") + mode : t("dock.paused");
-  }
-};
+/* the score lives in 06_music.js */
 
 /* ═══════════════════════════════════════════════════════════════
    INTERACTIONS
@@ -520,12 +363,17 @@ function renderAll(){
   renderSins(); renderBestiary(); renderCurses(); renderGeo();
   renderMatrix(); renderAgg(); renderDoctrine(); renderCraft(); renderSources();
   observeReveals();
+  if (window.cutHeadings) cutHeadings();
 }
 function observeReveals(){
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
   }, { rootMargin:"0px 0px -8% 0px", threshold:0.06 });
-  $$("[data-reveal]").forEach(el=>{ if(!el.classList.contains("in")) io.observe(el); });
+  $$("[data-reveal]").forEach((el, i) => {
+    if (el.classList.contains("in")) return;
+    if (!el.style.getPropertyValue("--stagger")) el.style.setProperty("--stagger", Math.min(8, i % 6) * 70 + "ms");
+    io.observe(el);
+  });
 }
 function progress(){
   const h = document.documentElement;
@@ -567,29 +415,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
   addEventListener("scroll", ()=>{ progress(); activeNav(); }, { passive:true });
   progress(); activeNav();
 
-  // enter
+  // enter — the click is the gesture that lets the score begin
   $("#enterBtn").addEventListener("click", ()=>{
-    $("#veil").classList.add("gone");
+    $("#veil").classList.add("opening");
     document.body.classList.add("awake");
-    setTimeout(()=>{ $("#veil").style.display="none"; }, 1200);
-    // official track first (streamed from the rights holders' channel);
-    // the synthesised bed takes over only if the player is blocked.
-    let radioOK = false;
-    if(window.RADIO){ try{ RADIO.play(); radioOK = true; }catch(e){} }
-    if(radioOK){
-      setTimeout(()=>{ if(!RADIO.ready && !RADIO.failed){ SND.start(); } }, 3200);
-    } else { SND.start(); }
-    setTimeout(()=>{ document.getElementById("sins").scrollIntoView({behavior:"smooth",block:"start"}); }, 900);
+    const hero = document.getElementById("hero");
+    if (hero) hero.classList.add("arrive");
+    setTimeout(()=>{ $("#veil").classList.add("gone"); }, 1250);
+    SND.start();
+    setTimeout(()=>{ document.getElementById("sins").scrollIntoView({behavior:"smooth",block:"start"}); }, 2600);
   });
 
-  // retune the bed as sections change
-  const ROOTS = { hero:"A3", sins:"D3", bestiary:"F3", curses:"B2", geography:"C3", matrix:"G3", doctrine:"D#3", craft:"A3", sources:"E3" };
-  const secIO = new IntersectionObserver(es=>{
-    es.forEach(e=>{ if(e.isIntersecting && ROOTS[e.target.id] && SND.playing){ SND.root = ROOTS[e.target.id]; SND.setRoot(ROOTS[e.target.id]); } });
-  }, { threshold:0.28 });
-  ["hero","sins","bestiary","curses","geography","matrix","doctrine","craft","sources"].forEach(id=>{
-    const s = document.getElementById(id); if(s) secIO.observe(s);
-  });
+  $("#prevBtn").addEventListener("click", ()=>SND.next(-1));
+  $("#nextBtn").addEventListener("click", ()=>SND.next(1));
+  SND.credits();
+  SND.ui(false);
 
   // aggregates animate when visible
   const aggIO = new IntersectionObserver(es=>{
