@@ -1,0 +1,148 @@
+/* ═══════════════════════════════════════════════════════════════
+   DREAD TYPE · names are cut, not typed.
+   The plate face is a 1672 press reconstruction: uneven serifs,
+   ink that pooled at the stems. Every letter is set a fraction off
+   its own baseline, so the inscription reads as hand-cut and then
+   printed twice — never as a font with a horror effect on top.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── the inscription itself ───────────────────────────────────── */
+.insc{
+  font-family:var(--inscribed);
+  font-weight:400;
+  font-size:1.06em;
+  letter-spacing:.035em;
+  line-height:1.06;
+  display:inline-block;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.92),
+    0 -1px 0 rgba(255,236,206,.055),
+    0 0 22px rgba(0,0,0,.55);
+  filter:drop-shadow(0 0 10px rgba(150,22,15,.18));
+}
+.insc i{
+  font-style:normal;
+  display:inline-block;
+  transform:translateY(var(--y,0)) scale(var(--s,1)) rotate(var(--r,0));
+  transform-origin:50% 78%;
+}
+/* a hairline of blood settles under the final letter, like a wet print */
+.insc::after{
+  content:"";
+  display:inline-block;
+  width:0;
+}
+
+/* ── the three-register plate ─────────────────────────────────── */
+.card h3,.geo h3,.tl-item h3{
+  font-size:1.55em;
+  line-height:1.2;
+  letter-spacing:.005em;
+  margin:14px 0 4px;
+  color:#f4ead6;
+}
+.card h3 .insc,.geo h3 .insc,.tl-item h3 .insc{color:#f4ead6}
+.card:hover h3 .insc,.geo:hover h3 .insc,.tl-item:hover h3 .insc{
+  color:#fff6e4;
+  filter:drop-shadow(0 0 14px rgba(176,34,24,.42));
+}
+
+/* the crime, written under the name — small caps, blood, tracked out */
+.dread{
+  display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+  font-family:var(--inscribed);
+  font-size:11.5px!important;
+  letter-spacing:.13em!important;
+  text-transform:none!important;
+  line-height:1.55;
+  margin:2px 0 10px;
+}
+.dread b{
+  font-family:var(--mono);font-weight:400;font-size:8px!important;
+  letter-spacing:.2em!important;color:#b8564a!important;
+  border-left:1px solid rgba(184,86,74,.5);padding-left:8px;
+}
+.dread span{font-size:11.5px!important;line-height:1.55;color:#d8b3a6!important;
+  letter-spacing:.13em!important;text-shadow:0 1px 0 rgba(0,0,0,.8)}
+.dread b:after{content:""}
+
+/* the Latin binomial, pressed into the margin like a collector's stamp */
+.card .sub,.geo .rg,.tl-item .latline{
+  display:block!important;
+  line-height:1.9!important;
+  font-family:var(--inscribed)!important;
+  font-weight:400!important;
+  font-size:9.5px!important;
+  letter-spacing:.22em!important;
+  text-transform:uppercase;
+  color:#8f7c5e!important;
+  text-shadow:0 1px 0 rgba(0,0,0,.7);
+  margin:0 0 15px!important;
+  padding:2px 0 9px;
+  border-bottom:1px solid rgba(160,140,105,.16);
+}
+.card .sub{color:#9a8768!important}
+
+/* the veil plate: the title is cut, not typed, and the Latin sub-line is
+   pressed under it like a rubric in a missal */
+.veil-title{font-family:var(--inscribed)!important;letter-spacing:.16em!important}
+.veil-title::first-letter{color:#c9564a}
+
+/* the huge ghost numerals are struck in the plate face */
+.sec-num{
+  font-family:var(--plate)!important;
+  font-weight:600!important;
+  letter-spacing:.01em!important;
+  -webkit-text-stroke:1px rgba(196,176,140,.20)!important;
+  line-height:.62!important;
+}
+
+/* ── section heads take the same hand, so the dossier has one voice ── */
+.sec-titles h2,
+#drTitle,
+.hero-title,
+.veil-title{
+  font-family:var(--inscribed);
+  font-weight:400;
+  letter-spacing:.012em;
+}
+/* doctrine cards: the six names are set as inscriptions too */
+.doc h3,.craft h3{font-family:var(--inscribed);font-weight:400;letter-spacing:.02em;font-size:21px;line-height:1.28}
+.doc .n,.craft .k{font-family:var(--plate);font-weight:600;letter-spacing:.2em}
+#drTitle{font-size:clamp(28px,3.2vw,40px);line-height:1.06;margin:2px 0 6px;color:#f6ecd8}
+#drTitle .insc{font-size:1em}
+#drSub{font-family:var(--plate);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#a08a66}
+
+/* sins keep their own quiet roman, but the Latin is now a plate */
+.sin .la{font-family:var(--plate);font-weight:600;letter-spacing:.24em}
+.sin h3{font-family:var(--inscribed);letter-spacing:.02em}
+
+/* matrix rows are read as an index of inscriptions */
+table.matrix th.rowh .nm{font-family:var(--inscribed);font-size:13.5px;letter-spacing:.03em}
+table.matrix th.rowh .nm .insc i{transform:translateY(calc(var(--y,0) * .6)) scale(var(--s,1)) rotate(var(--r,0))}
+
+/* ── the drawer's seal: the name plate over a red rule ───────── */
+.dr-dread{font-family:var(--inscribed);letter-spacing:.14em}
+.dr-dread b{color:#c9564a}
+.dr-dread span{color:#dcb9ab}
+
+/* ── fallback for the katalog (its own stylesheet sets these) ── */
+.rec h3 .insc{color:#f4ead6}
+
+@media (max-width:560px){
+  .card h3,.geo h3,.tl-item h3{font-size:1.42em}
+  .dread span,.dread{font-size:10.5px!important}
+}
+
+/* ── the hero title is struck in the plate face, letters cut unevenly ── */
+h1.hero-title{
+  font-family:var(--inscribed)!important;
+  font-weight:400!important;
+  letter-spacing:.055em!important;
+  line-height:.86!important;
+  background:linear-gradient(176deg,#fff6ea 6%,#dccfbb 44%,#8a7c6c 76%,#463b34 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 18px 44px rgba(0,0,0,.8)) drop-shadow(0 0 26px rgba(140,20,14,.16));
+}
+h1.hero-title span{display:block}
+h1.hero-title span:last-child{color:#c9564a}

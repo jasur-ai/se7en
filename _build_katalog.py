@@ -465,6 +465,19 @@ function unveil(){
 meter();
 """
 
+FONT_CSS = open(os.path.join(ROOT,"_src","00_fonts.css"), encoding="utf-8").read()
+TYPE_CSS = r"""
+/* dread type — the same inscribed hand as the dossier */
+h1,.rec h3,.cls-head h2{font-family:var(--inscribed);font-weight:400;letter-spacing:.012em}
+.cls-head h2{font-size:38px;line-height:1.16;color:#f2e7d3}
+.cls-head .tab span{font-family:var(--inscribed);letter-spacing:.2em;font-size:10px}
+.rec h3{font-size:34px;line-height:1.18;color:#f4ead6;text-shadow:0 1px 0 rgba(0,0,0,.9)}
+.rec .lat{font-family:var(--inscribed)!important;letter-spacing:.22em;font-size:10px;color:#967f5c}
+.rec .row .cls{font-family:var(--plate);letter-spacing:.2em}
+.rec .desig{font-family:var(--inscribed);font-size:11.5px;letter-spacing:.13em;color:#d8b3a6}
+.tab{font-family:var(--inscribed);letter-spacing:.14em;font-size:12px}
+.sec-num,.no{font-family:var(--plate)}
+"""
 RADIO_CSS = r"""
 /* ── official track: compact chip, expands to the YouTube player ── */
 #radio{position:fixed;left:clamp(10px,2vw,22px);bottom:clamp(10px,2vw,22px);z-index:80;
@@ -519,6 +532,8 @@ HTMLDOC = f"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bezovta nomlar indeksi · The Index of Unquiet Names</title>
 <meta name="description" content="Thirty-three Central Asian dread records on torn paper — case codes, Latin designations, signals and standing instructions.">
+<style>{FONT_CSS}</style>
+<style>{TYPE_CSS}</style>
 <style>{CSS}</style>
 <style>{RADIO_CSS}</style>
 </head>
