@@ -105,10 +105,29 @@ function renderSins(){
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── dread designations ─────────────────────────────────────────── */
+function dreadDesc(m){
+  const dd = (typeof DREAD !== "undefined") ? DREAD[m.id] : null;
+  if(!dd) return null;
+  /* Uzbek dossier convention: a demon is filed under what it does, and the
+     village name is a footnote. So the headline carries the dread name from
+     the Index, while the case line carries the Latin binomial. */
+  const uzDemon = (lang === "uz" && m.type === "demon" && dd.lat);
+  return {code: dd.code, label: uzDemon ? dd.lat : (dd[lang] || dd.en), dd: dd};
+}
 function dreadOf(m){
-  const d = (typeof DREAD !== "undefined") ? DREAD[m.id] : null;
-  if(!d) return "";
-  return '<div class="dread"><b>'+esc(d.code)+'</b><span>'+esc(d[lang]||d.en)+'</span></div>';
+  const x = dreadDesc(m);
+  if(!x) return "";
+  return '<div class="dread"><b>'+esc(x.code)+'</b><span>'+esc(x.label)+'</span></div>';
+}
+function titleOf(m){
+  const d = L(m), x = dreadDesc(m);
+  if(lang === "uz" && m.type === "demon" && x && x.dd.uz) return x.dd.uz;
+  return d.name;
+}
+function subOf(m){
+  const d = L(m), x = dreadDesc(m);
+  if(lang === "uz" && m.type === "demon" && x && x.dd.uz) return d.name + " · " + d.epithet;
+  return d.epithet;
 }
 let TORN_I = 0;
 function tornAttr(){
@@ -127,9 +146,9 @@ function renderBestiary(){
     return '<article class="card" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal'+tornAttr()+'>'
       + '<div class="card-head"><span class="card-idx">№ '+String(MYTHS.indexOf(m)+1).padStart(2,"0")+'</span>'
       + '<span class="card-ix">'+m.idx+'<small>'+t("meta.index")+'</small></span></div>'
-      + '<h3>'+esc(d.name)+'</h3>'
+      + '<h3>'+esc(titleOf(m))+'</h3>'
       + dreadOf(m)
-      + '<div class="sub">'+esc(d.epithet)+'</div>'
+      + '<div class="sub">'+esc(subOf(m))+'</div>'
       + '<p class="gist">'+esc(d.lore)+'</p>'
       + '<div class="card-foot">'
       + ts.map(x=>'<span class="mini-sin'+(x.v>=8?' hot':'')+'">'+esc(L(SINS[x.i]).name)+' '+x.v+'</span>').join("")
@@ -142,7 +161,7 @@ function renderCurses(){
     const d = L(m);
     return '<div class="tl-item" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal'+tornAttr()+'>'
       + '<div class="yr">'+esc(m.year||"")+' · '+esc(L(REGIONS[m.region]).toString())+'</div>'
-      + '<h3>'+esc(d.name)+'</h3>'
+      + '<h3>'+esc(titleOf(m))+'</h3>'
       + dreadOf(m)
       + '<p>'+esc(d.lore.length>230 ? d.lore.slice(0,228)+"…" : d.lore)+'</p>'
       + '<div class="tagline">'+topSins(m,2).map(x=>'<span>'+esc(L(SINS[x.i]).name)+' '+x.v+'</span>').join("")
@@ -155,7 +174,7 @@ function renderGeo(){
     const d = L(m);
     return '<div class="geo" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal'+tornAttr()+'>'
       + '<div class="coord"><span>'+esc(COORDS[m.id]||"")+'</span><span>'+m.idx+'</span></div>'
-      + '<h3>'+esc(d.name)+'</h3>'
+      + '<h3>'+esc(titleOf(m))+'</h3>'
       + dreadOf(m)
       + '<div class="rg">'+esc(L(REGIONS[m.region]).toString())+'</div>'
       + '<p>'+esc(d.lore)+'</p>'
@@ -187,7 +206,7 @@ function renderMatrix(){
     + '<th>Σ</th></tr></thead>';
   const body = '<tbody>' + MYTHS.map(m=>{
     const d = L(m), tt = sum(m.scores);
-    return '<tr data-myth="'+m.id+'"><th class="rowh"><span class="nm">'+esc(d.name)+'</span>'
+    return '<tr data-myth="'+m.id+'"><th class="rowh"><span class="nm">'+esc(titleOf(m))+'</span>'
       + '<span class="tp">'+t("type."+m.type)+' · '+esc(L(REGIONS[m.region]).toString())+'</span></th>'
       + m.scores.map(v=>'<td class="cell'+(v===0?' zero':'')+'" style="background:'+heat(v)+'">'+v+'</td>').join("")
       + '<td class="tot">'+tt+'</td></tr>';
@@ -253,15 +272,15 @@ function openMyth(id){
   current = id;
   const d = L(m);
   $("#drKind").textContent = t("type."+m.type) + " · " + (m.year || L(REGIONS[m.region]));
-  $("#drTitle").textContent = d.name;
-  $("#drSub").textContent = d.epithet;
+  $("#drTitle").textContent = titleOf(m);
+  $("#drSub").textContent = subOf(m);
   (function(){
     const sub = $("#drSub"); if(!sub) return;
     let el = document.getElementById("drDread");
     if(!el){ el = document.createElement("div"); el.id="drDread"; el.className="dr-dread";
       sub.parentNode.insertBefore(el, sub.nextSibling); }
-    const dd = (typeof DREAD!=="undefined") ? DREAD[m.id] : null;
-    el.innerHTML = dd ? '<b>'+esc(dd.code)+'</b><span>'+esc(dd[lang]||dd.en)+'</span>' : "";
+    const x = dreadDesc(m);
+    el.innerHTML = x ? '<b>'+esc(x.code)+'</b><span>'+esc(x.label)+'</span>' : "";
   })();
   (function(){
     const ALIAS = {"bibi-khanym":"bibixonim"};
