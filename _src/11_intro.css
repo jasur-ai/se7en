@@ -210,7 +210,7 @@
 
 /* ── the print: it comes out of the printer and into your hand ─── */
 #intro .print{
-  position:absolute; left:var(--from-x,50%); top:var(--from-y,50%);
+  position:absolute; left:50%; top:50%;
   width:min(62vw,430px); aspect-ratio:4/3;
   transform:translate(-50%,-50%) rotate(7deg) scale(.07);
   transform-origin:50% 50%;
@@ -224,11 +224,7 @@
     0 14px 30px -18px rgba(0,0,0,.9),
     0 0 0 1px rgba(0,0,0,.45),
     inset 0 0 60px rgba(96,66,40,.35);
-  transition:
-    opacity .45s ease,
-    left 1.35s cubic-bezier(.34,.02,.28,1),
-    top 1.35s cubic-bezier(.34,.02,.28,1),
-    transform 1.35s cubic-bezier(.34,.02,.28,1);
+  transition:opacity .45s ease;
 }
 #intro .print::after{ /* the curl, and the light catching it */
   content:""; position:absolute; inset:0; pointer-events:none;
@@ -236,7 +232,7 @@
   mix-blend-mode:soft-light;
 }
 #intro .print.show{
-  left:50%; top:50%; opacity:1; pointer-events:auto; cursor:grab;
+  opacity:1; pointer-events:auto; cursor:grab;
   transform:translate(-50%,-50%) rotate(-1.3deg) scale(1);
   animation:printFloat 7s ease-in-out infinite;
 }

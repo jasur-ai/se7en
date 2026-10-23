@@ -326,12 +326,18 @@ const INTRO = (() => {
     // and the sheet is in your hand — it comes to the middle of the room
     const print = $("#print"), sheet = $("#printer .sheet");
     const r = sheet.getBoundingClientRect();
-    if (r.width > 2) {
-      print.style.setProperty("--from-x", (r.left + r.width / 2) + "px");
-      print.style.setProperty("--from-y", (r.top + r.height / 2) + "px");
-    }
-    void print.offsetWidth;
+    const dx = (r.left + r.width / 2) - innerWidth / 2;
+    const dy = (r.top + r.height / 2) - innerHeight / 2;
+    print.style.transform = "";
     print.classList.add("show");
+    // out of the printer and into the middle of the room, on the compositor
+    try {
+      print.animate([
+        { transform: "translate(calc(-50% + " + dx + "px), calc(-50% + " + dy + "px)) rotate(9deg) scale(.06)", opacity: 0 },
+        { opacity: 1, offset: .10 },
+        { transform: "translate(-50%,-50%) rotate(-1.3deg) scale(1)", opacity: 1 }
+      ], { duration: 1500, easing: "cubic-bezier(.33,.02,.28,1)", fill: "none" });
+    } catch(e){}
     $("#hint").classList.add("show");
     await wait(1500);
 
