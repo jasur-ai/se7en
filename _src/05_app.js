@@ -110,6 +110,11 @@ function dreadOf(m){
   if(!d) return "";
   return '<div class="dread"><b>'+esc(d.code)+'</b><span>'+esc(d[lang]||d.en)+'</span></div>';
 }
+let TORN_I = 0;
+function tornAttr(){
+  TORN_I = (TORN_I + 1) % 10;
+  return ' data-torn="'+TORN_I+'"';
+}
 function topSins(m,count){
   return m.scores.map((v,i)=>({v,i})).sort((a,b)=>b.v-a.v).slice(0,count);
 }
@@ -119,7 +124,7 @@ function renderBestiary(){
     .sort((a,b)=>b.idx-a.idx);
   $("#bestGrid").innerHTML = list.map(m=>{
     const d = L(m), ts = topSins(m,2);
-    return '<article class="card" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal>'
+    return '<article class="card" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal'+tornAttr()+'>'
       + '<div class="card-head"><span class="card-idx">№ '+String(MYTHS.indexOf(m)+1).padStart(2,"0")+'</span>'
       + '<span class="card-ix">'+m.idx+'<small>'+t("meta.index")+'</small></span></div>'
       + '<h3>'+esc(d.name)+'</h3>'
@@ -135,7 +140,7 @@ function renderBestiary(){
 function renderCurses(){
   $("#curseList").innerHTML = MYTHS.filter(m=>m.type==="curse").map(m=>{
     const d = L(m);
-    return '<div class="tl-item" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal>'
+    return '<div class="tl-item" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal'+tornAttr()+'>'
       + '<div class="yr">'+esc(m.year||"")+' · '+esc(L(REGIONS[m.region]).toString())+'</div>'
       + '<h3>'+esc(d.name)+'</h3>'
       + dreadOf(m)
@@ -148,7 +153,7 @@ function renderCurses(){
 function renderGeo(){
   $("#geoGrid").innerHTML = MYTHS.filter(m=>m.type==="place").map(m=>{
     const d = L(m);
-    return '<div class="geo" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal>'
+    return '<div class="geo" role="button" tabindex="0" data-myth="'+m.id+'" data-reveal'+tornAttr()+'>'
       + '<div class="coord"><span>'+esc(COORDS[m.id]||"")+'</span><span>'+m.idx+'</span></div>'
       + '<h3>'+esc(d.name)+'</h3>'
       + dreadOf(m)
