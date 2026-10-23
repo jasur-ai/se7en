@@ -416,19 +416,43 @@ document.addEventListener("DOMContentLoaded", ()=>{
   progress(); activeNav();
 
   // enter — the click is the gesture that lets the score begin
-  $("#enterBtn").addEventListener("click", ()=>{
-    $("#veil").classList.add("opening");
+  let openedAt = 0;
+  const veilEl = $("#veil");
+  const skipDoors = () => {
+    if (veilEl.classList.contains("gone")) return;
+    veilEl.classList.add("skip");
+    document.body.classList.add("fast");
+    setTimeout(()=>veilEl.classList.add("gone"), 260);
+  };
+  $("#enterBtn").addEventListener("click", (e)=>{
+    e.stopPropagation();
+    if (veilEl.classList.contains("opening")) return;
+    openedAt = performance.now();
+    veilEl.classList.add("opening");
     document.body.classList.add("awake");
     const hero = document.getElementById("hero");
     if (hero) hero.classList.add("arrive");
-    setTimeout(()=>{ $("#veil").classList.add("gone"); }, 1250);
+    /* the door gives up in stages: hasp, timber, hinge, weight */
+    if (window.SFX) SFX.enter();
+    setTimeout(()=>veilEl.classList.add("gone"), 2450);
+    setTimeout(()=>{
+      $$(".band").forEach((b, i) => b.style.setProperty("--arrive-delay", (i * 60) + "ms"));
+    }, 700);
     SND.start();
     /* the doors open onto the hero and stay there — the visitor leaves
        when they choose to scroll, not because the page shoved them on */
   });
+  /* any second press anywhere skips the ceremony — the veil is
+     pointer-events:none while it opens, so listen on the document */
+  document.addEventListener("click", ()=>{
+    if (!veilEl.classList.contains("opening")) return;
+    if (veilEl.classList.contains("gone")) return;
+    if (performance.now() - openedAt < 450) return;
+    skipDoors();
+  }, true);
 
-  $("#prevBtn").addEventListener("click", ()=>SND.next(-1));
-  $("#nextBtn").addEventListener("click", ()=>SND.next(1));
+  $("#prevBtn").addEventListener("click", ()=>{ if(window.SFX) SFX.tap("light"); SND.next(-1); });
+  $("#nextBtn").addEventListener("click", ()=>{ if(window.SFX) SFX.tap("light"); SND.next(1); });
   SND.credits();
   SND.ui(false);
 

@@ -86,21 +86,9 @@
     });
   }
 
-  /* ── 4 · cinematic entry: the dossier opens ──────────────── */
-  const veil = document.getElementById("veil");
-  const enter = document.getElementById("enterBtn");
-  if (veil && enter) {
-    enter.addEventListener("click", () => {
-      veil.classList.add("opening");
-      const hero = document.getElementById("hero");
-      if (hero) hero.classList.add("arrive");
-      setTimeout(() => {
-        document.querySelectorAll(".band").forEach((b, i) => {
-          b.style.setProperty("--arrive-delay", (i * 60) + "ms");
-        });
-      }, 700);
-    });
-  }
+  /* ── 4 · cinematic entry ──────────────────────────────────────
+     the click is handled once, in 05_app.js — a second listener here
+     used to add .opening first and make the real handler bail out. */
 
   /* ── 5 · headings are cut in, letter by letter ─────────────── */
   window.cutHeadings = () => {
