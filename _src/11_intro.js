@@ -50,7 +50,7 @@ const INTRO = (() => {
     c.globalAlpha = 1;
     c.clearRect(0, 0, PW, PH);
 
-    // YOUR frame — the one the flash just took, kept whole
+    /* 1 · the frame the camera actually took */
     c.fillStyle = "#0c0a09"; c.fillRect(0, 0, PW, PH);
     const hasShot = !!(src && src.width && src.height);
     if (hasShot) {
@@ -59,53 +59,94 @@ const INTRO = (() => {
       if (vr > cr) { sw = src.height * cr; sx = (src.width - sw) / 2; }
       else { sh = src.width / cr; sy = (src.height - sh) / 2; }
       c.save();
-      c.filter = "brightness(1.24) contrast(1.06) saturate(.92)";
+      c.filter = "brightness(1.22) contrast(1.05) saturate(.9)";
       c.drawImage(src, sx, sy, sw, sh, 0, 0, PW, PH);
       c.restore();
     } else {
-      // no camera: the photograph is of the room, taken by the camera in it
-      const wl = c.createLinearGradient(0, 0, 0, PH);
-      wl.addColorStop(0, "#6a5545"); wl.addColorStop(.5, "#463529"); wl.addColorStop(1, "#191310");
-      c.fillStyle = wl; c.fillRect(0, 0, PW, PH);
-      c.fillStyle = "#080606"; c.fillRect(PW * .06, PH * .16, PW * .24, PH * .70);
-      c.save();
-      const pool = c.createRadialGradient(PW * .5, PH * 1.02, 10, PW * .5, PH, PH * .85);
-      pool.addColorStop(0, "rgba(255,226,190,.26)"); pool.addColorStop(1, "rgba(0,0,0,0)");
-      c.fillStyle = pool; c.fillRect(0, PH * .55, PW, PH * .45);
-      c.font = "700 " + Math.round(PH * .10) + "px Georgia, serif";
-      c.fillStyle = "rgba(196,22,12,.9)"; c.textAlign = "center";
-      c.fillText("S M I L E", PW * .58, PH * .40);
-      c.restore();
+      paintRoomPlate(c);
     }
 
-    // the flash: hot in the middle, falling away at the corners — but never black
+    /* 2 · IT. Not a shape — a photograph, standing in the flash's
+           falloff, blocking the light that should be on the wall. */
+    const drawn =
+      placeFigure(c, PW * 0.205, PH * 1.02, PH * 0.97, 1, 1.4, null, -0.02) &
+      placeFigure(c, PW * 0.915, PH * 1.10, PH * 1.06, .5, 7.0, null, 0.10);
+
+    /* 3 · the flash itself: hard in the middle, gone at the corners */
     const fl = c.createRadialGradient(PW * .5, PH * .40, PH * .02, PW * .5, PH * .5, PH * .95);
-    fl.addColorStop(0, "rgba(255,250,236,.44)");
-    fl.addColorStop(.28, "rgba(255,238,214,.16)");
+    fl.addColorStop(0, "rgba(255,250,236,.42)");
+    fl.addColorStop(.28, "rgba(255,238,214,.15)");
     fl.addColorStop(1, "rgba(0,0,0,0)");
     c.fillStyle = fl; c.fillRect(0, 0, PW, PH);
 
-    // IT — standing behind your shoulder, and always has been
-    drawFigure(c, PW * 0.225, PH * 1.16, PH * 1.30, 3.2, .82);
-    // a second one at the right edge of the frame, too close to the lens
-    drawHead(c, PW * 0.895, PH * 0.26, PH * 0.27);
-
-    // blood
+    /* 4 · blood, because the room has been waiting */
     bloodDrips(c, PW, PH);
 
-    // the corner falloff — light, so your own frame survives it
+    /* 5 · the falloff that makes the corners worthless */
     const vg = c.createRadialGradient(PW * .5, PH * .46, PH * .34, PW * .5, PH * .5, PH * 1.08);
     vg.addColorStop(0, "rgba(0,0,0,0)");
-    vg.addColorStop(.62, "rgba(0,0,0,.14)");
-    vg.addColorStop(1, "rgba(0,0,0,.62)");
+    vg.addColorStop(.62, "rgba(0,0,0,.16)");
+    vg.addColorStop(1, "rgba(0,0,0,.66)");
     c.fillStyle = vg; c.fillRect(0, 0, PW, PH);
 
-    // the edges have started to burn
+    /* 6 · the paper has started to burn */
     burntEdge(c, PW, PH);
 
-    // paper, chemistry, dust
+    /* 7 · film */
     grain(c, PW, PH, 20);
     scratches(c, PW, PH);
+
+    // if the figure was still decoding, paint again when it lands
+    if (!drawn) {
+      const im = figure();
+      if (im && !im._hooked) { im._hooked = true; im.addEventListener("load", () => { try { paintPrint(); } catch(e){} }, { once: true }); }
+    }
+  }
+
+
+  /* ── the figure, as a photograph ──────────────────────────────
+     FIG_SRC is a picture of a standing body, keyed out of a white
+     studio. It is composited in multiply, so it blocks the flash
+     where it stands instead of sitting on top of the frame — that is
+     the difference between "something in the room" and "a sticker". */
+  let fig = null;
+  function figure(){
+    if (fig) return fig;
+    if (typeof FIG_SRC !== "string") return null;
+    fig = new Image();
+    fig.decoding = "async";
+    fig.src = FIG_SRC;
+    return fig;
+  }
+
+  function placeFigure(c, cx, footY, height, alpha, blur, mode, tilt, thin, light){
+    const im = figure();
+    if (!im || !im.complete || !im.naturalWidth) return false;
+    /* thin < 1 pulls the body narrower: a photograph of a person, stretched
+       until the proportions are wrong. Nothing about it is drawn. */
+    const k = thin || 1;
+    const w = height * (im.naturalWidth / im.naturalHeight) * k;
+    c.save();
+    c.translate(cx, footY);
+    if (tilt) c.rotate(tilt);
+
+    /* It blocks the flash. The figure is painted almost black and laid in
+       multiply, so wherever it stands the wall behind it goes dark — the
+       one thing a cut-out can never do, and the reason this reads as a
+       body in the room instead of a sticker on the photograph. */
+    c.globalCompositeOperation = "source-over";
+    c.globalAlpha = alpha * 0.92;
+    c.filter = "blur(" + blur + "px) brightness(" + (light || .34) + ") contrast(1.28)";
+    c.drawImage(im, -w / 2, -height, w, height);
+
+    /* and because a silhouette needs one lit edge to have a shape at all,
+       the flash picks out the side of it that faces the lens */
+    c.globalCompositeOperation = "screen";
+    c.globalAlpha = alpha * 0.26;
+    c.filter = "blur(" + Math.max(1.2, blur * 0.8) + "px) brightness(1.2)";
+    c.drawImage(im, -w / 2 - 1.5, -height - 1, w, height);
+    c.restore();
+    return true;
   }
 
   /* the print is scorching from the outside in */
@@ -117,13 +158,12 @@ const INTRO = (() => {
     g.addColorStop(.86, "rgba(96,26,6,.62)");
     g.addColorStop(1, "rgba(12,4,2,.94)");
     c.fillStyle = g; c.fillRect(0, 0, w, h);
-    // live coals along the rim
     c.globalCompositeOperation = "screen";
     for (let i = 0; i < 90; i++){
       const side = Math.floor(Math.random() * 4);
       const t = Math.random();
-      let x = side === 0 ? t * w : side === 1 ? w - Math.random() * 12 : side === 2 ? t * w : Math.random() * 12;
-      let y = side === 0 ? Math.random() * 12 : side === 1 ? t * h : side === 2 ? h - Math.random() * 12 : t * h;
+      const x = side === 0 ? t * w : side === 1 ? w - Math.random() * 12 : side === 2 ? t * w : Math.random() * 12;
+      const y = side === 0 ? Math.random() * 12 : side === 1 ? t * h : side === 2 ? h - Math.random() * 12 : t * h;
       const r = 1 + Math.random() * 3.2;
       const gg = c.createRadialGradient(x, y, 0, x, y, r * 3);
       gg.addColorStop(0, "rgba(255,196,96,.95)");
@@ -135,46 +175,19 @@ const INTRO = (() => {
     c.restore();
   }
 
-  /* a figure: too tall, too thin, lit by the flash from the front */
-  function drawFigure(c, cx, footY, bodyH, blur, strength){
-    const headH = bodyH * 0.070, shoulderW = bodyH * 0.150;
-    const headY = footY - bodyH + headH;
-    const hipY = footY - bodyH * 0.42;
-    const k = strength || 1;
+  /* no camera: the room, photographed by the camera in it */
+  function paintRoomPlate(c){
+    const wl = c.createLinearGradient(0, 0, 0, PH);
+    wl.addColorStop(0, "#6a5545"); wl.addColorStop(.5, "#463529"); wl.addColorStop(1, "#191310");
+    c.fillStyle = wl; c.fillRect(0, 0, PW, PH);
+    c.fillStyle = "#080606"; c.fillRect(PW * .06, PH * .16, PW * .24, PH * .70);
     c.save();
-    c.filter = "blur(" + blur + "px)";
-    c.globalAlpha = k;
-    const g = c.createLinearGradient(0, headY - headH, 0, footY);
-    g.addColorStop(0, "rgba(206,194,176,.97)");
-    g.addColorStop(.18, "rgba(178,164,146,.95)");
-    g.addColorStop(.55, "rgba(120,104,88,.92)");
-    g.addColorStop(1, "rgba(44,34,28,.8)");
-    c.fillStyle = g;
-
-    c.beginPath();
-    c.ellipse(cx, headY, headH * 0.76, headH * 1.06, -0.09, 0, Math.PI * 2);
-    c.fill();
-    c.fillRect(cx - headH * .27, headY + headH * .66, headH * .54, bodyH * .11);
-    c.beginPath();
-    c.moveTo(cx - shoulderW * .40, headY + headH * 1.24);
-    c.quadraticCurveTo(cx - shoulderW * 1.06, headY + bodyH * .15, cx - shoulderW * .60, hipY);
-    c.lineTo(cx + shoulderW * .60, hipY);
-    c.quadraticCurveTo(cx + shoulderW * 1.06, headY + bodyH * .15, cx + shoulderW * .40, headY + headH * 1.24);
-    c.closePath(); c.fill();
-    c.lineWidth = bodyH * .028; c.strokeStyle = g; c.lineCap = "round";
-    c.beginPath();
-    c.moveTo(cx - shoulderW * .80, headY + bodyH * .14);
-    c.quadraticCurveTo(cx - shoulderW * 1.16, hipY + bodyH * .13, cx - shoulderW * .72, footY - bodyH * .08);
-    c.moveTo(cx + shoulderW * .80, headY + bodyH * .14);
-    c.quadraticCurveTo(cx + shoulderW * 1.16, hipY + bodyH * .13, cx + shoulderW * .72, footY - bodyH * .08);
-    c.stroke();
-    // no face — only a sheen where a face should be
-    const sh = c.createRadialGradient(cx - headH * .2, headY - headH * .26, 1, cx, headY, headH * 1.1);
-    sh.addColorStop(0, "rgba(246,238,222,.55)");
-    sh.addColorStop(.48, "rgba(186,172,154,.18)");
-    sh.addColorStop(1, "rgba(0,0,0,0)");
-    c.fillStyle = sh;
-    c.beginPath(); c.ellipse(cx, headY, headH * .70, headH * 1.0, -0.09, 0, Math.PI * 2); c.fill();
+    const pool = c.createRadialGradient(PW * .5, PH * 1.02, 10, PW * .5, PH, PH * .85);
+    pool.addColorStop(0, "rgba(255,226,190,.26)"); pool.addColorStop(1, "rgba(0,0,0,0)");
+    c.fillStyle = pool; c.fillRect(0, PH * .55, PW, PH * .45);
+    c.font = "700 " + Math.round(PH * .10) + "px Georgia, serif";
+    c.fillStyle = "rgba(196,22,12,.9)"; c.textAlign = "center";
+    c.fillText("S M I L E", PW * .58, PH * .40);
     c.restore();
   }
 
@@ -258,20 +271,53 @@ const INTRO = (() => {
   }
 
   /* ── camera ─────────────────────────────────────────────────── */
+  /* ── the camera ────────────────────────────────────────────────
+     On a desktop with a phone plugged in (DroidCam, Iriun, Continuity
+     Camera) the browser will happily hand over the PHONE. We want the
+     machine's own camera: it is the one that is pointed at the room
+     and at the person sitting in it. So: ask for permission once, read
+     the labels the browser only reveals afterwards, and if the default
+     is a phone, switch to the built-in one. */
+  const PHONE = /(phone|droidcam|iriun|epoc|camo|continuity|iphone|android|pixel|galaxy|oneplus|xiaomi|huawei|redmi)/i;
+  const BUILTIN = /(integrated|built-?in|internal|facetime|hd webcam|webcam|front camera|user facing|ir camera)/i;
+
+  async function pickDevice(){
+    try {
+      const list = (await navigator.mediaDevices.enumerateDevices())
+        .filter(d => d.kind === "videoinput" && d.deviceId);
+      if (!list.length) return null;
+      const good = list.filter(d => !PHONE.test(d.label || ""));
+      const pool = good.length ? good : list;
+      const builtin = pool.find(d => BUILTIN.test(d.label || ""));
+      return (builtin || pool[0]).deviceId;
+    } catch(e){ return null; }
+  }
+
   async function openCamera(){
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: "user" },
-        audio: false
-      });
-      video = $("#camFeed");
-      video.srcObject = stream;
-      // attached but not played: a hidden full-screen video still costs a
-      // decode and a composite on every frame
-      video.pause?.();
-      return true;
-    } catch (e) { return false; }
+    const size = { width: { ideal: 640 }, height: { ideal: 480 } };
+    let warm = null;
+    try { warm = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); }
+    catch (e) { return false; }                       // refused, or no camera at all
+
+    const id = await pickDevice();
+    const chosen = warm.getVideoTracks()[0]?.getSettings()?.deviceId;
+    if (id && id !== chosen) {
+      try {
+        warm.getTracks().forEach(t => t.stop());
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: Object.assign({ deviceId: { exact: id } }, size), audio: false
+        });
+      } catch (e) { stream = warm; }                   // fall back to what we had
+    } else {
+      stream = warm;
+    }
+    try { stream.getVideoTracks()[0].applyConstraints(size); } catch(e){}
+
+    video = $("#camFeed");
+    video.srcObject = stream;
+    video.pause?.();                                   // not composited until the lens is live
+    return true;
   }
   /* the viewfinder is not a video element: it is a small canvas the feed
      is copied into a few times a second. Cheaper than compositing and
@@ -482,6 +528,7 @@ const INTRO = (() => {
   }
 
   return {
+    _paint: paintPrint,
     mount(){
       document.body.classList.add("intro-run");
       bindGate();
