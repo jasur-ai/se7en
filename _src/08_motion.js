@@ -68,16 +68,21 @@
       const w = b.querySelector(".wrap");
       if (w) heads.push({ b, n, w, top: 0 });
     });
-    let raf2 = 0;
+    let raf2 = 0, tickN = 0, seen = false;
     const loop = () => {
+      raf2 = requestAnimationFrame(loop);
+      if ((tickN++ & 1)) return;                 // 30 Hz is enough for parallax
       const vh = innerHeight;
-      heads.forEach(h => {
+      seen = false;
+      for (const h of heads) {
         const r = h.b.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > vh + 200) return;
+        if (r.bottom < -200 || r.top > vh + 200) continue;
+        seen = true;
         const p = Math.max(-1, Math.min(1, (r.top + r.height * 0.5 - vh * 0.5) / vh));
         if (h.n) h.n.style.transform = "translate3d(0," + (p * 42).toFixed(1) + "px,0)";
-      });
-      raf2 = requestAnimationFrame(loop);
+      }
+      // nothing of the dossier is on screen: stop measuring anything
+      if (!seen) { cancelAnimationFrame(raf2); raf2 = 0; }
     };
     raf2 = requestAnimationFrame(loop);
     document.addEventListener("visibilitychange", () => {

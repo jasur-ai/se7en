@@ -171,7 +171,9 @@ section.band{padding:clamp(72px,10vw,132px) clamp(18px,4vw,56px);position:relati
   padding:120px 22px 80px;text-align:center;
 }
 .hero-compass{position:absolute;top:50%;left:50%;width:min(112vh,96vw);height:min(112vh,96vw);transform:translate(-50%,-50%);opacity:.30;pointer-events:none}
-.hero-compass .spin{animation:slowspin 150s linear infinite;transform-origin:300px 300px}
+/* the compass holds still: rotating a 1120px SVG re-rasterises it every
+   frame, and it is behind text nobody reads through anyway */
+.hero-compass .spin{transform-origin:300px 300px}
 .hero-inner{position:relative;z-index:3;max-width:960px}
 .hero-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.46em;text-transform:uppercase;color:var(--blood-2);margin-bottom:26px}
 .hero-kicker i{font-style:normal;color:var(--muted-2);letter-spacing:.2em}
@@ -475,8 +477,8 @@ body.awake #dock{transform:translateY(0)}
         <span class="spill"></span><span class="sheet"></span><span class="led"></span>
       </div>
     </div>
+    <div class="dim"></div>
     <div class="edge"></div>
-    <div class="fire"></div>
     <div class="grain"></div>
   </div>
 
@@ -506,10 +508,8 @@ body.awake #dock{transform:translateY(0)}
       <feDisplacementMap in="SourceGraphic" in2="n" scale="70" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
   </svg>
-  <div class="flames" aria-hidden="true">
-    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-    <b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b>
-  </div>
+  <div class="flames" aria-hidden="true"></div>
+  <div class="firelight" aria-hidden="true"></div>
   <div class="hint" id="hint" data-i18n="in.hint">Take the print — drag it</div>
 
   <div class="gate" id="gate">

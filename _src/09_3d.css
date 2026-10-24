@@ -14,7 +14,8 @@
   position:fixed; inset:0; width:100%; height:100%;
   z-index:0; pointer-events:none;
   opacity:.78;
-  filter:saturate(.92) contrast(1.03);
+  /* no CSS filter on a full-screen canvas: it re-runs a full-screen pass
+     every frame. The grade lives in the shader instead. */
 }
 /* stacking: only the flow elements are promoted; the fixed chrome
    (#veil, #dock, .topbar, #drawer, #scrim) keeps its own positioning */
@@ -35,18 +36,27 @@ body{ background:#050404 }
   margin-left:-110vw; z-index:1; pointer-events:none;
   transform-origin:50% 100%;
   transform:perspective(700px) rotateX(74deg) translateY(calc(var(--camy) * 26px));
+  opacity:.5;
+  overflow:hidden;
+  animation:floorSway 26s ease-in-out infinite alternate;
+}
+/* the grid itself is a child that only ever MOVES — a background-position
+   loop on a 220vw surface repaints the whole floor every frame */
+.depth-grid::before{
+  content:""; position:absolute; left:0; right:0; top:-96px; bottom:-96px;
   background:
     repeating-linear-gradient(90deg, rgba(190,60,44,.13) 0 1px, transparent 1px 96px),
     repeating-linear-gradient(0deg, rgba(190,60,44,.10) 0 1px, transparent 1px 96px);
   mask-image:linear-gradient(to top, rgba(0,0,0,.85), transparent 62%);
   -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,.85), transparent 62%);
-  opacity:.5;
   animation:floorDrift 26s linear infinite;
+  will-change:transform;
 }
 @keyframes floorDrift{
-  from{ background-position:0 0, 0 0 }
-  to{ background-position:0 0, 0 -96px }
+  from{ transform:translate3d(0,0,0) }
+  to{ transform:translate3d(0,-96px,0) }
 }
+@keyframes floorSway{ from{ opacity:.42 } to{ opacity:.58 } }
 
 /* ── 3 · every band is a stage with real perspective ─────────── */
 .band{ position:relative; perspective:1600px; perspective-origin:50% 40% }
@@ -139,7 +149,9 @@ body{ background:#050404 }
 #hero .hero-rule{ transform:translateZ(80px) }
 #hero .hero-compass{
   transform:translate(-50%,-50%) translateZ(-220px) rotateX(calc(var(--camy) * 10deg)) rotateY(calc(var(--camx) * -14deg));
-  transition:transform .2s linear;
+  transition:transform .28s var(--ease);
+  will-change:transform;
+  contain:paint;
 }
 
 /* the hero arrives out of the dark on entry */
@@ -493,3 +505,24 @@ body.yt #dock{ display:none !important }
 }
 .music-credits .mc-note a{ color:#b9a684; text-decoration:none; border-bottom:1px solid rgba(185,166,132,.35) }
 .music-credits .mc-note a:hover{ color:#e8dfd2; border-color:#e8dfd2 }
+
+/* ── the painted plate, for machines that cannot composite the live
+      one: the same fog, baked into gradients. Nothing moves. ────── */
+body.no-depth::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 46% at 22% 18%, rgba(120,26,18,.30), transparent 68%),
+    radial-gradient(ellipse 44% 38% at 82% 62%, rgba(96,34,22,.22), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 108%, rgba(74,20,12,.34), transparent 72%),
+    linear-gradient(180deg, #08070a 0%, #050406 46%, #070505 100%);
+}
+body.no-depth::after{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
+  background-image:
+    radial-gradient(circle, rgba(236,229,217,.5) 0 1px, transparent 1.4px),
+    radial-gradient(circle, rgba(196,90,60,.45) 0 1px, transparent 1.3px);
+  background-size:220px 220px, 340px 340px;
+  background-position:0 0, 90px 140px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 78%);
+}

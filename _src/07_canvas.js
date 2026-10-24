@@ -136,12 +136,19 @@ const DEPTH = (() => {
   const uTime = gl.getUniformLocation(pDust, "uTime");
   const uDpr = gl.getUniformLocation(pDust, "uDpr");
 
-  let W = 0, H = 0, dpr = 1;
+  /* The plate is a soft fog and soft motes; it is composited behind
+     everything and slightly translucent. Rendering it at a third of the
+     screen and letting the compositor scale it is free, and it is the
+     difference between a 4 fps page and a 60 fps one. */
+  let W = 0, H = 0, dpr = 1, scale = 0.36;
   function resize(){
-    dpr = Math.min(window.devicePixelRatio || 1, 1.75);
-    W = Math.floor(innerWidth * dpr);
-    H = Math.floor(innerHeight * dpr);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const cap = 980;                             // never more than this wide
+    const w = Math.min(innerWidth, cap) * scale * dpr;
+    W = Math.max(320, Math.round(w));
+    H = Math.max(200, Math.round(W * innerHeight / innerWidth));
     canvas.width = W; canvas.height = H;
+    canvas.style.imageRendering = "auto";
     gl.viewport(0, 0, W, H);
   }
   resize();
@@ -169,7 +176,10 @@ const DEPTH = (() => {
   }
 
   const start = performance.now();
-  let raf = 0, alive = true;
+  let raf = 0, alive = true, last = 0, acc = 0, frames = 0, slow = 0;
+  const FOG_HZ = 1 / 11;                         // 11 redraws a second is plenty
+  let dustAt = -1;
+  let fogAt = -1;
 
   function frame(now){
     if (!alive && !reduce) return;
@@ -181,15 +191,20 @@ const DEPTH = (() => {
     const aspect = W / H;
     gl.disable(gl.BLEND);
 
-    gl.useProgram(pFog);
-    gl.bindBuffer(gl.ARRAY_BUFFER, quad);
-    gl.enableVertexAttribArray(aFogPos);
-    gl.vertexAttribPointer(aFogPos, 2, gl.FLOAT, false, 0, 0);
-    gl.uniform2f(uFogRes, W, H);
-    gl.uniform1f(uFogTime, t);
-    gl.uniform2f(uFogCam, cam.x, cam.y);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (t - fogAt > FOG_HZ){
+      fogAt = t;
+      gl.useProgram(pFog);
+      gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+      gl.enableVertexAttribArray(aFogPos);
+      gl.vertexAttribPointer(aFogPos, 2, gl.FLOAT, false, 0, 0);
+      gl.uniform2f(uFogRes, W, H);
+      gl.uniform1f(uFogTime, t);
+      gl.uniform2f(uFogCam, cam.x, cam.y);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
 
+    if (t - dustAt < 1 / 30) { last = now; return; }
+    dustAt = t;
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     gl.useProgram(pDust);
@@ -206,18 +221,71 @@ const DEPTH = (() => {
     gl.vertexAttribPointer(aSize, 1, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.POINTS, 0, N);
 
-    raf = requestAnimationFrame(frame);
+    /* adaptive: if this machine is struggling, drop the plate resolution
+       once and leave it there — no endless oscillation */
+    if (last) {
+      const dt = now - last;
+      acc += dt; frames++;
+      if (acc > 1400) {
+        const fps = frames / (acc / 1000);
+        if (fps < 40) { slow++; }
+        else slow = 0;
+        if (slow >= 2 && scale > 0.2) { scale *= 0.6; slow = 0; resize(); }
+        acc = 0; frames = 0;
+      }
+    }
+    last = now;
+  }
+
+  /* ── the honesty test ─────────────────────────────────────────
+     Some machines (old laptops, software GL, a phone in a background
+     tab) cannot composite a live WebGL plate without dragging the whole
+     page under 30 fps. Rather than guess from the user agent, the first
+     second of real frames is measured: if the page cannot hold ~45 fps,
+     the plate is put away and a painted CSS fog takes its place. The
+     dossier stays fast, and nobody has to know. */
+  let probeT = 0, probeN = 0, probed = false;
+  function probe(now){
+    if (probed) return;
+    if (!probeT){ probeT = now; return; }
+    probeN++;
+    const dt = now - probeT;
+    if (dt < 1400) return;
+    probed = true;
+    const fps = probeN / (dt / 1000);
+    if (fps < 45) {
+      alive = false;
+      cancelAnimationFrame(raf);
+      canvas.style.display = "none";
+      document.body.classList.add("no-depth");
+      console.info("[depth] plate off — measured " + fps.toFixed(0) + " fps");
+    }
+  }
+
+  function tick(now){
+    if (!alive) return;
+    probe(now);
+    frame(now);
+    raf = requestAnimationFrame(tick);
   }
 
   if (reduce) { alive = false; frame(start); }
-  else raf = requestAnimationFrame(frame);
+  else raf = requestAnimationFrame(tick);
 
   /* stop burning frames when the tab is hidden */
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) { alive = false; cancelAnimationFrame(raf); }
-    else if (reduce) { return; }
-    else if (!reduce) { alive = true; raf = requestAnimationFrame(frame); }
+    else if (!reduce && !(probed && document.body.classList.contains("no-depth"))) {
+      alive = true;
+      raf = requestAnimationFrame(tick);
+    }
   });
 
-  return { cam };
+  /* the intro owns the screen; nothing behind it needs a single frame */
+  return {
+    cam,
+    pause(){ if (!alive) return; alive = false; cancelAnimationFrame(raf); },
+    resume(){ if (alive || reduce || (probed && document.body.classList.contains("no-depth"))) return;
+              alive = true; last = 0; raf = requestAnimationFrame(tick); }
+  };
 })();

@@ -260,7 +260,7 @@ const INTRO = (() => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false;
     try {
       stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: { ideal: 1280 }, height: { ideal: 960 }, facingMode: "user" },
+        video: { width: { ideal: 960 }, height: { ideal: 720 }, facingMode: "user" },
         audio: false
       });
       video = $("#camFeed");
@@ -288,6 +288,7 @@ const INTRO = (() => {
 
   /* ── scene beats ────────────────────────────────────────────── */
   async function run(){
+    try { if (window.DEPTH && DEPTH.pause) DEPTH.pause(); } catch(e){}
     root.classList.add("lit");
     sfx("powerUp");
     sfx("drone", 7.5);
@@ -392,6 +393,7 @@ const INTRO = (() => {
 
   function finish(){
     alive = false;
+    try { if (window.DEPTH && DEPTH.resume) DEPTH.resume(); } catch(e){}
     remember();
     root.classList.add("done");
     if (stream) stream.getTracks().forEach(t => t.stop());
@@ -428,6 +430,19 @@ const INTRO = (() => {
 
   function start(){
     $("#introSkip").classList.add("show");
+    // if the room's camera never opened, say so plainly — a print of the
+    // empty room should not be mistaken for a broken photograph
+    if (!stream) {
+      const note = document.createElement("p");
+      note.className = "camnote show";
+      note.setAttribute("data-i18n", "in.nocam");
+      let txt = "Camera not opened — the plate is of the empty room";
+      try { if (typeof t === "function") txt = t("in.nocam"); } catch(e){}
+      note.textContent = txt;
+      root.appendChild(note);
+      setTimeout(() => note.classList.add("gone"), 5200);
+      setTimeout(() => note.remove(), 6400);
+    }
     run();
   }
 

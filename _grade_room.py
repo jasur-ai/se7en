@@ -24,8 +24,12 @@ def grade(path, W, q):
     a = np.asarray(im).astype(np.float32) / 255.0
 
     a = np.clip((a - 0.012) / 0.988, 0, 1)
-    a = a ** 1.22
-    a = np.clip(a * 0.90 + 0.008, 0, 1)
+    a = a ** 1.42                       # the room is murky on purpose
+    a = np.clip(a * 0.58 + 0.004, 0, 1)
+    # a touch less colour: dried blood, not a poster
+    g0 = a @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+    a = np.clip(g0[..., None] + (a - g0[..., None]) * 0.72, 0, 1)
+    a = a + np.array([0.010, 0.002, -0.004], np.float32)
 
     lum = (a @ np.array([0.2126, 0.7152, 0.0722], np.float32))[..., None]
     shadow = np.clip(1.0 - lum * 2.2, 0, 1)
