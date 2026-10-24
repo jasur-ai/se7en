@@ -455,7 +455,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }, true);
 
   /* the intro hands over here: title ignites, then the doors */
-  addEventListener("dossier:open", ()=>{ veilEl.style.display = ""; openDossier(); });
+  addEventListener("dossier:open", ()=>{
+    veilEl.style.display = "";
+    try { if (window.SFX && SFX.duckAmbient) SFX.duckAmbient(); } catch(e){}
+    openDossier();
+  });
 
   /* before anything else: the room is already making its noise */
   try { if (window.SFX && SFX.armAmbient) SFX.armAmbient(); } catch(e){}

@@ -3647,7 +3647,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }, true);
 
   /* the intro hands over here: title ignites, then the doors */
-  addEventListener("dossier:open", ()=>{ veilEl.style.display = ""; openDossier(); });
+  addEventListener("dossier:open", ()=>{
+    veilEl.style.display = "";
+    try { if (window.SFX && SFX.duckAmbient) SFX.duckAmbient(); } catch(e){}
+    openDossier();
+  });
 
   /* before anything else: the room is already making its noise */
   try { if (window.SFX && SFX.armAmbient) SFX.armAmbient(); } catch(e){}
@@ -4536,6 +4540,36 @@ const SFX = (() => {
     ring(d){ const c = this.ensure(); if (c) ring(bus, c.currentTime + 0.015, d || 4.5); },
     fire(d){ const c = this.ensure(); if (c) fire(bus, c.currentTime + 0.02, d || 6); },
 
+    /* once the dossier's own sound arrives, the room tone steps back */
+    duckAmbient(v){
+      const c = ctx; if (!c || !amb) return;
+      const t = c.currentTime;
+      try {
+        amb.gain.cancelScheduledValues(t);
+        amb.gain.setValueAtTime(Math.max(0.0001, amb.gain.value), t);
+        amb.gain.exponentialRampToValueAtTime(Math.max(0.004, v == null ? 0.022 : v), t + 3.5);
+      } catch(e){}
+    },
+    /* QA: is the room actually making a sound right now? */
+    ambientOn(){ return !!amb; },
+    probe(ms){
+      return new Promise((res) => {
+        const c = this.ensure();
+        if (!c || !bus) return res({ rms: 0, state: "none" });
+        const an = c.createAnalyser(); an.fftSize = 2048;
+        bus.out.connect(an);
+        const buf = new Float32Array(an.fftSize);
+        let peak = 0, n = 0, sum = 0;
+        const step = () => {
+          an.getFloatTimeDomainData(buf);
+          for (let i = 0; i < buf.length; i += 8){ const v = Math.abs(buf[i]); if (v > peak) peak = v; sum += v * v; n++; }
+          if (performance.now() - t0 < (ms || 400)) setTimeout(step, 30);
+          else { try { bus.out.disconnect(an); } catch(e){} res({ rms: Math.sqrt(sum / Math.max(1, n)), peak, state: c.state, ambient: !!amb }); }
+        };
+        const t0 = performance.now();
+        step();
+      });
+    },
     /* QA hook: render the same sequence offline and report levels */
     probe(seconds){
       seconds = seconds || 5;
