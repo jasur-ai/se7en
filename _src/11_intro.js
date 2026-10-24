@@ -122,29 +122,21 @@ const INTRO = (() => {
   function placeFigure(c, cx, footY, height, alpha, blur, mode, tilt, thin, light){
     const im = figure();
     if (!im || !im.complete || !im.naturalWidth) return false;
-    /* thin < 1 pulls the body narrower: a photograph of a person, stretched
-       until the proportions are wrong. Nothing about it is drawn. */
+    /* thin < 1 pulls her narrower; the photograph does the rest */
     const k = thin || 1;
     const w = height * (im.naturalWidth / im.naturalHeight) * k;
     c.save();
     c.translate(cx, footY);
     if (tilt) c.rotate(tilt);
 
-    /* It blocks the flash. The figure is painted almost black and laid in
-       multiply, so wherever it stands the wall behind it goes dark — the
-       one thing a cut-out can never do, and the reason this reads as a
-       body in the room instead of a sticker on the photograph. */
-    c.globalCompositeOperation = "source-over";
-    c.globalAlpha = alpha * 0.92;
-    c.filter = "blur(" + blur + "px) brightness(" + (light || .34) + ") contrast(1.28)";
+    /* She blocks the flash. The photograph is on a white studio ground;
+       laid in multiply, that ground disappears by itself and only her body
+       takes light away from the wall behind her. This is the whole trick:
+       no cut-out, no drawn shape — a photograph standing in the room. */
+    c.globalCompositeOperation = "multiply";
+    c.globalAlpha = Math.min(1, alpha);
+    c.filter = "blur(" + blur + "px) contrast(1.12)";
     c.drawImage(im, -w / 2, -height, w, height);
-
-    /* and because a silhouette needs one lit edge to have a shape at all,
-       the flash picks out the side of it that faces the lens */
-    c.globalCompositeOperation = "screen";
-    c.globalAlpha = alpha * 0.26;
-    c.filter = "blur(" + Math.max(1.2, blur * 0.8) + "px) brightness(1.2)";
-    c.drawImage(im, -w / 2 - 1.5, -height - 1, w, height);
     c.restore();
     return true;
   }
@@ -279,44 +271,56 @@ const INTRO = (() => {
      the labels the browser only reveals afterwards, and if the default
      is a phone, switch to the built-in one. */
   const PHONE = /(phone|droidcam|iriun|epoc|camo|continuity|iphone|android|pixel|galaxy|oneplus|xiaomi|huawei|redmi)/i;
-  const BUILTIN = /(integrated|built-?in|internal|facetime|hd webcam|webcam|front camera|user facing|ir camera)/i;
-
-  async function pickDevice(){
-    try {
-      const list = (await navigator.mediaDevices.enumerateDevices())
-        .filter(d => d.kind === "videoinput" && d.deviceId);
-      if (!list.length) return null;
-      const good = list.filter(d => !PHONE.test(d.label || ""));
-      const pool = good.length ? good : list;
-      const builtin = pool.find(d => BUILTIN.test(d.label || ""));
-      return (builtin || pool[0]).deviceId;
-    } catch(e){ return null; }
-  }
+  const BUILTIN = /(integrated|built-?in|internal|facetime|hd webcam|webcam|front|user facing|ir camera)/i;
 
   async function openCamera(){
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false;
+    const md = navigator.mediaDevices;
+    if (!md || !md.getUserMedia) return false;
     const size = { width: { ideal: 640 }, height: { ideal: 480 } };
-    let warm = null;
-    try { warm = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }); }
-    catch (e) { return false; }                       // refused, or no camera at all
 
-    const id = await pickDevice();
-    const chosen = warm.getVideoTracks()[0]?.getSettings()?.deviceId;
-    if (id && id !== chosen) {
-      try {
-        warm.getTracks().forEach(t => t.stop());
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: Object.assign({ deviceId: { exact: id } }, size), audio: false
-        });
-      } catch (e) { stream = warm; }                   // fall back to what we had
-    } else {
-      stream = warm;
+    /* 1 · ask plainly. Whatever the browser offers by default, take it —
+           a refusal or a dead device stops us here, honestly. */
+    try {
+      stream = await md.getUserMedia({ video: size, audio: false });
+    } catch (e) {
+      try { stream = await md.getUserMedia({ video: true, audio: false }); }
+      catch (e2) { return false; }
     }
+
+    /* 2 · now that permission is granted the labels are readable. If the
+           thing we were handed is a phone (DroidCam, Iriun, Continuity),
+           switch to the machine's own camera — but never at the cost of a
+           working stream: every attempt has its own try/catch and the first
+           good one wins. */
+    let want = null;
+    try {
+      const list = (await md.enumerateDevices()).filter(d => d.kind === "videoinput" && d.deviceId);
+      const notPhone = list.filter(d => !PHONE.test(d.label || ""));
+      const pool = notPhone.length ? notPhone : list;
+      const builtin = pool.find(d => BUILTIN.test(d.label || ""));
+      want = (builtin || pool[0]).deviceId;
+    } catch (e) { want = null; }
+
+    const current = stream.getVideoTracks()[0]?.getSettings?.()?.deviceId;
+    if (want && want !== current) {
+      let better = null;
+      try { better = await md.getUserMedia({ video: Object.assign({ deviceId: { exact: want } }, size), audio: false }); }
+      catch (e) {
+        try { better = await md.getUserMedia({ video: Object.assign({ deviceId: want }, size), audio: false }); }
+        catch (e2) { better = null; }
+      }
+      if (better && better.getVideoTracks().length) {
+        stream.getTracks().forEach(t => t.stop());
+        stream = better;
+      }
+      /* if the switch failed, the original stream is still live and untouched */
+    }
+
     try { stream.getVideoTracks()[0].applyConstraints(size); } catch(e){}
 
     video = $("#camFeed");
     video.srcObject = stream;
-    video.pause?.();                                   // not composited until the lens is live
+    video.pause?.();
     return true;
   }
   /* the viewfinder is not a video element: it is a small canvas the feed
