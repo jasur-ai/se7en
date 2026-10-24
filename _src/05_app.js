@@ -457,6 +457,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
   /* the intro hands over here: title ignites, then the doors */
   addEventListener("dossier:open", ()=>{ veilEl.style.display = ""; openDossier(); });
 
+  /* before anything else: the room is already making its noise */
+  try { if (window.SFX && SFX.armAmbient) SFX.armAmbient(); } catch(e){}
+
   /* repeat visits: straight in, no veil, no ceremony */
   const introPending = !!(window.INTRO && INTRO.willRun && INTRO.willRun());
   if (introPending){

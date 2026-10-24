@@ -372,12 +372,76 @@ const SFX = (() => {
     return 4.4;
   }
 
+  /* ── the bed ─────────────────────────────────────────────────────
+     The site does not open with a jingle. It opens with the sound of a
+     room you are already inside: a sub-bass that is too low to place, a
+     breath of filtered noise, and a thin tone at the top that makes the
+     ears tighten. Nothing loops audibly; the LFOs run at irrational
+     ratios so it never repeats. It starts the moment the browser allows
+     sound, and never stops until the tab does. */
+  let amb = null;
+  function startAmbient(){
+    const c = ctx; if (!c || !bus || amb) return;
+    const t = c.currentTime;
+    const g = c.createGain(); g.gain.value = 0.0001; g.connect(bus.out);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.075, t + 9);
+
+    // two subs, a semitone-and-a-bit apart: a beat you feel, not hear
+    [41.2, 43.65, 61.7].forEach((hz, i) => {
+      const o = c.createOscillator(); o.type = "sine"; o.frequency.value = hz;
+      const og = c.createGain(); og.gain.value = [0.9, 0.6, 0.22][i];
+      const lfo = c.createOscillator(); lfo.type = "sine"; lfo.frequency.value = 0.037 + i * 0.021;
+      const lg = c.createGain(); lg.gain.value = [0.28, 0.2, 0.1][i];
+      lfo.connect(lg); lg.connect(og.gain);
+      o.connect(og); og.connect(g); o.start(t); lfo.start(t);
+    });
+
+    // breath: pink noise through a lowpass that opens and closes slowly
+    const n = c.createBufferSource(); n.buffer = mkNoise(c, 4); n.loop = true;
+    const lp = c.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 240; lp.Q.value = 0.9;
+    const nl = c.createOscillator(); nl.type = "sine"; nl.frequency.value = 0.019;
+    const nlg = c.createGain(); nlg.gain.value = 150;
+    nl.connect(nlg); nlg.connect(lp.frequency);
+    const ng = c.createGain(); ng.gain.value = 0.5;
+    n.connect(lp); lp.connect(ng); ng.connect(g); n.start(t); nl.start(t);
+
+    // the thin tone at the top of hearing a bad room
+    const hi = c.createOscillator(); hi.type = "sine"; hi.frequency.value = 2760;
+    const hg = c.createGain(); hg.gain.value = 0.0035;
+    const ht = c.createOscillator(); ht.type = "sine"; ht.frequency.value = 0.11;
+    const htg = c.createGain(); htg.gain.value = 0.0025;
+    ht.connect(htg); htg.connect(hg.gain);
+    hi.connect(hg); hg.connect(g); hi.start(t); ht.start(t);
+
+    amb = g;
+
+    // and every so often, something in the room settles
+    const creak = () => {
+      if (!ctx || ctx.state !== "running") return;
+      try { paper(bus, ctx.currentTime + 0.05); } catch(e){}
+      setTimeout(creak, 19000 + Math.random() * 26000);
+    };
+    setTimeout(creak, 12000);
+  }
+
   return {
     ensure(){
       if (!AC) return null;
       if (!ctx){ ctx = new AC(); bus = graph(ctx, ctx.destination); }
       if (ctx.state === "suspended") { try { ctx.resume(); } catch (e) {} }
       return ctx;
+    },
+    /* sound arrives with the page, not with a click */
+    armAmbient(){
+      const go = () => { const c = this.ensure(); if (c && c.state === "running") startAmbient(); };
+      go();
+      if (amb) return;
+      const once = () => { go(); if (amb) { removeEventListener("pointerdown", once, true); removeEventListener("keydown", once, true); removeEventListener("touchstart", once, true); removeEventListener("wheel", once, true); } };
+      addEventListener("pointerdown", once, true);
+      addEventListener("keydown", once, true);
+      addEventListener("touchstart", once, true);
+      addEventListener("wheel", once, true);
     },
     /* the room opens */
     enter(){

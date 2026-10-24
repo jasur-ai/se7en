@@ -54,12 +54,21 @@ const INTRO = (() => {
     c.fillStyle = "#0c0a09"; c.fillRect(0, 0, PW, PH);
     const hasShot = !!(src && src.width && src.height);
     if (hasShot) {
+      /* a webcam in a dim room is not a photograph. measure it, and give
+         it the exposure the flash would have given it. */
+      let mean = 0;
+      try {
+        const d = src.getContext("2d").getImageData(0, 0, src.width, src.height).data;
+        for (let i = 0; i < d.length; i += 64) mean += (d[i] + d[i + 1] + d[i + 2]) / 3;
+        mean /= (d.length / 64);
+      } catch(e){ mean = 90; }
+      const lift = Math.max(1.0, Math.min(2.9, 118 / Math.max(24, mean)));
       const vr = src.width / src.height, cr = PW / PH;
       let sw = src.width, sh = src.height, sx = 0, sy = 0;
       if (vr > cr) { sw = src.height * cr; sx = (src.width - sw) / 2; }
       else { sh = src.width / cr; sy = (src.height - sh) / 2; }
       c.save();
-      c.filter = "brightness(1.22) contrast(1.05) saturate(.9)";
+      c.filter = "brightness(" + (lift).toFixed(2) + ") contrast(1.04) saturate(.88)";
       c.drawImage(src, sx, sy, sw, sh, 0, 0, PW, PH);
       c.restore();
     } else {
@@ -224,7 +233,12 @@ const INTRO = (() => {
         if (!sA && !bA && !eA) continue;
 
         const R = gd[i], G = gd[i + 1], B = gd[i + 2];
-        const k = near[y * PW + x];
+        let k = near[y * PW + x];
+        {
+          const ex = (x / PW - 0.50) / 0.36, ey = (y / PH - 0.56) / 0.48;
+          const e = Math.sqrt(ex * ex + ey * ey);
+          k *= smooth((e - 0.72) / 0.42);
+        }
 
         let r = R, g = G, bl = B;
 
@@ -469,8 +483,13 @@ const INTRO = (() => {
     try { stream.getVideoTracks()[0].applyConstraints(size); } catch(e){}
 
     video = $("#camFeed");
-    video.srcObject = stream;
-    video.pause?.();
+    if (video.srcObject !== stream) {
+      video.srcObject = stream;
+      /* it is two pixels wide and invisible, but it must keep running:
+         a paused video hands back the frame it stopped on, and an empty
+         camera hands back black. */
+      try { await video.play(); } catch(e){}
+    }
     return true;
   }
   function capture(){
@@ -478,8 +497,11 @@ const INTRO = (() => {
     const w = 840, h = 630;
     c.width = w; c.height = h;
     const x = c.getContext("2d");
-    x.fillStyle = "#0a0807"; x.fillRect(0, 0, w, h);
-    if (v && v.videoWidth) {
+
+    const draw = () => {
+      x.setTransform(1, 0, 0, 1, 0, 0);
+      x.fillStyle = "#0a0807"; x.fillRect(0, 0, w, h);
+      if (!v || !v.videoWidth) return 0;
       const vr = v.videoWidth / v.videoHeight, cr = w / h;
       let sw = v.videoWidth, sh = v.videoHeight, sx = 0, sy = 0;
       if (vr > cr) { sw = v.videoHeight * cr; sx = (v.videoWidth - sw) / 2; }
@@ -487,7 +509,27 @@ const INTRO = (() => {
       x.save(); x.translate(w, 0); x.scale(-1, 1);           // mirror, like a mirror
       x.drawImage(v, sx, sy, sw, sh, 0, 0, w, h);
       x.restore();
-    }
+      // how much of the frame is actually something?
+      const d = x.getImageData(0, 0, w, h).data;
+      let sum = 0, lit = 0;
+      for (let i = 0; i < d.length; i += 32){ const l = (d[i] + d[i+1] + d[i+2]) / 3; sum += l; if (l > 24) lit++; }
+      const n = d.length / 32;
+      return { avg: sum / n, lit: lit / n };
+    };
+
+    /* the camera needs a moment after the flash, and a laptop camera in a
+       dim room hands back black for the first few frames. keep asking
+       until there is a picture, then keep it. */
+    return new Promise((resolve) => {
+      let tries = 0;
+      const tick = () => {
+        const r = draw();
+        const ok = r && r.avg > 8 && r.lit > 0.06;
+        if (ok || tries++ > 14) return resolve(!!ok);
+        setTimeout(tick, 90);
+      };
+      tick();
+    });
   }
 
   /* ── scene beats ────────────────────────────────────────────── */
@@ -515,8 +557,7 @@ const INTRO = (() => {
       $("#flash").classList.add("fire");
       sfx("shutter");
       sfx("ring", 6.5);
-      capture();
-      paintPrint();
+      capture().then(() => paintPrint());
       root.classList.add("burned");
       await wait(2900);
       $("#flash").classList.remove("fire");
