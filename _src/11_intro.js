@@ -260,15 +260,44 @@ const INTRO = (() => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false;
     try {
       stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: { ideal: 960 }, height: { ideal: 720 }, facingMode: "user" },
+        video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: "user" },
         audio: false
       });
       video = $("#camFeed");
       video.srcObject = stream;
-      await video.play().catch(()=>{});
+      // attached but not played: a hidden full-screen video still costs a
+      // decode and a composite on every frame
+      video.pause?.();
       return true;
     } catch (e) { return false; }
   }
+  /* the viewfinder is not a video element: it is a small canvas the feed
+     is copied into a few times a second. Cheaper than compositing and
+     filtering a full-screen video every frame, and an old camera should
+     look like an old camera anyway. */
+  let viewTimer = 0;
+  function startView(){
+    const v = $("#camFeed"), cv = $("#camView");
+    if (!v || !cv) return;
+    const x = cv.getContext("2d");
+    const draw = () => {
+      if (!alive) return;
+      if (v.videoWidth) {
+        const vr = v.videoWidth / v.videoHeight, cr = cv.width / cv.height;
+        let sw = v.videoWidth, sh = v.videoHeight, sx = 0, sy = 0;
+        if (vr > cr) { sw = v.videoHeight * cr; sx = (v.videoWidth - sw) / 2; }
+        else { sh = v.videoWidth / cr; sy = (v.videoHeight - sh) / 2; }
+        x.save();
+        x.filter = "grayscale(.9) brightness(.58) contrast(1.16)";
+        x.drawImage(v, sx, sy, sw, sh, 0, 0, cv.width, cv.height);
+        x.restore();
+      }
+      viewTimer = setTimeout(draw, 110);
+    };
+    draw();
+  }
+  function stopView(){ clearTimeout(viewTimer); viewTimer = 0; }
+
   function capture(){
     const v = $("#camFeed"), c = $("#camShot");
     const w = 840, h = 630;
@@ -299,6 +328,8 @@ const INTRO = (() => {
     root.classList.add("zoom");   // the lens leans in
     await wait(4600);
     root.classList.add("live");   // and now it is looking at you
+    try { if (video) await video.play().catch(()=>{}); } catch(e){}
+    startView();
     await wait(3000);
 
     if (alive && !root.classList.contains("skipped")) {
@@ -320,6 +351,7 @@ const INTRO = (() => {
       $("#flash").classList.add("fire");
       sfx("shutter");
       sfx("ring", 6.5);
+      stopView();
       capture();
       paintPrint();
       root.classList.add("burned");
@@ -393,6 +425,7 @@ const INTRO = (() => {
 
   function finish(){
     alive = false;
+    document.body.classList.remove("intro-run");
     try { if (window.DEPTH && DEPTH.resume) DEPTH.resume(); } catch(e){}
     remember();
     root.classList.add("done");
@@ -447,7 +480,10 @@ const INTRO = (() => {
   }
 
   return {
-    mount(){ bindGate(); },
+    mount(){
+      document.body.classList.add("intro-run");
+      bindGate();
+    },
     /* the intro runs on a first visit, or after a reload */
     pending: () => !seen(),
     willRun: () => !seen() && !matchMedia("(prefers-reduced-motion: reduce)").matches

@@ -471,7 +471,7 @@ body.awake #dock{transform:translateY(0)}
   <div class="room">
     <div class="plate">
       <span class="blood"></span>
-      <span class="bulbglow"></span>
+      <span class="bulbglow"><i class="filament"></i></span>
       <span class="camled"></span>
       <div class="printer" id="printer">
         <span class="spill"></span><span class="sheet"></span><span class="led"></span>
@@ -479,11 +479,11 @@ body.awake #dock{transform:translateY(0)}
     </div>
     <div class="dim"></div>
     <div class="edge"></div>
-    <div class="grain"></div>
   </div>
 
   <div class="finder">
-    <video id="camFeed" playsinline muted autoplay></video>
+    <video id="camFeed" playsinline muted autoplay style="display:none"></video>
+    <canvas class="view" id="camView" width="480" height="320"></canvas>
     <div class="scan"></div>
     <div class="vig"></div>
     <div class="frame"><i></i><i></i><i></i><i></i></div>

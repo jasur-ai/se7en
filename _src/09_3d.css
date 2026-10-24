@@ -526,3 +526,12 @@ body.no-depth::after{
   mask-image:radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 78%);
   -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 78%);
 }
+
+/* while the intro owns the screen, nothing behind it should be
+   spending frames: these are the dossier's ambient loops */
+body.intro-run .depth-grid,
+body.intro-run .depth-grid::before,
+body.intro-run .scroll-cue::after,
+body.intro-run #hero .hero-compass,
+body.intro-run .hero-cue::after{ animation: none !important }
+body.intro-run .depth-grid{ opacity:.3 }
