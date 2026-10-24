@@ -59,7 +59,7 @@ const INTRO = (() => {
       if (vr > cr) { sw = src.height * cr; sx = (src.width - sw) / 2; }
       else { sh = src.width / cr; sy = (src.height - sh) / 2; }
       c.save();
-      c.filter = "brightness(1.10) contrast(1.02) saturate(.86)";
+      c.filter = "brightness(1.24) contrast(1.06) saturate(.92)";
       c.drawImage(src, sx, sy, sw, sh, 0, 0, PW, PH);
       c.restore();
     } else {
@@ -80,15 +80,15 @@ const INTRO = (() => {
 
     // the flash: hot in the middle, falling away at the corners — but never black
     const fl = c.createRadialGradient(PW * .5, PH * .40, PH * .02, PW * .5, PH * .5, PH * .95);
-    fl.addColorStop(0, "rgba(255,250,236,.30)");
-    fl.addColorStop(.28, "rgba(255,238,214,.10)");
+    fl.addColorStop(0, "rgba(255,250,236,.44)");
+    fl.addColorStop(.28, "rgba(255,238,214,.16)");
     fl.addColorStop(1, "rgba(0,0,0,0)");
     c.fillStyle = fl; c.fillRect(0, 0, PW, PH);
 
     // IT — standing behind your shoulder, and always has been
-    drawFigure(c, PW * 0.255, PH * 1.20, PH * 1.46, 2.4);
+    drawFigure(c, PW * 0.225, PH * 1.16, PH * 1.30, 3.2, .82);
     // a second one at the right edge of the frame, too close to the lens
-    drawHead(c, PW * 0.885, PH * 0.27, PH * 0.30);
+    drawHead(c, PW * 0.895, PH * 0.26, PH * 0.27);
 
     // blood
     bloodDrips(c, PW, PH);
@@ -136,12 +136,14 @@ const INTRO = (() => {
   }
 
   /* a figure: too tall, too thin, lit by the flash from the front */
-  function drawFigure(c, cx, footY, bodyH, blur){
+  function drawFigure(c, cx, footY, bodyH, blur, strength){
     const headH = bodyH * 0.070, shoulderW = bodyH * 0.150;
     const headY = footY - bodyH + headH;
     const hipY = footY - bodyH * 0.42;
+    const k = strength || 1;
     c.save();
     c.filter = "blur(" + blur + "px)";
+    c.globalAlpha = k;
     const g = c.createLinearGradient(0, headY - headH, 0, footY);
     g.addColorStop(0, "rgba(206,194,176,.97)");
     g.addColorStop(.18, "rgba(178,164,146,.95)");
