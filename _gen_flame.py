@@ -35,7 +35,8 @@ g = np.clip(core * 0.46 + mid * 0.22 + mass * 0.01, 0, 1)
 b = np.clip(core * 0.10 + mid * 0.015, 0, 1)
 alpha = np.clip(mass * 1.25, 0, 1) ** 0.8
 
-im = Image.fromarray((np.dstack([r, g, b, alpha]) * 255).astype('uint8'), 'RGBA')
+rgb = np.dstack([r, g, b]) * 0.80        # baked exposure: no runtime filter
+im = Image.fromarray((np.dstack([rgb, alpha]) * 255).astype('uint8'), 'RGBA')
 im = im.filter(ImageFilter.GaussianBlur(6)).resize((880, 566), Image.LANCZOS)
 
 buf = io.BytesIO()

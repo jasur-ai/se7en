@@ -256,16 +256,19 @@
   opacity:1; pointer-events:auto; cursor:grab;
   transform:translate(-50%,-50%) rotate(-1.3deg) scale(1);
   animation:printFloat 7s ease-in-out infinite;
+  will-change:transform;
 }
+/* it breathes by moving, not by repainting its shadow */
 @keyframes printFloat{
-  0%,100%{ box-shadow:0 50px 90px -34px #000, 0 14px 30px -18px rgba(0,0,0,.9), 0 0 0 1px rgba(0,0,0,.45), inset 0 0 60px rgba(96,66,40,.35) }
-  50%{ box-shadow:0 66px 110px -34px #000, 0 22px 40px -18px rgba(0,0,0,.95), 0 0 0 1px rgba(0,0,0,.45), inset 0 0 60px rgba(96,66,40,.35) }
+  0%,100%{ transform:translate(-50%,-50%) rotate(-1.3deg) scale(1) }
+  50%{ transform:translate(-50%,-50.6%) rotate(-1.15deg) scale(1.004) }
 }
 #intro .print.grab{ cursor:grabbing; transition:none; transform:translate(-50%,-50%) rotate(0deg) scale(1.05) }
 #intro .print .embers{ position:absolute; inset:-6% -4% 4%; pointer-events:none; overflow:visible }
 #intro .print .embers i{
   position:absolute; bottom:6%; width:2px; height:2px; border-radius:50%;
-  background:#ffb44a; box-shadow:0 0 8px 2px rgba(255,120,30,.55), 0 0 22px 6px rgba(255,80,20,.25);
+  background:radial-gradient(circle, rgba(255,214,140,.95), rgba(255,120,30,.55) 45%, rgba(255,80,20,0) 72%);
+  width:6px; height:6px;
   opacity:0;
 }
 #intro.burn .print .embers i{ animation:ember 4.6s linear infinite }
