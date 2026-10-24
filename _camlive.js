@@ -5,9 +5,8 @@ const { chromium } = require('playwright');
   const ctx = await b.newContext({viewport:{width:1366,height:900}, permissions:['camera']});
   const p = await ctx.newPage();
   const errs=[]; p.on('pageerror',e=>errs.push(String(e)));
-  await p.goto('https://se7en-omega.vercel.app/?intro=1',{waitUntil:'load',timeout:60000});
+  await p.goto('http://localhost:8099/index.html?intro=1',{waitUntil:'load',timeout:60000});
   await p.waitForTimeout(1500);
-  await p.click('#introStart');
   await p.waitForFunction(() => !!document.querySelector('#print.show'), null, {timeout:120000});
   console.log(JSON.stringify(await p.evaluate(() => {
     const c = document.getElementById('printCanvas');

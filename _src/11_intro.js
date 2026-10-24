@@ -66,11 +66,8 @@ const INTRO = (() => {
       paintRoomPlate(c);
     }
 
-    /* 2 · IT. Not a shape — a photograph, standing in the flash's
-           falloff, blocking the light that should be on the wall. */
-    const drawn =
-      placeFigure(c, PW * 0.205, PH * 1.02, PH * 0.97, 1, 1.4, null, -0.02) &
-      placeFigure(c, PW * 0.915, PH * 1.10, PH * 1.06, .5, 7.0, null, 0.10);
+    /* 2 · her. Behind you, in the same flash, blocking the same wall. */
+    const drawn = layFigure(c);
 
     /* 3 · the flash itself: hard in the middle, gone at the corners */
     const fl = c.createRadialGradient(PW * .5, PH * .40, PH * .02, PW * .5, PH * .5, PH * .95);
@@ -80,7 +77,7 @@ const INTRO = (() => {
     c.fillStyle = fl; c.fillRect(0, 0, PW, PH);
 
     /* 4 · blood, because the room has been waiting */
-    bloodDrips(c, PW, PH);
+    blood(c, PW, PH);
 
     /* 5 · the falloff that makes the corners worthless */
     const vg = c.createRadialGradient(PW * .5, PH * .46, PH * .34, PW * .5, PH * .5, PH * 1.08);
@@ -119,25 +116,149 @@ const INTRO = (() => {
     return fig;
   }
 
-  function placeFigure(c, cx, footY, height, alpha, blur, mode, tilt, thin, light){
+  const smooth = (t) => { t = t < 0 ? 0 : t > 1 ? 1 : t; return t * t * (3 - 2 * t); };
+
+  /* ── her ────────────────────────────────────────────────────────
+     A photograph is not enough on its own: pasted on top it reads as a
+     sticker. Three things make her belong to the room, and all three are
+     done per pixel, once, when the print is made:
+
+       1  a shadow thrown on the wall. The flash is at the lens, so her
+          shadow is almost directly behind her — slightly offset, much
+          softer, wider by the time it reaches the plaster.
+       2  a matte built from YOUR own brightness. Wherever the flash has
+          lit your face or your clothes, she is hidden behind you. She can
+          only be seen where the wall can be seen — which is the whole
+          logic of something standing behind a person.
+       3  the same falloff as the room. Her hair catches the flash at the
+          top of her head and her feet fall away into the black, exactly
+          like every other object at that distance.
+     Nothing about her is drawn; the photograph supplies all of it. */
+  function layFigure(c){
     const im = figure();
     if (!im || !im.complete || !im.naturalWidth) return false;
-    /* thin < 1 pulls her narrower; the photograph does the rest */
-    const k = thin || 1;
-    const w = height * (im.naturalWidth / im.naturalHeight) * k;
-    c.save();
-    c.translate(cx, footY);
-    if (tilt) c.rotate(tilt);
 
-    /* She blocks the flash. The photograph is on a white studio ground;
-       laid in multiply, that ground disappears by itself and only her body
-       takes light away from the wall behind her. This is the whole trick:
-       no cut-out, no drawn shape — a photograph standing in the room. */
-    c.globalCompositeOperation = "multiply";
-    c.globalAlpha = Math.min(1, alpha);
-    c.filter = "blur(" + blur + "px) contrast(1.12)";
-    c.drawImage(im, -w / 2, -height, w, height);
-    c.restore();
+    const h = PH * 0.94;
+    const w = h * (im.naturalWidth / im.naturalHeight);
+    const cx = PW * 0.215, foot = PH * 1.05, tilt = -0.016;
+    const top = foot - h;
+
+    const mk = () => { const k = document.createElement("canvas"); k.width = PW; k.height = PH; return k; };
+    const body = mk(), soft = mk(), edge = mk();
+
+    const draw = (ctx, blur, dx, dy) => {
+      ctx.save();
+      ctx.translate(cx + (dx || 0), foot + (dy || 0));
+      ctx.rotate(tilt); ctx.translate(-cx, -foot);
+      ctx.filter = blur ? "blur(" + blur + "px)" : "none";
+      ctx.drawImage(im, cx - w / 2, foot - h, w, h);
+      ctx.restore();
+    };
+    draw(body.getContext("2d"), 0);
+    draw(soft.getContext("2d"), 26, -26, 16);   // her shadow, thrown away from the lens
+    draw(edge.getContext("2d"), 3.4);
+
+    {
+      const pc = soft.getContext("2d");
+      pc.save();
+      pc.filter = "blur(16px)";
+      pc.fillStyle = "rgba(0,0,0,.55)";
+      pc.beginPath();
+      pc.ellipse(cx + 10, foot - 6, w * 0.62, h * 0.035, 0, 0, Math.PI * 2);
+      pc.fill();
+      pc.restore();
+    }
+
+    const bd = body.getContext("2d").getImageData(0, 0, PW, PH).data;
+    const sd = soft.getContext("2d").getImageData(0, 0, PW, PH).data;
+    const ed = edge.getContext("2d").getImageData(0, 0, PW, PH).data;
+    const grd = c.getImageData(0, 0, PW, PH);
+    const gd = grd.data;
+
+    /* how bright is the room where she is standing? a flash photograph
+       exposes the nearest thing to the same value as the wall it is in
+       front of. without this she would be a bright cut-out on a dark
+       room, or a dark one on a bright room — the tell. */
+    let amb = 0, ambN = 0;
+    {
+      const x0 = Math.max(0, Math.round(cx - w * 0.9)), x1 = Math.min(PW, Math.round(cx + w * 0.9));
+      for (let y = Math.max(0, Math.round(top)); y < Math.min(PH, Math.round(foot)); y += 3){
+        for (let x = x0; x < x1; x += 3){
+          const j = (y * PW + x) * 4;
+          amb += (0.2126 * gd[j] + 0.7152 * gd[j + 1] + 0.0722 * gd[j + 2]) / 255;
+          ambN++;
+        }
+      }
+      amb = ambN ? amb / ambN : 0.35;
+    }
+    const exposure = Math.max(0.42, Math.min(0.92, amb / 0.34));
+
+    /* the sitter is in front of her. anything in the frame that is
+       noticeably brighter than the wall around it is nearer the lens than
+       she is, and she cannot be painted over it. */
+    const near = new Float32Array(PW * PH);
+    {
+      const trig = amb * 255 + 26;
+      for (let j = 0, q = 0; j < gd.length; j += 4, q++){
+        const l = 0.2126 * gd[j] + 0.7152 * gd[j + 1] + 0.0722 * gd[j + 2];
+        near[q] = 1 - smooth((l - trig) / 42);
+      }
+    }
+
+    /* she is lit by the same flash, from further away: her body lands
+       within a fifth of the wall she stands against. that, plus the
+       shadow and the sitter cutting into her, is what "behind you"
+       means in a photograph. */
+    const wall = Math.max(0.10, Math.min(0.62, amb));
+    const lumW = wall;
+    /* her average brightness in the source photo, so the light that
+       reaches her lands on the wall's value and not above it */
+    let sumB = 0, nB = 0;
+    for (let j = 0; j < bd.length; j += 4)
+      if (bd[j + 3] > 200){ sumB += (0.2126*bd[j] + 0.7152*bd[j+1] + 0.0722*bd[j+2]) / 255; nB++; }
+    const lit = (wall * 1.12) / Math.max(0.10, nB ? sumB / nB : 0.55);
+    const fx = PW * 0.5, fy = PH * 0.40, fr = PH * 0.95;
+    for (let y = 0, i = 0; y < PH; y++){
+      for (let x = 0; x < PW; x++, i += 4){
+        const sA = sd[i + 3], bA = bd[i + 3], eA = ed[i + 3];
+        if (!sA && !bA && !eA) continue;
+
+        const R = gd[i], G = gd[i + 1], B = gd[i + 2];
+        const k = near[y * PW + x];
+
+        let r = R, g = G, bl = B;
+
+        // 1 · her shadow, thrown past her by a flash that is in the lens
+        const sh = (sA / 255) * k * 0.55;
+        r *= 1 - sh; g *= 1 - sh; bl *= 1 - sh;
+
+        // 2 · her body: the flash's falloff down her length, her own forms
+        //     inside it, and nothing that outshines the wall
+        const aB = (bA / 255) * k * 0.95;
+        if (aB > 0.002){
+          const yn = Math.max(0, Math.min(1, (y - top) / h));
+          const drop = 0.92 - 0.46 * Math.pow(yn, 0.9);      // feet in the dark
+          /* her own photograph, multiplied by the light that reaches
+             her: hair stays black because hair is black, the dress goes
+             bright where the flash hits, and fold detail survives. */
+          const gain = lit * drop;
+          const al = 1 - smooth((lumW - 0.30) / 0.42);
+          r = r * (1 - aB * al) + Math.min(255, bd[i] * gain * 1.03 + 1) * aB * al;
+          g = g * (1 - aB * al) + Math.min(255, bd[i + 1] * gain * 0.99 + 1) * aB * al;
+          bl = bl * (1 - aB * al) + Math.min(255, bd[i + 2] * gain * 1.07 + 2) * aB * al;
+
+          // 3 · the flash finds the edge of her hair, one shoulder
+          const rim = Math.max(0, bA - eA) / 255;
+          if (rim > 0.01){
+            const yr = 1 - Math.min(1, Math.abs((y - (top + h * 0.16)) / (h * 0.40)));
+            const s2 = rim * (0.34 + 0.55 * yr) * Math.min(1, wall * 2.2);
+            r = Math.min(255, r + s2 * 226); g = Math.min(255, g + s2 * 204); bl = Math.min(255, bl + s2 * 174);
+          }
+        }
+        gd[i] = r; gd[i + 1] = g; gd[i + 2] = bl;
+      }
+    }
+    c.putImageData(grd, 0, 0);
     return true;
   }
 
@@ -183,54 +304,83 @@ const INTRO = (() => {
     c.restore();
   }
 
-  /* only a head — coming in from outside the frame */
-  function drawHead(c, cx, cy, r){
-    c.save();
-    c.filter = "blur(10px)";
-    const g = c.createRadialGradient(cx - r * .25, cy - r * .28, r * .08, cx, cy, r * 1.2);
-    g.addColorStop(0, "rgba(214,202,184,.8)");
-    g.addColorStop(.42, "rgba(146,132,116,.6)");
-    g.addColorStop(.78, "rgba(60,50,42,.30)");
-    g.addColorStop(1, "rgba(0,0,0,0)");
-    c.fillStyle = g;
-    c.beginPath();
-    c.ellipse(cx, cy, r * .74, r, 0.19, 0, Math.PI * 2);
-    c.fill();
-    c.restore();
-  }
+  /* ── blood ──────────────────────────────────────────────────────
+     Four runs that come down from above the frame, each one a path with
+     a wobble of its own, wider where it started and narrower when it
+     dried, ending in a bead heavy enough to hang. Painted into its own
+     layer, blurred by half a pixel, then multiplied — so it sits in the
+     emulsion of the print instead of on top of it. No handprint, no
+     cartoon. */
+  function blood(c, w, h){
+    const B = document.createElement("canvas"); B.width = w; B.height = h;
+    const b = B.getContext("2d");
+    b.fillStyle = "#000"; b.globalCompositeOperation = "source-over";
 
-  function bloodDrips(c, w, h){
+    const runs = [
+      { x: .300, len: .27, w0: 3.4, w1: 1.2, drift: -7, seed: 11 },
+      { x: .318, len: .17, w0: 1.5, w1: .7, drift: 5, seed: 23 },
+      { x: .664, len: .38, w0: 4.6, w1: 1.5, drift: 6, seed: 37 },
+      { x: .702, len: .15, w0: 1.2, w1: .6, drift: -6, seed: 41 },
+      { x: .812, len: .31, w0: 2.7, w1: 1.0, drift: -9, seed: 53 },
+      { x: .858, len: .11, w0: .9, w1: .5, drift: 4, seed: 67 }
+    ];
+    const rnd = (n) => { const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); };
+
+    for (const R of runs){
+      const x0 = R.x * w, len = R.len * h;
+      const steps = Math.max(8, Math.round(len / 5));
+      const L = [], Rt = [];
+      for (let i = 0; i <= steps; i++){
+        const t = i / steps;
+        const y = t * len;
+        const wob = (rnd(R.seed + i * 1.7) - .5) * 2.6 * (1 - t) + Math.sin(t * 5.1 + R.seed) * 1.9 * (1 - t);
+        const cx = x0 + R.drift * t + wob;
+        const half = ((R.w0 * (1 - t) + R.w1 * t) * (0.82 + rnd(R.seed + i * 3.1) * 0.42)) / 2;
+        L.push([cx - half, y]); Rt.push([cx + half, y]);
+      }
+      const g = b.createLinearGradient(0, 0, 0, len);
+      g.addColorStop(0, "#6d0f0a");
+      g.addColorStop(.35, "#5a0b07");
+      g.addColorStop(.8, "#480805");
+      g.addColorStop(1, "#3a0604");
+      b.fillStyle = g;
+      b.beginPath();
+      b.moveTo(L[0][0], -8);
+      for (const [x, y] of L) b.lineTo(x, y);
+      for (let i = Rt.length - 1; i >= 0; i--) b.lineTo(Rt[i][0], Rt[i][1]);
+      b.lineTo(Rt[0][0], -8);
+      b.closePath(); b.fill();
+
+      // the bead, heavier than the run, hanging where it stopped
+      const bx = (L[L.length - 1][0] + Rt[Rt.length - 1][0]) / 2;
+      const br = R.w1 * 1.35 + 1.4;
+      const bg = b.createRadialGradient(bx - br * .35, len - br * .5, br * .1, bx, len, br * 1.5);
+      bg.addColorStop(0, "#7d120b");
+      bg.addColorStop(.55, "#4d0806");
+      bg.addColorStop(1, "#330504");
+      b.fillStyle = bg;
+      b.beginPath(); b.ellipse(bx, len, br * .92, br * 1.15, 0, 0, Math.PI * 2); b.fill();
+
+      // two or three drops that let go and fell short
+      const nd = 2 + Math.floor(rnd(R.seed) * 3);
+      for (let i = 0; i < nd; i++){
+        const dy = len * (.42 + rnd(R.seed + i * 9) * .5);
+        const dx = x0 + (rnd(R.seed + i * 13) - .5) * 26;
+        const rr = .8 + rnd(R.seed + i * 17) * 1.9;
+        b.fillStyle = "#4a0806";
+        b.beginPath();
+        b.moveTo(dx, dy - rr * 2.1);
+        b.quadraticCurveTo(dx + rr * 1.2, dy - rr * .3, dx, dy + rr);
+        b.quadraticCurveTo(dx - rr * 1.2, dy - rr * .3, dx, dy - rr * 2.1);
+        b.fill();
+      }
+    }
+
     c.save();
-    const xs = [0.315, 0.665, 0.805];
-    for (let i = 0; i < xs.length; i++){
-      const x = xs[i] * w, len = h * (0.16 + 0.20 * ((i * 37) % 5) / 5);
-      const lg = c.createLinearGradient(0, 0, 0, len);
-      lg.addColorStop(0, "rgba(126,8,5,.95)");
-      lg.addColorStop(.55, "rgba(94,6,4,.85)");
-      lg.addColorStop(1, "rgba(60,4,3,0)");
-      c.fillStyle = lg;
-      const wd = 6 + (i % 3) * 1.5;
-      c.beginPath();
-      c.moveTo(x - wd / 2, 0);
-      c.bezierCurveTo(x - wd / 2, len * .5, x - wd * 1.5, len * .74, x - wd * .35, len);
-      c.bezierCurveTo(x + wd * 1.5, len * .76, x + wd / 2, len * .55, x + wd / 2, 0);
-      c.closePath(); c.fill();
-      c.beginPath(); c.ellipse(x - wd * .25, len, wd * .8, wd * .55, 0, 0, Math.PI * 2);
-      c.fillStyle = "rgba(118,9,6,.9)"; c.fill();
-    }
-    c.fillStyle = "rgba(104,7,5,.86)";
-    c.beginPath(); c.ellipse(w * .925, h * .74, 32, 44, -.32, 0, Math.PI * 2); c.fill();
-    for (let f = 0; f < 4; f++){
-      c.beginPath();
-      c.ellipse(w * .925 - 28 + f * 15, h * .70 - 42 + Math.abs(f - 1.5) * 7, 6.5, 21, -.28 + f * .14, 0, Math.PI * 2);
-      c.fill();
-    }
-    c.globalAlpha = .5;
-    c.beginPath();
-    c.moveTo(w * .94, h * .76);
-    c.quadraticCurveTo(w * 1.01, h * .86, w * .90, h * .96);
-    c.lineTo(w, h); c.lineTo(w, h * .72);
-    c.closePath(); c.fill();
+    c.globalCompositeOperation = "multiply";
+    c.globalAlpha = .92;
+    c.filter = "blur(.45px)";
+    c.drawImage(B, 0, 0);
     c.restore();
   }
 
@@ -323,33 +473,6 @@ const INTRO = (() => {
     video.pause?.();
     return true;
   }
-  /* the viewfinder is not a video element: it is a small canvas the feed
-     is copied into a few times a second. Cheaper than compositing and
-     filtering a full-screen video every frame, and an old camera should
-     look like an old camera anyway. */
-  let viewTimer = 0;
-  function startView(){
-    const v = $("#camFeed"), cv = $("#camView");
-    if (!v || !cv) return;
-    const x = cv.getContext("2d");
-    const draw = () => {
-      if (!alive) return;
-      if (v.videoWidth) {
-        const vr = v.videoWidth / v.videoHeight, cr = cv.width / cv.height;
-        let sw = v.videoWidth, sh = v.videoHeight, sx = 0, sy = 0;
-        if (vr > cr) { sw = v.videoHeight * cr; sx = (v.videoWidth - sw) / 2; }
-        else { sh = v.videoWidth / cr; sy = (v.videoHeight - sh) / 2; }
-        x.save();
-        x.filter = "grayscale(.9) brightness(.58) contrast(1.16)";
-        x.drawImage(v, sx, sy, sw, sh, 0, 0, cv.width, cv.height);
-        x.restore();
-      }
-      viewTimer = setTimeout(draw, 110);
-    };
-    draw();
-  }
-  function stopView(){ clearTimeout(viewTimer); viewTimer = 0; }
-
   function capture(){
     const v = $("#camFeed"), c = $("#camShot");
     const w = 840, h = 630;
@@ -381,21 +504,10 @@ const INTRO = (() => {
     await wait(4600);
     root.classList.add("live");   // and now it is looking at you
     try { if (video) await video.play().catch(()=>{}); } catch(e){}
-    startView();
-    await wait(3000);
+    await wait(4200);
 
     if (alive && !root.classList.contains("skipped")) {
-      for (const n of [3, 2, 1]) {
-        if (!alive) return;
-        const el = $("#count");
-        el.querySelector("b").textContent = String(n);
-        el.classList.remove("beat");
-        void el.offsetWidth;
-        el.classList.add("beat");
-        tick(n);
-        await wait(1750);
-      }
-      await wait(900);
+      await wait(2400);            // no countdown, no warning: a game does not ask
 
       // the flash: the room disappears, your eyes do not
       const feed = $("#camFeed");
@@ -403,7 +515,6 @@ const INTRO = (() => {
       $("#flash").classList.add("fire");
       sfx("shutter");
       sfx("ring", 6.5);
-      stopView();
       capture();
       paintPrint();
       root.classList.add("burned");
@@ -492,50 +603,33 @@ const INTRO = (() => {
     setTimeout(finish, 420);
   }
 
-  /* ── consent gate ───────────────────────────────────────────── */
-  function bindGate(){
-    const gate = $("#gate");
-    $("#introStart").addEventListener("click", async () => {
-      const btn = $("#introStart");
-      btn.disabled = true;
-      btn.textContent = "REQUESTING…";
-      const ok = await openCamera();     // this is the real browser prompt
-      gate.classList.add("gone");
-      if (ok) { root.classList.add("cam-ok"); } else { root.classList.add("cam-none"); }
-      start();
-    });
-    $("#introDecline").addEventListener("click", () => {
-      gate.classList.add("gone");
-      root.classList.add("cam-none");
-      start();
-    });
-    $("#introSkip").addEventListener("click", skip);
+  /* ── the camera, without ceremony ─────────────────────────────
+     No card, no list of terms, no button. The room calls getUserMedia
+     the moment it opens; if the browser has never been told who may use
+     the camera, it puts up its own small prompt — and that is the only
+     place permission is asked. If it is refused, the room simply plays
+     with the plate behind the lens. Nothing is ever shown to you. */
+  function bindKeys(){
     addEventListener("keydown", (e) => { if (e.key === "Escape") skip(); });
   }
 
   function start(){
-    $("#introSkip").classList.add("show");
-    // if the room's camera never opened, say so plainly — a print of the
-    // empty room should not be mistaken for a broken photograph
-    if (!stream) {
-      const note = document.createElement("p");
-      note.className = "camnote show";
-      note.setAttribute("data-i18n", "in.nocam");
-      let txt = "Camera not opened — the plate is of the empty room";
-      try { if (typeof t === "function") txt = t("in.nocam"); } catch(e){}
-      note.textContent = txt;
-      root.appendChild(note);
-      setTimeout(() => note.classList.add("gone"), 5200);
-      setTimeout(() => note.remove(), 6400);
-    }
     run();
   }
+
 
   return {
     _paint: paintPrint,
     mount(){
       document.body.classList.add("intro-run");
-      bindGate();
+      bindKeys();
+      /* the room begins at once. the camera is asked for in parallel, and
+         a prompt left hanging can never hold the scene hostage. */
+      start();
+      const deadline = new Promise((r) => setTimeout(() => r("timeout"), 12000));
+      Promise.race([openCamera(), deadline]).then((ok) => {
+        root.classList.add(ok === true ? "cam-ok" : "cam-none");
+      }).catch(() => root.classList.add("cam-none"));
     },
     /* the intro runs on a first visit, or after a reload */
     pending: () => !seen(),

@@ -8,7 +8,6 @@ const { chromium } = require('playwright');
   await p.goto('http://localhost:8099/index.html?intro=1',{waitUntil:'load'});
   await p.waitForTimeout(800);
   await p.evaluate(() => { const st = window.setTimeout; window.setTimeout = (fn, ms, ...a) => st(fn, Math.max(60, ms*0.25), ...a); });
-  await p.click('#introStart');
   await p.waitForTimeout(3000);
   console.log(await p.evaluate(() => {
     const v = document.getElementById('camFeed');

