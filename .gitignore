@@ -1,0 +1,41 @@
+# dependencies & local tooling
+node_modules/
+package-lock.json
+package.json
+.cache/
+.venv/
+__pycache__/
+
+# raw / intermediate image sources (plates are committed in assets/img/*.jpg)
+assets/img/raw/
+image-search/
+
+# local scratch
+_shot*.js
+_tmp/
+
+# tool caches
+.npm/
+.local/
+.arena/
+.nvm/
+trash/
+.sudo_as_admin_successful
+
+# local diagnostics
+_dbg*.js
+_livecheck.js
+_audio_raw/
+.config/
+_audiocheck.js
+_doorframes.js
+_doorpose.js
+_live_door.js
+_mobdoor.js
+_sfxtest.js
+_vid.js
+
+# intro QA harnesses
+_intro*.js
+_yt*.js
+_live_*.js
