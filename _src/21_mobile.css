@@ -1,0 +1,124 @@
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE · the same dossier, built for a hand, not for a desk.
+   Loaded last so it wins against every earlier media query.
+   Two targets:  ≤ 860px  (tablet / big phone, landscape)
+                 ≤ 520px  (phone portrait)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* headings are split into one span per letter for the cut-in effect.
+   each letter is inline-block, which lets a word break anywhere — on a
+   narrow screen "INSTRUMENTS" came out as "INSTRUMENT / S". words are
+   now wrapped in .wd, which can never break. */
+.wd{ display:inline-block; white-space:nowrap }
+
+@media (max-width: 860px){
+
+  /* ── the bar ─────────────────────────────────────────────── */
+  .topbar{
+    height:56px; gap:8px; padding:0 12px;
+    background:linear-gradient(180deg, rgba(6,4,6,.98) 0%, rgba(6,4,6,.90) 72%, rgba(6,4,6,0) 100%);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  }
+  .wordmark{ gap:8px }
+  .wordmark svg{ width:18px; height:18px }
+  .wordmark span{ font-size:11px; letter-spacing:.20em }
+  .burger{
+    flex:0 0 32px; width:32px; min-width:32px; height:32px; margin-left:auto;
+  }
+  .burger svg{ width:15px; height:15px; flex:0 0 15px }
+  .bar-tools{ gap:3px; padding-left:0; border-left:0 }
+  .bar-tools .snd, .snd{ width:30px; height:30px; min-width:30px }
+  .lang{ gap:0 }
+  .lang button{ padding:6px 6px; font-size:9px; letter-spacing:.06em }
+  .navlinks.open{ top:56px }
+
+  html{ scroll-padding-top:64px }
+  /* the bar leaves when you are reading down, and comes back when you
+     reach up for it — a 56px slab across a 664px screen is a lot of page */
+  body.bar-hide .topbar{ transform:translateY(-101%) }
+
+  /* ── the audio dock: one small key, not a player ─────────── */
+  #dock{
+    left:auto; right:12px; bottom:12px; width:auto;
+    padding:3px; gap:0; opacity:.62; transition:opacity .5s var(--ease), transform .6s var(--ease);
+    background:rgba(9,7,12,.80); border-color:rgba(236,229,217,.16);
+    -webkit-backdrop-filter:none; backdrop-filter:none;
+    box-shadow:0 10px 24px -16px #000;
+  }
+  #dock:active, #dock:focus-within, body.audio-on #dock{ opacity:1 }
+  #dock .dock-meta, #dock .dock-steps, #dock #vol, #dock .eq, #dock .dock-credit{ display:none !important }
+  #dock .play{ width:38px; height:38px }
+  #dock .play svg{ width:13px; height:13px }
+
+  /* ── type: one size down, one rank up in contrast ─────────── */
+  body{ font-size:15.5px; -webkit-text-size-adjust:100% }
+  .hero-lede{ font-size:15.5px; line-height:1.62; color:rgba(232,222,203,.80) }
+  .sec-head{ gap:10px; flex-wrap:wrap }
+  .sec-num{ font-size:64px !important; margin-right:6px }
+  .sec-titles h2{
+    font-size:clamp(26px, 7.4vw, 46px) !important;
+    line-height:1.06 !important;
+    letter-spacing:.005em !important;
+    overflow-wrap:normal; word-break:normal; hyphens:none;
+  }
+  .sec-titles p{ font-size:14.5px; line-height:1.66; color:rgba(226,215,196,.70) }
+
+  /* the sections breathe a little more: a phone reads slower */
+  section{ padding-top:clamp(56px,9vw,96px); padding-bottom:clamp(56px,9vw,96px) }
+
+  /* ── sheets ───────────────────────────────────────────────── */
+  .card{ padding:22px 18px 20px }
+  .card p, .sin p, .best-p, .geo p{ font-size:14.6px; line-height:1.64 }
+  .sin{ padding:20px 18px }
+  .sin h3{ font-size:23px }
+  .tl-item{ padding:22px 20px 22px 34px !important; margin-left:6px }
+  .matrix{ font-size:13px }
+  .matrix th, .matrix td{ padding:10px 6px }
+
+  /* the drawer fills the phone, edge to edge */
+  #drawer{ width:100% !important; max-width:100% !important }
+  #drTitle{ font-size:clamp(26px,7vw,34px) }
+
+  /* ── the veil / title card ────────────────────────────────── */
+  .veil-title{ font-size:clamp(46px,15vw,86px) !important }
+
+  /* ── performance: a phone pays for every blurred layer ────── */
+  .grain{ opacity:.42 }
+  .vignette{ opacity:.92 }
+  .sin, .card{ box-shadow:0 18px 40px -28px #000 }
+}
+
+@media (max-width: 520px){
+
+  .hero-title{ font-size:clamp(42px, 15.5vw, 68px) !important; line-height:.94 !important }
+  .hero-meta div{ padding:12px 14px }
+  .hero-meta b{ font-size:22px }
+
+  .sec-num{ font-size:54px !important }
+  .sec-titles h2{ font-size:clamp(24px, 7.8vw, 38px) !important }
+
+  .card{ padding:20px 16px 18px }
+  .sin{ padding:18px 16px }
+  .sin h3{ font-size:21px }
+
+  .lang button{ padding:7px 7px; font-size:9.5px }
+  .wordmark span{ font-size:10.5px; letter-spacing:.18em }
+
+  /* the intro print, on a phone: it must sit in the hand */
+  #intro .print{ width:min(84vw, 380px) !important }
+  #intro .hint{ font-size:8.5px; bottom:11%; letter-spacing:.22em }
+  #intro .skip{
+    right:12px; bottom:12px; padding:12px 10px;
+    font-size:9.5px; letter-spacing:.22em; color:rgba(236,229,217,.55);
+  }
+  #intro .count b{ font-size:clamp(64px, 24vw, 120px) }
+  #intro .count{ width:min(70vw, 300px) !important }
+}
+
+/* touch: no sticky hover states, no 300 ms tap delay artefacts */
+@media (hover: none){
+  .sin:hover{ transform:none; box-shadow:0 18px 40px -28px #000 }
+  a, button{ -webkit-tap-highlight-color:transparent }
+  #intro .skip{ opacity:.6 }
+  #intro .skip:active{ opacity:1 }
+}

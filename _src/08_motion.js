@@ -101,13 +101,36 @@
       const plain = h.textContent.replace(/\s+/g, " ").trim();
       if (!plain || h.querySelector(".ch")) return;
       h.setAttribute("aria-label", plain);
-      h.innerHTML = Array.from(plain).map((c, i) =>
-        c === " " ? " " : '<span class="ch" style="--i:' + i + '">' + (c === "<" ? "&lt;" : c) + "</span>").join("");
+      /* one span per letter, but the letters of a word travel glued
+         together: a phone screen is narrow, and a per-letter inline-block
+         lets the line break inside "INSTRUMENTS". */
+      let i = 0;
+      h.innerHTML = plain.split(" ").map(word =>
+        '<span class="wd">' + Array.from(word).map(c =>
+          '<span class="ch" style="--i:' + (i++) + '">' + (c === "<" ? "&lt;" : c) + "</span>").join("") + "</span>"
+      ).join(" ");
     });
   };
   const run = () => window.cutHeadings();
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
+
+  /* ── 5b · the bar on a phone ──────────────────────────────────
+     a fixed 56px header over a 664px screen eats a tenth of the page.
+     it stays while you read upward, and steps aside when you move down. */
+  (function smartBar(){
+    if (!matchMedia("(max-width: 860px)").matches) return;
+    let last = scrollY, ticking = false, hidden = false;
+    const apply = () => {
+      const y = scrollY;
+      const down = y > last + 6, up = y < last - 6;
+      if (y < 120 && hidden){ hidden = false; document.body.classList.remove("bar-hide"); }
+      else if (down && y > 200 && !hidden){ hidden = true; document.body.classList.add("bar-hide"); }
+      else if (up && hidden){ hidden = false; document.body.classList.remove("bar-hide"); }
+      last = y; ticking = false;
+    };
+    addEventListener("scroll", () => { if (!ticking){ ticking = true; requestAnimationFrame(apply); } }, { passive: true });
+  })();
 
   /* ── 6 · reveal safety net ─────────────────────────────────────
      IntersectionObserver misses elements when the page is jumped

@@ -12,7 +12,11 @@ const INTRO = (() => {
   if (!root) return { pending: () => false, willRun: () => false, mount(){} };
 
   const $ = (s) => root.querySelector(s);
-  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+  /* a phone is watched in the hand, not in an armchair: the same beats,
+     played a little quicker, so the room opens in half a minute instead
+     of three quarters of one. */
+  const PACE = (typeof matchMedia === "function" && matchMedia("(max-width: 860px)").matches) ? 0.58 : 1;
+  const wait = (ms) => new Promise(r => setTimeout(r, ms * PACE));
   const KEY = "se7en.intro.v1";
   let alive = true, stream = null, video = null, grabbed = false;
 
@@ -857,6 +861,14 @@ const INTRO = (() => {
      with the plate behind the lens. Nothing is ever shown to you. */
   function bindKeys(){
     addEventListener("keydown", (e) => { if (e.key === "Escape") skip(); });
+    /* the skip key in the corner was printed but never wired: on a handset
+       that dead button was the whole difference between "the film" and
+       "the site is frozen". it now does what it says. */
+    const sk = $("#introSkip");
+    if (sk){
+      sk.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); skip(); });
+      setTimeout(() => { if (alive) sk.classList.add("show"); }, 3600);
+    }
   }
 
   function start(){
