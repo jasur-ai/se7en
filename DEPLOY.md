@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **YETTI** | https://se7en-omega.vercel.app/ |
+| **The Se7en** | https://se7en-omega.vercel.app/ |
 | Vercel project | https://vercel.com/fazyzfaz-3046/se7en |
 | GitHub repo | https://github.com/jasur-ai/se7en |
 
