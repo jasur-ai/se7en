@@ -160,7 +160,13 @@ blockquote cite{display:block; font-style:normal; font-family:var(--sans); font-
 .puzzle{background:linear-gradient(180deg,var(--paper-2),var(--paper)); border:1px solid var(--rule); padding:clamp(20px,3.4vw,40px)}
 .pz-intro{max-width:66ch; margin:0 0 clamp(18px,3vw,26px); color:var(--ink-2); font-size:16.4px}
 .pz-rule{margin:0 0 24px; padding:14px 16px; border-left:3px solid var(--accent); background:var(--wash-2); font-size:15.4px; color:var(--ink-2)}
-.pz-rule b{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px; font-weight:600}
+.pz-rule summary{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); font-weight:600; cursor:pointer; list-style:none; display:flex; align-items:center; gap:8px}
+.pz-rule summary::-webkit-details-marker{display:none}
+.pz-rule summary::after{content:"+"; font-family:var(--mono); font-size:12px; color:var(--accent); margin-left:auto}
+.pz-rule[open] summary::after{content:"–"}
+.pz-rule[open] summary{margin-bottom:6px}
+.pz-rule > span{display:block}
+.pz-hud.wrap{margin-top:18px}
 .pz-hud{display:flex; flex-wrap:wrap; gap:6px 26px; margin:0 0 20px; padding:10px 0; border-top:1px solid var(--rule-2); border-bottom:1px solid var(--rule-2); font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
 .pz-hud span{display:inline-flex; align-items:baseline; gap:8px}
 .pz-hud b{font-family:var(--mono); font-size:13px; letter-spacing:.04em; color:var(--ink); font-variant-numeric:tabular-nums}
@@ -169,69 +175,70 @@ blockquote cite{display:block; font-style:normal; font-family:var(--sans); font-
 .pz-mini svg{width:34px; height:34px; color:var(--green)}
 .pz-mini .ray{opacity:.16; transition:opacity .45s ease}
 .pz-mini .ray.on{opacity:1}
-.pz-board{display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,3vw,34px); align-items:start}
-.pz-col-t{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; display:flex; justify-content:space-between; align-items:center}
-.pz-col-t em{font-style:normal; color:var(--accent)}
-.slots{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
-.slot{position:relative; display:flex; align-items:stretch; min-height:56px; border:1px dashed var(--rule); background:var(--wash); transition:border-color .25s, background .25s}
-.slot .idx{width:38px; display:grid; place-items:center; font-family:"Fell",var(--serif); font-size:13px; color:var(--muted); border-right:1px dashed var(--rule)}
-.slot .fill{flex:1; padding:10px 12px; display:flex; gap:10px; align-items:baseline; cursor:pointer}
-.slot .fill .nm{font-family:var(--sans); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); flex:0 0 auto}
-.slot .fill .tx{font-size:13.6px; line-height:1.42; color:var(--ink-2)}
-.slot .fill .tx.empty{color:var(--muted); font-style:italic}
-.slot.filled{border-style:solid; border-color:var(--ink-3); background:var(--surface)}
-.slot.locked{border-color:var(--green); background:var(--locked-wash)}
-.slot.locked .idx{color:var(--green); border-right-color:var(--locked-line)}
-.slot.locked .fill{cursor:default}
-.slot.locked + .slot.locked::before{content:""; position:absolute; left:18px; top:-9px; width:1px; height:9px; background:var(--green)}
-.slot.locked + .slot.locked::after{content:""; position:absolute; left:15.5px; top:-5px; width:6px; height:6px; border:1px solid var(--green); border-radius:50%; background:var(--paper-2)}
-.slot.wrong{animation:shake .4s ease}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.deck{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
-.card{position:relative; text-align:left; width:100%; border:1px solid var(--rule); background:var(--surface); padding:11px 13px; cursor:pointer;
-  font-family:var(--serif); color:var(--ink-2); font-size:13.8px; line-height:1.45; transition:transform .2s, box-shadow .2s, border-color .2s; display:block}
-.card:hover{border-color:var(--accent); box-shadow:0 6px 18px -12px var(--shadow)}
-.card .nm{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:5px}
-.card .hook{color:var(--gold); font-style:italic}
-.card.sel{border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
-.pz-putbar{display:none}
-@media (max-width:1000px){
-  /* a card should be reachable before the empty slots: deck first */
-  .pz-board > div:first-child{order:2}
-  .pz-board > div:last-child{order:1}
-  .pz-putbar{
-    position:fixed; left:0; right:0; bottom:0; z-index:60; align-items:center; gap:8px;
-    padding:10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
-    background:var(--topbar-solid); border-top:1px solid var(--rule);
-    box-shadow:0 -14px 34px -24px var(--shadow);
-  }
-  .pz-putbar.show{display:flex}
-  .pz-putbar .t{font-family:var(--sans); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-right:2px}
-  .pz-putbar button{
-    flex:1 1 0; min-width:0; height:40px; border:1px solid var(--ink-3); background:var(--surface);
-    font-family:"Fell",var(--serif); font-size:15px; color:var(--ink); cursor:pointer;
-  }
-  .pz-putbar button[disabled]{opacity:.25; pointer-events:none}
-  .pz-win{letter-spacing:.1em; gap:4px 0}
-  .pz-win-actions{flex-direction:column; align-items:stretch}
-  .pz-win-actions .btn{width:100%}
-  body.pz-choosing{padding-bottom:78px}
-  .slot{min-height:46px}
-}
-.pz-seam{margin:16px 0 0; min-height:0; font-size:14.4px; line-height:1.5; color:var(--ink-2); display:none}
-.pz-seam.on{display:block; padding:11px 14px; border-left:2px solid var(--green); background:var(--locked-wash)}
+/* ── the chain: one continuous linked text ─────────────────── */
+.pz-chain{list-style:none; margin:0; padding:0}
+.link{position:relative; display:grid; grid-template-columns:30px 1fr; gap:12px; padding:15px 18px;
+  border:1px solid var(--rule-2); background:var(--surface); transition:border-color .3s, box-shadow .3s}
+.link .n{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--muted); padding-top:5px}
+.link .body{font-size:16px; line-height:1.56; color:var(--ink); margin:0}
+.link .nm{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:5px}
+.link .nm em{font-style:normal; color:var(--muted); letter-spacing:.14em}
+.link .fit{color:var(--green)}                    /* the fragment that answers the dangling end before it */
+.link .gap{color:var(--accent); font-style:italic} /* the sentence left hanging: the open loop */
+.link.open{border-color:var(--accent); box-shadow:0 10px 26px -22px var(--shadow)}
+.link.open .gap{background:var(--sel); box-shadow:0 0 0 1px var(--sel)}
+.link.done{border-color:var(--green); background:var(--locked-wash)}
+.link.done .gap{background:none; box-shadow:none; color:var(--ink-2); font-style:normal}
+.link.fresh{animation:linkIn .55s cubic-bezier(.2,.7,.3,1) both}
+@keyframes linkIn{from{opacity:0; transform:translateY(10px) scale(.995)}to{opacity:1; transform:none}}
+.join{height:26px; display:grid; place-items:center; color:var(--green); position:relative}
+.join svg{width:44px; height:26px; opacity:.55}
+.join.on svg{opacity:1; animation:ringPulse 1.1s ease}
+@keyframes ringPulse{0%{transform:scale(.6)}55%{transform:scale(1.12)}100%{transform:scale(1)}}
+.pz-ask.gone{display:none}
+.pz-loop{margin:0 0 18px; font-size:15.6px; line-height:1.55; color:var(--ink-2)}
+.pz-loop b{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--green); font-weight:600; margin-bottom:5px}
+.pz-loop q{quotes:"«" "»"; font-style:italic; color:var(--ink)}
+.pz-seam{margin:16px 0 0; display:none; font-size:14.4px; line-height:1.55; color:var(--ink-2)}
+.pz-seam.on{display:block; padding:11px 14px; border-left:2px solid var(--green); background:var(--locked-wash); animation:fade .5s ease}
 .pz-seam b{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--green); font-weight:600; margin-right:8px}
-.pz-seam q{quotes:"«" "»"; font-style:italic}
-.slot.hot{border-color:var(--accent); border-style:solid; background:var(--sel)}
-.slot.ok{animation:okflash .9s ease}
-.slot.bad{animation:shake .45s ease, badflash .9s ease}
-@keyframes okflash{0%{box-shadow:inset 0 0 0 2px var(--green)}100%{box-shadow:inset 0 0 0 0 transparent}}
-@keyframes badflash{0%,60%{box-shadow:inset 0 0 0 2px var(--accent)}100%{box-shadow:inset 0 0 0 0 transparent}}
+.pz-seam q{quotes:"«" "»"; font-style:italic; color:var(--ink)}
+.pz-seam .arw{color:var(--green); margin:0 3px}
+@keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+/* the open clause breathes, gently, while it waits to be finished */
+@media (prefers-reduced-motion:no-preference){
+  .link.open .gap{animation:breathe 2.6s ease-in-out infinite}
+}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 1px var(--sel)}50%{box-shadow:0 0 0 3px var(--sel)}}
+.pz-ask{margin-top:22px; padding-top:18px; border-top:1px solid var(--rule-2)}
+.pz-col-t{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; display:flex; justify-content:space-between; align-items:center; gap:10px}
+.pz-col-t em{font-style:normal; color:var(--accent); font-family:var(--mono); letter-spacing:.04em}
+.cands{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+.cand{width:100%; text-align:left; font-family:var(--serif); font-size:14.8px; line-height:1.5; color:var(--ink-2);
+  background:var(--wash); border:1px solid var(--rule); padding:11px 14px 12px; cursor:pointer;
+  transition:border-color .2s, background .2s, color .2s; display:grid; grid-template-columns:18px 1fr; gap:10px}
+.cand .k{font-family:var(--mono); font-size:10.5px; color:var(--muted); padding-top:3px}
+.cand > span:last-child{min-width:0}
+.cand:hover{border-color:var(--green); background:var(--locked-wash); color:var(--ink)}
+.cand:hover .k{color:var(--green)}
+.cand.hot{border-color:var(--accent); background:var(--sel); color:var(--ink)}
+.cand.bad{animation:shake .42s ease; border-color:var(--accent)}
+.cands.gone{display:none}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.cand.dragging{opacity:.35}
+.drag-ghost{position:fixed; left:0; top:0; z-index:200; pointer-events:none; margin:0; max-width:540px;
+  box-shadow:0 22px 40px -22px var(--shadow); transform-origin:0 0; border-color:var(--accent); background:var(--surface)}
 body.dragging-card{user-select:none; cursor:grabbing}
-body.dragging-card .card{cursor:grabbing}
-.card.dragging{opacity:.35}
-.drag-ghost{position:fixed; left:0; top:0; z-index:200; pointer-events:none; margin:0;
-  box-shadow:0 22px 40px -22px var(--shadow); transform-origin:0 0; border-color:var(--accent)}
+/* why this holds attention: the psychology, folded away */
+.pz-why{margin-top:26px; border-top:1px solid var(--rule-2); padding-top:14px}
+.pz-why summary{cursor:pointer; font-family:var(--sans); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:8px}
+.pz-why summary::-webkit-details-marker{display:none}
+.pz-why summary::before{content:"+"; font-family:var(--mono); font-size:13px; color:var(--accent)}
+.pz-why[open] summary::before{content:"–"}
+.pz-why-body{margin-top:14px; display:grid; gap:14px}
+.pz-why-item h5{margin:0 0 4px; font-family:var(--serif); font-weight:400; font-size:16.5px; color:var(--ink)}
+.pz-why-item p{margin:0; font-size:14.6px; line-height:1.6; color:var(--ink-2)}
+.pz-why-item a{color:var(--green); text-decoration:none; font-family:var(--sans); font-size:10px; letter-spacing:.06em; border-bottom:1px solid var(--locked-line); padding-bottom:1px}
 .pz-actions{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:22px}
 .btn{font-family:var(--sans); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; padding:11px 18px; cursor:pointer;
   border:1px solid var(--ink); background:var(--ink); color:var(--paper); transition:.25s}
@@ -445,39 +452,42 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 
   <section id="zanjir">
     <div class="wrap">
-      <div class="sec-head"><span class="no">03</span><h2 data-i18n="zanjir.title">Zanjir</h2><span class="hint" data-i18n="zanjir.hint">jumboq · 7 varaq</span></div>
+      <div class="sec-head"><span class="no">03</span><h2 data-i18n="zanjir.title">Zanjir</h2><span class="hint" data-i18n="zanjir.hint">jumboq · 7 halqa</span></div>
       <p class="lede" style="margin:0 0 clamp(18px,3vw,26px); max-width:64ch" data-i18n="zanjir.lead">Gunohlar alohida turganda qo‘rqinchli ko‘rinadi. Ular aslida zanjir: har biri keyingisini tug‘diradi va yettinchisi yana birinchisiga qaytadi.</p>
       <div class="puzzle" id="pz">
-        <p class="pz-intro" data-i18n="zanjir.intro">Quyida yetti varaq aralash yotadi. Har varaqning oxirgi gapi keyingi varaqning birinchi gapiga ulanadi. Yettinchisining uchi birinchisiga qaytadi — aylana yopiladi.</p>
-        <div class="pz-rule"><b data-i18n="zanjir.howh">Qanday o‘ynaladi</b><span data-i18n="zanjir.how">Varaqni tanlang, keyin bo‘sh katakni bosing. Xato joylashsa — varaq qaytadi. To‘g‘ri joylashgan varaq ochiladi va joyida qotadi.</span></div>
-        <div class="pz-hud" id="pzHud">
+        <p class="pz-intro" data-i18n="zanjir.intro">Quyida bitta gap yetti bo‘lakka bo‘lingan. Har bo‘lak oldingi gapning yarim qolgan uchini tugatadi — va o‘zi yana yarim gap bilan uziladi.</p>
+        <details class="pz-rule" id="pzRule" open>
+          <summary data-i18n="zanjir.howh">Qanday o‘ynaladi</summary>
+          <span data-i18n="zanjir.how">Pastdagi parchalar orasidan faqat bittasi ochiq gapni grammatik jihatdan tugatadi — o‘shani tanlang. Bu xotira o‘yini emas: matn ko‘z oldingizda, faqat ulanishni topish kerak. Xato tanlov zanjirni buzmaydi — faqat bitta tugun qo‘shadi.</span>
+        </details>
+        <div class="pz-hud wrap" id="pzHud">
           <span><i data-i18n="zanjir.hudTime">vaqt</i><b id="pzTime">0:00</b></span>
-          <span><i data-i18n="zanjir.hudChecks">tekshiruv</i><b id="pzChecks">0</b></span>
-          <span><i data-i18n="zanjir.hudBest">eng yaxshi</i><b id="pzBest">—</b></span>
+          <span><i data-i18n="zanjir.hudKnots">tugun</i><b id="pzKnots">0</b></span>
+          <span><i data-i18n="zanjir.hudBest">eng tezkor</i><b id="pzBest">—</b></span>
           <span class="pz-mini" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" id="pzSealMini"></svg></span>
         </div>
-        <div class="pz-board">
-          <div>
-            <p class="pz-col-t"><span data-i18n="zanjir.slots">Zanjir</span><em id="pzCount">0 / 7</em></p>
-            <ol class="slots" id="pzSlots"></ol>
-          </div>
-          <div>
-            <p class="pz-col-t"><span data-i18n="zanjir.deck">Varaqlar</span></p>
-            <ul class="deck" id="pzDeck"></ul>
-          </div>
-        </div>
+        <p class="pz-col-t"><span data-i18n="zanjir.chainT">Zanjir</span><em id="pzCount">1 / 7</em></p>
+        <ol class="pz-chain" id="pzChain"></ol>
         <p class="pz-seam" id="pzSeam" aria-live="polite"></p>
+        <div class="pz-ask" id="pzAsk">
+          <p class="pz-col-t"><span data-i18n="zanjir.nextT">Keyingi halqa</span><span id="pzLeft"></span></p>
+          <ul class="cands" id="pzCands"></ul>
+        </div>
         <div class="pz-actions">
-          <button class="btn" id="pzCheck" data-i18n="zanjir.check">Tekshirish</button>
           <button class="btn ghost" id="pzHint" data-i18n="zanjir.hintBtn">Yordam</button>
           <button class="btn ghost" id="pzReset" data-i18n="zanjir.reset">Boshidan</button>
           <span class="pz-status" id="pzStatus" aria-live="polite"></span>
         </div>
+        <details class="pz-why" id="pzWhy">
+          <summary data-i18n="zanjir.whyT">Nega bu sizni ushlab turadi</summary>
+          <div class="pz-why-body" id="pzWhyBody"></div>
+        </details>
         <div class="pz-done" id="pzDone">
           <div class="pz-seal" aria-hidden="true">
             <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1" id="pzSeal"></svg>
           </div>
-          <h4 data-i18n="zanjir.doneT">Zanjir yopildi</h4>
+          <h4 data-i18n="zanjir.doneT">Aylana yopildi</h4>
+          <p class="pz-loop" id="pzLoop"></p>
           <ul class="pz-pairs" id="pzPairs"></ul>
           <p class="pz-close" data-i18n="zanjir.doneC">Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.</p>
           <p class="pz-win" id="pzWin"></p>
@@ -487,7 +497,6 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
           </div>
         </div>
       </div>
-      <div class="pz-putbar" id="pzPut"><span class="t" data-i18n="zanjir.which">Qaysi katak?</span></div>
     </div>
   </section>
 
@@ -543,7 +552,7 @@ uz: {
   hero:{kicker:"Ma’lumotnoma · yetti juftlik · 2026",
     sub:"Gunoh — me’yordan chiqish. Fazilat — o‘rta.",
     lede:"Yetti gunoh — ikki ming yillik ro‘yxat. Bu sahifa uni dahshat emas, me’yor masalasi sifatida oladi: har bir gunoh chetga chiqish, uning qarshisida esa o‘rtani ushlab turuvchi fazilat turadi. Har fikr yonida manba bor."},
-  meta:[["7","juftlik"],["7","varaq"],["3","til"],["10","manba"]],
+  meta:[["7","juftlik"],["7","varaq"],["3","til"],["%n","manba"]],
   usul:{title:"Usul", hint:"uch tamoyil",
     a:{h:"Nima bu", t:"Qiyosiy ma’lumotnoma: yetti tushuncha, ularning teskarisi va Markaziy Osiyo didaktik adabiyotidagi muqobillari — bir sahifada, izchil tartibda."},
     b:{h:"Nima emas", t:"Diniy risola emas, hukm chiqaruvchi qo‘llanma emas, dahshat hikoyalari to‘plami ham emas. Bu madaniyatlar tarixidagi bitta ro‘yxatning izohi."},
@@ -608,29 +617,37 @@ uz: {
      quote:"Mehnat — rohatning poydevori.", qsrc:"O‘zbek xalq maqoli",
      refs:["Aristotel, NE II.1–4","Qutadg‘u bilig, 1069–70","Maqollar to‘plami"]}
   ],
-  zanjir:{title:"Zanjir", hint:"jumboq · 7 varaq",
+  zanjir:{title:"Zanjir: uzilgan gap", hint:"jumboq · 7 halqa",
     lead:"Gunohlar alohida turganda qo‘rqinchli ko‘rinadi. Ular aslida zanjir: har biri keyingisini tug‘diradi va yettinchisi yana birinchisiga qaytadi.",
-    intro:"Quyida yetti varaq aralash yotadi. Har varaqning oxirgi gapi keyingi varaqning birinchi gapiga ulanadi. Yettinchisining uchi birinchisiga qaytadi — aylana yopiladi.",
+    intro:"Quyida bitta gap yetti bo‘lakka bo‘lingan. Har bo‘lak oldingi gapning yarim qolgan uchini tugatadi — va o‘zi yana yarim gap bilan uziladi.",
     howh:"Qanday o‘ynaladi",
-    how:"Varaqni tanlang va bo‘sh katakni bosing — yoki varaqni katakka sudrab tashlang. Xato joylashsa varaq qaytadi; to‘g‘ri joylashgani qulflanib, muhrning bitta nuri yonadi. Klaviaturada 1–7 raqamlari tanlangan varaqni joylashtiradi.",
-    slots:"Zanjir", deck:"Varaqlar", check:"Tekshirish", hintBtn:"Yordam", reset:"Boshidan",
-    which:"Qaysi katak?", pick:"Varaq tanlang — yoki bo‘sh katakni bosing", placed:"Joylashtirildi", empty:"Bo‘sh katak",
-    right:"To‘g‘ri", wrong:"Bu joy emas — varaq qaytdi", hintDone:"Halqa ochildi",
-    early:"Erta — bu halqa keyinroq turadi", late:"Kech — bu halqa avvalroq turadi",
-    seam:"Ulanish", hudTime:"vaqt", hudChecks:"tekshiruv", hudBest:"eng yaxshi",
-    hintsWord:"yordam", newBest:"yangi rekord",
-    share:"Natijani nusxalash", shared:"Nusxalandi", again:"Yana o‘ynash",
-    complete:"Zanjir yopildi. Yetti halqa bir-biriga ulandi.",
-    doneT:"Endi teskarisi", doneC:"Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.",
+    how:"Pastdagi parchalar orasidan faqat bittasi ochiq gapni grammatik jihatdan tugatadi — o‘shani tanlang. Bu xotira o‘yini emas: matn ko‘z oldingizda, faqat ulanishni topish kerak. Xato tanlov zanjirni buzmaydi — faqat bitta tugun qo‘shadi.",
+    chainT:"Zanjir", nextT:"Keyingi halqa", leftW:"qoldi", given:"sovg‘a",
+    hudTime:"vaqt", hudKnots:"tugun", hudBest:"eng tezkor", hintsW:"yordam", newBest:"yangi rekord",
+    right:"Ulandi", wrong:"Bu parcha o‘sha yarim gapga ulanmaydi — zanjir joyida qoldi.", seam:"Ulanish",
+    hintBtn:"Yordam", reset:"Boshidan", again:"Yana o‘ynash", share:"Natijani nusxalash", shared:"Nusxalandi",
+    hintDone:"Keyingi parcha shu so‘z bilan boshlanadi:",
+    doneT:"Aylana yopildi",
+    doneC:"Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.",
+    loopH:"Oxirgi parcha birinchi gapga qaytdi:",
+    whyT:"Nega bu sizni ushlab turadi",
+    why:[
+      {h:"Yarim qolgan gap", t:"Har halqa tugallanmagan gap bilan uziladi. Psixolog Jorj Louenshteyn buni «bilim bo‘shlig‘i» deb atagan: odam to‘liq bilmagan narsaga emas, aynan sal qolgan narsaga eng kuchli qiziqadi — javob berilishi bilan qiziqish so‘nadi. Shuning uchun har parcha avval javob beradi, keyin yana savol qoldiradi.", n:11},
+      {h:"Boshlanganini tashlab ketish qiyin", t:"1927-yilda Bluma Zeygarnik tugallanmagan ishlar xotirada uzoqroq qolishini ko‘rsatdi. Keyingi takrorlashlar bu farqni ancha zaif topdi (jamlanma nisbat ≈ 1.0), lekin uning hamkasbi Ovsiankina ko‘rgan narsa mustahkam chiqdi: boshlangan ishni odam o‘zi qaytib davom ettiradi. Shuning uchun o‘yin xotiraga emas, davom ettirishga qurilgan.", n:12},
+      {h:"Birinchi qadam sovg‘a", t:"Nunes va Dreze karta tajribasida ko‘rdi: bo‘sh sakkiz shtamp o‘rniga o‘nta shtampdan ikkitasi oldindan bosilgani berilganda, ayni shu mehnat bilan kartani tugatish 19% dan 34% ga chiqdi. Sharti bitta — sovg‘aning sababi aytilishi kerak. Shuning uchun birinchi halqa «sovg‘a» deb belgilangan va sababi yozilgan.", n:13},
+      {h:"Oxiriga yaqin tezlashuv", t:"Kivetz, Urminskiy va Chjen kuzatuvida odamlar maqsadga yaqinlashgan sari tezroq harakat qildi. Shuning uchun hisoblagich qolganini emas, yig‘ilgan halqalarni ko‘rsatadi — va oxirgi halqa tantana bilan yopiladi.", n:14},
+      {h:"O‘z qo‘li bilan ulagan zanjir", t:"Norton, Mochon va Arieli «IKEA effekti»ni ko‘rsatdi: odam o‘zi yig‘gan narsani qimmatroq baholaydi. Chegarasi bor — bu faqat ish tugallansa ishlaydi, buzilgan ish effektni o‘chiradi. Shuning uchun xato javob zanjirni buzmaydi, faqat tugun qo‘shadi.", n:15},
+      {h:"Oxiri esda qoladi", t:"Kahneman va hamkasablari tajriba qanday esda qolishini davomiylik emas, eng kuchli nuqta va yakun belgilashini ko‘rsatdi. Shuning uchun eng kuchli lahza oxirida: yettinchi parcha birinchi gapga qaytib, aylanani yopadi.", n:16}
+    ],
     cuts:[["Kibr","Kamtarlik"],["Buxiylik","Saxovat"],["Shahvat","O‘zini tutish"],["G‘azab","Sabr"],["Ochko‘zlik","Me’yor"],["Hasad","Ko‘ngli ochiqlik"],["Dangasalik","Mehnatsevarlik"]],
     cards:[
-      {k:"kibr", t:"U o‘zini boshqalardan bir qadam baland deb biladi — va eshitishni to‘xtatadi.", h:"U o‘zini hamma bilan o‘lchay boshlaydi."},
-      {k:"hasad", t:"O‘lchash odatga aylanadi: birovga kelgan har bir yaxshilik uning daftariga zarar bo‘lib yoziladi.", h:"U daftarning narigi tomonidagi narsani xohlaydi va ushlab qolishga o‘tadi."},
-      {k:"buxiylik", t:"Ushlab qolish boshlanadi: qo‘l yopiladi va undan hech narsa chiqmaydi.", h:"Qo‘l yopilgan joyda og‘iz ochiladi: ishtaha ko‘proq so‘raydi."},
-      {k:"ochkozlik", t:"Bir eshik ochilgan ishtaha hamma eshikni so‘raydi.", h:"Chegarasiz xohlash odamni odam sifatida ko‘rishdan voz kechtiradi."},
-      {k:"shahvat", t:"Odamlar vosita bo‘lib qoladi; biri vosita bo‘lishdan bosh tortsa, u avval hayron, keyin g‘azablangan bo‘ladi.", h:"Rad javobi kuch bilan beriladi."},
-      {k:"gazab", t:"Kuch uni yeb qo‘yadi; ortida yillar bo‘yi baqirgan odam qoladi.", h:"Endi hech narsa boshlashga arzimaydi — iroda jim qoladi."},
-      {k:"dangasalik", t:"U hech narsa qilmaydi va o‘zini bu ma’nosiz mehnatdan baland deb biladi —", h:"...va aylana yopiladi: u yana o‘zini boshqalardan bir qadam baland deb biladi."}
+      {k:"kibr", in:"", mid:"U o‘zini boshqalardan bir qadam baland deb biladi.", out:"Va shu balandlikdan hamma narsani, jumladan o‘zini ham,"},
+      {k:"hasad", in:"boshqalar bilan o‘lchab ko‘ra boshlaydi:", mid:"birovga kelgan har bir yaxshilik uning daftariga zarar bo‘lib yoziladi.", out:"Va u daftarga qarab, o‘zinikidan ham ko‘proq"},
+      {k:"buxiylik", in:"ushlab qolishga o‘tadi:", mid:"qo‘l yopiladi va undan hech narsa chiqmaydi.", out:"Lekin qo‘l yopilgan joyda"},
+      {k:"ochkozlik", in:"og‘iz ochiladi:", mid:"bir eshik ochilgan ishtaha hamma eshikni so‘raydi.", out:"Va odamni narsa deb ko‘rish boshlangach,"},
+      {k:"shahvat", in:"odamlar faqat vosita bo‘lib qoladi;", mid:"biri vosita bo‘lishdan bosh tortsa, rad javobi kuch bilan qaytariladi.", out:"Va kuch uni"},
+      {k:"gazab", in:"yeb qo‘yadi:", mid:"ortida yillar bo‘yi baqirgan odam qoladi.", out:"Va o‘sha odamga endi hech narsa boshlashga arzimaydi, shuning uchun"},
+      {k:"dangasalik", in:"iroda jim qoladi:", mid:"u hech narsa qilmaydi va o‘zini bu ma’nosiz mehnatdan baland deb biladi.", out:"Ya’ni hammasi boshiga qaytadi: o‘zini boshqalardan bir qadam baland deb biladigan odamga."}
     ]},
   jadval:{title:"Bir jadvalda", hint:"7 qator", cap:"Yetti gunoh va ularning qarshisidagi fazilat",
     th:["№","Gunoh (lotin)","Nomi","Fazilat","Lotincha","Manba"]},
@@ -662,7 +679,7 @@ en: {
   hero:{kicker:"Reference · seven pairs · 2026",
     sub:"Vice is the extreme. Virtue is the mean.",
     lede:"The seven deadly sins are a two-thousand-year-old list. This page reads the list not as horror but as a question of measure: every vice is an overshoot, and opposite it stands the virtue that holds the middle. Every claim carries a source."},
-  meta:[["7","pairs"],["7","cards"],["3","languages"],["10","sources"]],
+  meta:[["7","pairs"],["7","cards"],["3","languages"],["%n","sources"]],
   usul:{title:"Method", hint:"three principles",
     a:{h:"What this is", t:"A comparative reference: seven concepts, their reversals, and the equivalents found in the didactic literature of Central Asia — on one page, in a fixed order."},
     b:{h:"What it is not", t:"Not a religious tract, not a book of rulings, not a collection of horror stories. It is a reading of one list inside cultural history."},
@@ -727,29 +744,37 @@ en: {
      quote:"Labour is the foundation of rest.", qsrc:"Uzbek proverb",
      refs:["Aristotle, NE II.1–4","Qutadgu Bilig, 1069–70","Proverb collection"]}
   ],
-  zanjir:{title:"The Chain", hint:"puzzle · 7 cards",
+  zanjir:{title:"The Chain: a broken sentence", hint:"puzzle · 7 links",
     lead:"Seen one at a time, the vices look monstrous. In fact they are a chain: each one produces the next, and the seventh returns to the first.",
-    intro:"Seven cards lie shuffled below. The last sentence of each card is the hook for the first sentence of the next. The end of the seventh returns to the first — the circle closes.",
+    intro:"Below, one sentence has been cut into seven pieces. Each piece finishes the half-sentence the one before it left hanging — and leaves a new half-sentence open.",
     howh:"How to play",
-    how:"Pick a card and tap an empty slot — or drag the card onto it with a mouse. A wrong card returns; a right one locks in and lights one ray of the seal. On a keyboard, digits 1–7 place the selected card.",
-    slots:"The chain", deck:"Cards", check:"Check", hintBtn:"Hint", reset:"Restart",
-    which:"Which slot?", pick:"Pick a card — or tap an empty slot", placed:"Placed", empty:"Empty slot",
-    right:"Correct", wrong:"Not this slot — the card returns", hintDone:"Link opened",
-    early:"Too early — this link comes later", late:"Too late — this link comes earlier",
-    seam:"Joint", hudTime:"time", hudChecks:"checks", hudBest:"best",
-    hintsWord:"hints", newBest:"new best",
-    share:"Copy result", shared:"Copied", again:"Play again",
-    complete:"The chain is closed. Seven links joined.",
-    doneT:"Now the reversal", doneC:"You do not have to cut all seven links to break the chain — one is enough.",
+    how:"Only one fragment finishes the open sentence grammatically — pick it. This is not a memory game: the text stays in front of you, the only thing to find is the joint. A wrong choice never breaks the chain, it only adds a knot.",
+    chainT:"The chain", nextT:"Next link", leftW:"left", given:"a gift",
+    hudTime:"time", hudKnots:"knots", hudBest:"fastest", hintsW:"hints", newBest:"new best",
+    right:"Joined", wrong:"That fragment does not join the open half-sentence — the chain stays as it was.", seam:"Joint",
+    hintBtn:"Hint", reset:"Restart", again:"Play again", share:"Copy result", shared:"Copied",
+    hintDone:"The next fragment begins with:",
+    doneT:"The circle is closed",
+    doneC:"You do not have to cut all seven links to break the chain — one is enough.",
+    loopH:"The last fragment returned to the first sentence:",
+    whyT:"Why this holds you",
+    why:[
+      {h:"The half-open sentence", t:"Every link ends on an unfinished clause. The psychologist George Loewenstein called this an information gap: curiosity is strongest not when we know nothing but when we almost know — and it fades the moment the answer arrives. So each fragment answers, then asks again.", n:11},
+      {h:"A started thing is hard to leave", t:"In 1927 Bluma Zeigarnik showed that unfinished tasks linger in memory; later replications made that gap far weaker (pooled ratio ≈ 1.0), but what her colleague Ovsiankina saw held up: people return on their own to a task they have begun. So this game is built on resuming, not on remembering.", n:12},
+      {h:"The first step is a gift", t:"In Nunes and Drèze’s stamp-card study, a 10-stamp card with 2 stamps already given raised completion from 19% to 34% for exactly the same effort — on one condition: the head start had to come with a reason. So the first link is marked as a gift, and the reason is written down.", n:13},
+      {h:"Acceleration near the end", t:"Kivetz, Urminsky and Zheng found that people move faster as a goal comes closer. So the counter shows links gathered, not links left — and the last link closes with ceremony.", n:14},
+      {h:"A chain you joined yourself", t:"Norton, Mochon and Ariely described the IKEA effect: we value what we assembled ourselves. But it holds only if the build is completed — a destroyed or unfinished one kills the effect. So a wrong choice never breaks this chain; it only adds a knot.", n:15},
+      {h:"The end is what is remembered", t:"Kahneman and colleagues showed that an experience is remembered by its peak and its ending, not its duration. So the strongest moment is saved for last: the seventh fragment returns to the first sentence and closes the circle.", n:16}
+    ],
     cuts:[["Pride","Humility"],["Greed","Generosity"],["Lust","Self-command"],["Wrath","Patience"],["Gluttony","Measure"],["Envy","Goodwill"],["Sloth","Diligence"]],
     cards:[
-      {k:"kibr", t:"He is certain he stands a step above the others — and he stops listening.", h:"He begins to measure himself against everyone."},
-      {k:"hasad", t:"Measuring becomes a habit: every good thing that happens to anyone else is entered in his ledger as a loss.", h:"He wants what is on the other side of the ledger, and starts to keep."},
-      {k:"buxiylik", t:"Keeping begins: the hand closes and nothing leaves it.", h:"Where the hand closed, the mouth opens — appetite asks for more."},
-      {k:"ochkozlik", t:"An appetite given one door asks for all of them.", h:"Wanting without limit, he stops seeing people as people."},
-      {k:"shahvat", t:"People become instruments; when one refuses to be an instrument he is surprised — and then furious.", h:"The refusal is answered with force."},
-      {k:"gazab", t:"Force consumes him; what is left is a man who has been shouting for years.", h:"Nothing seems worth beginning now; the will goes quiet."},
-      {k:"dangasalik", t:"He does nothing, and tells himself he is above all this pointless labour —", h:"…and the circle closes: he is certain he stands a step above the others."}
+      {k:"kibr", in:"", mid:"He is certain he stands a step above the others.", out:"And from that height he begins to weigh everything, himself included,"},
+      {k:"hasad", in:"against everyone else:", mid:"every good thing that happens to another is entered in his ledger as a loss.", out:"And reading that ledger, he wants to hold on to more than his own —"},
+      {k:"buxiylik", in:"so he starts to keep:", mid:"the hand closes and nothing leaves it.", out:"But where the hand is closed,"},
+      {k:"ochkozlik", in:"the mouth opens:", mid:"an appetite let in at one door asks for every door.", out:"And once a person is seen as a thing,"},
+      {k:"shahvat", in:"people become only means;", mid:"if one of them refuses to be a means, the refusal is answered with force.", out:"And force"},
+      {k:"gazab", in:"eats him up:", mid:"what is left is a man who has been shouting for years.", out:"And to that man nothing is worth beginning any more, so"},
+      {k:"dangasalik", in:"the will goes quiet:", mid:"he does nothing and counts himself above this pointless labour.", out:"Which is where it began: with a man certain he stands a step above the others."}
     ]},
   jadval:{title:"In one table", hint:"7 rows", cap:"The seven vices and the virtue set against each",
     th:["№","Vice (Latin)","Name","Virtue","Latin","Source"]},
@@ -781,7 +806,7 @@ ru: {
   hero:{kicker:"Справочник · семь пар · 2026",
     sub:"Порок — выход из меры. Добродетель — середина.",
     lede:"Семь смертных грехов — список возрастом в две тысячи лет. Эта страница читает его не как ужас, а как вопрос о мере: каждый порок — крайность, и напротив него стоит добродетель, держащая середину. У каждого утверждения есть источник."},
-  meta:[["7","пар"],["7","карт"],["3","языка"],["10","источников"]],
+  meta:[["7","пар"],["7","карт"],["3","языка"],["%n","источников"]],
   usul:{title:"Метод", hint:"три принципа",
     a:{h:"Что это", t:"Сравнительный справочник: семь понятий, их обратная сторона и соответствия в дидактической литературе Центральной Азии — на одной странице, в строгом порядке."},
     b:{h:"Чем это не является", t:"Это не религиозный трактат, не книга предписаний и не сборник историй ужасов. Это разбор одного списка внутри истории культуры."},
@@ -846,29 +871,37 @@ ru: {
      quote:"Труд — основа покоя.", qsrc:"Узбекская пословица",
      refs:["Аристотель, NE II.1–4","Кутадгу билиг, 1069–70","Сборник пословиц"]}
   ],
-  zanjir:{title:"Цепь", hint:"головоломка · 7 карт",
-    lead:"Пороки, взятые по отдельности, кажутся чудовищами. На деле это цепь: каждый производит следующий, а седьмой возвращается к первому.",
-    intro:"Семь карт лежат вперемешку. Последняя фраза каждой карты — зацепка для первой фразы следующей. Конец седьмой возвращается к первой — круг замыкается.",
+  zanjir:{title:"Цепь: разорванная фраза", hint:"головоломка · 7 звеньев",
+    lead:"Пороки, взятые по отдельности, выглядят чудовищами. На деле они — цепь: каждый порождает следующий, а седьмой возвращается к первому.",
+    intro:"Ниже одно предложение разрезано на семь частей. Каждая часть заканчивает половину фразы, оставленную предыдущей, — и сама оставляет новую половину открытой.",
     howh:"Как играть",
-    how:"Выберите карту и нажмите на пустую ячейку — или перетащите карту мышью. Неверная карта возвращается, верная закрепляется и зажигает один луч печати. На клавиатуре цифры 1–7 ставят выбранную карту.",
-    slots:"Цепь", deck:"Карты", check:"Проверить", hintBtn:"Подсказка", reset:"Заново",
-    which:"Какая ячейка?", pick:"Выберите карту — или нажмите на пустую ячейку", placed:"Размещено", empty:"Пустая ячейка",
-    right:"Верно", wrong:"Не это место — карта вернулась", hintDone:"Звено открыто",
-    early:"Рано — это звено стоит позже", late:"Поздно — это звено стоит раньше",
-    seam:"Стык", hudTime:"время", hudChecks:"проверки", hudBest:"рекорд",
-    hintsWord:"подсказки", newBest:"новый рекорд",
-    share:"Скопировать результат", shared:"Скопировано", again:"Сыграть снова",
-    complete:"Цепь замкнута. Семь звеньев соединены.",
-    doneT:"Теперь обратная сторона", doneC:"Чтобы разорвать цепь, не нужно рубить все семь звеньев — достаточно одного.",
+    how:"Только один фрагмент грамматически завершает открытое предложение — выберите его. Это не игра на память: текст перед вами, найти нужно только стык. Неверный выбор не ломает цепь — он лишь добавляет один узел.",
+    chainT:"Цепь", nextT:"Следующее звено", leftW:"осталось", given:"подарок",
+    hudTime:"время", hudKnots:"узлы", hudBest:"рекорд", hintsW:"подсказки", newBest:"новый рекорд",
+    right:"Соединено", wrong:"Этот фрагмент не соединяется с открытой фразой — цепь осталась как была.", seam:"Стык",
+    hintBtn:"Подсказка", reset:"Заново", again:"Сыграть снова", share:"Скопировать результат", shared:"Скопировано",
+    hintDone:"Следующий фрагмент начинается так:",
+    doneT:"Круг замкнулся",
+    doneC:"Чтобы разорвать цепь, не нужно рубить все семь звеньев — достаточно одного.",
+    loopH:"Последний фрагмент вернулся к первому предложению:",
+    whyT:"Почему это держит вас",
+    why:[
+      {h:"Полуоткрытая фраза", t:"Каждое звено обрывается на незаконченной фразе. Психолог Джордж Лёвенштейн назвал это «информационным разрывом»: любопытство сильнее всего не тогда, когда мы не знаем ничего, а когда знаем почти всё, — и гаснет, как только ответ получен. Поэтому каждый фрагмент сначала отвечает, а потом снова спрашивает.", n:11},
+      {h:"Начатое трудно оставить", t:"В 1927 году Блюма Зейгарник показала, что незавершённые дела дольше держатся в памяти; последующие повторения сильно ослабили этот эффект (сводное отношение ≈ 1.0), но то, что увидела её коллега Овсянкина, подтвердилось: к начатому делу человек возвращается сам. Поэтому игра построена на продолжении, а не на запоминании.", n:12},
+      {h:"Первый шаг — подарок", t:"В исследовании Nunes и Drèze карта на 10 штампов, где 2 уже проставлены, дала 34% завершений против 19% у пустой карты на 8 — при том же усилии. Условие одно: у подарка должна быть причина. Поэтому первое звено помечено как подарок, и причина написана.", n:13},
+      {h:"Ускорение к финишу", t:"Kivetz, Urminsky и Zheng показали: чем ближе цель, тем быстрее человек действует. Поэтому счётчик показывает собранные звенья, а не оставшиеся, — и последнее звено закрывается с церемонией.", n:14},
+      {h:"Цепь, собранная своими руками", t:"Norton, Mochon и Ariely описали «эффект IKEA»: собранное своими руками мы ценим выше. Но эффект живёт только при завершении: разрушенная или незаконченная работа его гасит. Поэтому неверный выбор никогда не ломает цепь — он только добавляет узел.", n:15},
+      {h:"Запоминается конец", t:"Канеман и коллеги показали, что опыт запоминается по самой сильной точке и по финалу, а не по длительности. Поэтому самое сильное оставлено на конец: седьмой фрагмент возвращается к первому предложению и замыкает круг.", n:16}
+    ],
     cuts:[["Гордыня","Смирение"],["Жадность","Щедрость"],["Похоть","Владение собой"],["Гнев","Терпение"],["Обжорство","Мера"],["Зависть","Доброжелательность"],["Лень","Трудолюбие"]],
     cards:[
-      {k:"kibr", t:"Он уверен, что стоит на шаг выше остальных, — и перестаёт слушать.", h:"Он начинает мерить себя со всеми."},
-      {k:"hasad", t:"Измерение становится привычкой: каждое чужое благо записывается в его счёт как убыток.", h:"Он хочет то, что на другой стороне счёта, и начинает удерживать."},
-      {k:"buxiylik", t:"Начинается удержание: рука закрывается, и из неё ничего не выходит.", h:"Где закрылась рука, открывается рот — аппетит просит большего."},
-      {k:"ochkozlik", t:"Аппетиту, которому открыли одну дверь, нужны все.", h:"Желание без границ перестаёт видеть в людях людей."},
-      {k:"shahvat", t:"Люди становятся орудиями; когда одно отказывается быть орудием, он сперва удивлён, потом в ярости.", h:"На отказ отвечают силой."},
-      {k:"gazab", t:"Сила съедает его; остаётся человек, который кричит уже годами.", h:"Теперь ничто не стоит начинания — воля замолкает."},
-      {k:"dangasalik", t:"Он ничего не делает и говорит себе, что выше этого бессмысленного труда, —", h:"…и круг замыкается: он снова уверен, что стоит на шаг выше остальных."}
+      {k:"kibr", in:"", mid:"Он уверен, что стоит на шаг выше остальных.", out:"И с этой высоты он начинает мерить всё, включая себя,"},
+      {k:"hasad", in:"меркой остальных:", mid:"каждое чужое благо записывается в его тетрадь как убыток.", out:"И, глядя в эту тетрадь, он хочет удержать больше своего —"},
+      {k:"buxiylik", in:"и начинает удерживать:", mid:"рука закрывается, и из неё ничего не выходит.", out:"Но там, где рука закрыта,"},
+      {k:"ochkozlik", in:"открывается рот:", mid:"аппетит, впущенный в одну дверь, требует все двери.", out:"И как только человек становится вещью,"},
+      {k:"shahvat", in:"люди становятся только средством;", mid:"если кто-то отказывается быть средством, отказ встречают силой.", out:"И сила"},
+      {k:"gazab", in:"съедает его:", mid:"остаётся человек, который годами кричал.", out:"И этому человеку уже не стоит ничего начинать, поэтому"},
+      {k:"dangasalik", in:"воля замолкает:", mid:"он ничего не делает и считает себя выше этого бессмысленного труда.", out:"То есть всё возвращается к началу: к человеку, уверенному, что стоит на шаг выше остальных."}
     ]},
   jadval:{title:"В одной таблице", hint:"7 строк", cap:"Семь пороков и противостоящая каждому добродетель",
     th:["№","Порок (лат.)","Название","Добродетель","Лат.","Источник"]},
@@ -913,7 +946,20 @@ const SOURCES = [
   {t:"Seneca, <i>De ira</i>; <i>De brevitate vitae</i> (Stoic readings on anger and time).",
    href:"https://www.gutenberg.org/ebooks/author/1308"},
   {t:"Dante Alighieri, <i>Purgatorio</i>, c. 1315 — the literary afterlife of the list.",
-   href:"https://en.wikipedia.org/wiki/Purgatorio"}
+   href:"https://en.wikipedia.org/wiki/Purgatorio"},
+  /* the psychology of why a half-open sentence holds attention — see the note under the puzzle */
+  {t:"G. Loewenstein, “The Psychology of Curiosity: A Review and Reinterpretation”, <i>Psychological Bulletin</i> 116(1), 1994, 75–98 (the information gap).",
+   href:"https://www.byrdseed.com/handouts/Psychology%20of%20Curiosity.pdf"},
+  {t:"B. Zeigarnik, “On Finished and Unfinished Tasks”, 1927 — and the later replication record (the resumption effect survived, the memory claim did not).",
+   href:"https://en.wikipedia.org/wiki/Zeigarnik_effect"},
+  {t:"J. C. Nunes, X. Drèze, “The Endowed Progress Effect”, <i>Journal of Consumer Research</i> 32(4), 2006, 504–512.",
+   href:"https://www.coglode.com/nuggets/endowed-progress-effect"},
+  {t:"R. Kivetz, O. Urminsky, Y. Zheng, “The Goal-Gradient Hypothesis Resurrected”, <i>Journal of Marketing Research</i> 43(1), 2006, 39–58.",
+   href:"https://doi.org/10.1509/jmkr.43.1.39"},
+  {t:"M. I. Norton, D. Mochon, D. Ariely, “The IKEA Effect: When Labor Leads to Love”, <i>Journal of Consumer Psychology</i> 22(3), 2012.",
+   href:"https://www.hbs.edu/ris/Publication%20Files/11-091.pdf"},
+  {t:"D. Kahneman, B. L. Fredrickson, C. A. Schreiber, D. A. Redelmeier, “When More Pain Is Preferred to Less: Adding a Better End”, <i>Psychological Science</i>, 1993 (the peak–end rule).",
+   href:"https://en.wikipedia.org/wiki/Peak%E2%80%93end_rule"}
 ];
 
 /* ── render ────────────────────────────────────────────────── */
@@ -964,8 +1010,15 @@ function glossHTML(L){
   $("#gloss").innerHTML = L.lugat.items.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join("");
 }
 
+function whyHTML(L){
+  $("#pzWhyBody").innerHTML = L.zanjir.why.map(w => {
+    const src = SOURCES[w.n - 1];
+    return `<div class="pz-why-item"><h5>${w.h}</h5><p>${w.t} <a href="${src.href}" target="_blank" rel="noopener">[${w.n}]</a></p></div>`;
+  }).join("");
+}
+
 function metaHTML(L){
-  $("#metaRow").innerHTML = L.meta.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("");
+  $("#metaRow").innerHTML = L.meta.map(([b, s]) => `<div><b>${b === "%n" ? SOURCES.length : b}</b><span>${s}</span></div>`).join("");
 }
 
 function srcHTML(){
@@ -973,29 +1026,35 @@ function srcHTML(){
     `<li>${s.t} <a href="${s.href}" target="_blank" rel="noopener" aria-label="source">↗</a></li>`).join("");
 }
 
-/* ── the chain puzzle ──────────────────────────────────────── */
+/* ── the chain puzzle ──────────────────────────────────────────
+   One text, cut into seven pieces. Each piece finishes the sentence
+   the one before it left hanging; each piece leaves a new one open.
+   The reader never remembers anything — the text is on screen — the
+   only thing to find is which fragment fits the open clause.        */
+const LINK_SVG = '<svg viewBox="0 0 44 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">'
+  + '<ellipse cx="17" cy="13" rx="9.5" ry="6" transform="rotate(-28 17 13)"/>'
+  + '<ellipse cx="27" cy="13" rx="9.5" ry="6" transform="rotate(-28 27 13)"/></svg>';
+
 const PZ = {
   order: ["kibr","hasad","buxiylik","ochkozlik","shahvat","gazab","dangasalik"],
-  slots: [], locked: [], pool: [], sel: null, L: null,
-  checks: 0, hints: 0, started: false, t0: 0, timer: null, won: false,
-  _lastDrag: 0,
+  chain: [], pool: [], L: null,
+  knots: 0, hints: 0, started: false, t0: 0, timer: null, won: false,
+  _bad: null, _fresh: null, _lastDrag: 0,
 
   reset(L){
     this.L = L;
-    this.slots = new Array(7).fill(null);
-    this.locked = new Array(7).fill(false);
-    this.sel = null;
-    this.checks = 0; this.hints = 0; this.started = false; this.t0 = 0; this.won = false;
+    /* the first link is a gift — and it comes with a stated reason */
+    this.chain = [this.order[0]];
+    let rest = this.order.slice(1);
+    for (let i = rest.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [rest[i], rest[j]] = [rest[j], rest[i]]; }
+    this.pool = rest;
+    this.knots = 0; this.hints = 0; this.started = false; this.t0 = 0; this.won = false;
+    this._bad = null; this._fresh = null;
     this.stopClock();
-    /* shuffled deck, but never in the solved order */
-    let arr = [...this.order];
-    for (let i = arr.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
-    if (arr.join() === this.order.join()) arr.push(arr.shift());
-    this.pool = arr;
     $("#pzDone").classList.remove("show");
-    $("#pzCheck").style.display = ""; $("#pzHint").style.display = "";
-    $("#pzSeam").classList.remove("on"); $("#pzSeam").innerHTML = "";
-    $("#pzTime").textContent = "0:00"; $("#pzChecks").textContent = "0";
+    $("#pzAsk").style.display = "";
+    $("#pzTime").textContent = "0:00"; $("#pzKnots").textContent = "0";
+    this.showSeam(null);
     this.status("");
     this.paint();
   },
@@ -1003,7 +1062,7 @@ const PZ = {
   byKey(k){ return this.L.zanjir.cards.find(c => c.k === k); },
   nameOf(k){ return (this._names && this._names[k]) || ""; },
 
-  /* clock + counters */
+  /* clock */
   startClock(){
     if (this.started || this.won) return;
     this.started = true; this.t0 = Date.now();
@@ -1013,232 +1072,136 @@ const PZ = {
   stopClock(){ if (this.timer){ clearInterval(this.timer); this.timer = null; } },
   elapsed(){ return this.started ? Math.max(0, Math.floor((Date.now() - this.t0) / 1000)) : 0; },
   clock(sec){ const m = Math.floor(sec / 60), r = sec % 60; return m + ":" + String(r).padStart(2, "0"); },
-  best(){ try { const v = parseInt(localStorage.getItem("se7en.best"), 10); return isFinite(v) ? v : null; } catch(e){ return null; } },
+  best(){ try { const v = parseInt(localStorage.getItem("se7en.best.chain"), 10); return isFinite(v) ? v : null; } catch(e){ return null; } },
   hud(){
     const t = $("#pzTime"); if (!t) return;
     t.textContent = this.clock(this.elapsed());
-    $("#pzChecks").textContent = String(this.checks);
-    const b = this.best(), el = $("#pzBest");
-    el.textContent = b === null ? "—" : this.clock(b);
-    el.classList.add("rec");
+    $("#pzKnots").textContent = String(this.knots);
+    const b = this.best();
+    $("#pzBest").textContent = b === null ? "—" : this.clock(b);
   },
 
   paint(){
     const L = this.L.zanjir;
-    const done = this.locked.filter(Boolean).length;
-    $("#pzCount").textContent = done + " / 7";
-    $("#pzSlots").innerHTML = this.slots.map((k, i) => {
-      const locked = this.locked[i];
-      const card = k ? this.byKey(k) : null;
-      return `<li class="slot ${k ? "filled" : ""} ${locked ? "locked" : ""}" data-slot="${i}">
-        <span class="idx">${locked ? "✓" : i + 1}</span>
-        <span class="fill" ${locked ? "" : `role="button" tabindex="0"`}>
-          ${card
-            ? `<span class="nm">${this.nameOf(card.k)}</span><span class="tx">${card.t}</span>`
-            : `<span class="tx empty">${L.empty}</span>`}
-        </span>
-      </li>`;
-    }).join("");
+    const n = this.chain.length;
+    $("#pzCount").textContent = n + " / 7";
 
-    $("#pzDeck").innerHTML = this.pool.map(k => {
+    /* the chain itself: a linked text, one piece per link */
+    let out = "";
+    this.chain.forEach((k, i) => {
       const c = this.byKey(k);
-      return `<li><button class="card ${this.sel === k ? "sel" : ""}" data-card="${k}" type="button" aria-pressed="${this.sel === k}">
-        <span class="nm">${this.nameOf(k)}</span>${c.t}
-      </button></li>`;
-    }).join("");
+      const last = i === n - 1;
+      if (i > 0) out += `<li class="join ${last ? "on" : ""}" aria-hidden="true">${LINK_SVG}</li>`;
+      out += `<li class="link ${last && !this.won ? "open" : ""} ${this.won ? "done" : ""} ${this._fresh === k ? "fresh" : ""}" data-link="${k}">
+        <span class="n">${String(i + 1).padStart(2, "0")}</span>
+        <p class="body"><span class="nm">${this.nameOf(k)}${i === 0 ? ` <em>· ${L.given}</em>` : ""}</span>${
+          c.in ? `<span class="fit">…${c.in}</span> ` : ""}${c.mid}${c.out ? ` <span class="gap">${c.out}</span>` : ""}</p>
+      </li>`;
+    });
+    $("#pzChain").innerHTML = out;
+    this._fresh = null;
 
-    $("#pzCheck").disabled = done === 7;
-    this.syncSeal(done);
-    this.paintPutbar();
+    /* what is left to fit */
+    $("#pzLeft").innerHTML = `<em>${this.pool.length}</em> ${L.leftW}`;
+    $("#pzCands").innerHTML = this.pool.map((k, i) => {
+      const c = this.byKey(k);
+      const frag = c.in || c.mid;
+      const cut = frag.length > 104 ? frag.slice(0, 103).replace(/[,;:\s]+$/, "") + "…" : frag;
+      return `<li><button class="cand ${this._bad === k ? "bad" : ""}" type="button" data-cand="${k}">
+        <span class="k">${i + 1}</span><span>…${cut}${/[.!?…]$/.test(cut) ? "" : "…"}</span></button></li>`;
+    }).join("");
+    $("#pzAsk").classList.toggle("gone", this.won);
+    this._bad = null;
+
+    this.syncSeal(n);
     this.hud();
-    this.applyFlash();
-  },
-
-  paintPutbar(){
-    const bar = $("#pzPut");
-    if (!bar) return;
-    const narrow = matchMedia("(max-width: 1000px)").matches;
-    const show = narrow && !!this.sel && !this.won;
-    bar.classList.toggle("show", show);
-    document.body.classList.toggle("pz-choosing", show);
-    if (!show) return;
-    const label = '<span class="t">' + this.L.zanjir.which + '</span>';
-    bar.innerHTML = label + this.slots.map((k, i) => {
-      const free = !this.locked[i] && !k;
-      return `<button type="button" data-put="${i}" ${free ? "" : "disabled"} aria-label="${i + 1}">${i + 1}</button>`;
-    }).join("");
   },
 
   syncSeal(n){
-    /* the last ray is lit only when the whole chain closes — then all seven
-       light one after another */
     const closing = n === 7 && !this._sealClosed;
     this._sealClosed = n === 7;
     $$("#pzSeal .ray, #pzSealMini .ray").forEach(r => {
-      r.style.transitionDelay = closing ? (+r.dataset.ray * 65) + "ms" : "0ms";
+      r.style.transitionDelay = closing ? (+r.dataset.ray * 70) + "ms" : "0ms";
       r.classList.toggle("on", +r.dataset.ray < n);
     });
   },
 
-  pick(k){
-    if (this.locked.some((l, i) => this.slots[i] === k && l)) return;
-    this.sel = (this.sel === k) ? null : k;
-    this.status("");
-    this.startClock();
-    this.paint();
-  },
-
-  place(slot){
-    if (this.locked[slot] || this.won) return;
-    /* tapping a card that already sits in a slot takes it back to the deck */
-    if (this.slots[slot] && !this.sel){
-      const back = this.slots[slot];
-      this.slots[slot] = null;
-      this.pool.push(back);
-      this.pool.sort((a, b) => this.order.indexOf(a) - this.order.indexOf(b));
-      this.status("");
-      this.paint();
-      return;
-    }
-    if (!this.sel){ this.status(this.L.zanjir.pick); return; }
-    const k = this.sel;
-    const prev = this.slots.indexOf(k);
-    if (prev > -1) this.slots[prev] = null;
-    this.pool = this.pool.filter(x => x !== k);
-    this.slots[slot] = k;
-    this.sel = null;
-    this.status("");
-    this.startClock();
-    this.paint();
-  },
-
-  flash(i, cls){
-    /* the board is re-rendered after every change, so the class is applied
-       once the new rows exist */
-    this._flash = this._flash || [];
-    this._flash.push([i, cls]);
-  },
-  applyFlash(){
-    const list = this._flash || [];
-    this._flash = [];
-    requestAnimationFrame(() => list.forEach(([i, cls]) => {
-      const node = $(`[data-slot="${i}"]`);
-      if (!node) return;
-      node.classList.add(cls);
-      setTimeout(() => node.classList.remove(cls), 950);
-    }));
-  },
-
-  /* the last sentence of one card and the first of the next: the joint */
-  split(t){
-    const parts = (t.match(/[^.!?…]+[.!?…]+/g) || [t]).map(x => x.trim());
-    return { head: parts[0] || t, tail: parts[parts.length - 1] || t };
-  },
-  clip(t, n){ return t.length > n ? t.slice(0, n - 1).trim() + "…" : t; },
-
-  seam(i){
-    /* joint between slot i-1 and slot i (or 7 -> 1 when i is 0 and everything is locked) */
-    const prevK = i === 0 ? this.slots[6] : this.slots[i - 1];
-    const curK = i === 0 ? this.slots[0] : this.slots[i];
-    if (!prevK || !curK) return "";
-    const tail = this.clip(this.split(this.byKey(prevK).t).tail, 62);
-    const head = this.clip(this.split(this.byKey(curK).t).head, 62);
-    return `<b>${this.L.zanjir.seam}</b><q>${tail}</q> → <q>${head}</q>`;
-  },
+  /* the joint: the clause that was hanging, and the fragment that answers it */
   showSeam(html){
     const el = $("#pzSeam");
     if (!html){ el.classList.remove("on"); el.innerHTML = ""; return; }
     el.innerHTML = html; el.classList.add("on");
   },
 
-  check(){
-    const L = this.L.zanjir;
+  choose(k){
     if (this.won) return;
-    const filled = this.slots.some((k, i) => k && !this.locked[i]);
-    if (!filled){ this.status(L.pick); return; }
-    this.checks++; this.startClock();
-    let right = 0; const wrong = [];
-    this.slots.forEach((k, i) => {
-      if (!k || this.locked[i]) return;
-      if (k === this.order[i]){ this.locked[i] = true; right++; this.flash(i, "ok"); }
-      else { wrong.push([i, k]); this.slots[i] = null; this.pool.push(k); this.flash(i, "bad"); }
-    });
-    /* deck order follows the canonical list for readability */
-    this.pool.sort((a, b) => this.order.indexOf(a) - this.order.indexOf(b));
-
-    if (right){
-      const last = this.locked.map((l, i) => l ? i : -1).filter(i => i >= 0).pop();
-      this.showSeam(this.seam(last));
-      this.status(L.right + " · " + right);
-    } else if (wrong.length === 1){
-      const [i, k] = wrong[0];
-      this.status(this.order.indexOf(k) > i ? L.early : L.late);
-    } else if (wrong.length){
+    const L = this.L.zanjir;
+    const next = this.order[this.chain.length];
+    this.startClock();
+    if (k === next){
+      const prev = this.chain[this.chain.length - 1];
+      this.chain.push(k);
+      this.pool = this.pool.filter(x => x !== k);
+      this._fresh = k;
+      const tail = this.byKey(prev).out || this.byKey(prev).mid;
+      this.showSeam(`<b>${L.seam}</b><q>${tail}</q> <span class="arw">→</span> <q>…${this.byKey(k).in}</q>`);
+      this.status(L.right + " · " + this.nameOf(k));
+      if (this.chain.length === 7) this.finish(); else this.paint();
+    } else {
+      this.knots++;
+      this._bad = k;
       this.status(L.wrong);
+      this.paint();
     }
-    if (this.locked.every(Boolean)) this.finish();
-    this.paint();
   },
 
   hint(){
     if (this.won) return;
     const L = this.L.zanjir;
-    const i = this.locked.findIndex(l => !l);
-    if (i < 0) return;
-    const k = this.order[i];
-    const at = this.slots.indexOf(k);
-    if (at > -1) this.slots[at] = null;
-    this.pool = this.pool.filter(x => x !== k);
-    this.slots[i] = k; this.locked[i] = true; this.hints++; this.sel = null;
-    this.startClock();
-    this.flash(i, "ok");
-    this.showSeam(this.seam(i));
-    this.status(L.hintDone + " · " + this.locked.filter(Boolean).length + " / 7");
-    if (this.locked.every(Boolean)) this.finish();
-    this.paint();
+    const next = this.order[this.chain.length];
+    const first = (this.byKey(next).in || "").split(/\s+/).slice(0, 2).join(" ");
+    if (!first) return;
+    this.hints++;
+    this.status(L.hintDone + " «" + first + "…»");
   },
 
   finish(){
     const L = this.L.zanjir;
     this.won = true;
     this.stopClock();
-    this.sel = null;
     const secs = this.elapsed();
     const prev = this.best();
     let fresh = false;
     if (prev === null || secs < prev){
       fresh = true;
-      try { localStorage.setItem("se7en.best", String(secs)); } catch(e){}
+      try { localStorage.setItem("se7en.best.chain", String(secs)); } catch(e){}
     }
-    /* the seventh link closes back on the first */
-    this.showSeam(this.seam(0));
+    const first = this.byKey(this.order[0]);
+    $("#pzLoop").innerHTML = `<b>${L.loopH}</b> <q>${first.mid.split(/[.,]/)[0]}</q>`;
     $("#pzPairs").innerHTML = L.cuts.map(([a, b]) => `<li><b>${a}</b> <span>→</span> <i>${b}</i></li>`).join("");
     $("#pzWin").innerHTML =
       `<span class="st"><b>${this.clock(secs)}</b>${L.hudTime}</span>` +
-      `<span class="st"><b>${this.checks}</b>${L.hudChecks}</span>` +
-      `<span class="st"><b>${this.hints}</b>${L.hintsWord}</span>` +
+      `<span class="st"><b>${this.knots}</b>${L.hudKnots}</span>` +
+      `<span class="st"><b>${this.hints}</b>${L.hintsW}</span>` +
       (fresh ? `<span class="st"><em>${L.newBest}</em></span>` : "");
     $("#pzDone").classList.add("show");
-    $("#pzCheck").style.display = "none";
-    $("#pzHint").style.display = "none";
-    this.status(L.complete);
+    this.status("");
     this.paint();
+    this.showSeam(null);
   },
 
   shareText(){
     const L = this.L.zanjir;
-    return `The Se7en — ${L.title}: 7/7 · ${this.clock(this.elapsed())} · ${this.checks} ${L.hudChecks.toLowerCase()} · se7en-omega.vercel.app`;
+    return `The Se7en — ${L.title}: 7/7 · ${this.clock(this.elapsed())} · ${this.knots} ${L.hudKnots.toLowerCase()} · se7en-omega.vercel.app`;
   },
   async share(){
-    const L = this.L.zanjir;
-    const txt = this.shareText();
+    const L = this.L.zanjir, txt = this.shareText();
     let ok = false;
     if (navigator.share){
-      try { await navigator.share({ title: this.L.zanjir.title, text: txt }); ok = true; }
-      catch(e){ return; }   /* the reader closed the sheet */
+      try { await navigator.share({ title: L.title, text: txt }); ok = true; }
+      catch(e){ return; }
     }
-    if (!ok) try { await navigator.clipboard.writeText(txt); ok = true; }
-    catch(e){
+    if (!ok) try { await navigator.clipboard.writeText(txt); ok = true; } catch(e){
       try {
         const ta = document.createElement("textarea");
         ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
@@ -1246,57 +1209,56 @@ const PZ = {
       } catch(e2){ ok = false; }
     }
     const b = $("#pzShare");
-    b.textContent = ok ? this.L.zanjir.shared : txt;
-    setTimeout(() => { b.textContent = this.L.zanjir.share; }, 2200);
+    b.textContent = ok ? L.shared : txt;
+    setTimeout(() => { b.textContent = L.share; }, 2200);
   },
 
-  /* a language switch must not throw away what is already solved */
+  /* a language switch keeps the chain exactly where it was */
   snapshot(){
-    return (this.slots && this.slots.length === 7)
-      ? { slots: [...this.slots], locked: [...this.locked], pool: [...this.pool],
-          checks: this.checks, hints: this.hints, started: this.started, t0: this.t0, won: this.won }
+    return (this.chain && this.chain.length)
+      ? { chain: [...this.chain], pool: [...this.pool], knots: this.knots, hints: this.hints,
+          started: this.started, t0: this.t0, won: this.won }
       : null;
   },
   restore(snap){
-    if (!snap || !snap.slots || snap.slots.length !== 7) return;
-    this.slots = [...snap.slots]; this.locked = [...snap.locked]; this.pool = [...snap.pool];
-    this.checks = snap.checks; this.hints = snap.hints; this.started = snap.started; this.t0 = snap.t0;
-    this.won = false;
+    if (!snap || !snap.chain) return;
+    this.chain = [...snap.chain]; this.pool = [...snap.pool];
+    this.knots = snap.knots; this.hints = snap.hints;
+    this.started = snap.started; this.t0 = snap.t0; this.won = false;
     $("#pzDone").classList.remove("show");
-    $("#pzCheck").style.display = ""; $("#pzHint").style.display = "";
+    $("#pzAsk").style.display = "";
     if (this.started && !snap.won && this.timer === null) this.timer = setInterval(() => this.hud(), 1000);
     this.paint();
     if (snap.won) this.finish();
   },
 
-  /* drag a card onto a slot — mouse and pen; touch keeps tap + the numbered bar */
+  /* drag a fragment onto the open link — mouse and pen only */
   initDrag(){
-    const deck = $("#pzDeck");
-    if (!deck) return;
-    deck.addEventListener("pointerdown", e => {
+    const list = $("#pzCands");
+    if (!list) return;
+    list.addEventListener("pointerdown", e => {
       if (e.pointerType === "touch" || e.button !== 0) return;
-      const card = e.target.closest(".card");
-      if (!card) return;
-      const key = card.dataset.card;
-      const sx = e.clientX, sy = e.clientY;
+      const btn = e.target.closest("[data-cand]");
+      if (!btn) return;
+      const key = btn.dataset.cand, sx = e.clientX, sy = e.clientY;
       let ghost = null, hot = null, dragging = false;
       const move = ev => {
         if (!dragging){
-          if (Math.hypot(ev.clientX - sx, ev.clientY - sy) < 7) return;
+          if (Math.hypot(ev.clientX - sx, ev.clientY - sy) < 8) return;
           dragging = true;
-          const r = card.getBoundingClientRect();
-          ghost = card.cloneNode(true);
-          ghost.className = "card drag-ghost";
+          const r = btn.getBoundingClientRect();
+          ghost = btn.cloneNode(true);
+          ghost.className = "cand drag-ghost";
           ghost.style.width = r.width + "px";
           document.body.appendChild(ghost);
-          card.classList.add("dragging");
+          btn.classList.add("dragging");
           document.body.classList.add("dragging-card");
         }
-        ghost.style.transform = `translate(${ev.clientX - 46}px, ${ev.clientY - 24}px) rotate(-.9deg)`;
+        ghost.style.transform = `translate(${ev.clientX - 80}px, ${ev.clientY - 26}px) rotate(-.8deg)`;
         const el = document.elementFromPoint(ev.clientX, ev.clientY);
-        const slot = el && el.closest ? el.closest(".slot") : null;
-        if (hot && hot !== slot) hot.classList.remove("hot");
-        hot = (slot && !slot.classList.contains("locked")) ? slot : null;
+        const link = el && el.closest ? el.closest(".link.open") : null;
+        if (hot && hot !== link) hot.classList.remove("hot");
+        hot = link || null;
         if (hot) hot.classList.add("hot");
       };
       const up = () => {
@@ -1304,12 +1266,12 @@ const PZ = {
         window.removeEventListener("pointerup", up);
         window.removeEventListener("pointercancel", up);
         if (ghost) ghost.remove();
-        card.classList.remove("dragging");
+        btn.classList.remove("dragging");
         document.body.classList.remove("dragging-card");
-        if (hot) hot.classList.remove("hot");
+        if (hot){ hot.classList.remove("hot"); hot.classList.remove("hot"); }
         if (dragging){
           this._lastDrag = Date.now();
-          if (hot){ this.sel = key; this.place(+hot.dataset.slot); }
+          if (hot) this.choose(key);
         }
       };
       window.addEventListener("pointermove", move);
@@ -1357,6 +1319,7 @@ function apply(lang){
   tableHTML(L);
   glossHTML(L);
   metaHTML(L);
+  whyHTML(L);
   /* puzzle names come from the entries: keep the seven keys aligned */
   PZ._names = {
     kibr: L.entries[0].name, buxiylik: L.entries[1].name, shahvat: L.entries[2].name,
@@ -1401,36 +1364,26 @@ function spy(){
   $$(".lang button").forEach(b => b.addEventListener("click", () => apply(b.dataset.lang)));
   const p = $("#printBtn"); if (p) p.addEventListener("click", () => window.print());
   sealSVG();
-  $("#pzDeck").addEventListener("click", e => {
+  /* on a phone the long rule would push the game below the fold: fold it */
+  const rule = $("#pzRule");
+  if (rule && matchMedia("(max-width: 1000px)").matches) rule.open = false;
+  $("#pzCands").addEventListener("click", e => {
     if (Date.now() - PZ._lastDrag < 350) return;   /* a drag ends with a click we should ignore */
-    const b = e.target.closest("[data-card]");
-    if (b) PZ.pick(b.dataset.card);
+    const b = e.target.closest("[data-cand]");
+    if (b) PZ.choose(b.dataset.cand);
   });
-  $("#pzSlots").addEventListener("click", e => {
-    const s = e.target.closest("[data-slot]");
-    if (s) PZ.place(+s.dataset.slot);
-  });
-  $("#pzSlots").addEventListener("keydown", e => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    const s = e.target.closest("[data-slot]");
-    if (s){ e.preventDefault(); PZ.place(+s.dataset.slot); }
-  });
-  $("#pzPut").addEventListener("click", e => {
-    const b = e.target.closest("[data-put]");
-    if (b && !b.disabled) PZ.place(+b.dataset.put);
-  });
-  $("#pzCheck").addEventListener("click", () => PZ.check());
   $("#pzHint").addEventListener("click", () => PZ.hint());
   $("#pzReset").addEventListener("click", () => PZ.reset(DATA[LANG] || DATA.uz));
   $("#pzAgain").addEventListener("click", () => PZ.reset(DATA[LANG] || DATA.uz));
   $("#pzShare").addEventListener("click", () => PZ.share());
   PZ.initDrag();
 
-  /* keyboard: 1–7 put the selected card, Escape lets go of it */
+  /* keyboard: the digits pick the n-th fragment offered */
   document.addEventListener("keydown", e => {
     if (e.target.matches("input, textarea, select, [contenteditable]")) return;
-    if (e.key === "Escape" && PZ.sel){ e.preventDefault(); PZ.sel = null; PZ.paint(); return; }
-    if (/^[1-7]$/.test(e.key) && PZ.sel && !PZ.won){ e.preventDefault(); PZ.place(+e.key - 1); }
+    if (!/^[1-6]$/.test(e.key) || PZ.won) return;
+    const btn = $$("#pzCands [data-cand]")[+e.key - 1];
+    if (btn){ e.preventDefault(); PZ.choose(btn.dataset.cand); }
   });
 
   /* theme */
