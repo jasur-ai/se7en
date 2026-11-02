@@ -13,10 +13,10 @@
 })();
 </script>
 <title>The Se7en — gunoh va fazilat</title>
-<meta name="description" content="Yetti gunoh va ularning teskarisi — yetti fazilat. Me'yor haqidagi ma'lumotnoma: Aristotel, Qobusnoma, Qutadg'u bilig, xalq maqollari. UZB · EN · RUS.">
+<meta name="description" content="Yetti gunoh va ularning teskarisi — yetti fazilat, va yetti muhrli mantiqiy o‘yin: 5 040 tartibdan faqat bittasi to‘g‘ri. Manbali ma’lumotnoma: Aristotel, Qobusnoma, Qutadg‘u bilig, xalq maqollari. UZB · EN · RUS.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="The Se7en — gunoh va fazilat">
-<meta property="og:description" content="Yetti juftlik, yetti qulf va bitta zanjir. Manbali, neytral ma'lumotnoma.">
+<meta property="og:description" content="Yetti juftlik va yetti muhr: mantiqiy o‘yin. Manbali, neytral ma’lumotnoma.">
 <meta property="og:type" content="article">
 <style>
 @font-face{
@@ -180,79 +180,92 @@ blockquote cite{display:block; font-style:normal; font-family:var(--sans); font-
 .pz-mini svg{width:34px; height:34px; color:var(--green)}
 .pz-mini .ray{opacity:.16; transition:opacity .45s ease}
 .pz-mini .ray.on{opacity:1}
-/* ── the chain: one continuous linked text ─────────────────── */
-.pz-chain{list-style:none; margin:0; padding:0}
-.link{position:relative; display:grid; grid-template-columns:30px 1fr; gap:12px; padding:15px 18px;
-  border:1px solid var(--rule-2); background:var(--surface); transition:border-color .3s, box-shadow .3s}
-.link .n{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--muted); padding-top:5px}
-.link .body{font-size:16px; line-height:1.56; color:var(--ink); margin:0}
-.link .nm{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:5px}
-.link .nm em{font-style:normal; color:var(--muted); letter-spacing:.14em}
-.link .fit{color:var(--green)}                    /* the fragment that answers the dangling end before it */
-.link .gap{color:var(--accent); font-style:italic} /* the sentence left hanging: the open loop */
-.link.open{border-color:var(--accent); box-shadow:0 10px 26px -22px var(--shadow)}
-.link.open .gap{background:var(--sel); box-shadow:0 0 0 1px var(--sel)}
-.link.done{border-color:var(--green); background:var(--locked-wash)}
-.link.done .gap{background:none; box-shadow:none; color:var(--ink-2); font-style:normal}
-.link.fresh{animation:linkIn .55s cubic-bezier(.2,.7,.3,1) both}
-@keyframes linkIn{from{opacity:0; transform:translateY(10px) scale(.995)}to{opacity:1; transform:none}}
-.join{height:26px; display:grid; place-items:center; color:var(--green); position:relative}
-.join svg{width:44px; height:26px; opacity:.55}
-.join.on svg{opacity:1; animation:ringPulse 1.1s ease}
-@keyframes ringPulse{0%{transform:scale(.6)}55%{transform:scale(1.12)}100%{transform:scale(1)}}
-.pz-ask.gone{display:none}
-.pz-actions.won{display:none}
-.pz-loop{margin:0 0 18px; font-size:15.6px; line-height:1.55; color:var(--ink-2)}
-.pz-loop b{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--green); font-weight:600; margin-bottom:5px}
-.pz-loop q{quotes:"«" "»"; font-style:italic; color:var(--ink)}
-.pz-seam{margin:16px 0 0; display:none; font-size:14.4px; line-height:1.55; color:var(--ink-2)}
-.pz-seam.on{display:block; padding:11px 14px; border-left:2px solid var(--green); background:var(--locked-wash); animation:fade .5s ease}
-.pz-seam b{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--green); font-weight:600; margin-right:8px}
-.pz-seam q{quotes:"«" "»"; font-style:italic; color:var(--ink)}
-.pz-seam .arw{color:var(--green); margin:0 3px}
-@keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
-/* the open clause breathes, gently, while it waits to be finished */
-@media (prefers-reduced-motion:no-preference){
-  .link.open .gap{animation:breathe 2.6s ease-in-out infinite}
-}
-@keyframes breathe{0%,100%{box-shadow:0 0 0 1px var(--sel)}50%{box-shadow:0 0 0 3px var(--sel)}}
-.pz-ask{margin-top:22px; padding-top:18px; border-top:1px solid var(--rule-2)}
-.pz-col-t{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; display:flex; justify-content:space-between; align-items:center; gap:10px}
-.pz-col-t em{font-style:normal; color:var(--accent); font-family:var(--mono); letter-spacing:.04em}
-.cands{list-style:none; margin:0; padding:0; display:grid; gap:8px}
-.cand{width:100%; text-align:left; font-family:var(--serif); font-size:14.8px; line-height:1.5; color:var(--ink-2);
-  background:var(--wash); border:1px solid var(--rule); padding:11px 14px 12px; cursor:pointer;
-  transition:border-color .2s, background .2s, color .2s; display:grid; grid-template-columns:18px 1fr; gap:10px}
-.cand .k{font-family:var(--mono); font-size:10.5px; color:var(--muted); padding-top:3px}
-.cand > span:last-child{min-width:0}
-.cand:hover{border-color:var(--green); background:var(--locked-wash); color:var(--ink)}
-.cand:hover .k{color:var(--green)}
-.cand.hot{border-color:var(--accent); background:var(--sel); color:var(--ink)}
-.cand.bad{animation:shake .42s ease; border-color:var(--accent)}
-.cands.gone{display:none}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.cand.dragging{opacity:.35}
-.drag-ghost{position:fixed; left:0; top:0; z-index:200; pointer-events:none; margin:0; max-width:540px;
-  box-shadow:0 22px 40px -22px var(--shadow); transform-origin:0 0; border-color:var(--accent); background:var(--surface)}
+/* ── the seven seals: a deduction board ───────────────────── */
+.mode{display:inline-flex; border:1px solid var(--rule); margin:0 0 20px; background:var(--wash)}
+.mode button{font-family:var(--sans); font-size:10px; letter-spacing:.16em; text-transform:uppercase; padding:9px 16px; border:0; background:none; color:var(--muted); cursor:pointer}
+.mode button+button{border-left:1px solid var(--rule)}
+.mode button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+.mode button[aria-pressed="true"]:hover{background:var(--accent); color:var(--on-accent)}
+.board{display:grid; grid-template-columns:minmax(300px,1fr) minmax(320px,1.05fr); grid-template-rows:auto auto;
+  grid-template-areas:"ring clues" "ring tray"; gap:clamp(18px,3vw,38px) clamp(18px,3vw,38px); align-items:start}
+.board .ring{grid-area:ring; align-self:center}
+.board .side{grid-area:clues; display:block}
+.board .tray-col{grid-area:tray; margin-top:clamp(16px,2.4vw,26px)}
+.ring{position:relative; width:100%; aspect-ratio:1; max-width:440px; margin:0 auto}
+.ring svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+.ring svg line{stroke:var(--rule); stroke-width:1.1; transition:stroke .5s ease, stroke-width .5s ease}
+.ring svg line.on{stroke:var(--green); stroke-width:2}
+.ring svg line.close{stroke-dasharray:3 3}
+.ring svg line.close.on{stroke-dasharray:none}
+.seat{position:absolute; width:21%; aspect-ratio:1; transform:translate(-50%,-50%); border:1px dashed var(--rule); border-radius:50%;
+  background:var(--surface); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+  font-family:var(--sans); text-align:center; cursor:pointer; transition:border-color .25s, background .25s, transform .2s, box-shadow .25s; padding:4px}
+.seat:hover{border-color:var(--accent)}
+.seat .num{font-family:var(--mono); font-size:10px; color:var(--muted); line-height:1}
+.seat .nm{font-family:"Fell",var(--serif); font-size:clamp(8.4px,1.02vw,11px); letter-spacing:.03em; line-height:1.06; color:var(--ink); text-transform:uppercase; max-width:94%; white-space:nowrap; overflow:hidden; text-align:center}
+.seat .nm.long{font-size:clamp(7.2px,.88vw,9.4px); letter-spacing:.01em}
+.seat .nm.longer{font-size:clamp(6.3px,.78vw,8.2px); letter-spacing:0}
+.seat.filled{border-style:solid; border-color:var(--ink-3); background:var(--paper-2)}
+.seat.filled .num{color:var(--accent)}
+.seat.sel{border-color:var(--accent); box-shadow:0 0 0 3px var(--sel)}
+.seat.hot{border-color:var(--green); background:var(--locked-wash)}
+.seat.lock{border-color:var(--green); background:var(--locked-wash); cursor:default}
+.seat.ok{border-color:var(--green); box-shadow:0 0 0 2px var(--locked-wash)}
+.seat.no{border-color:var(--accent); animation:shake .42s ease}
+.seat.solved{border-color:var(--green); background:var(--locked-wash)}
+.seat .badge{position:absolute; top:-6px; right:-4px; width:16px; height:16px; border-radius:50%; display:grid; place-items:center; font-size:9px; color:var(--on-accent); background:var(--green)}
+.seat .badge.bad{background:var(--accent)}
+.ring .hub{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:26%; text-align:center; color:var(--muted)}
+.ring .hub svg{position:static; width:100%; height:auto; color:var(--green)}
+.ring .hub .ray{opacity:.13; transition:opacity .5s ease}
+.ring .hub .ray.on{opacity:1}
+.side{display:grid; gap:20px}
+.clue-list{list-style:none; margin:0; padding:0; display:grid; gap:7px; counter-reset:c}
+.clue-list li{counter-increment:c; position:relative; padding:9px 12px 9px 40px; border:1px solid var(--rule-2); background:var(--surface); font-size:14.6px; line-height:1.45; color:var(--ink-2)}
+.clue-list li::before{content:counter(c); position:absolute; left:11px; top:9px; font-family:var(--mono); font-size:10.5px; color:var(--accent)}
+.clue-list li b{font-weight:400; color:var(--ink); font-family:"Fell",var(--serif); letter-spacing:.04em; text-transform:uppercase; font-size:13.5px}
+.tray{list-style:none; margin:0; padding:0; display:grid; gap:7px; grid-template-columns:1fr 1fr}
+.card2{width:100%; text-align:left; border:1px solid var(--rule); background:var(--surface); padding:8px 11px; cursor:pointer; transition:border-color .2s, background .2s, transform .2s; display:block}
+.card2:hover{border-color:var(--accent)}
+.card2 .nm{display:block; font-family:"Fell",var(--serif); font-size:14.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink)}
+.card2 .tr{display:block; font-size:11.6px; line-height:1.35; color:var(--muted); margin-top:2px}
+.card2.sel{border-color:var(--accent); background:var(--sel); box-shadow:inset 0 0 0 1px var(--accent)}
+.card2.used{opacity:.32; pointer-events:none}
+.card2.dragging{opacity:.35}
+.drag-ghost{position:fixed; left:0; top:0; z-index:200; pointer-events:none; margin:0; max-width:280px; background:var(--surface);
+  box-shadow:0 22px 40px -22px var(--shadow); transform-origin:0 0; border-color:var(--accent)}
 body.dragging-card{user-select:none; cursor:grabbing}
-/* why this holds attention: the psychology, folded away */
-.pz-why{margin-top:26px; border-top:1px solid var(--rule-2); padding-top:14px}
-.pz-why summary{cursor:pointer; font-family:var(--sans); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:8px}
-.pz-why summary::-webkit-details-marker{display:none}
-.pz-why summary::before{content:"+"; font-family:var(--mono); font-size:13px; color:var(--accent)}
-.pz-why[open] summary::before{content:"–"}
-.pz-why-body{margin-top:14px; display:grid; gap:14px}
-.pz-why-item h5{margin:0 0 4px; font-family:var(--serif); font-weight:400; font-size:16.5px; color:var(--ink)}
-.pz-why-item p{margin:0; font-size:14.6px; line-height:1.6; color:var(--ink-2)}
-.pz-why-item a{color:var(--green); text-decoration:none; font-family:var(--sans); font-size:10px; letter-spacing:.06em; border-bottom:1px solid var(--locked-line); padding-bottom:1px}
-.pz-actions{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:22px}
-.btn{font-family:var(--sans); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; padding:11px 18px; cursor:pointer;
-  border:1px solid var(--ink); background:var(--ink); color:var(--paper); transition:.25s}
-.btn:hover{background:var(--accent); border-color:var(--accent)}
-.btn.ghost{background:none; color:var(--ink-2); border-color:var(--rule)}
-.btn.ghost:hover{color:var(--accent); border-color:var(--accent); background:none}
-.btn[disabled]{opacity:.3; cursor:not-allowed; pointer-events:none}
-.pz-status{font-family:var(--sans); font-size:11px; letter-spacing:.1em; color:var(--muted); margin-left:auto}
+.pz-col-t{display:flex; align-items:baseline; gap:10px; margin:0 0 10px; font-family:var(--sans); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted)}
+.pz-col-t em{font-style:normal; font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--accent)}
+.pz-loop{margin:4px 0 0; text-align:center; font-size:clamp(15px,1.7vw,18px); line-height:1.5; color:var(--ink-2)}
+.pz-loop b{margin-right:9px; font-weight:400; font-family:var(--sans); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted)}
+.m-acts{display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin-top:20px}
+.m-acts .n{font-family:var(--mono); font-size:11px; color:var(--accent); margin-left:5px}
+.m-acts .btn{display:inline-flex; align-items:center}
+@media (max-width:980px){
+  /* on a phone the ring stays on top and the cards sit right under it:
+     pick a card, tap the seat above — no scrolling between them */
+  .board{grid-template-columns:1fr; grid-template-rows:auto auto auto;
+    grid-template-areas:"ring" "tray" "clues"; gap:14px}
+  .ring{max-width:290px; margin-bottom:2px}
+  .seat{width:22.5%}
+  .seat .nm{font-size:9.4px}
+  .board .tray-col{margin-top:0}
+  .tray{grid-template-columns:repeat(3,1fr); gap:6px}
+  .card2{padding:7px 8px}
+  .card2 .nm{font-size:12.4px; letter-spacing:.03em}
+  .card2 .tr{font-size:10.2px; line-height:1.25; margin-top:1px}
+  .board .side{margin-top:6px}
+  .m-acts .btn{flex:1 1 auto; justify-content:center}
+}
+@media (max-width:600px){
+  /* a phone holds the ring, the cards and the seals on one screen:
+     the one-line trait goes, the name is what the seals speak of */
+  .card2 .tr{display:none}
+  .card2{padding:9px 8px; text-align:center}
+  .card2 .nm{font-size:12px; letter-spacing:.02em}
+  .seat .nm{font-size:8.9px}
+}
 .pz-done{margin-top:26px; padding-top:24px; border-top:1px solid var(--rule); display:none}
 .pz-done.show{display:block; animation:fade .8s ease}
 @keyframes fade{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
@@ -381,13 +394,16 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 }
 
 /* ── accounts, rating, endless run ─────────────────────────── */
-.pz-more{margin-top:30px; padding-top:26px; border-top:1px solid var(--rule)}
+.pz-more{margin-top:30px; padding-top:26px; border-top:1px solid var(--rule);
+  display:grid; grid-template-columns:minmax(290px,440px) minmax(280px,1fr); gap:16px 30px; align-items:start}
+.pz-more .pz-more-h, .pz-more .lead2{grid-column:1/-1}
+@media (max-width:900px){ .pz-more{display:block} }
 .pz-more-h{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 16px; margin-bottom:8px}
 .pz-more-h h3{margin:0; font-weight:400; font-size:clamp(22px,3vw,30px)}
 .pz-more-h .tag{font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent)}
 .pz-more p.lead2{margin:0 0 18px; max-width:66ch; font-size:15.6px; color:var(--ink-2)}
 
-.acc{display:grid; gap:14px; grid-template-columns:1.05fr .95fr; align-items:start}
+.acc{display:grid; gap:14px; grid-template-columns:1fr; align-items:start}
 .acc-card{border:1px solid var(--rule); background:var(--surface); padding:16px}
 .acc-tabs{display:flex; margin:-16px -16px 14px; border-bottom:1px solid var(--rule)}
 .acc-tabs button{flex:1; font-family:var(--sans); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; padding:11px 8px; background:none; border:0; color:var(--muted); cursor:pointer}
@@ -404,6 +420,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 .who .sp{flex:1}
 
 .lb{margin:16px 0 0; border:1px solid var(--rule); background:var(--surface)}
+@media (min-width:901px){ .lb{margin-top:0} }
 .lb-hd{display:flex; align-items:baseline; gap:10px; padding:11px 14px; border-bottom:1px solid var(--rule)}
 .lb-hd b{font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:600}
 .lb-hd em{margin-left:auto; font-style:normal; font-family:var(--sans); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
@@ -531,101 +548,96 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 
   <section id="zanjir">
     <div class="wrap">
-      <div class="sec-head"><span class="no">03</span><h2 data-i18n="zanjir.title">Zanjir</h2><span class="hint" data-i18n="zanjir.hint">jumboq · 7 halqa</span></div>
-      <p class="lede" style="margin:0 0 clamp(18px,3vw,26px); max-width:64ch" data-i18n="zanjir.lead">Gunohlar alohida turganda qo‘rqinchli ko‘rinadi. Ular aslida zanjir: har biri keyingisini tug‘diradi va yettinchisi yana birinchisiga qaytadi.</p>
+      <div class="sec-head"><span class="no">03</span><h2 data-i18n="m.title">Yetti muhr</h2><span class="hint" data-i18n="m.hint">mantiqiy jumboq · cheksiz rejim</span></div>
+      <p class="lede" style="margin:0 0 clamp(18px,3vw,26px); max-width:66ch" data-i18n="m.lead">Yetti gunohning tartibi yopiq. Qo‘lingizda faqat yetti muhr — ularning har biri tartib haqida bitta haqiqat aytadi. Ularni birga o‘qib, yagona to‘g‘ri aylanani toping.</p>
       <div class="puzzle" id="pz">
-        <p class="pz-intro" data-i18n="zanjir.intro">Quyida bitta gap yetti bo‘lakka bo‘lingan. Har bo‘lak oldingi gapning yarim qolgan uchini tugatadi — va o‘zi yana yarim gap bilan uziladi.</p>
+        <p class="pz-intro" data-i18n="m.intro">Aylanada yetti oʻrin bor va yetti gunoh. Muhrlar orasida faqat bitta joylashuv barcha shartlarga mos keladi — uni topish uchun taxmin qilish emas, xulosa chiqarish kerak.</p>
         <details class="pz-rule" id="pzRule" open>
-          <summary data-i18n="zanjir.howh">Qanday o‘ynaladi</summary>
-          <span data-i18n="zanjir.how">Pastdagi parchalar orasidan faqat bittasi ochiq gapni grammatik jihatdan tugatadi — o‘shani tanlang. Bu xotira o‘yini emas: matn ko‘z oldingizda, faqat ulanishni topish kerak. Xato tanlov zanjirni buzmaydi — faqat bitta tugun qo‘shadi.</span>
+          <summary data-i18n="m.howh">Qanday o‘ynaladi</summary>
+          <span data-i18n="m.how">Kartani tanlab, aylanadagi o‘ringa bosing — yoki sichqoncha bilan sudrab tashlang. «Sinov» bitta o‘rinni tekshiradi va to‘g‘ri yoki xato ekanini aytadi (cheklangan). «Ochish» bitta o‘rinni to‘g‘ri qo‘yib qulflaydi — u ham sinovdan ketadi. «Tekshirish» butun aylanani tekshiradi: mashqda faqat xatolar sonini aytadi, shuning uchun taxmin qilish foyda bermaydi; cheksiz rejimda bitta xato o‘yinni tugatadi. Mashqda vaqt yo‘q, sinov uchta — tinch o‘ylaysiz. Cheksiz rejimda har daraja yangi aylana: vaqt qisqaradi, sinov kamayadi, ball to‘planadi.</span>
         </details>
-        <div class="pz-hud wrap" id="pzHud">
-          <span><i data-i18n="zanjir.hudTime">vaqt</i><b id="pzTime">0:00</b></span>
-          <span><i data-i18n="zanjir.hudKnots">tugun</i><b id="pzKnots">0</b></span>
-          <span><i data-i18n="zanjir.hudBest">eng tezkor</i><b id="pzBest">—</b></span>
-          <span class="pz-mini" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" id="pzSealMini"></svg></span>
+        <div class="pz-hud wrap" id="mHud">
+          <span><i data-i18n="e.level">daraja</i><b id="mLevel">1</b></span>
+          <span><i data-i18n="e.score">nuqta</i><b id="mScore">0</b></span>
+          <span><i data-i18n="m.time">vaqt</i><b id="mTime">—</b></span>
+          <span><i data-i18n="m.testsW">sinov</i><b id="mTests">3</b></span>
+          <span><i data-i18n="e.best">rekord</i><b id="mBest">—</b></span>
+          <span class="pz-mini" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" id="mSealMini"></svg></span>
         </div>
-        <p class="pz-col-t"><span data-i18n="zanjir.chainT">Zanjir</span><em id="pzCount">1 / 7</em></p>
-        <ol class="pz-chain" id="pzChain"></ol>
-        <p class="pz-seam" id="pzSeam" aria-live="polite"></p>
-        <div class="pz-ask" id="pzAsk">
-          <p class="pz-col-t"><span data-i18n="zanjir.nextT">Keyingi halqa</span><span id="pzLeft"></span></p>
-          <ul class="cands" id="pzCands"></ul>
+
+        <!-- practice / endless -->
+        <div class="mode" id="modeBar" role="group" aria-label="Mode">
+          <button type="button" data-mode="solo" aria-pressed="true" data-i18n="m.solo">Mashq</button>
+          <button type="button" data-mode="run" aria-pressed="false" data-i18n="m.runT">Cheksiz</button>
         </div>
-        <div class="pz-actions">
-          <button class="btn ghost" id="pzHint" data-i18n="zanjir.hintBtn">Yordam</button>
-          <button class="btn ghost" id="pzReset" data-i18n="zanjir.reset">Boshidan</button>
-          <span class="pz-status" id="pzStatus" aria-live="polite"></span>
+        <div id="runLock" class="run-lock" style="display:none" data-i18n="e.need">Boshlash uchun hisobingizga kiring — rekord va reyting hisobingizga bogʻlanadi.</div>
+        <div id="runIdle" style="display:none; text-align:center; padding:6px 0 14px">
+          <p style="margin:0 0 12px; color:var(--ink-2); font-size:15px" data-i18n="e.idle">Tayyormisiz? Har yopilgan aylana — bir daraja. Xato tekshiruv yoki vaqt tugashi o‘yinni tugatadi.</p>
+          <button class="btn" id="runStart" data-i18n="e.start">Boshlash</button>
         </div>
+
+        <div class="board" id="mBoard">
+          <div class="ring" id="ring">
+            <svg id="ringLines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+            <div class="hub" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.3" id="mSeal"></svg></div>
+          </div>
+          <div class="side">
+            <p class="pz-col-t"><span data-i18n="m.cluesT">Muhrlar</span><em id="mClueN"></em></p>
+            <ol class="clue-list" id="mClues"></ol>
+          </div>
+          <div class="tray-col">
+            <p class="pz-col-t"><span data-i18n="m.cardsT">Yetti gunoh</span><em id="mCardsN">0 / 7</em></p>
+            <ul class="tray" id="mTray"></ul>
+          </div>
+        </div>
+
+        <div class="m-acts" id="mActs">
+          <button class="btn" id="mCheck" data-i18n="m.check">Tekshirish</button>
+          <button class="btn ghost" id="mTest" data-i18n="m.test">Sinov</button>
+          <button class="btn ghost" id="mHint" data-i18n="m.reveal">Ochish</button>
+          <button class="btn ghost" id="mNew" data-i18n="m.newPz">Yangi jumboq</button>
+          <span class="pz-status" id="mStatus" aria-live="polite"></span>
+        </div>
+
+        <div class="pz-done" id="mDone">
+          <div class="pz-seal" aria-hidden="true">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1" id="mSealBig"></svg>
+          </div>
+          <h4 data-i18n="m.doneT">Aylana yopildi</h4>
+          <p class="pz-loop" id="mLoop"></p>
+          <p class="pz-win" id="mWin"></p>
+          <ul class="pz-pairs" id="mPairs"></ul>
+          <p class="pz-close" data-i18n="zanjir.doneC">Muhrlarning kuchi — birgalikda: har biri alohida kuchsiz, yettitasi birga aylanani qulflaydi.</p>
+          <div class="pz-win-actions">
+            <button class="btn" id="mNext" data-i18n="m.next">Keyingi daraja</button>
+            <button class="btn ghost" id="mShare" data-i18n="zanjir.share">Natijani nusxalash</button>
+          </div>
+        </div>
+
+        <div class="run-over" id="mOver">
+          <h4 data-i18n="m.overH">Aylana ochildi</h4>
+          <div class="big" id="mBig">0</div>
+          <p id="mOverTxt"></p>
+          <div class="acts">
+            <button class="btn" id="mAgain" data-i18n="e.again">Yana urinish</button>
+          </div>
+        </div>
+
         <details class="pz-why" id="pzWhy">
           <summary data-i18n="zanjir.whyT">Nega bu sizni ushlab turadi</summary>
           <div class="pz-why-body" id="pzWhyBody"></div>
         </details>
+
         <div class="pz-more" id="more">
           <div class="pz-more-h">
-            <h3 data-i18n="e.title">Cheksiz zanjir</h3>
+            <h3 data-i18n="e.title">Cheksiz rejim va reyting</h3>
             <span class="tag" data-i18n="e.tag">reyting · hisob · rekord</span>
           </div>
-          <p class="lead2" data-i18n="e.lead">Bir marta oʻrgandingiz — endi tezlik sinovi. Har toʻgʻri ulanish bir halqa beradi; xato yoki vaqt tugashi zanjirni uzadi. Har aylanada vaqt qisqaradi, shuning uchun rekord har safar yangilanadi.</p>
-
-          <!-- account -->
+          <p class="lead2" data-i18n="e.lead">Mashqda oʻrganasiz — cheksiz rejimda sinovdan oʻtasiz. Har yechilgan aylana — keyingi daraja: muhrlar kamayadi, vaqt qisqaradi. Bitta xato yoki vaqt tugashi zanjirni uzadi, shuning uchun rekord doim yangilanadi.</p>
           <div id="accBox"></div>
-
-          <!-- rating -->
           <div class="lb" id="lb">
             <div class="lb-hd"><b data-i18n="b.title">Reyting</b><em data-i18n="b.local">eng yaxshi 10 · shu qurilma</em></div>
             <div id="lbBody"></div>
-          </div>
-
-          <!-- the endless run -->
-          <div class="run" id="run">
-            <div class="run-top">
-              <span class="k" data-i18n="e.score">halqa</span><b id="runScore">0</b>
-              <span class="k" data-i18n="e.level">daraja</span><b id="runLevel">1</b>
-              <span class="sp"></span>
-              <span class="best"><span class="k" data-i18n="e.best">rekord</span><b class="rec" id="runBest">—</b></span>
-              <span class="run-seal" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" id="runSeal"></svg></span>
-            </div>
-            <div class="run-bar" id="runBar"><i></i></div>
-            <div id="runLock" class="run-lock" data-i18n="e.need">Boshlash uchun yuqorida roʻyxatdan oʻting — rekord va reyting hisobingizga bogʻlanadi.</div>
-            <div id="runIdle" style="display:none; text-align:center; padding:6px 0 4px">
-              <p style="margin:0 0 14px; color:var(--ink-2); font-size:15px" data-i18n="e.idle">Tayyormisiz? Har toʻgʻri ulanish — bir halqa. Xato yoki vaqt tugashi — zanjir uziladi.</p>
-              <div class="run-acts">
-                <button class="btn" id="runStart" data-i18n="e.start">Boshlash</button>
-                <span class="pz-status" id="runStatus2" aria-live="polite"></span>
-              </div>
-            </div>
-            <div id="runPlay" style="display:none">
-              <div class="run-open" id="runOpen"></div>
-              <ul class="run-cands" id="runCands"></ul>
-              <div class="pz-actions" style="margin-top:14px">
-                <button class="btn ghost" id="runStop" data-i18n="e.stop">Toʻxtatish</button>
-                <span class="pz-status" id="runStatus" aria-live="polite"></span>
-              </div>
-            </div>
-            <div class="run-over" id="runOver">
-              <h4 data-i18n="e.over">Zanjir uzildi</h4>
-              <div class="big" id="runBig">0</div>
-              <p id="runOverTxt"></p>
-              <div class="acts">
-                <button class="btn" id="runAgain" data-i18n="e.again">Yana urinish</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pz-done" id="pzDone">
-          <div class="pz-seal" aria-hidden="true">
-            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1" id="pzSeal"></svg>
-          </div>
-          <h4 data-i18n="zanjir.doneT">Aylana yopildi</h4>
-          <p class="pz-loop" id="pzLoop"></p>
-          <ul class="pz-pairs" id="pzPairs"></ul>
-          <p class="pz-close" data-i18n="zanjir.doneC">Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.</p>
-          <p class="pz-win" id="pzWin"></p>
-          <div class="pz-win-actions">
-            <button class="btn ghost" id="pzShare" data-i18n="zanjir.share">Natijani nusxalash</button>
-            <button class="btn" id="pzAgain" data-i18n="zanjir.again">Yana o‘ynash</button>
           </div>
         </div>
       </div>
@@ -679,10 +691,41 @@ const DATA = {
 
 uz: {
   "brand.sub":"gunoh va fazilat",
-  nav:{usul:"Usul", juftlik:"Juftliklar", zanjir:"Zanjir", jadval:"Jadval", lugat:"Lug‘at", manbalar:"Manbalar"},
+  nav:{usul:"Usul", juftlik:"Juftliklar", zanjir:"Muhrlar", jadval:"Jadval", lugat:"Lug‘at", manbalar:"Manbalar"},
+  m:{title:"Yetti muhr", hint:"mantiqiy jumboq · cheksiz rejim",
+    lead:"Qo‘lingizda yetti muhr va yetti raqamlangan o‘rin. Har bir muhr yashirin tartib haqida bitta haqiqat aytadi. Jumboq shunday tuzilganki, 5 040 mumkin bo‘lgan tartibdan faqat bittasi hamma muhrga bir vaqtda mos keladi.",
+    intro:"Bu o‘yin o‘qib chiqish bilan yechilmaydi: hech bir muhr to‘liq javobni aytmaydi. Har biri faqat ba’zi tartiblarni yo‘qotadi, qolganini siz o‘zingiz chiqarib tashlaysiz. Aylana yopilganda yettita nur birdan yonadi — o‘sha lahza butun o‘yinning maqsadi.",
+    howh:"Qanday o‘ynaladi",
+    how:"Kartani tanlab, aylanadagi o‘ringa bosing — yoki sichqoncha bilan sudrab tashlang. «Sinov» bitta o‘rinni tekshiradi va to‘g‘ri yoki xato ekanini aytadi (cheklangan). «Ochish» bitta o‘rinni to‘g‘ri qo‘yib qulflaydi — u ham sinovdan ketadi. «Tekshirish» butun aylanani tekshiradi: mashqda faqat xatolar sonini aytadi, shuning uchun taxmin qilish foyda bermaydi; cheksiz rejimda bitta xato o‘yinni tugatadi. Mashqda vaqt yo‘q, sinov uchta — tinch o‘ylaysiz. Cheksiz rejimda har daraja yangi aylana: vaqt qisqaradi, sinov kamayadi, ball to‘planadi.",
+    cluesT:"Muhrlar", cardsT:"Yetti gunoh", time:"vaqt", testsW:"sinov", cluesW:"muhr",
+    check:"Tekshirish", test:"Sinov", reveal:"Ochish", newPz:"Yangi jumboq", next:"Keyingi daraja",
+    solo:"Mashq", runT:"Cheksiz", points:"ball", pointsWord:"ball", levelWord:"daraja", usedW:"sinov sarflandi",
+    pickCard:"Avval kartani tanlang.", pickSeat:"Endi aylanadagi o‘rinni bosing.",
+    needSeat:"Bu o‘rinda karta yo‘q — avval kartani qo‘ying.",
+    needAll:"Aylana to‘liq emas: yettita o‘rin ham to‘ldirilishi kerak.",
+    testPrompt:"Tekshirmoqchi bo‘lgan o‘rinni bosing.", testOk:"To‘g‘ri.", testNo:"Xato — bu o‘rinda boshqa gunoh turishi kerak.",
+    revealOk:"{n}-o‘rin ochildi va qulflandi.",
+    wrongN:"{n} o‘rin xato. Qaysi biri ekanini aniqlash uchun «Sinov» bor.",
+    wrongRun:"{n} o‘rin xato edi — aylana shu yerda ochildi.",
+    timeout:"Vaqt tugadi — aylana yopilmadi.",
+    doneT:"Aylana yopildi",
+    solved:"Aylana yopildi: yettita muhr bir vaqtda bajarildi.",
+    orderT:"Tartib:", levelUp:"{l}-daraja — yangi aylana, vaqt qisqardi.",
+    overH:"Aylana ochildi",
+    overT:"{l}-darajada to‘xtadingiz: {s} ball, vaqt {t}.",
+    tr:{kibr:"o‘zini ustun qo‘yish", buxiylik:"yig‘ishga berilish", shahvat:"istakning chetga chiqishi",
+        gazab:"o‘ylamasdan javob berish", ochkozlik:"me’yordan ortiq yeyish", hasad:"birovning holiga qarab o‘lchash",
+        dangasalik:"hech narsa qilmaslik"},
+    cAt:"{a} — {n}-o‘rinda.", cNotAt:"{a} — {n}-o‘rinda emas.",
+    cNext:"{a}dan keyin — {b} (7-o‘rindan keyin 1-o‘rin keladi).",
+    cAdj:"{a} va {b} — qo‘shni o‘rinlarda.",
+    cNotAdj:"{a} va {b} — qo‘shni emas.",
+    cBefore:"{a} — {b}dan kichikroq raqamli o‘rinda.",
+    cGap:"{a} bilan {b} orasida (kichik raqamdan kattasiga qarab) aynan {n} o‘rin bor.",
+    cGapOne:"{a} bilan {b} orasida (kichik raqamdan kattasiga qarab) aynan bitta o‘rin bor."},
   ui:{print:"Chop etish / PDF", theme:"Kunduzgi yoki tungi ko‘rinish"},
   hero:{kicker:"Ma’lumotnoma · yetti juftlik · 2026",
-    sub:"Gunoh — me’yordan chiqish. Fazilat — o‘rta.", cta:"Cheksiz rejim va reyting",
+    sub:"Gunoh — me’yordan chiqish. Fazilat — o‘rta.", cta:"Yetti muhrni yechish",
     lede:"Yetti gunoh — ikki ming yillik ro‘yxat. Bu sahifa uni dahshat emas, me’yor masalasi sifatida oladi: har bir gunoh chetga chiqish, uning qarshisida esa o‘rtani ushlab turuvchi fazilat turadi. Har fikr yonida manba bor."},
   meta:[["7","juftlik"],["7","varaq"],["3","til"],["%n","manba"]],
   usul:{title:"Usul", hint:"uch tamoyil",
@@ -749,50 +792,32 @@ uz: {
      quote:"Mehnat — rohatning poydevori.", qsrc:"O‘zbek xalq maqoli",
      refs:["Aristotel, NE II.1–4","Qutadg‘u bilig, 1069–70","Maqollar to‘plami"]}
   ],
-  e:{title:"Cheksiz zanjir", tag:"reyting · hisob · rekord",
-    lead:"Bir marta oʻrgandingiz — endi tezlik sinovi. Har toʻgʻri ulanish bir halqa beradi; xato yoki vaqt tugashi zanjirni uzadi. Har aylanada vaqt qisqaradi, shuning uchun rekord har safar yangilanadi.",
-    score:"halqa", level:"daraja", best:"rekord", start:"Boshlash", stop:"Toʻxtatish",
-    idle:"Tayyormisiz? Har toʻgʻri ulanish — bir halqa. Xato yoki vaqt tugashi — zanjir uziladi.",
-    need:"Boshlash uchun yuqorida roʻyxatdan oʻting — rekord va reyting hisobingizga bogʻlanadi.",
-    over:"Zanjir uzildi", again:"Yana urinish", overT:"{n} halqa · {l}-daraja · {t}",
-    newBest:"yangi rekord!", circle:"Aylana yopildi — daraja {l}", wrong:"Xato ulanish.", timeout:"Vaqt tugadi.", quit:"Toʻxtatildi."},
+  e:{title:"Cheksiz rejim", tag:"reyting · hisob · rekord",
+    lead:"Mashqda o‘rganasiz — cheksiz rejimda sinovdan o‘tasiz. Har yechilgan aylana — keyingi daraja: vaqt qisqaradi, sinov kamayadi, muhrlar kamayadi. Bitta xato yoki vaqt tugashi o‘yinni tugatadi, shuning uchun rekord doim yangilanadi.",
+    score:"ball", level:"daraja", best:"rekord", start:"Boshlash", stop:"To‘xtatish",
+    idle:"Tayyormisiz? Har yopilgan aylana — bir daraja. Xato tekshiruv yoki vaqt tugashi o‘yinni tugatadi.",
+    need:"Boshlash uchun hisobingizga kiring — rekord va reyting hisobingizga bog‘lanadi.",
+    over:"Aylana ochildi", again:"Yana urinish", overT:"{n} ball · {l}-daraja · {t}",
+    newBest:"yangi rekord!", circle:"Aylana yopildi — daraja {l}", wrong:"Xato tekshiruv.", timeout:"Vaqt tugadi.", quit:"To‘xtatildi."},
   a:{signup:"Roʻyxatdan oʻtish", login:"Kirish", name:"Foydalanuvchi nomi", pass:"Parol",
     go:"Davom etish", logout:"Chiqish", hi:"Kirildi:", you:"siz", note:"Hisob shu qurilmada saqlanadi: server yoʻq, parol ochiq matnda saqlanmaydi (PBKDF2-SHA256, 120 000 takror).",
     errName:"Nom 3–16 belgi: harflar, raqamlar, pastki chiziq.", errPass:"Parol kamida 4 belgi.",
     errTaken:"Bu nom allaqachon olingan.", errBad:"Nom yoki parol xato.", errBusy:"Tekshirilmoqda…"},
-  b:{title:"Reyting", local:"eng yaxshi 10 · shu qurilma", empty:"Hali natija yoʻq — birinchi boʻling.", rank:"#", name:"ism", score:"halqa", level:"daraja", date:"sana"},
-  zanjir:{title:"Zanjir: uzilgan gap", hint:"jumboq · cheksiz rejim · reyting",
-    lead:"Gunohlar alohida turganda qo‘rqinchli ko‘rinadi. Ular aslida zanjir: har biri keyingisini tug‘diradi va yettinchisi yana birinchisiga qaytadi.",
-    intro:"Quyida bitta gap yetti bo‘lakka bo‘lingan. Har bo‘lak oldingi gapning yarim qolgan uchini tugatadi — va o‘zi yana yarim gap bilan uziladi.",
-    howh:"Qanday o‘ynaladi",
-    how:"Pastdagi parchalar orasidan faqat bittasi ochiq gapni grammatik jihatdan tugatadi — o‘shani tanlang. Bu xotira o‘yini emas: matn ko‘z oldingizda, faqat ulanishni topish kerak. Xato tanlov zanjirni buzmaydi — faqat bitta tugun qo‘shadi.",
-    chainT:"Zanjir", nextT:"Keyingi halqa", leftW:"qoldi", given:"sovg‘a",
-    hudTime:"vaqt", hudKnots:"tugun", hudBest:"eng tezkor", hintsW:"yordam", newBest:"yangi rekord",
-    right:"Ulandi", wrong:"Bu parcha o‘sha yarim gapga ulanmaydi — zanjir joyida qoldi.", seam:"Ulanish",
-    hintBtn:"Yordam", reset:"Boshidan", again:"Yana o‘ynash", share:"Natijani nusxalash", shared:"Nusxalandi",
-    hintDone:"Keyingi parcha shu so‘z bilan boshlanadi:",
-    doneT:"Aylana yopildi",
-    doneC:"Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.",
-    loopH:"Oxirgi parcha birinchi gapga qaytdi:",
-    whyT:"Nega bu sizni ushlab turadi",
+  b:{title:"Reyting", local:"eng yaxshi 10 · shu qurilma", empty:"Hali natija yoʻq — birinchi boʻling.", rank:"#", name:"ism", score:"ball", level:"daraja", date:"sana"},
+  zanjir:{
+    whyT:"Nega bu o‘yin bir o‘qishda yechilmaydi",
     why:[
-      {h:"Yarim qolgan gap", t:"Har halqa tugallanmagan gap bilan uziladi. Psixolog Jorj Louenshteyn buni «bilim bo‘shlig‘i» deb atagan: odam to‘liq bilmagan narsaga emas, aynan sal qolgan narsaga eng kuchli qiziqadi — javob berilishi bilan qiziqish so‘nadi. Shuning uchun har parcha avval javob beradi, keyin yana savol qoldiradi.", n:11},
-      {h:"Boshlanganini tashlab ketish qiyin", t:"1927-yilda Bluma Zeygarnik tugallanmagan ishlar xotirada uzoqroq qolishini ko‘rsatdi. Keyingi takrorlashlar bu farqni ancha zaif topdi (jamlanma nisbat ≈ 1.0), lekin uning hamkasbi Ovsiankina ko‘rgan narsa mustahkam chiqdi: boshlangan ishni odam o‘zi qaytib davom ettiradi. Shuning uchun o‘yin xotiraga emas, davom ettirishga qurilgan.", n:12},
-      {h:"Birinchi qadam sovg‘a", t:"Nunes va Dreze karta tajribasida ko‘rdi: bo‘sh sakkiz shtamp o‘rniga o‘nta shtampdan ikkitasi oldindan bosilgani berilganda, ayni shu mehnat bilan kartani tugatish 19% dan 34% ga chiqdi. Sharti bitta — sovg‘aning sababi aytilishi kerak. Shuning uchun birinchi halqa «sovg‘a» deb belgilangan va sababi yozilgan.", n:13},
-      {h:"Oxiriga yaqin tezlashuv", t:"Kivetz, Urminskiy va Chjen kuzatuvida odamlar maqsadga yaqinlashgan sari tezroq harakat qildi. Shuning uchun hisoblagich qolganini emas, yig‘ilgan halqalarni ko‘rsatadi — va oxirgi halqa tantana bilan yopiladi.", n:14},
-      {h:"O‘z qo‘li bilan ulagan zanjir", t:"Norton, Mochon va Arieli «IKEA effekti»ni ko‘rsatdi: odam o‘zi yig‘gan narsani qimmatroq baholaydi. Chegarasi bor — bu faqat ish tugallansa ishlaydi, buzilgan ish effektni o‘chiradi. Shuning uchun xato javob zanjirni buzmaydi, faqat tugun qo‘shadi.", n:15},
-      {h:"Oxiri esda qoladi", t:"Kahneman va hamkasablari tajriba qanday esda qolishini davomiylik emas, eng kuchli nuqta va yakun belgilashini ko‘rsatdi. Shuning uchun eng kuchli lahza oxirida: yettinchi parcha birinchi gapga qaytib, aylanani yopadi.", n:16}
+      {h:"Javob matnda yo‘q", t:"Yettita gunohning 5 040 xil tartibi bor. Muhrlar to‘plami shundan faqat bittasini qoldiradi — qolgan 5 039 tasini siz o‘zingiz chiqarib tashlaysiz. Har bir muhr boshqasi bilan birga ishlaydi, shuning uchun sahifani bir marta o‘qib chiqish hech narsa bermaydi: javob xulosada, satrlarda emas.", n:0},
+      {h:"Yarim yechilgan aylana", t:"Louenshteyn ko‘rsatganidek, odamni to‘liq bilmagan narsa emas, aynan sal qolgan narsa tortadi: bilim bo‘shlig‘i tor bo‘lsa, uni yopish istagi kuchli bo‘ladi. Muhrlar aynan shu holatni yasaydi — har biri bilan nomzodlar kamayadi, lekin aylana yopilmaguncha bo‘shliq qoladi.", n:11},
+      {h:"Boshlangan ish qaytaradi", t:"Zeygarnikning 1927-yildagi ishi xotira haqida edi va keyingi takrorlashlarda zaif chiqdi; mustahkam qolgan qismi — Ovsiankinaning kuzatuvi: boshlangan ishni odam o‘zi qaytib tugatadi. Shuning uchun yechilmagan aylana ekranda turadi va qaytib kelishni so‘raydi.", n:12},
+      {h:"Birinchi muhr — sovg‘a", t:"Nunes va Dreze karta tajribasida oldindan berilgan ikki shtamp tugatish darajasini 19% dan 34% ga ko‘tardi, sharti — sovg‘aning sababi aytilishi. Shuning uchun birinchi muhr har doim bitta o‘rinni to‘g‘ridan-to‘g‘ri aytadi: aylana bo‘sh varaqdan boshlanmaydi.", n:13},
+      {h:"O‘z qo‘li bilan yopilgan aylana", t:"Norton, Mochon va Arieli «IKEA effekti»ni ko‘rsatdi: odam o‘zi yig‘gan narsani qimmatroq baholaydi, lekin ish buzilsa effekt o‘chadi. Shuning uchun mashqda xato tekshiruv hech narsani o‘chirmaydi — faqat xatolar sonini aytadi. Cheksiz rejimda xato — qoida, jazo emas: u rekordni yangilash imkoniyati bo‘lib qoladi.", n:15},
+      {h:"Oxirgi lahza esda qoladi", t:"Kahneman va hamkasablari tajriba qanday esda qolishini davomiylik emas, eng kuchli nuqta va yakun belgilashini ko‘rsatdi. Shuning uchun eng kuchli lahza oxirida: oxirgi muhr joyiga tushganda yettita nur birdan yonadi va aylana yopiladi.", n:16}
     ],
-    cuts:[["Kibr","Kamtarlik"],["Buxiylik","Saxovat"],["Shahvat","O‘zini tutish"],["G‘azab","Sabr"],["Ochko‘zlik","Me’yor"],["Hasad","Ko‘ngli ochiqlik"],["Dangasalik","Mehnatsevarlik"]],
-    cards:[
-      {k:"kibr", in:"", mid:"U o‘zini boshqalardan bir qadam baland deb biladi.", out:"Va shu balandlikdan hamma narsani, jumladan o‘zini ham,"},
-      {k:"hasad", in:"boshqalar bilan o‘lchab ko‘ra boshlaydi:", mid:"birovga kelgan har bir yaxshilik uning daftariga zarar bo‘lib yoziladi.", out:"Va u daftarga qarab, o‘zinikidan ham ko‘proq"},
-      {k:"buxiylik", in:"ushlab qolishga o‘tadi:", mid:"qo‘l yopiladi va undan hech narsa chiqmaydi.", out:"Lekin qo‘l yopilgan joyda"},
-      {k:"ochkozlik", in:"og‘iz ochiladi:", mid:"bir eshik ochilgan ishtaha hamma eshikni so‘raydi.", out:"Va odamni narsa deb ko‘rish boshlangach,"},
-      {k:"shahvat", in:"odamlar faqat vosita bo‘lib qoladi;", mid:"biri vosita bo‘lishdan bosh tortsa, rad javobi kuch bilan qaytariladi.", out:"Va kuch uni"},
-      {k:"gazab", in:"yeb qo‘yadi:", mid:"ortida yillar bo‘yi baqirgan odam qoladi.", out:"Va o‘sha odamga endi hech narsa boshlashga arzimaydi, shuning uchun"},
-      {k:"dangasalik", in:"iroda jim qoladi:", mid:"u hech narsa qilmaydi va o‘zini bu ma’nosiz mehnatdan baland deb biladi.", out:"Ya’ni hammasi boshiga qaytadi: o‘zini boshqalardan bir qadam baland deb biladigan odamga."}
-    ]},
+    doneC:"Muhrlarning kuchi — birgalikda: har biri alohida kuchsiz, yettitasi birga aylanani qulflaydi.",
+    share:"Natijani nusxalash", shared:"Nusxalandi",
+    cuts:[["Kibr","Kamtarlik"],["Buxiylik","Saxovat"],["Shahvat","O‘zini tutish"],["G‘azab","Sabr"],["Ochko‘zlik","Me’yor"],["Hasad","Ko‘ngli ochiqlik"],["Dangasalik","Mehnatsevarlik"]]},
+
   jadval:{title:"Bir jadvalda", hint:"7 qator", cap:"Yetti gunoh va ularning qarshisidagi fazilat",
     th:["№","Gunoh (lotin)","Nomi","Fazilat","Lotincha","Manba"]},
   note:{h:"Bir eslatma",
@@ -818,10 +843,41 @@ uz: {
 
 en: {
   "brand.sub":"vice and virtue",
-  nav:{usul:"Method", juftlik:"Pairs", zanjir:"Chain", jadval:"Table", lugat:"Glossary", manbalar:"Sources"},
+  nav:{usul:"Method", juftlik:"Pairs", zanjir:"Seals", jadval:"Table", lugat:"Glossary", manbalar:"Sources"},
+  m:{title:"The Seven Seals", hint:"logic puzzle · endless run",
+    lead:"Seven seals, seven numbered seats. Each seal is one true statement about a hidden arrangement — and exactly one of the 5 040 possible arrangements satisfies all of them at once.",
+    intro:"This cannot be solved by reading: no seal states the answer. Each one only eliminates candidates; the rest you have to reason out yourself. When the ring closes, all seven rays light at once — that moment is the whole point.",
+    howh:"How to play",
+    how:"Pick a card and click a seat on the ring — or drag the card onto it. “Test” checks one seat and tells you whether it is right (limited). “Reveal” places and locks one seat for you — it spends a test too. “Check” verifies the whole ring: in practice it only says how many seats are wrong, so guessing gains nothing; in the endless run one wrong ring ends the game. Practice has no clock and three tests. In the endless run every level is a new ring: less time, fewer tests, more points.",
+    cluesT:"Seals", cardsT:"The seven vices", time:"time", testsW:"tests", cluesW:"seals",
+    check:"Check", test:"Test", reveal:"Reveal", newPz:"New puzzle", next:"Next level",
+    solo:"Practice", runT:"Endless", points:"points", pointsWord:"points", levelWord:"level", usedW:"tests spent",
+    pickCard:"Pick a card first.", pickSeat:"Now click a seat on the ring.",
+    needSeat:"That seat is empty — place a card on it first.",
+    needAll:"The ring is incomplete: all seven seats must be filled.",
+    testPrompt:"Click the seat you want to test.", testOk:"Correct.", testNo:"Wrong — another vice belongs in that seat.",
+    revealOk:"Seat {n} has been revealed and locked.",
+    wrongN:"{n} seats are wrong. “Test” tells you which.",
+    wrongRun:"{n} seats were wrong — the ring opened here.",
+    timeout:"Time ran out — the ring did not close.",
+    doneT:"The ring is closed",
+    solved:"The ring is closed: all seven seals hold at once.",
+    orderT:"The order:", levelUp:"Level {l} — a new ring, less time.",
+    overH:"The ring opened",
+    overT:"You stopped at level {l}: {s} points, {t} on the clock.",
+    tr:{kibr:"setting yourself above others", buxiylik:"holding on to what you have", shahvat:"appetite past the mean",
+        gazab:"answering before thinking", ochkozlik:"eating past need", hasad:"measuring yourself by others",
+        dangasalik:"doing nothing"},
+    cAt:"{a} sits in seat {n}.", cNotAt:"{a} is not in seat {n}.",
+    cNext:"After {a} comes {b} (seat 7 is followed by seat 1).",
+    cAdj:"{a} and {b} sit in neighbouring seats.",
+    cNotAdj:"{a} and {b} are not neighbours.",
+    cBefore:"{a} sits in a lower-numbered seat than {b}.",
+    cGap:"Exactly {n} seats lie between {a} and {b}, counting from the lower number upward.",
+    cGapOne:"Exactly one seat lies between {a} and {b}, counting from the lower number upward."},
   ui:{print:"Print / PDF", theme:"Day or night view"},
   hero:{kicker:"Reference · seven pairs · 2026",
-    sub:"Vice is the extreme. Virtue is the mean.", cta:"Endless mode and rating",
+    sub:"Vice is the extreme. Virtue is the mean.", cta:"Solve the seven seals",
     lede:"The seven deadly sins are a two-thousand-year-old list. This page reads the list not as horror but as a question of measure: every vice is an overshoot, and opposite it stands the virtue that holds the middle. Every claim carries a source."},
   meta:[["7","pairs"],["7","cards"],["3","languages"],["%n","sources"]],
   usul:{title:"Method", hint:"three principles",
@@ -888,50 +944,32 @@ en: {
      quote:"Labour is the foundation of rest.", qsrc:"Uzbek proverb",
      refs:["Aristotle, NE II.1–4","Qutadgu Bilig, 1069–70","Proverb collection"]}
   ],
-  e:{title:"Endless chain", tag:"rating · account · record",
-    lead:"Once you have learned it, the test is speed. Every correct join is a link; one wrong choice or a drained clock breaks the chain. Each circle leaves less time, so the record keeps moving.",
-    score:"links", level:"level", best:"record", start:"Start", stop:"Stop",
-    idle:"Ready? Every correct join is a link. One wrong choice or a drained clock ends it.",
-    need:"Register above to begin — your record and rating are tied to your account.",
-    over:"The chain broke", again:"Try again", overT:"{n} links · level {l} · {t}",
-    newBest:"new record!", circle:"Circle closed — level {l}", wrong:"Wrong join.", timeout:"Time ran out.", quit:"Stopped."},
+  e:{title:"The endless run", tag:"rating · account · record",
+    lead:"Practice teaches you; the endless run tests you. Every ring you close is the next level: less time, fewer tests, fewer seals. One wrong check or a drained clock ends the run, so the record is always there to be beaten.",
+    score:"points", level:"level", best:"best", start:"Start", stop:"Stop",
+    idle:"Ready? Every closed ring is one level. A wrong check or a drained clock ends the run.",
+    need:"Sign in above to start — your record and rating are tied to your account.",
+    over:"The ring opened", again:"Try again", overT:"{n} points · level {l} · {t}",
+    newBest:"new record!", circle:"Ring closed — level {l}", wrong:"Wrong check.", timeout:"Time ran out.", quit:"Stopped."},
   a:{signup:"Sign up", login:"Sign in", name:"Username", pass:"Password",
     go:"Continue", logout:"Sign out", hi:"Signed in:", you:"you", note:"The account lives in this browser: there is no server, and the password is never stored in plain text (PBKDF2-SHA256, 120,000 rounds).",
     errName:"Name 3–16 characters: letters, digits, underscore.", errPass:"Password at least 4 characters.",
     errTaken:"That name is already taken.", errBad:"Wrong name or password.", errBusy:"Checking…"},
-  b:{title:"Rating", local:"top 10 · this device", empty:"No results yet — be the first.", rank:"#", name:"name", score:"links", level:"level", date:"date"},
-  zanjir:{title:"The Chain: a broken sentence", hint:"puzzle · endless run · rating",
-    lead:"Seen one at a time, the vices look monstrous. In fact they are a chain: each one produces the next, and the seventh returns to the first.",
-    intro:"Below, one sentence has been cut into seven pieces. Each piece finishes the half-sentence the one before it left hanging — and leaves a new half-sentence open.",
-    howh:"How to play",
-    how:"Only one fragment finishes the open sentence grammatically — pick it. This is not a memory game: the text stays in front of you, the only thing to find is the joint. A wrong choice never breaks the chain, it only adds a knot.",
-    chainT:"The chain", nextT:"Next link", leftW:"left", given:"a gift",
-    hudTime:"time", hudKnots:"knots", hudBest:"fastest", hintsW:"hints", newBest:"new best",
-    right:"Joined", wrong:"That fragment does not join the open half-sentence — the chain stays as it was.", seam:"Joint",
-    hintBtn:"Hint", reset:"Restart", again:"Play again", share:"Copy result", shared:"Copied",
-    hintDone:"The next fragment begins with:",
-    doneT:"The circle is closed",
-    doneC:"You do not have to cut all seven links to break the chain — one is enough.",
-    loopH:"The last fragment returned to the first sentence:",
-    whyT:"Why this holds you",
+  b:{title:"Rating", local:"top 10 · this device", empty:"No results yet — be the first.", rank:"#", name:"name", score:"points", level:"level", date:"date"},
+  zanjir:{
+    whyT:"Why this game cannot be solved in one reading",
     why:[
-      {h:"The half-open sentence", t:"Every link ends on an unfinished clause. The psychologist George Loewenstein called this an information gap: curiosity is strongest not when we know nothing but when we almost know — and it fades the moment the answer arrives. So each fragment answers, then asks again.", n:11},
-      {h:"A started thing is hard to leave", t:"In 1927 Bluma Zeigarnik showed that unfinished tasks linger in memory; later replications made that gap far weaker (pooled ratio ≈ 1.0), but what her colleague Ovsiankina saw held up: people return on their own to a task they have begun. So this game is built on resuming, not on remembering.", n:12},
-      {h:"The first step is a gift", t:"In Nunes and Drèze’s stamp-card study, a 10-stamp card with 2 stamps already given raised completion from 19% to 34% for exactly the same effort — on one condition: the head start had to come with a reason. So the first link is marked as a gift, and the reason is written down.", n:13},
-      {h:"Acceleration near the end", t:"Kivetz, Urminsky and Zheng found that people move faster as a goal comes closer. So the counter shows links gathered, not links left — and the last link closes with ceremony.", n:14},
-      {h:"A chain you joined yourself", t:"Norton, Mochon and Ariely described the IKEA effect: we value what we assembled ourselves. But it holds only if the build is completed — a destroyed or unfinished one kills the effect. So a wrong choice never breaks this chain; it only adds a knot.", n:15},
-      {h:"The end is what is remembered", t:"Kahneman and colleagues showed that an experience is remembered by its peak and its ending, not its duration. So the strongest moment is saved for last: the seventh fragment returns to the first sentence and closes the circle.", n:16}
+      {h:"The answer is not on the page", t:"Seven vices can be arranged in 5 040 different orders. A set of seals leaves exactly one of them standing — the other 5 039 you eliminate yourself. Each seal only works together with the others, so a single pass over the text gives nothing: the answer lives in the deduction, not in the lines.", n:0},
+      {h:"A half-closed ring", t:"Loewenstein showed that people are pulled not by what they wholly lack but by what they almost know: the narrower the information gap, the stronger the urge to close it. The seals manufacture exactly that state — every one removes candidates, yet the gap survives until the ring closes.", n:11},
+      {h:"An unfinished task pulls you back", t:"Zeigarnik’s 1927 study was about memory and did not replicate well; what held up is Ovsiankina’s observation — people resume a task they started on their own. That is why an unsolved ring is left on screen: it asks to be returned to.", n:12},
+      {h:"The first seal is a gift", t:"In Nunes and Drèze’s loyalty-card experiment, two stamps given up front raised completion from 19 % to 34 % — on condition that the reason for the gift was stated. So the first seal always names one seat outright: the ring never starts from a blank sheet.", n:13},
+      {h:"A ring you closed yourself", t:"Norton, Mochon and Ariely showed the IKEA effect: people value what they assembled themselves, but the effect collapses if the build is destroyed. So in practice a wrong check deletes nothing — it only counts the wrong seats. In the endless run a mistake is a rule, not a punishment: it simply leaves the record to be beaten another time.", n:15},
+      {h:"The last moment is what stays", t:"Kahneman and colleagues showed that an experience is remembered by its peak and its end, not by its length. That is why the peak sits last: when the final seal drops into place, all seven rays light at once and the ring closes.", n:16}
     ],
-    cuts:[["Pride","Humility"],["Greed","Generosity"],["Lust","Self-command"],["Wrath","Patience"],["Gluttony","Measure"],["Envy","Goodwill"],["Sloth","Diligence"]],
-    cards:[
-      {k:"kibr", in:"", mid:"He is certain he stands a step above the others.", out:"And from that height he begins to weigh everything, himself included,"},
-      {k:"hasad", in:"against everyone else:", mid:"every good thing that happens to another is entered in his ledger as a loss.", out:"And reading that ledger, he wants to hold on to more than his own —"},
-      {k:"buxiylik", in:"so he starts to keep:", mid:"the hand closes and nothing leaves it.", out:"But where the hand is closed,"},
-      {k:"ochkozlik", in:"the mouth opens:", mid:"an appetite let in at one door asks for every door.", out:"And once a person is seen as a thing,"},
-      {k:"shahvat", in:"people become only means;", mid:"if one of them refuses to be a means, the refusal is answered with force.", out:"And force"},
-      {k:"gazab", in:"eats him up:", mid:"what is left is a man who has been shouting for years.", out:"And to that man nothing is worth beginning any more, so"},
-      {k:"dangasalik", in:"the will goes quiet:", mid:"he does nothing and counts himself above this pointless labour.", out:"Which is where it began: with a man certain he stands a step above the others."}
-    ]},
+    doneC:"A seal is weak alone: each says one thing, and only all seven together lock the ring.",
+    share:"Copy the result", shared:"Copied",
+    cuts:[["Pride","Humility"],["Greed","Generosity"],["Lust","Self-command"],["Wrath","Patience"],["Gluttony","Temperance"],["Envy","Open-heartedness"],["Sloth","Diligence"]]},
+
   jadval:{title:"In one table", hint:"7 rows", cap:"The seven vices and the virtue set against each",
     th:["№","Vice (Latin)","Name","Virtue","Latin","Source"]},
   note:{h:"One note",
@@ -957,10 +995,41 @@ en: {
 
 ru: {
   "brand.sub":"порок и добродетель",
-  nav:{usul:"Метод", juftlik:"Пары", zanjir:"Цепь", jadval:"Таблица", lugat:"Словарь", manbalar:"Источники"},
+  nav:{usul:"Метод", juftlik:"Пары", zanjir:"Печати", jadval:"Таблица", lugat:"Словарь", manbalar:"Источники"},
+  m:{title:"Семь печатей", hint:"логическая задача · бесконечный режим",
+    lead:"Семь печатей и семь пронумерованных мест. Каждая печать — одно верное утверждение о скрытом порядке. Из 5 040 возможных порядков ровно один удовлетворяет всем печатям сразу.",
+    intro:"Это нельзя решить прочтением: ни одна печать не называет ответ. Каждая лишь отсекает варианты, остальное вы выводите сами. Когда кольцо замкнётся, все семь лучей вспыхнут разом — ради этого момента всё и устроено.",
+    howh:"Как играть",
+    how:"Выберите карту и нажмите на место в кольце — или перетащите карту мышью. «Проверка» проверяет одно место и говорит, верно ли оно (ограниченно). «Открыть» ставит и закрепляет одно место за вас — это тоже расходует проверку. «Сверить» проверяет всё кольцо: в практике оно называет только число неверных мест, поэтому угадывать бессмысленно; в бесконечном режиме одна неверная сверка заканчивает игру. В практике нет таймера и есть три проверки. В бесконечном режиме каждый уровень — новое кольцо: меньше времени, меньше проверок, больше очков.",
+    cluesT:"Печати", cardsT:"Семь пороков", time:"время", testsW:"проверок", cluesW:"печатей",
+    check:"Сверить", test:"Проверка", reveal:"Открыть", newPz:"Новая задача", next:"Следующий уровень",
+    solo:"Практика", runT:"Бесконечный", points:"очков", pointsWord:"очков", levelWord:"уровень", usedW:"проверок потрачено",
+    pickCard:"Сначала выберите карту.", pickSeat:"Теперь нажмите на место в кольце.",
+    needSeat:"Это место пусто — сначала поставьте на него карту.",
+    needAll:"Кольцо не заполнено: нужны все семь мест.",
+    testPrompt:"Нажмите на место, которое хотите проверить.", testOk:"Верно.", testNo:"Неверно — здесь другой порок.",
+    revealOk:"Место {n} открыто и закреплено.",
+    wrongN:"{n} мест неверны. Какие именно — покажет «Проверка».",
+    wrongRun:"{n} мест были неверны — кольцо раскрылось здесь.",
+    timeout:"Время вышло — кольцо не замкнулось.",
+    doneT:"Кольцо замкнуто",
+    solved:"Кольцо замкнуто: все семь печатей верны одновременно.",
+    orderT:"Порядок:", levelUp:"Уровень {l} — новое кольцо, времени меньше.",
+    overH:"Кольцо раскрылось",
+    overT:"Вы остановились на уровне {l}: {s} очков, время {t}.",
+    tr:{kibr:"ставить себя выше других", buxiylik:"держаться за накопленное", shahvat:"желание за пределами меры",
+        gazab:"отвечать раньше, чем думать", ochkozlik:"есть больше потребности", hasad:"мерить себя другими",
+        dangasalik:"ничего не делать"},
+    cAt:"{a} — на {n}-м месте.", cNotAt:"{a} — не на {n}-м месте.",
+    cNext:"{a} и {b} — соседние места, и {b} идёт следующим по номеру (после 7-го — 1-е).",
+    cAdj:"{a} и {b} — на соседних местах.",
+    cNotAdj:"{a} и {b} — не соседи.",
+    cBefore:"{a} — на месте с меньшим номером, чем {b}.",
+    cGap:"{a} и {b} стоят так, что между ними (от меньшего номера к большему) ровно {n} места.",
+    cGapOne:"{a} и {b} стоят так, что между ними (от меньшего номера к большему) ровно одно место."},
   ui:{print:"Печать / PDF", theme:"Дневной или ночной вид"},
   hero:{kicker:"Справочник · семь пар · 2026",
-    sub:"Порок — выход из меры. Добродетель — середина.", cta:"Бесконечный режим и рейтинг",
+    sub:"Порок — выход из меры. Добродетель — середина.", cta:"Решить семь печатей",
     lede:"Семь смертных грехов — список возрастом в две тысячи лет. Эта страница читает его не как ужас, а как вопрос о мере: каждый порок — крайность, и напротив него стоит добродетель, держащая середину. У каждого утверждения есть источник."},
   meta:[["7","пар"],["7","карт"],["3","языка"],["%n","источников"]],
   usul:{title:"Метод", hint:"три принципа",
@@ -1027,50 +1096,32 @@ ru: {
      quote:"Труд — основа покоя.", qsrc:"Узбекская пословица",
      refs:["Аристотель, NE II.1–4","Кутадгу билиг, 1069–70","Сборник пословиц"]}
   ],
-  e:{title:"Бесконечная цепь", tag:"рейтинг · аккаунт · рекорд",
-    lead:"Вы уже поняли правила — теперь проверка на скорость. Каждое верное соединение даёт звено; ошибка или истёкшее время рвут цепь. С каждым кругом времени меньше, поэтому рекорд всё время движется.",
-    score:"звенья", level:"уровень", best:"рекорд", start:"Начать", stop:"Остановить",
-    idle:"Готовы? Каждое верное соединение — звено. Ошибка или истёкшее время рвут цепь.",
-    need:"Зарегистрируйтесь выше, чтобы начать — рекорд и рейтинг привязаны к аккаунту.",
-    over:"Цепь разорвана", again:"Ещё попытка", overT:"{n} звеньев · уровень {l} · {t}",
-    newBest:"новый рекорд!", circle:"Круг замкнут — уровень {l}", wrong:"Неверное соединение.", timeout:"Время вышло.", quit:"Остановлено."},
+  e:{title:"Бесконечный режим", tag:"рейтинг · аккаунт · рекорд",
+    lead:"В практике вы учитесь; в бесконечном режиме проходите проверку. Каждое замкнутое кольцо — следующий уровень: меньше времени, меньше проверок, меньше печатей. Одна неверная сверка или истёкшее время заканчивают игру, поэтому рекорд всегда можно побить.",
+    score:"очков", level:"уровень", best:"рекорд", start:"Начать", stop:"Остановить",
+    idle:"Готовы? Каждое замкнутое кольцо — один уровень. Неверная сверка или истёкшее время заканчивают игру.",
+    need:"Войдите выше, чтобы начать — рекорд и рейтинг привязаны к аккаунту.",
+    over:"Кольцо раскрылось", again:"Ещё попытка", overT:"{n} очков · уровень {l} · {t}",
+    newBest:"новый рекорд!", circle:"Кольцо замкнуто — уровень {l}", wrong:"Неверная сверка.", timeout:"Время вышло.", quit:"Остановлено."},
   a:{signup:"Регистрация", login:"Вход", name:"Имя пользователя", pass:"Пароль",
     go:"Продолжить", logout:"Выйти", hi:"Вход выполнен:", you:"вы", note:"Аккаунт хранится в этом браузере: сервера нет, пароль не хранится открытым текстом (PBKDF2-SHA256, 120 000 итераций).",
     errName:"Имя 3–16 символов: буквы, цифры, подчёркивание.", errPass:"Пароль не короче 4 символов.",
     errTaken:"Это имя уже занято.", errBad:"Неверное имя или пароль.", errBusy:"Проверяем…"},
-  b:{title:"Рейтинг", local:"топ-10 · это устройство", empty:"Результатов пока нет — станьте первым.", rank:"#", name:"имя", score:"звенья", level:"уровень", date:"дата"},
-  zanjir:{title:"Цепь: разорванная фраза", hint:"головоломка · бесконечный режим · рейтинг",
-    lead:"Пороки, взятые по отдельности, выглядят чудовищами. На деле они — цепь: каждый порождает следующий, а седьмой возвращается к первому.",
-    intro:"Ниже одно предложение разрезано на семь частей. Каждая часть заканчивает половину фразы, оставленную предыдущей, — и сама оставляет новую половину открытой.",
-    howh:"Как играть",
-    how:"Только один фрагмент грамматически завершает открытое предложение — выберите его. Это не игра на память: текст перед вами, найти нужно только стык. Неверный выбор не ломает цепь — он лишь добавляет один узел.",
-    chainT:"Цепь", nextT:"Следующее звено", leftW:"осталось", given:"подарок",
-    hudTime:"время", hudKnots:"узлы", hudBest:"рекорд", hintsW:"подсказки", newBest:"новый рекорд",
-    right:"Соединено", wrong:"Этот фрагмент не соединяется с открытой фразой — цепь осталась как была.", seam:"Стык",
-    hintBtn:"Подсказка", reset:"Заново", again:"Сыграть снова", share:"Скопировать результат", shared:"Скопировано",
-    hintDone:"Следующий фрагмент начинается так:",
-    doneT:"Круг замкнулся",
-    doneC:"Чтобы разорвать цепь, не нужно рубить все семь звеньев — достаточно одного.",
-    loopH:"Последний фрагмент вернулся к первому предложению:",
-    whyT:"Почему это держит вас",
+  b:{title:"Рейтинг", local:"топ-10 · это устройство", empty:"Результатов пока нет — станьте первым.", rank:"#", name:"имя", score:"очки", level:"уровень", date:"дата"},
+  zanjir:{
+    whyT:"Почему эту игру нельзя решить одним прочтением",
     why:[
-      {h:"Полуоткрытая фраза", t:"Каждое звено обрывается на незаконченной фразе. Психолог Джордж Лёвенштейн назвал это «информационным разрывом»: любопытство сильнее всего не тогда, когда мы не знаем ничего, а когда знаем почти всё, — и гаснет, как только ответ получен. Поэтому каждый фрагмент сначала отвечает, а потом снова спрашивает.", n:11},
-      {h:"Начатое трудно оставить", t:"В 1927 году Блюма Зейгарник показала, что незавершённые дела дольше держатся в памяти; последующие повторения сильно ослабили этот эффект (сводное отношение ≈ 1.0), но то, что увидела её коллега Овсянкина, подтвердилось: к начатому делу человек возвращается сам. Поэтому игра построена на продолжении, а не на запоминании.", n:12},
-      {h:"Первый шаг — подарок", t:"В исследовании Nunes и Drèze карта на 10 штампов, где 2 уже проставлены, дала 34% завершений против 19% у пустой карты на 8 — при том же усилии. Условие одно: у подарка должна быть причина. Поэтому первое звено помечено как подарок, и причина написана.", n:13},
-      {h:"Ускорение к финишу", t:"Kivetz, Urminsky и Zheng показали: чем ближе цель, тем быстрее человек действует. Поэтому счётчик показывает собранные звенья, а не оставшиеся, — и последнее звено закрывается с церемонией.", n:14},
-      {h:"Цепь, собранная своими руками", t:"Norton, Mochon и Ariely описали «эффект IKEA»: собранное своими руками мы ценим выше. Но эффект живёт только при завершении: разрушенная или незаконченная работа его гасит. Поэтому неверный выбор никогда не ломает цепь — он только добавляет узел.", n:15},
-      {h:"Запоминается конец", t:"Канеман и коллеги показали, что опыт запоминается по самой сильной точке и по финалу, а не по длительности. Поэтому самое сильное оставлено на конец: седьмой фрагмент возвращается к первому предложению и замыкает круг.", n:16}
+      {h:"Ответа нет в тексте", t:"Семь пороков можно расставить 5 040 способами. Набор печатей оставляет ровно один — остальные 5 039 вы отсекаете сами. Каждая печать работает только вместе с другими, поэтому одно прочтение ничего не даёт: ответ живёт в выводе, а не в строках.", n:0},
+      {h:"Наполовину замкнутое кольцо", t:"Лёвенштейн показал: человека тянет не к тому, чего у него нет вовсе, а к тому, что он почти знает — чем уже информационный разрыв, тем сильнее желание его закрыть. Печати создают именно это состояние: каждая убирает варианты, но разрыв живёт, пока кольцо не замкнуто.", n:11},
+      {h:"Незаконченное дело возвращает", t:"Работа Зайгарник 1927 года была о памяти и плохо воспроизводилась; устойчивым осталось наблюдение Овсянкиной — начатое дело человек возобновляет сам. Поэтому нерешённое кольцо остаётся на экране: оно просит вернуться.", n:12},
+      {h:"Первая печать — подарок", t:"В эксперименте Нуньеса и Дрезе два заранее проставленных штампа подняли долю завершённых карт с 19 % до 34 % — при условии, что причина подарка названа. Поэтому первая печать всегда прямо называет одно место: кольцо не начинается с пустого листа.", n:13},
+      {h:"Кольцо, замкнутое своими руками", t:"Нортон, Мошон и Ариели показали эффект IKEA: человек ценит то, что собрал сам, но эффект исчезает, если сборку разрушить. Поэтому в практике неверная сверка ничего не стирает — она лишь называет число неверных мест. В бесконечном режиме ошибка — это правило, а не наказание: она оставляет рекорд, который можно побить.", n:15},
+      {h:"Запоминается последний момент", t:"Канеман и коллеги показали, что опыт запоминается по пику и финалу, а не по длительности. Поэтому пик стоит в конце: когда последняя печать встаёт на место, все семь лучей вспыхивают разом и кольцо замыкается.", n:16}
     ],
-    cuts:[["Гордыня","Смирение"],["Жадность","Щедрость"],["Похоть","Владение собой"],["Гнев","Терпение"],["Обжорство","Мера"],["Зависть","Доброжелательность"],["Лень","Трудолюбие"]],
-    cards:[
-      {k:"kibr", in:"", mid:"Он уверен, что стоит на шаг выше остальных.", out:"И с этой высоты он начинает мерить всё, включая себя,"},
-      {k:"hasad", in:"меркой остальных:", mid:"каждое чужое благо записывается в его тетрадь как убыток.", out:"И, глядя в эту тетрадь, он хочет удержать больше своего —"},
-      {k:"buxiylik", in:"и начинает удерживать:", mid:"рука закрывается, и из неё ничего не выходит.", out:"Но там, где рука закрыта,"},
-      {k:"ochkozlik", in:"открывается рот:", mid:"аппетит, впущенный в одну дверь, требует все двери.", out:"И как только человек становится вещью,"},
-      {k:"shahvat", in:"люди становятся только средством;", mid:"если кто-то отказывается быть средством, отказ встречают силой.", out:"И сила"},
-      {k:"gazab", in:"съедает его:", mid:"остаётся человек, который годами кричал.", out:"И этому человеку уже не стоит ничего начинать, поэтому"},
-      {k:"dangasalik", in:"воля замолкает:", mid:"он ничего не делает и считает себя выше этого бессмысленного труда.", out:"То есть всё возвращается к началу: к человеку, уверенному, что стоит на шаг выше остальных."}
-    ]},
+    doneC:"Печать слаба в одиночку: каждая говорит одно, и только все семь вместе запирают кольцо.",
+    share:"Скопировать результат", shared:"Скопировано",
+    cuts:[["Гордыня","Смирение"],["Алчность","Щедрость"],["Похоть","Власть над собой"],["Гнев","Терпение"],["Обжорство","Умеренность"],["Зависть","Открытость"],["Уныние","Трудолюбие"]]},
+
   jadval:{title:"В одной таблице", hint:"7 строк", cap:"Семь пороков и противостоящая каждому добродетель",
     th:["№","Порок (лат.)","Название","Добродетель","Лат.","Источник"]},
   note:{h:"Одно замечание",
@@ -1180,8 +1231,9 @@ function glossHTML(L){
 
 function whyHTML(L){
   $("#pzWhyBody").innerHTML = L.zanjir.why.map(w => {
-    const src = SOURCES[w.n - 1];
-    return `<div class="pz-why-item"><h5>${w.h}</h5><p>${w.t} <a href="${src.href}" target="_blank" rel="noopener">[${w.n}]</a></p></div>`;
+    const src = w.n ? SOURCES[w.n - 1] : null;
+    const ref = src ? ` <a href="${src.href}" target="_blank" rel="noopener">[${w.n}]</a>` : "";
+    return `<div class="pz-why-item"><h5>${w.h}</h5><p>${w.t}${ref}</p></div>`;
   }).join("");
 }
 
@@ -1199,218 +1251,526 @@ function srcHTML(){
    the one before it left hanging; each piece leaves a new one open.
    The reader never remembers anything — the text is on screen — the
    only thing to find is which fragment fits the open clause.        */
-const LINK_SVG = '<svg viewBox="0 0 44 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">'
-  + '<ellipse cx="17" cy="13" rx="9.5" ry="6" transform="rotate(-28 17 13)"/>'
-  + '<ellipse cx="27" cy="13" rx="9.5" ry="6" transform="rotate(-28 27 13)"/></svg>';
+const VK = ["kibr","hasad","buxiylik","ochkozlik","shahvat","gazab","dangasalik"];
 
-const PZ = {
-  order: ["kibr","hasad","buxiylik","ochkozlik","shahvat","gazab","dangasalik"],
-  chain: [], pool: [], L: null,
-  knots: 0, hints: 0, started: false, t0: 0, timer: null, won: false,
-  _bad: null, _fresh: null, _lastDrag: 0,
+/* ── the seven seals: a deduction board ────────────────────────
+   Seven vices, seven seats on a ring, and a handful of seals
+   (statements). Exactly one arrangement satisfies all of them.
+   The puzzles are generated here: a random true arrangement, then
+   the smallest set of true statements that pins it down to one
+   solution — verified by enumerating all 5 040 permutations.     */
 
-  reset(L){
+const MUHR = {
+  L: null, mode: "solo",
+  truth: [], clues: [], placed: [], locked: [], tested: [],
+  sel: null, testing: false,
+  tests: 3, score: 0, level: 1,
+  run: false, deadline: 0, total: 0, raf: null, t0: 0, puzzleT0: 0,
+  _all: null, _lastDrag: 0,
+
+  /* ── generation ──────────────────────────────────────────────
+     An arrangement is one of 7! = 5040 permutations of the seven
+     vices over the seven numbered seats. A seal is a true statement
+     about the hidden arrangement; a puzzle is a set of seals that
+     leaves exactly one arrangement alive. The set is minimised and
+     then made irredundant — drop any single seal and more than one
+     arrangement survives. No line on the board states an answer, so
+     the ring can only be closed by deriving it.                     */
+  shuffle(a){
+    const r = [...a];
+    for (let i = r.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; }
+    return r;
+  },
+  allPerms(){
+    if (this._all) return this._all;
+    const out = [], pos = new Int8Array(7), used = new Array(7).fill(false), cur = [];
+    const rec = () => {
+      if (cur.length === 7){ out.push([...cur]); this._pos.push(Int8Array.from(pos)); return; }
+      for (let i = 0; i < 7; i++){
+        if (used[i]) continue;
+        used[i] = true; cur.push(VK[i]); pos[i] = cur.length - 1;
+        rec();
+        cur.pop(); used[i] = false;
+      }
+    };
+    this._pos = [];
+    rec();
+    this._all = out;
+    this._full = null;
+    return out;
+  },
+  /* does this seat→key map satisfy one seal? (pos[keyIndex] = seat) */
+  ok(pos, c){
+    const pa = pos[c.ai], pb = pos[c.bi];
+    switch (c.t){
+      case "at":     return pa === c.n - 1;
+      case "notat":  return pa !== c.n - 1;
+      case "next":   return (pa + 1) % 7 === pb;
+      case "adj":    { const d = (pa - pb + 7) % 7; return d === 1 || d === 6; }
+      case "notadj": { const d = (pa - pb + 7) % 7; return !(d === 1 || d === 6); }
+      case "before": return pa < pb;
+      case "gap":    return Math.abs(pa - pb) === c.n + 1;
+    }
+    return true;
+  },
+  /* the set of surviving arrangements, packed as a bitmap */
+  maskFor(c){
+    const bits = new Uint32Array(158), pos = this._pos;
+    for (let i = 0; i < 5040; i++) if (this.ok(pos[i], c)) bits[i >> 5] |= (1 << (i & 31));
+    return bits;
+  },
+  and(a, b){
+    const o = new Uint32Array(158);
+    for (let w = 0; w < 158; w++) o[w] = a[w] & b[w];
+    return o;
+  },
+  count(a){
+    let n = 0;
+    for (let w = 0; w < 158; w++){
+      let v = a[w];
+      v = v - ((v >>> 1) & 0x55555555);
+      v = (v & 0x33333333) + ((v >>> 2) & 0x33333333);
+      n += (((v + (v >>> 4)) & 0x0F0F0F0F) * 0x01010101) >>> 24;
+    }
+    return n;
+  },
+  fullMask(){
+    if (this._full) return this._full;
+    const m = new Uint32Array(158);
+    for (let w = 0; w < 158; w++) m[w] = 0xFFFFFFFF;
+    m[157] = (0xFFFFFFFF >>> (158 * 32 - 5040)) >>> 0;
+    this._full = m;
+    return m;
+  },
+  /* every true statement available in this arrangement, with the
+     seat indices the bitmap code needs */
+  candidates(truth){
+    const pos = {}; truth.forEach((k, i) => pos[k] = i);
+    const out = [];
+    VK.forEach((k, i) => out.push({ t: "at", a: k, ai: i, n: pos[k] + 1 }));
+    truth.forEach((k, i) => {
+      const b = truth[(i + 1) % 7];
+      out.push({ t: "next", a: k, ai: VK.indexOf(k), b, bi: VK.indexOf(b) });
+    });
+    for (let i = 0; i < 7; i++) for (let j = i + 1; j < 7; j++){
+      const a = VK[i], b = VK[j], pa = pos[a], pb = pos[b], d = Math.abs(pa - pb);
+      if (d === 1 || d === 6) out.push({ t: "adj", a, ai: i, b, bi: j });
+      else out.push({ t: "notadj", a, ai: i, b, bi: j });
+      const lo = pa < pb;
+      out.push({ t: "before", a: lo ? a : b, ai: lo ? i : j, b: lo ? b : a, bi: lo ? j : i });
+      if (d >= 2 && d <= 4) out.push({ t: "gap", a, ai: i, b, bi: j, n: d - 1 });
+    }
+    VK.forEach((k, ki) => {
+      for (let n = 1; n <= 7; n++) if (pos[k] !== n - 1) out.push({ t: "notat", a: k, ai: ki, n });
+    });
+    return out;
+  },
+
+  /* practice is generous, the endless run is not: the same minimal
+     seal set, plus n extra true statements that make the derivation
+     shorter. Extras never break uniqueness. */
+  extraFor(level){ return level <= 1 ? 2 : level <= 3 ? 1 : 0; },
+
+  build(level){
+    this.allPerms();
+    const truth = this.shuffle(VK);
+    const pool = this.shuffle(this.candidates(truth));
+    const cache = new Map();
+    const mask = c => { if (!cache.has(c)) cache.set(c, this.maskFor(c)); return cache.get(c); };
+    const neg = c => (c.t === "notat" || c.t === "notadj");
+    const WEIGHT = { at: 1, next: 1, before: 1.03, gap: 1.06, adj: 1.1, notat: 1.28, notadj: 1.34 };
+    const practice = !this.run;
+    /* how many seats the seals may name outright: a warm start early,
+       one seat only once the levels climb */
+    const atCap = practice ? 3 : (level <= 2 ? 3 : level <= 4 ? 2 : 1);
+
+    /* the anchor: one seat is stated outright, so the board never
+       starts from nothing (endowed progress, in miniature) */
+    const anchor = pool.filter(c => c.t === "at")[0];
+    const chosen = [anchor];
+    let alive = this.and(this.fullMask(), mask(anchor));
+    if (practice || level <= 2){
+      const second = pool.filter(c => c.t === "at" && c.a !== anchor.a)[0];
+      if (second){ chosen.push(second); alive = this.and(alive, mask(second)); }
+    }
+
+    /* stage one — concrete seals only; this is the practice mode */
+    let guard = 0;
+    while (this.count(alive) > 1 && guard++ < 60){
+      let best = null, bestV = Infinity;
+      for (const c of pool){
+        if (neg(c) || chosen.includes(c)) continue;
+        if (c.t === "at" && chosen.filter(x => x.t === "at").length >= atCap) continue;
+        const n = this.count(this.and(alive, mask(c)));
+        /* the same shape twice in a row reads as one long sentence:
+           each repeat of a type costs a little */
+        const v = n * WEIGHT[c.t] * (1 + 0.16 * chosen.filter(x => x.t === c.t).length);
+        if (v < bestV){ bestV = v; best = c; }
+      }
+      if (!best) break;
+      chosen.push(best);
+      alive = this.and(alive, mask(best));
+    }
+    /* stage two — abstract seals ("not beside", "not in seat n") only
+       when the concrete ones cannot finish the job */
+    guard = 0;
+    while (this.count(alive) > 1 && guard++ < 60){
+      let best = null, bestV = Infinity;
+      for (const c of pool){
+        if (!neg(c) || chosen.includes(c)) continue;
+        const n = this.count(this.and(alive, mask(c)));
+        const v = n * WEIGHT[c.t];
+        if (v < bestV){ bestV = v; best = c; }
+      }
+      if (!best) break;
+      chosen.push(best);
+      alive = this.and(alive, mask(best));
+    }
+
+    /* irredundancy: no seal may be droppable without opening a second
+       arrangement — every line the reader is given is load-bearing */
+    for (let i = chosen.length - 1; i >= 1; i--){
+      const rest = chosen.filter((_, j) => j !== i);
+      let a = this.fullMask();
+      for (const c of rest) a = this.and(a, mask(c));
+      if (this.count(a) === 1) chosen.splice(i, 1);
+    }
+
+    /* a floor on how much is stated: practice reads as a warm start,
+       the endless run thins out as the levels climb */
+    const min = practice ? 6 : (level <= 2 ? 6 : 5);
+    const RANK = { before: 0, next: 1, gap: 2, adj: 3 };
+    const spare = pool
+      .filter(c => !chosen.includes(c) && RANK[c.t] !== undefined)
+      .sort((x, y) => RANK[x.t] - RANK[y.t]);
+    for (const c of spare){
+      if (chosen.length >= min) break;
+      chosen.push(c);
+    }
+    return { truth, clues: this.shuffle(chosen), solutions: this.count(alive) };
+  },
+
+  /* ── state ──────────────────────────────────────────────── */
+  setLang(L){
     this.L = L;
-    /* the first link is a gift — and it comes with a stated reason */
-    this.chain = [this.order[0]];
-    let rest = this.order.slice(1);
-    for (let i = rest.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [rest[i], rest[j]] = [rest[j], rest[i]]; }
-    this.pool = rest;
-    this.knots = 0; this.hints = 0; this.started = false; this.t0 = 0; this.won = false;
-    this._bad = null; this._fresh = null;
-    this.stopClock();
-    $("#pzDone").classList.remove("show");
-    $$(".pz-actions").forEach(a => a.classList.remove("won"));
-    $("#pzAsk").style.display = "";
-    $("#pzTime").textContent = "0:00"; $("#pzKnots").textContent = "0";
-    this.showSeam(null);
+    this.names = {
+      kibr: L.entries[0].name, buxiylik: L.entries[1].name, shahvat: L.entries[2].name,
+      gazab: L.entries[3].name, ochkozlik: L.entries[4].name, hasad: L.entries[5].name,
+      dangasalik: L.entries[6].name
+    };
+    if (this.truth && this.truth.length) this.paint();
+  },
+  nameOf(k){ return (this.names && this.names[k]) || k; },
+  traitOf(k){ const t = (this.L && this.L.m && this.L.m.tr) || {}; return t[k] || ""; },
+
+  newPuzzle(level, keepMode){
+    const lvl = level || 1;
+    let res = this.build(lvl);
+    for (let i = 0; i < 6 && res.solutions !== 1; i++) res = this.build(lvl);
+    this.truth = res.truth;
+    this.clues = res.clues;
+    this.placed = new Array(7).fill(null);
+    this.locked = new Array(7).fill(false);
+    this.tested = new Array(7).fill(null);
+    this.sel = null; this.testing = false; this.solvedFlag = false;
+    if (!keepMode) this.tests = 3;
+    $("#mDone").classList.remove("show");
+    $("#mOver").classList.remove("show");
+    $("#mBoard").style.display = ""; $("#mActs").style.display = "";
     this.status("");
     this.paint();
   },
 
-  byKey(k){ return this.L.zanjir.cards.find(c => c.k === k); },
-  nameOf(k){ return (this._names && this._names[k]) || ""; },
-
-  /* clock */
-  startClock(){
-    if (this.started || this.won) return;
-    this.started = true; this.t0 = Date.now();
-    this.timer = setInterval(() => this.hud(), 1000);
-    this.hud();
+  /* ── painting ───────────────────────────────────────────── */
+  buildRing(){
+    const ring = $("#ring");
+    if (!ring || ring.dataset.built) return;
+    const svg = $("#ringLines");
+    let lines = "";
+    for (let i = 0; i < 7; i++){
+      const p1 = this.pt(i), p2 = this.pt((i + 1) % 7);
+      lines += `<line data-line="${i}" class="${i === 6 ? "close" : ""}" x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}"/>`;
+    }
+    svg.innerHTML = lines;
+    for (let i = 0; i < 7; i++){
+      const pos = this.pt(i);
+      const el = document.createElement("div");
+      el.className = "seat";
+      el.dataset.seat = i;
+      el.tabIndex = 0;
+      el.style.left = pos.x + "%"; el.style.top = pos.y + "%";
+      el.innerHTML = `<span class="num">${i + 1}</span><span class="nm"></span>`;
+      ring.appendChild(el);
+    }
+    ring.dataset.built = "1";
   },
-  stopClock(){ if (this.timer){ clearInterval(this.timer); this.timer = null; } },
-  elapsed(){ return this.started ? Math.max(0, Math.floor((Date.now() - this.t0) / 1000)) : 0; },
-  clock(sec){ const m = Math.floor(sec / 60), r = sec % 60; return m + ":" + String(r).padStart(2, "0"); },
-  best(){ try { const v = parseInt(localStorage.getItem("se7en.best.chain"), 10); return isFinite(v) ? v : null; } catch(e){ return null; } },
-  hud(){
-    const t = $("#pzTime"); if (!t) return;
-    t.textContent = this.clock(this.elapsed());
-    $("#pzKnots").textContent = String(this.knots);
-    const b = this.best();
-    $("#pzBest").textContent = b === null ? "—" : this.clock(b);
+  pt(i, R){
+    const r = (R === undefined ? 34.5 : R);
+    const ang = (-90 + i * (360 / 7)) * Math.PI / 180;
+    return { x: (50 + r * Math.cos(ang)).toFixed(2), y: (50 + r * Math.sin(ang)).toFixed(2) };
+  },
+
+  clueHTML(c){
+    const L = this.L.m, nm = k => `<b>${this.nameOf(k)}</b>`;
+    const tpl = c.t === "gap" && c.n === 1 && L.cGapOne ? L.cGapOne : L[c.t === "at" ? "cAt" : c.t === "notat" ? "cNotAt"
+      : c.t === "next" ? "cNext" : c.t === "adj" ? "cAdj" : c.t === "notadj" ? "cNotAdj"
+      : c.t === "before" ? "cBefore" : "cGap"];
+    return String(tpl).replaceAll("{a}", nm(c.a)).replaceAll("{b}", nm(c.b)).replaceAll("{n}", c.n);
   },
 
   paint(){
-    const L = this.L.zanjir;
-    const n = this.chain.length;
-    $("#pzCount").textContent = n + " / 7";
+    if (!this.L || !this.truth || !this.truth.length) return;
+    const L = this.L.m;
+    this.buildRing();
+    $("#mClues").innerHTML = this.clues.map(c => `<li>${this.clueHTML(c)}</li>`).join("");
+    $("#mClueN").textContent = this.clues.length + " " + L.cluesW;
+    const placedN = this.placed.filter(Boolean).length;
+    $("#mCardsN").textContent = placedN + " / 7";
 
-    /* the chain itself: a linked text, one piece per link */
-    let out = "";
-    this.chain.forEach((k, i) => {
-      const c = this.byKey(k);
-      const last = i === n - 1;
-      if (i > 0) out += `<li class="join ${last ? "on" : ""}" aria-hidden="true">${LINK_SVG}</li>`;
-      out += `<li class="link ${last && !this.won ? "open" : ""} ${this.won ? "done" : ""} ${this._fresh === k ? "fresh" : ""}" data-link="${k}">
-        <span class="n">${String(i + 1).padStart(2, "0")}</span>
-        <p class="body"><span class="nm">${this.nameOf(k)}${i === 0 ? ` <em>· ${L.given}</em>` : ""}</span>${
-          c.in ? `<span class="fit">…${c.in}</span> ` : ""}${c.mid}${c.out ? ` <span class="gap">${c.out}</span>` : ""}</p>
-      </li>`;
+    $$("#ring .seat").forEach((el, i) => {
+      const k = this.placed[i];
+      el.classList.toggle("filled", !!k);
+      el.classList.toggle("lock", !!this.locked[i]);
+      el.classList.toggle("ok", this.tested[i] === "ok" && !this.locked[i]);
+      el.classList.toggle("no", this.tested[i] === "no");
+      el.classList.toggle("sel", false);
+      el.classList.toggle("solved", !!this.solvedFlag);
+      const nm = el.querySelector(".nm");
+      nm.classList.remove("long", "longer");
+      nm.textContent = k ? this.nameOf(k) : "";
+      if (k && nm.scrollWidth > nm.clientWidth + 1){
+        nm.classList.add("long");
+        if (nm.scrollWidth > nm.clientWidth + 1) nm.classList.add("longer");
+      }
+      const badge = el.querySelector(".badge");
+      if (badge) badge.remove();
+      if (this.tested[i]){
+        const b = document.createElement("span");
+        b.className = "badge" + (this.tested[i] === "no" ? " bad" : "");
+        b.textContent = this.tested[i] === "ok" ? "✓" : "✕";
+        el.appendChild(b);
+      }
     });
-    $("#pzChain").innerHTML = out;
-    this._fresh = null;
+    $$("#ringLines line").forEach((l, i) => l.classList.toggle("on", !!this.placed[i] && !!this.placed[(i + 1) % 7]));
 
-    /* what is left to fit */
-    $("#pzLeft").innerHTML = `<em>${this.pool.length}</em> ${L.leftW}`;
-    $("#pzCands").innerHTML = this.pool.map((k, i) => {
-      const c = this.byKey(k);
-      const frag = c.in || c.mid;
-      const cut = frag.length > 104 ? frag.slice(0, 103).replace(/[,;:\s]+$/, "") + "…" : frag;
-      return `<li><button class="cand ${this._bad === k ? "bad" : ""}" type="button" data-cand="${k}">
-        <span class="k">${i + 1}</span><span>…${cut}${/[.!?…]$/.test(cut) ? "" : "…"}</span></button></li>`;
+    $("#mTray").innerHTML = VK.map(k => {
+      const used = this.placed.includes(k);
+      return `<li><button class="card2 ${used ? "used" : ""} ${this.sel === k ? "sel" : ""}" type="button" data-card="${k}" ${used ? "disabled" : ""}>
+        <span class="nm">${this.nameOf(k)}</span><span class="tr">${this.traitOf(k)}</span></button></li>`;
     }).join("");
-    $("#pzAsk").classList.toggle("gone", this.won);
-    this._bad = null;
 
-    this.syncSeal(n);
+    $("#mTests").textContent = String(this.tests);
+    $("#mCheck").innerHTML = L.check;
+    $("#mTest").innerHTML = L.test + `<span class="n">${this.tests}</span>`;
+    $("#mHint").textContent = L.reveal;
+    $("#mTest").disabled = this.tests <= 0 || this.solvedFlag;
+    $("#mHint").disabled = this.tests <= 0 || this.solvedFlag;
+    $("#mCheck").disabled = placedN < 7 || this.solvedFlag;
+    $("#mNew").style.display = this.run ? "none" : "";
+    $("#mNew").textContent = L.newPz;
+    $("#mNext").textContent = this.run ? L.nextLevel : L.newPz;
     this.hud();
   },
 
-  syncSeal(n){
-    const closing = n === 7 && !this._sealClosed;
-    this._sealClosed = n === 7;
-    $$("#pzSeal .ray, #pzSealMini .ray").forEach(r => {
-      r.style.transitionDelay = closing ? (+r.dataset.ray * 70) + "ms" : "0ms";
-      r.classList.toggle("on", +r.dataset.ray < n);
-    });
+  hud(){
+    const L = this.L ? this.L.m : {};
+    $("#mLevel").textContent = this.run ? String(this.level) : "—";
+    $("#mScore").textContent = this.run ? String(this.score) : "—";
+    const best = Auth.user ? Board.bestOf(Auth.user.key) : 0;
+    $("#mBest").textContent = best ? String(best) : "—";
+    if (!this.run){ $("#mTime").textContent = "—"; $("#mTests").textContent = String(this.tests); }
+    const n = this.placed.filter(Boolean).length;
+    $$("#mSeal .ray, #mSealMini .ray, #mSealBig .ray").forEach(r => r.classList.toggle("on", +r.dataset.ray < n));
   },
 
-  /* the joint: the clause that was hanging, and the fragment that answers it */
-  showSeam(html){
-    const el = $("#pzSeam");
-    if (!html){ el.classList.remove("on"); el.innerHTML = ""; return; }
-    el.innerHTML = html; el.classList.add("on");
-  },
+  /* ── interaction ────────────────────────────────────────── */
+  select(k){ if (this.solvedFlag) return; this.sel = (this.sel === k) ? null : k; this.testing = false; this.status(this.sel ? this.L.m.pickSeat : ""); this.paint(); },
 
-  choose(k){
-    if (this.won) return;
-    const L = this.L.zanjir;
-    const next = this.order[this.chain.length];
-    this.startClock();
-    if (k === next){
-      const prev = this.chain[this.chain.length - 1];
-      this.chain.push(k);
-      this.pool = this.pool.filter(x => x !== k);
-      this._fresh = k;
-      const tail = this.byKey(prev).out || this.byKey(prev).mid;
-      this.showSeam(`<b>${L.seam}</b><q>${tail}</q> <span class="arw">→</span> <q>…${this.byKey(k).in}</q>`);
-      this.status(L.right + " · " + this.nameOf(k));
-      if (this.chain.length === 7) this.finish(); else this.paint();
-    } else {
-      this.knots++;
-      this._bad = k;
-      this.status(L.wrong);
+  seat(i){
+    if (this.locked[i] || this.solvedFlag) return;
+    if (this.testing){
+      if (!this.placed[i]){ this.status(this.L.m.needSeat); return; }
+      const ok = this.placed[i] === this.truth[i];
+      this.tested[i] = ok ? "ok" : "no";
+      this.tests--;
+      this.testing = false;
+      this.status(ok ? this.L.m.testOk : this.L.m.testNo);
       this.paint();
+      return;
     }
+    if (this.sel){
+      const key = this.sel;
+      const from = this.placed.indexOf(key);
+      const occupant = this.placed[i];
+      if (from > -1) this.placed[from] = null;
+      this.placed[i] = key;
+      if (occupant && occupant !== key && from > -1) this.placed[from] = occupant;
+      this.tested[i] = null;
+      if (occupant && from > -1) this.tested[from] = null;
+      this.sel = null;
+      this.status("");
+      this.paint();
+      return;
+    }
+    if (this.placed[i]){
+      this.placed[i] = null;
+      this.tested[i] = null;
+      this.status("");
+      this.paint();
+    } else this.status(this.L.m.pickCard);
   },
 
-  hint(){
-    if (this.won) return;
-    const L = this.L.zanjir;
-    const next = this.order[this.chain.length];
-    const first = (this.byKey(next).in || "").split(/\s+/).slice(0, 2).join(" ");
-    if (!first) return;
-    this.hints++;
-    this.status(L.hintDone + " «" + first + "…»");
+  testMode(){ if (this.tests <= 0 || this.solvedFlag) return; this.testing = true; this.sel = null; this.status(this.L.m.testPrompt); this.paint(); },
+
+  reveal(){
+    if (this.tests <= 0 || this.solvedFlag) return;
+    const open = [0,1,2,3,4,5,6].filter(i => this.placed[i] !== this.truth[i] && !this.locked[i]);
+    if (!open.length) return;
+    const i = open[Math.floor(Math.random() * open.length)];
+    const key = this.truth[i];
+    const at = this.placed.indexOf(key);
+    if (at > -1) this.placed[at] = null;
+    this.placed[i] = key; this.locked[i] = true; this.tested[i] = "ok";
+    this.tests--;
+    this.sel = null; this.testing = false;
+    this.status(this.L.m.revealOk.replace("{n}", i + 1));
+    this.paint();
   },
 
-  finish(){
-    const L = this.L.zanjir;
-    this.won = true;
+  check(){
+    if (this.solvedFlag || this.placed.includes(null)){
+      if (!this.solvedFlag) this.status(this.L.m.needAll);
+      return;
+    }
+    const wrong = [];
+    this.placed.forEach((k, i) => { if (k !== this.truth[i]) wrong.push(i); });
+    if (!wrong.length){ this.solve(); return; }
+    if (this.run){
+      /* the run is unforgiving: one wrong ring ends it */
+      wrong.forEach(i => {
+        const el = $(`#ring .seat[data-seat="${i}"]`);
+        if (el) el.classList.add("no");
+      });
+      this.status(this.L.m.wrongN.replace("{n}", wrong.length));
+      this.endRun("wrong", wrong.length);
+      return;
+    }
+    /* practice gives the count, never the seat: a count alone cannot be
+       hill-climbed into an answer, so the deduction still has to be made.
+       Finding out *which* seat is wrong is what «Sinov» is for. */
+    this.status(this.L.m.wrongN.replace("{n}", wrong.length));
+  },
+
+  solve(){
+    this.solvedFlag = true;
     this.stopClock();
-    const secs = this.elapsed();
-    const prev = this.best();
-    let fresh = false;
-    if (prev === null || secs < prev){
-      fresh = true;
-      try { localStorage.setItem("se7en.best.chain", String(secs)); } catch(e){}
+    let gained = 0, left = 0;
+    if (this.run){
+      left = Math.max(0, Math.ceil((this.deadline - performance.now()) / 1000));
+      gained = 100 + left * 2 + this.tests * 25;
+      this.score += gained;
     }
-    const first = this.byKey(this.order[0]);
-    $("#pzLoop").innerHTML = `<b>${L.loopH}</b> <q>${first.mid.split(/[.,]/)[0]}</q>`;
-    $("#pzPairs").innerHTML = L.cuts.map(([a, b]) => `<li><b>${a}</b> <span>→</span> <i>${b}</i></li>`).join("");
-    $("#pzWin").innerHTML =
-      `<span class="st"><b>${this.clock(secs)}</b>${L.hudTime}</span>` +
-      `<span class="st"><b>${this.knots}</b>${L.hudKnots}</span>` +
-      `<span class="st"><b>${this.hints}</b>${L.hintsW}</span>` +
-      (fresh ? `<span class="st"><em>${L.newBest}</em></span>` : "");
-    $("#pzDone").classList.add("show");
-    $$(".pz-actions").forEach(a => a.classList.add("won"));
-    this.status("");
+    $("#mDone").classList.add("show");
+    $("#mActs").style.display = "none";
+    $("#mLoop").innerHTML = `<b>${this.L.m.orderT}</b>` + this.truth.map(k => this.nameOf(k)).join(" → ") + " → " + this.nameOf(this.truth[0]);
+    $("#mPairs").innerHTML = this.L.zanjir.cuts.map(([a, b]) => `<li><b>${a}</b> <span>→</span> <i>${b}</i></li>`).join("");
+    $("#mWin").innerHTML = this.run
+      ? `<span class="st"><b>+${gained}</b>${L2p(this.L.m.points)}</span><span class="st"><b>${left}s</b>${this.L.m.time}</span><span class="st"><b>${this.tests}</b>${this.L.m.testsW}</span>`
+      : `<span class="st"><b>${this.clues.length}</b>${this.L.m.cluesW}</span><span class="st"><b>${3 - this.tests}</b>${this.L.m.usedW}</span>`;
+    this.status(this.L.m.solved);
     this.paint();
-    this.showSeam(null);
+    $("#mDone").scrollIntoView({ behavior: "smooth", block: "center" });
   },
 
-  shareText(){
-    const L = this.L.zanjir;
-    return `The Se7en — ${L.title}: 7/7 · ${this.clock(this.elapsed())} · ${this.knots} ${L.hudKnots.toLowerCase()} · se7en-omega.vercel.app`;
-  },
-  async share(){
-    const L = this.L.zanjir, txt = this.shareText();
-    let ok = false;
-    if (navigator.share){
-      try { await navigator.share({ title: L.title, text: txt }); ok = true; }
-      catch(e){ return; }
+  status(t){ const el = $("#mStatus"); if (el) el.textContent = t || ""; },
+
+  /* ── the endless run ────────────────────────────────────── */
+  setMode(m){
+    if (m === this.mode && m === "solo") return;
+    this.stopClock();
+    this.mode = m;
+    $$("#modeBar button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+    $("#mOver").classList.remove("show");
+    if (m === "run"){
+      this.run = false; this.level = 1; this.score = 0;
+      this.solvedFlag = true;
+      $("#mBoard").style.display = "none"; $("#mActs").style.display = "none"; $("#mDone").classList.remove("show");
+      $("#runIdle").style.display = Auth.user ? "block" : "none";
+      $("#runLock").style.display = Auth.user ? "none" : "block";
+      this.hud();
+    } else {
+      this.run = false; this.level = 1; this.score = 0;
+      $("#runIdle").style.display = "none"; $("#runLock").style.display = "none";
+      $("#mOver").classList.remove("show");
+      this.newPuzzle(1, false);
+      this.hud();
     }
-    if (!ok) try { await navigator.clipboard.writeText(txt); ok = true; } catch(e){
-      try {
-        const ta = document.createElement("textarea");
-        ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
-        document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove();
-      } catch(e2){ ok = false; }
-    }
-    const b = $("#pzShare");
-    b.textContent = ok ? L.shared : txt;
-    setTimeout(() => { b.textContent = L.share; }, 2200);
   },
 
-  /* a language switch keeps the chain exactly where it was */
-  snapshot(){
-    return (this.chain && this.chain.length)
-      ? { chain: [...this.chain], pool: [...this.pool], knots: this.knots, hints: this.hints,
-          started: this.started, t0: this.t0, won: this.won }
-      : null;
+  startRun(){
+    if (!Auth.user){ $("#runLock").style.display = "block"; $("#runIdle").style.display = "none"; return; }
+    this.mode = "run"; this.run = true; this.level = 1; this.score = 0;
+    this.t0 = performance.now();
+    $("#runIdle").style.display = "none"; $("#runLock").style.display = "none";
+    $("#mOver").classList.remove("show");
+    $$("#modeBar button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === "run")));
+    this.enterLevel();
   },
-  restore(snap){
-    if (!snap || !snap.chain) return;
-    this.chain = [...snap.chain]; this.pool = [...snap.pool];
-    this.knots = snap.knots; this.hints = snap.hints;
-    this.started = snap.started; this.t0 = snap.t0; this.won = false;
-    $("#pzDone").classList.remove("show");
-    $("#pzAsk").style.display = "";
-    if (this.started && !snap.won && this.timer === null) this.timer = setInterval(() => this.hud(), 1000);
+
+  enterLevel(){
+    this.tests = Math.max(1, 3 - Math.floor((this.level - 1) / 2));
+    this.total = Math.max(45, 150 - (this.level - 1) * 12) * 1000;
+    this.newPuzzle(this.level, true);
+    this.tests = Math.max(1, 3 - Math.floor((this.level - 1) / 2));
+    this.deadline = performance.now() + this.total;
     this.paint();
-    if (snap.won) this.finish();
+    this.startClock();
+    this.status(this.L.m.levelUp.replace("{l}", this.level));
   },
 
-  /* drag a fragment onto the open link — mouse and pen only */
+  startClock(){
+    this.stopClock();
+    const tick = () => {
+      if (!this.run || this.solvedFlag) return;
+      const left = this.deadline - performance.now();
+      $("#mTime").textContent = Math.max(0, Math.ceil(left / 1000)) + "s";
+      if (left <= 0){ this.endRun("timeout"); return; }
+      this.raf = requestAnimationFrame(tick);
+    };
+    this.raf = requestAnimationFrame(tick);
+  },
+  stopClock(){ if (this.raf){ cancelAnimationFrame(this.raf); this.raf = null; } },
+
+  endRun(why, n){
+    if (!this.run) return;
+    this.run = false; this.solvedFlag = true;
+    this.stopClock();
+    $("#mTime").textContent = "—";
+    $("#mBoard").style.display = "none"; $("#mActs").style.display = "none"; $("#mDone").classList.remove("show");
+    $("#mOver").classList.add("show");
+    $("#mBig").textContent = String(this.score);
+    const ms = Math.round(performance.now() - this.t0);
+    const u = Auth.user;
+    const res = u ? Board.submit(u.key, u.name, this.score, this.level, ms) : { rank: "—" };
+    const L = this.L.m;
+    $("#mOverTxt").innerHTML = L.overT.replace("{s}", this.score).replace("{l}", this.level).replace("{t}", PZclock(ms)) +
+      `<br><span style="font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)">${this.L.b.rank} ${res.rank} · ${this.L.b.score} ${this.score} · ${this.L.b.level} ${this.level}</span>` +
+      (why === "wrong" ? `<br><span style="color:var(--accent); font-size:13.6px">${L.wrongRun.replace("{n}", n || 0)}</span>` : "") +
+      (why === "timeout" ? `<br><span style="color:var(--accent); font-size:13.6px">${L.timeout}</span>` : "");
+    this.hud();
+    Board.paint(this.L);
+    $("#mOver").scrollIntoView({ behavior: "smooth", block: "center" });
+  },
+
+  /* ── drag a card onto a seat (mouse and pen) ────────────── */
   initDrag(){
-    const list = $("#pzCands");
-    if (!list) return;
-    list.addEventListener("pointerdown", e => {
+    const tray = $("#mTray");
+    if (!tray) return;
+    tray.addEventListener("pointerdown", e => {
       if (e.pointerType === "touch" || e.button !== 0) return;
-      const btn = e.target.closest("[data-cand]");
-      if (!btn) return;
-      const key = btn.dataset.cand, sx = e.clientX, sy = e.clientY;
+      const btn = e.target.closest("[data-card]");
+      if (!btn || btn.disabled) return;
+      const key = btn.dataset.card, sx = e.clientX, sy = e.clientY;
       let ghost = null, hot = null, dragging = false;
       const move = ev => {
         if (!dragging){
@@ -1418,17 +1778,17 @@ const PZ = {
           dragging = true;
           const r = btn.getBoundingClientRect();
           ghost = btn.cloneNode(true);
-          ghost.className = "cand drag-ghost";
+          ghost.className = "card2 drag-ghost";
           ghost.style.width = r.width + "px";
           document.body.appendChild(ghost);
           btn.classList.add("dragging");
           document.body.classList.add("dragging-card");
         }
-        ghost.style.transform = `translate(${ev.clientX - 80}px, ${ev.clientY - 26}px) rotate(-.8deg)`;
+        ghost.style.transform = `translate(${ev.clientX - 60}px, ${ev.clientY - 24}px) rotate(-.8deg)`;
         const el = document.elementFromPoint(ev.clientX, ev.clientY);
-        const link = el && el.closest ? el.closest(".link.open") : null;
-        if (hot && hot !== link) hot.classList.remove("hot");
-        hot = link || null;
+        const seat = el && el.closest ? el.closest(".seat") : null;
+        if (hot && hot !== seat) hot.classList.remove("hot");
+        hot = (seat && !seat.classList.contains("lock")) ? seat : null;
         if (hot) hot.classList.add("hot");
       };
       const up = () => {
@@ -1438,10 +1798,10 @@ const PZ = {
         if (ghost) ghost.remove();
         btn.classList.remove("dragging");
         document.body.classList.remove("dragging-card");
-        if (hot){ hot.classList.remove("hot"); hot.classList.remove("hot"); }
+        if (hot) hot.classList.remove("hot");
         if (dragging){
           this._lastDrag = Date.now();
-          if (hot) this.choose(key);
+          if (hot){ this.sel = key; this.seat(+hot.dataset.seat); }
         }
       };
       window.addEventListener("pointermove", move);
@@ -1450,8 +1810,25 @@ const PZ = {
     });
   },
 
-  status(t){ const el = $("#pzStatus"); if (el) el.textContent = t || ""; }
+  shareText(){
+    const L = this.L.m;
+    return this.run
+      ? `The Se7en — ${L.title}: ${this.score} ${L.pointsWord} · ${this.level} ${L.levelWord} · se7en-omega.vercel.app`
+      : `The Se7en — ${L.title}: ${this.clues.length} ${L.cluesW} · se7en-omega.vercel.app`;
+  },
+  async share(){
+    const txt = this.shareText();
+    let ok = false;
+    if (navigator.share){ try { await navigator.share({ title: this.L.m.title, text: txt }); ok = true; } catch(e){ return; } }
+    if (!ok) try { await navigator.clipboard.writeText(txt); ok = true; } catch(e){}
+    const b = $("#mShare");
+    b.textContent = ok ? this.L.zanjir.shared : txt;
+    setTimeout(() => { b.textContent = this.L.zanjir.share; }, 2200);
+  }
 };
+
+function PZclock(ms){ const t = Math.max(0, Math.floor(ms / 1000)), m = Math.floor(t / 60), r = t % 60; return m + ":" + String(r).padStart(2, "0"); }
+function L2p(s){ return " " + s; }
 
 /* the seven-ray seal */
 function sealSVG(){
@@ -1466,9 +1843,7 @@ function sealSVG(){
   out += `<circle class="ring" cx="${cx}" cy="${cy}" r="46" fill="none" stroke="currentColor" stroke-width=".8" opacity=".28"/>`;
   out += `<circle cx="${cx}" cy="${cy}" r="10" fill="none" stroke="currentColor" stroke-width="1.1"/>`;
   out += `<circle cx="${cx}" cy="${cy}" r="2.4" fill="currentColor" stroke="none"/>`;
-  $("#pzSeal").innerHTML = out;
-  const m = $("#pzSealMini"); if (m) m.innerHTML = out;
-  const r2 = $("#runSeal"); if (r2) r2.innerHTML = out;
+  ["#mSeal", "#mSealMini", "#mSealBig"].forEach(sel => { const el = $(sel); if (el) el.innerHTML = out; });
 }
 
 /* ── accounts, rating, endless run ───────────────────────────
@@ -1564,187 +1939,59 @@ const Board = {
   }
 };
 
-/* ── the endless run: one wrong join or one drained clock ends it ── */
-const Run = {
-  on: false, score: 0, level: 1, idx: 0, order: null, startedAt: 0,
-  deadline: 0, raf: null, timer: null, L: null,
-
-  secsFor(level){ return Math.max(3.6, 12 - (level - 1) * 1.15); },
-
-  reset(L){
-    this.L = L;
-    this.on = false; this.score = 0; this.level = 1; this.idx = 0;
-    $("#runPlay").style.display = "none";
-    $("#runOver").classList.remove("show");
-    const idle = $("#runIdle");
-    if (idle) idle.style.display = Auth.user ? "block" : "none";
-    $("#runScore").textContent = "0";
-    $("#runLevel").textContent = "1";
-    $("#runBest").textContent = String(Board.bestOf(Auth.user ? Auth.user.key : "") || "—");
-    $("#runBar").querySelector("i").style.transform = "scaleX(1)";
-    this.locked(!Auth.user);
-  },
-
-  locked(state){
-    $("#runLock").style.display = state ? "block" : "none";
-    const idle = $("#runIdle");
-    if (idle) idle.style.display = (!state && !this.on && !$("#runOver").classList.contains("show")) ? "block" : "none";
-  },
-
-  start(){
-    if (!Auth.user){ this.locked(true); return; }
-    const L = this.L;
-    this.on = true; this.score = 0; this.level = 1; this.idx = 0;
-    /* each level starts at a different point of the circle, so the order
-       itself cannot be memorised — the joints still can */
-    this.order = [...PZ.order];
-    this.startedAt = performance.now();
-    $("#runOver").classList.remove("show");
-    $("#runIdle").style.display = "none";
-    $("#runPlay").style.display = "block";
-    $("#runLock").style.display = "none";
-    this.status("");
-    this.step();
-  },
-
-  step(){
-    const L = this.L, seconds = this.secsFor(this.level);
-    this.deadline = performance.now() + seconds * 1000;
-    this.tick(seconds * 1000);
-    const cur = this.order[this.idx % 7];
-    const card = PZ.byKey(cur);
-    $("#runOpen").innerHTML = `<span class="nm">${PZ.nameOf(cur)}</span>${card.in ? `<span class="fit">…${card.in}</span> ` : ""}${card.mid} <span class="gap">${card.out || "…"}</span>`;
-    const next = this.order[(this.idx + 1) % 7];
-    const pool = PZ.order.filter(k => k !== next);
-    for (let i = pool.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
-    const opts = [next, ...pool.slice(0, 5)];
-    for (let i = opts.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [opts[i], opts[j]] = [opts[j], opts[i]]; }
-    const Lz = this.L.zanjir;
-    $("#runCands").innerHTML = opts.map((k, i) => {
-      const c = PZ.byKey(k);
-      const frag = c.in || c.mid;
-      const cut = frag.length > 96 ? frag.slice(0, 95).replace(/[,;:\s]+$/, "") + "…" : frag;
-      return `<li><button type="button" data-run="${k}"><span class="k">${i + 1}</span><span>…${cut}</span></button></li>`;
-    }).join("");
-    $("#runScore").textContent = String(this.score);
-    $("#runLevel").textContent = String(this.level);
-    const b = Board.bestOf(Auth.user ? Auth.user.key : "");
-    $("#runBest").textContent = b ? String(b) : "—";
-    const rays = $$("#runSeal .ray");
-    rays.forEach(r => r.classList.toggle("on", +r.dataset.ray < this.idx));
-  },
-
-  tick(ms){
-    const bar = $("#runBar"), fill = bar.querySelector("i"), total = ms;
-    bar.classList.remove("low");
-    cancelAnimationFrame(this.raf);
-    const loop = () => {
-      if (!this.on) return;
-      const left = this.deadline - performance.now();
-      const k = Math.max(0, left / total);
-      fill.style.transform = `scaleX(${k.toFixed(4)})`;
-      bar.classList.toggle("low", k < .34);
-      if (left <= 0){ this.lose("timeout"); return; }
-      this.raf = requestAnimationFrame(loop);
-    };
-    this.raf = requestAnimationFrame(loop);
-  },
-
-  pick(k){
-    if (!this.on) return;
-    const next = this.order[(this.idx + 1) % 7];
-    if (k !== next){
-      const btn = $(`#runCands [data-run="${k}"]`);
-      if (btn) btn.classList.add("bad");
-      this.lose("wrong");
-      return;
-    }
-    this.score++; this.idx++;
-    if (this.idx % 7 === 0){
-      this.level++;
-      this.status(this.L.e.circle.replace("{l}", this.level));
-    } else this.status("");
-    this.step();
-  },
-
-  lose(why){
-    if (!this.on) return;
-    this.on = false;
-    cancelAnimationFrame(this.raf);
-    const ms = Math.round(performance.now() - this.startedAt);
-    const u = Auth.user;
-    const res = Board.submit(u.key, u.name, this.score, this.level, ms);
-    $("#runPlay").style.display = "none";
-    $("#runIdle").style.display = "none";
-    $("#runOver").classList.add("show");
-    $("#runBig").textContent = String(this.score);
-    const t = Math.floor(ms / 1000);
-    $("#runOverTxt").innerHTML = this.L.e.overT.replace("{n}", this.score).replace("{l}", this.level).replace("{t}", PZ.clock(t)) +
-      (res.fresh && this.score > 0 ? ` <span class="run-fresh">${this.L.e.newBest}</span>` : "") +
-      `<br><span style="font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)">${this.L.b.rank} ${res.rank} · ${this.L.b.score} ${this.score} · ${this.L.b.level} ${this.level}</span>`;
-    $("#runBest").textContent = String(Board.bestOf(u.key));
-    Board.paint(this.L);
-    this.status(this.L.e[why] || "");
-  },
-
-  stop(){
-    if (!this.on) return;
-    this.lose("quit");
-  },
-
-  status(t){ const el = $("#runStatus"); if (el) el.textContent = t || ""; },
-
-  renderAuth(){
-    const L = this.L, box = $("#accBox");
-    if (!box) return;
+/* ── the account panel (sign up / sign in / who is playing) ── */
+const AccountUI = {
+  L: null, _tab: "signup",
+  render(L){
+    if (L) this.L = L;
+    const Lx = this.L, box = $("#accBox");
+    if (!box || !Lx) return;
     if (Auth.user){
       const best = Board.bestOf(Auth.user.key);
-      box.innerHTML = `<div class="who"><b>${Auth.user.name}</b><span>${L.a.hi} ${best ? best + " " + L.e.score : L.e.best + " —"}</span><span class="sp"></span><button class="btn ghost" id="accOut">${L.a.logout}</button></div>`;
-      $("#accOut").addEventListener("click", () => { Auth.logout(); this.renderAuth(); this.reset(this.L); Board.paint(this.L); });
-      $("#runStart").textContent = L.e.start;
-      this.locked(false);
+      box.innerHTML = `<div class="who"><b>${Auth.user.name}</b><span>${Lx.a.hi} ${best ? best + " " + Lx.b.score : Lx.b.score + " —"}</span><span class="sp"></span><button class="btn ghost" id="accOut">${Lx.a.logout}</button></div>`;
+      $("#accOut").addEventListener("click", () => {
+        Auth.logout(); AccountUI.render(); Board.paint(this.L);
+        MUHR.setMode("solo"); $("#runLock").style.display = "none";
+      });
+      $("#runLock").style.display = "none";
       return;
     }
-    const tab = this._tab || "signup";
-    box.innerHTML = `<div class="acc">
-      <div class="acc-card">
-        <div class="acc-tabs">
-          <button type="button" data-tab="signup" aria-pressed="${tab === "signup"}">${L.a.signup}</button>
-          <button type="button" data-tab="login" aria-pressed="${tab === "login"}">${L.a.login}</button>
-        </div>
-        <form id="accForm" autocomplete="on">
-          <label for="accName">${L.a.name}</label>
-          <input id="accName" name="username" autocomplete="username" maxlength="16" required>
-          <label for="accPass">${L.a.pass}</label>
-          <input id="accPass" name="password" type="password" autocomplete="current-password" minlength="4" required>
-          <div class="row"><button class="btn" type="submit" id="accGo">${L.a.go}</button><span class="err" id="accErr"></span></div>
-          <p class="fine">${L.a.note}</p>
-        </form>
+    const tab = this._tab;
+    box.innerHTML = `<div class="acc"><div class="acc-card">
+      <div class="acc-tabs">
+        <button type="button" data-tab="signup" aria-pressed="${tab === "signup"}">${Lx.a.signup}</button>
+        <button type="button" data-tab="login" aria-pressed="${tab === "login"}">${Lx.a.login}</button>
       </div>
-    </div>`;
-    box.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => { this._tab = b.dataset.tab; this.renderAuth(); }));
+      <form id="accForm" autocomplete="on">
+        <label for="accName">${Lx.a.name}</label>
+        <input id="accName" name="username" autocomplete="username" maxlength="16" required>
+        <label for="accPass">${Lx.a.pass}</label>
+        <input id="accPass" name="password" type="password" autocomplete="current-password" minlength="4" required>
+        <div class="row"><button class="btn" type="submit" id="accGo">${Lx.a.go}</button><span class="err" id="accErr"></span></div>
+        <p class="fine">${Lx.a.note}</p>
+      </form></div></div>`;
+    box.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => { this._tab = b.dataset.tab; this.render(); }));
     $("#accForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const name = $("#accName").value.trim(), pass = $("#accPass").value;
-      const err = $("#accErr");
-      err.textContent = L.a.errBusy;
+      const name = $("#accName").value.trim(), pass = $("#accPass").value, err = $("#accErr");
+      err.textContent = Lx.a.errBusy;
       const fn = (this._tab === "login") ? Auth.login : Auth.register;
       const res = await fn.call(Auth, name, pass);
       if (!res.ok){
-        err.textContent = res.err === "name" ? L.a.errName : res.err === "pass" ? L.a.errPass
-          : res.err === "taken" ? L.a.errTaken : res.err === "nocrypto" ? L.a.errBad : L.a.errBad;
+        err.textContent = res.err === "name" ? Lx.a.errName : res.err === "pass" ? Lx.a.errPass
+          : res.err === "taken" ? Lx.a.errTaken : Lx.a.errBad;
         return;
       }
-      this.renderAuth(); Board.paint(this.L); this.reset(this.L);
+      this.render(); Board.paint(this.L);
+      MUHR.hud();
     });
-    this.locked(true);
+    if (!Auth.user) $("#runLock").style.display = MUHR.mode === "run" ? "block" : "none";
   }
 };
 
 /* ── language ──────────────────────────────────────────────── */
 function apply(lang){
   const L = DATA[lang] || DATA.uz;
-  const keep = PZ.snapshot();
   LANG = lang;
   document.documentElement.lang = lang;
   $$("[data-i18n]").forEach(el => {
@@ -1761,22 +2008,13 @@ function apply(lang){
   glossHTML(L);
   metaHTML(L);
   whyHTML(L);
-  /* puzzle names come from the entries: keep the seven keys aligned */
-  PZ._names = {
-    kibr: L.entries[0].name, buxiylik: L.entries[1].name, shahvat: L.entries[2].name,
-    gazab: L.entries[3].name, ochkozlik: L.entries[4].name, hasad: L.entries[5].name,
-    dangasalik: L.entries[6].name
-  };
-  PZ.reset(L);
-  PZ.restore(keep);
-  if (Run.on){ Run.L = L; }
-  Run.L = L;
-  Run.renderAuth();
+  MUHR.setLang(L);
+  MUHR.paint();
+  AccountUI.render(L);
   Board.paint(L);
-  if (!Run.on) Run.reset(L);
   $("#runStart").textContent = L.e.start;
-  $("#runStop").textContent = L.e.stop;
-  $("#runAgain").textContent = L.e.again;
+  $("#mAgain").textContent = L.e.again;
+  $("#mShare").textContent = L.zanjir.share;
   reveal();
   try { localStorage.setItem("se7en.lang", lang); } catch(e){}
 }
@@ -1813,47 +2051,54 @@ function spy(){
   $$(".lang button").forEach(b => b.addEventListener("click", () => apply(b.dataset.lang)));
   const p = $("#printBtn"); if (p) p.addEventListener("click", () => window.print());
   sealSVG();
-  /* accounts + rating + endless run */
+  /* accounts, rating, and the seal board */
   Auth.load();
-  Run.reset(DATA[LANG] || DATA.uz);
-  Run.renderAuth();
+  MUHR.setLang(DATA[LANG] || DATA.uz);
+  MUHR.newPuzzle(1, false);
+  AccountUI.render(DATA[LANG] || DATA.uz);
   Board.paint(DATA[LANG] || DATA.uz);
-  $("#runStart").addEventListener("click", () => Run.start());
-  $("#runAgain").addEventListener("click", () => Run.start());
-  $("#runStop").addEventListener("click", () => Run.stop());
-  $("#runCands").addEventListener("click", e => {
-    const b = e.target.closest("[data-run]");
-    if (b) Run.pick(b.dataset.run);
+
+  $("#mTray").addEventListener("click", e => {
+    if (Date.now() - MUHR._lastDrag < 350) return;
+    const b = e.target.closest("[data-card]");
+    if (b && !b.disabled) MUHR.select(b.dataset.card);
   });
+  $("#ring").addEventListener("click", e => {
+    const seat = e.target.closest(".seat");
+    if (seat) MUHR.seat(+seat.dataset.seat);
+  });
+  $("#ring").addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const seat = e.target.closest(".seat");
+    if (seat){ e.preventDefault(); MUHR.seat(+seat.dataset.seat); }
+  });
+  $("#mCheck").addEventListener("click", () => MUHR.check());
+  $("#mTest").addEventListener("click", () => MUHR.testMode());
+  $("#mHint").addEventListener("click", () => MUHR.reveal());
+  $("#mNew").addEventListener("click", () => MUHR.newPuzzle(1, false));
+  $("#mNext").addEventListener("click", () => {
+    if (MUHR.run){ MUHR.level++; MUHR.enterLevel(); }
+    else MUHR.newPuzzle(1, false);
+  });
+  $("#mAgain").addEventListener("click", () => MUHR.startRun());
+  $("#mShare").addEventListener("click", () => MUHR.share());
+  $("#runStart").addEventListener("click", () => MUHR.startRun());
+  $$("#modeBar button").forEach(b => b.addEventListener("click", () => MUHR.setMode(b.dataset.mode)));
+  MUHR.initDrag();
+
+  /* digits pick a card, Esc lets go of it */
   document.addEventListener("keydown", e => {
-    if (!Run.on || e.target.matches("input, textarea, select")) return;
-    if (/^[1-6]$/.test(e.key)){
-      const b = $$("#runCands [data-run]")[+e.key - 1];
-      if (b){ e.preventDefault(); Run.pick(b.dataset.run); }
+    if (e.target.matches("input, textarea, select, [contenteditable]")) return;
+    if (e.key === "Escape" && MUHR.sel){ MUHR.sel = null; MUHR.paint(); return; }
+    if (/^[1-7]$/.test(e.key) && !MUHR.solvedFlag){
+      const card = $$("#mTray [data-card]")[+e.key - 1];
+      if (card && !card.disabled){ e.preventDefault(); MUHR.select(card.dataset.card); }
     }
   });
+
   /* on a phone the long rule would push the game below the fold: fold it */
   const rule = $("#pzRule");
   if (rule && matchMedia("(max-width: 1000px)").matches) rule.open = false;
-  $("#pzCands").addEventListener("click", e => {
-    if (Date.now() - PZ._lastDrag < 350) return;   /* a drag ends with a click we should ignore */
-    const b = e.target.closest("[data-cand]");
-    if (b) PZ.choose(b.dataset.cand);
-  });
-  $("#pzHint").addEventListener("click", () => PZ.hint());
-  $("#pzReset").addEventListener("click", () => PZ.reset(DATA[LANG] || DATA.uz));
-  $("#pzAgain").addEventListener("click", () => PZ.reset(DATA[LANG] || DATA.uz));
-  $("#pzShare").addEventListener("click", () => PZ.share());
-  PZ.initDrag();
-
-  /* keyboard: the digits pick the n-th fragment offered */
-  document.addEventListener("keydown", e => {
-    if (e.target.matches("input, textarea, select, [contenteditable]")) return;
-    if (!/^[1-6]$/.test(e.key) || PZ.won) return;
-    const btn = $$("#pzCands [data-cand]")[+e.key - 1];
-    if (btn){ e.preventDefault(); PZ.choose(btn.dataset.cand); }
-  });
-
   /* theme */
   const themeBtn = $("#themeBtn");
   const syncTheme = () => themeBtn.setAttribute("aria-pressed", String(document.documentElement.dataset.theme === "dark"));
