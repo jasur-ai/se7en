@@ -2,8 +2,7 @@
 
 | | |
 |---|---|
-| **THE SEVEN** | https://se7en-omega.vercel.app/ |
-| **Index of Unquiet Names** | https://se7en-omega.vercel.app/katalog |
+| **YETTI** | https://se7en-omega.vercel.app/ |
 | Vercel project | https://vercel.com/fazyzfaz-3046/se7en |
 | GitHub repo | https://github.com/jasur-ai/se7en |
 
@@ -17,16 +16,13 @@ push to main  →  GitHub Actions (.github/workflows/deploy.yml)
 
 * Repo secret `VERCEL_TOKEN` is set (Actions → Secrets).
 * `.vercel/project.json` pins project `se7en` (`prj_9p9muBWMDzfeXYIrrMx34Mjmi9lC`, org `team_66P4fjrngeXuucmcUOSpvGNe`).
-* `vercel.json`: clean URLs (`/katalog`), security headers, `404.html` fallback.
+* `vercel.json`: clean URLs, security headers, `404.html` fallback.
 * Deployment Protection (Vercel Authentication) is **off** — links are public.
 
 ## Rebuild before pushing
 
 ```bash
-bash build.sh                 # index.html  from _src/
-python3 _gen_dread.py         # _src/04b_dread.js
-python3 _gen_plates.py        # _src/04c_plates.js (inline drawer plates)
-python3 _build_katalog.py     # katalog.html
+python3 _build.py             # index.html  from _info_template.html + _fonts/sc.woff2
 git add -A && git commit -m "…" && git push
 ```
 
