@@ -3,39 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>YETTI — gunoh va fazilat: yetti juftlik</title>
-<meta name="description" content="Yetti gunoh va ularning teskarisi — yetti fazilat. Manbali, neytral ma'lumotnoma: lotin an'anasi va Markaziy Osiyo odobi. UZB · EN · RUS.">
+<title>The Se7en — gunoh va fazilat</title>
+<meta name="description" content="Yetti gunoh va ularning teskarisi — yetti fazilat. Me'yor haqidagi ma'lumotnoma: Aristotel, Qobusnoma, Qutadg'u bilig, xalq maqollari. UZB · EN · RUS.">
 <meta name="color-scheme" content="light">
-<meta property="og:title" content="YETTI — gunoh va fazilat">
-<meta property="og:description" content="Yetti juftlik: har bir gunohning qarshisida uning teskarisi. Manbali ma'lumotnoma.">
+<meta property="og:title" content="The Se7en — gunoh va fazilat">
+<meta property="og:description" content="Yetti juftlik, yetti qulf va bitta zanjir. Manbali, neytral ma'lumotnoma.">
 <meta property="og:type" content="article">
 <style>
-/* ── font: IM Fell English SC (Igino Marini, OFL) — faqat lotin yozuvi va raqamlar ── */
 @font-face{
   font-family:"Fell";
   src:url(data:font/woff2;base64,/*@@FONT@@*/) format("woff2");
   font-weight:400; font-style:normal; font-display:swap;
 }
-
 :root{
-  --paper:#f7f2e8;
-  --paper-2:#f0e8d8;
-  --paper-3:#e9dfcb;
-  --ink:#191511;
-  --ink-2:#3d352c;
-  --ink-3:#5d5346;
-  --muted:#8a7c69;
-  --rule:#d7cab2;
-  --rule-2:#e7ddc9;
-  --accent:#8a2d22;
-  --green:#2d534b;
+  --paper:#f7f2e8; --paper-2:#f0e8d8; --paper-3:#e9dfcb;
+  --ink:#191511; --ink-2:#3d352c; --ink-3:#5d5346; --muted:#8a7c69;
+  --rule:#d7cab2; --rule-2:#e7ddc9;
+  --accent:#8a2d22; --green:#2d534b; --gold:#8a6a2d;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
   --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --maxw:1180px;
-  --gutter:clamp(18px, 5vw, 64px);
+  --maxw:1180px; --gutter:clamp(18px,5vw,64px);
 }
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
 body{
@@ -48,79 +37,46 @@ body{
   background-attachment:fixed;
 }
 ::selection{background:rgba(138,45,34,.14)}
-
 a{color:inherit; text-underline-offset:.22em; text-decoration-thickness:1px; text-decoration-color:rgba(138,45,34,.45)}
 a:hover{text-decoration-color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px}
-
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 var(--gutter)}
-.fell{font-family:"Fell",var(--serif); letter-spacing:.02em}
 
 /* ── header ───────────────────────────────────────────────── */
-.top{
-  position:sticky; top:0; z-index:40;
-  background:rgba(247,242,232,.86);
-  -webkit-backdrop-filter:saturate(120%) blur(10px);
-  backdrop-filter:saturate(120%) blur(10px);
-  border-bottom:1px solid var(--rule);
-}
-.top-in{
-  max-width:var(--maxw); margin:0 auto; padding:0 var(--gutter);
-  height:60px; display:flex; align-items:center; gap:22px;
-}
+.top{position:sticky; top:0; z-index:40; background:rgba(247,242,232,.86);
+  -webkit-backdrop-filter:saturate(120%) blur(10px); backdrop-filter:saturate(120%) blur(10px);
+  border-bottom:1px solid var(--rule)}
+.top-in{max-width:var(--maxw); margin:0 auto; padding:0 var(--gutter); height:60px; display:flex; align-items:center; gap:22px}
 .brand{display:flex; align-items:center; gap:10px; text-decoration:none; flex:0 0 auto}
 .brand svg{display:block; color:var(--accent)}
-.brand b{font-family:"Fell",var(--serif); font-weight:400; font-size:15px; letter-spacing:.30em; text-transform:uppercase}
-.brand i{font-family:var(--sans); font-style:normal; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); border-left:1px solid var(--rule); padding-left:12px; margin-left:2px}
+.brand b{font-family:"Fell",var(--serif); font-weight:400; font-size:15px; letter-spacing:.22em; text-transform:uppercase}
+.brand b i{font-style:normal; color:var(--accent)}
+.brand span{font-family:var(--sans); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); border-left:1px solid var(--rule); padding-left:12px}
 nav.links{display:flex; gap:2px; margin-left:auto; flex-wrap:nowrap}
-nav.links a{
-  font-family:var(--sans); font-size:11px; letter-spacing:.13em; text-transform:uppercase;
-  color:var(--ink-3); text-decoration:none; padding:9px 11px; border-radius:2px; white-space:nowrap;
-  transition:color .25s, background .25s;
-}
+nav.links a{font-family:var(--sans); font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3);
+  text-decoration:none; padding:9px 11px; border-radius:2px; white-space:nowrap; transition:color .25s, background .25s}
 nav.links a:hover{color:var(--ink); background:rgba(25,21,17,.045)}
 nav.links a.on{color:var(--accent); box-shadow:inset 0 -2px 0 var(--accent)}
 .tools{display:flex; align-items:center; gap:6px; flex:0 0 auto; padding-left:14px; border-left:1px solid var(--rule)}
 .lang{display:flex; border:1px solid var(--rule); background:rgba(255,255,255,.35)}
-.lang button{
-  font-family:var(--sans); font-size:10px; letter-spacing:.10em; text-transform:uppercase;
-  background:none; border:0; color:var(--ink-3); padding:7px 8px; cursor:pointer; line-height:1;
-}
+.lang button{font-family:var(--sans); font-size:10px; letter-spacing:.10em; text-transform:uppercase;
+  background:none; border:0; color:var(--ink-3); padding:7px 8px; cursor:pointer; line-height:1}
 .lang button+button{border-left:1px solid var(--rule)}
 .lang button[aria-pressed="true"]{background:var(--accent); color:#fdf8ee}
-.icon{
-  width:32px; height:30px; display:grid; place-items:center; background:none;
-  border:1px solid var(--rule); color:var(--ink-3); cursor:pointer;
-}
+.icon{width:32px; height:30px; display:grid; place-items:center; background:none; border:1px solid var(--rule); color:var(--ink-3); cursor:pointer}
 .icon:hover{color:var(--accent); border-color:var(--accent)}
 
 /* ── hero ─────────────────────────────────────────────────── */
-.hero{padding:clamp(48px,9vw,104px) 0 clamp(32px,5vw,56px); position:relative; overflow:hidden}
-.hero .kicker{
-  font-family:var(--sans); font-size:10.5px; letter-spacing:.30em; text-transform:uppercase;
-  color:var(--accent); display:flex; align-items:center; gap:14px;
-}
+.hero{padding:clamp(48px,9vw,104px) 0 clamp(30px,5vw,52px); overflow:hidden}
+.hero .kicker{font-family:var(--sans); font-size:10.5px; letter-spacing:.30em; text-transform:uppercase; color:var(--accent); display:flex; align-items:center; gap:14px}
 .hero .kicker::after{content:""; height:1px; flex:1; background:linear-gradient(90deg,var(--rule),transparent)}
-h1.title{
-  font-family:"Fell",var(--serif); font-weight:400;
-  font-size:clamp(66px, 15.5vw, 176px); line-height:.86; letter-spacing:.015em;
-  margin:clamp(18px,3vw,30px) 0 0; color:var(--ink);
-}
-h1.title .dot{color:var(--accent)}
-.sub{
-  font-size:clamp(19px,2.6vw,28px); line-height:1.32; font-style:italic;
-  color:var(--ink-2); margin:18px 0 0; max-width:26ch;
-}
+h1.title{font-family:"Fell",var(--serif); font-weight:400; font-size:clamp(52px,12.4vw,150px); line-height:.86; letter-spacing:.015em; margin:clamp(16px,3vw,28px) 0 0}
+h1.title .n{color:var(--accent)}
+.sub{font-size:clamp(19px,2.6vw,28px); line-height:1.32; font-style:italic; color:var(--ink-2); margin:18px 0 0; max-width:26ch}
 .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(24px,5vw,72px); align-items:end}
-.lede{
-  font-size:clamp(16.5px,1.5vw,19px); line-height:1.62; color:var(--ink-2);
-  max-width:56ch; margin:clamp(26px,4vw,40px) 0 0;
-}
+.lede{font-size:clamp(16.5px,1.5vw,19px); line-height:1.62; color:var(--ink-2); max-width:56ch; margin:clamp(24px,4vw,38px) 0 0}
 .lede strong{font-weight:400; color:var(--ink); box-shadow:inset 0 -.42em 0 rgba(138,45,34,.13)}
-.meta{
-  display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--rule);
-  margin-top:clamp(30px,4vw,48px);
-}
+.meta{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--rule); margin-top:clamp(28px,4vw,46px)}
 .meta div{padding:14px 14px 0 0; border-right:1px solid var(--rule-2)}
 .meta div:last-child{border-right:0}
 .meta b{display:block; font-family:"Fell",var(--serif); font-weight:400; font-size:26px; line-height:1}
@@ -129,121 +85,144 @@ h1.title .dot{color:var(--accent)}
 /* ── sections ─────────────────────────────────────────────── */
 section{padding:clamp(44px,7vw,88px) 0; scroll-margin-top:76px}
 .sec-head{display:flex; align-items:baseline; gap:18px; border-bottom:1px solid var(--rule); padding-bottom:14px; margin-bottom:clamp(26px,4vw,44px)}
-.sec-head h2{
-  font-size:clamp(24px,3.2vw,34px); font-weight:400; margin:0; line-height:1.1; letter-spacing:-.005em;
-}
-.sec-head .no{
-  font-family:"Fell",var(--serif); font-size:13px; letter-spacing:.18em; color:var(--accent); flex:0 0 auto;
-}
+.sec-head h2{font-size:clamp(24px,3.2vw,34px); font-weight:400; margin:0; line-height:1.1; letter-spacing:-.005em}
+.sec-head .no{font-family:"Fell",var(--serif); font-size:13px; letter-spacing:.18em; color:var(--accent); flex:0 0 auto}
 .sec-head .hint{margin-left:auto; font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-align:right}
-
-/* usul */
 .usul{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3vw,40px)}
-.usul h3{
-  font-size:13px; font-family:var(--sans); font-weight:600; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--accent); margin:0 0 10px; padding-top:14px; border-top:2px solid var(--ink);
-}
+.usul h3{font-size:13px; font-family:var(--sans); font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 10px; padding-top:14px; border-top:2px solid var(--ink)}
 .usul p{margin:0; font-size:16px; line-height:1.62; color:var(--ink-2)}
 
 /* ── entries ──────────────────────────────────────────────── */
-.entry{
-  display:grid; grid-template-columns:150px 1fr; gap:clamp(18px,4vw,54px);
-  padding:clamp(34px,5vw,60px) 0; border-top:1px solid var(--rule);
-}
+.entry{display:grid; grid-template-columns:150px 1fr; gap:clamp(18px,4vw,54px); padding:clamp(34px,5vw,60px) 0; border-top:1px solid var(--rule)}
 .entry:first-child{border-top:0}
 .entry .rail{position:sticky; top:86px; align-self:start}
-.entry .num{
-  font-family:"Fell",var(--serif); font-size:clamp(44px,6vw,64px); line-height:.8; color:var(--accent);
-  display:block; letter-spacing:.02em;
-}
-.entry .lat{
-  font-family:"Fell",var(--serif); font-size:15px; letter-spacing:.24em; text-transform:uppercase;
-  color:var(--ink-2); display:block; margin-top:16px;
-}
+.entry .num{font-family:"Fell",var(--serif); font-size:clamp(44px,6vw,64px); line-height:.8; color:var(--accent); display:block; letter-spacing:.02em}
+.entry .lat{font-family:"Fell",var(--serif); font-size:15px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-2); display:block; margin-top:16px}
 .entry .rail .mark{display:block; width:44px; height:1px; background:var(--rule); margin-top:18px}
 .entry .body{max-width:70ch}
-.entry h3{
-  font-size:clamp(30px,4.4vw,46px); font-weight:400; line-height:1.04; margin:0 0 6px; letter-spacing:-.01em;
-}
+.entry h3{font-size:clamp(30px,4.4vw,46px); font-weight:400; line-height:1.04; margin:0 0 6px; letter-spacing:-.01em}
 .entry .gloss{font-style:italic; color:var(--muted); font-size:16px; margin:0 0 18px}
 .entry p.def{font-size:clamp(16.5px,1.6vw,18.5px); line-height:1.66; margin:0 0 22px; color:var(--ink-2)}
-.entry p.def::first-letter{
-  font-family:"Fell",var(--serif); font-size:3.1em; line-height:.78; float:left;
-  margin:.06em .18em 0 0; color:var(--accent);
-}
-/* the virtue */
-.virtue{
-  background:var(--paper-2); border-left:3px solid var(--green);
-  padding:clamp(18px,2.6vw,26px) clamp(18px,2.6vw,28px); margin:0 0 24px;
-}
-.virtue .lbl{
-  font-family:var(--sans); font-size:9.5px; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--green); display:block; margin-bottom:10px;
-}
+.entry p.def::first-letter{font-family:"Fell",var(--serif); font-size:3.1em; line-height:.78; float:left; margin:.06em .18em 0 0; color:var(--accent)}
+.virtue{background:var(--paper-2); border-left:3px solid var(--green); padding:clamp(18px,2.6vw,26px) clamp(18px,2.6vw,28px); margin:0 0 24px}
+.virtue .lbl{font-family:var(--sans); font-size:9.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:10px}
 .virtue .names{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 16px; margin-bottom:10px}
 .virtue .vname{font-size:clamp(22px,2.8vw,28px); line-height:1.1}
 .virtue .vlat{font-family:"Fell",var(--serif); font-size:12.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3)}
-.virtue .var{font-family:var(--sans); font-size:12px; color:var(--muted); letter-spacing:.02em}
 .virtue p{margin:0; font-size:16px; line-height:1.62; color:var(--ink-2)}
-
 .entry .practice{margin:0 0 22px; font-size:16.2px; line-height:1.66; color:var(--ink-2)}
 .entry .practice b{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px; font-weight:600}
-blockquote{
-  margin:0 0 20px; padding:2px 0 2px 20px; border-left:1px solid var(--accent);
-  font-size:clamp(18px,2.1vw,21px); font-style:italic; line-height:1.45; color:var(--ink);
-}
+blockquote{margin:0 0 20px; padding:2px 0 2px 20px; border-left:1px solid var(--accent); font-size:clamp(18px,2.1vw,21px); font-style:italic; line-height:1.45}
 blockquote cite{display:block; font-style:normal; font-family:var(--sans); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-top:8px}
-.refs{
-  font-family:var(--sans); font-size:11px; letter-spacing:.04em; color:var(--ink-3);
-  border-top:1px solid var(--rule-2); padding-top:12px; display:flex; flex-wrap:wrap; gap:6px 14px;
-}
+.refs{font-family:var(--sans); font-size:11px; letter-spacing:.04em; color:var(--ink-3); border-top:1px solid var(--rule-2); padding-top:12px; display:flex; flex-wrap:wrap; gap:6px 14px}
 .refs span{position:relative}
 .refs span+span::before{content:"·"; position:absolute; left:-9px; color:var(--rule)}
 
+/* ── puzzle ───────────────────────────────────────────────── */
+.puzzle{background:linear-gradient(180deg,var(--paper-2),var(--paper)); border:1px solid var(--rule); padding:clamp(20px,3.4vw,40px)}
+.pz-intro{max-width:66ch; margin:0 0 clamp(18px,3vw,26px); color:var(--ink-2); font-size:16.4px}
+.pz-rule{margin:0 0 24px; padding:14px 16px; border-left:3px solid var(--accent); background:rgba(255,255,255,.55); font-size:15.4px; color:var(--ink-2)}
+.pz-rule b{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px; font-weight:600}
+.pz-board{display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,3vw,34px); align-items:start}
+.pz-col-t{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; display:flex; justify-content:space-between; align-items:center}
+.pz-col-t em{font-style:normal; color:var(--accent)}
+.slots{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.slot{display:flex; align-items:stretch; min-height:56px; border:1px dashed var(--rule); background:rgba(255,255,255,.35); transition:border-color .25s, background .25s}
+.slot .idx{width:38px; display:grid; place-items:center; font-family:"Fell",var(--serif); font-size:13px; color:var(--muted); border-right:1px dashed var(--rule)}
+.slot .fill{flex:1; padding:10px 12px; display:flex; gap:10px; align-items:baseline; cursor:pointer}
+.slot .fill .nm{font-family:var(--sans); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); flex:0 0 auto}
+.slot .fill .tx{font-size:13.6px; line-height:1.42; color:var(--ink-2)}
+.slot.filled{border-style:solid; border-color:var(--ink-3); background:#fffdf7}
+.slot.locked{border-color:var(--green); background:rgba(45,83,75,.07)}
+.slot.locked .idx{color:var(--green); border-right-color:rgba(45,83,75,.3)}
+.slot.locked .fill{cursor:default}
+.slot.wrong{animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.deck{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.card{position:relative; text-align:left; width:100%; border:1px solid var(--rule); background:#fffdf7; padding:11px 13px; cursor:pointer;
+  font-family:var(--serif); color:var(--ink-2); font-size:13.8px; line-height:1.45; transition:transform .2s, box-shadow .2s, border-color .2s; display:block}
+.card:hover{border-color:var(--accent); box-shadow:0 6px 18px -12px rgba(0,0,0,.5)}
+.card .nm{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:5px}
+.card .hook{color:var(--gold); font-style:italic}
+.card.sel{border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+.pz-putbar{display:none}
+@media (max-width:1000px){
+  /* a card should be reachable before the empty slots: deck first */
+  .pz-board > div:first-child{order:2}
+  .pz-board > div:last-child{order:1}
+  .pz-putbar{
+    position:fixed; left:0; right:0; bottom:0; z-index:60; align-items:center; gap:8px;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+    background:rgba(247,242,232,.985); border-top:1px solid var(--rule);
+    box-shadow:0 -14px 34px -24px rgba(0,0,0,.55);
+  }
+  .pz-putbar.show{display:flex}
+  .pz-putbar .t{font-family:var(--sans); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-right:2px}
+  .pz-putbar button{
+    flex:1 1 0; min-width:0; height:40px; border:1px solid var(--ink-3); background:#fffdf7;
+    font-family:"Fell",var(--serif); font-size:15px; color:var(--ink); cursor:pointer;
+  }
+  .pz-putbar button[disabled]{opacity:.25; pointer-events:none}
+  body.pz-choosing{padding-bottom:78px}
+  .slot{min-height:46px}
+}
+.pz-actions{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:22px}
+.btn{font-family:var(--sans); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; padding:11px 18px; cursor:pointer;
+  border:1px solid var(--ink); background:var(--ink); color:var(--paper); transition:.25s}
+.btn:hover{background:var(--accent); border-color:var(--accent)}
+.btn.ghost{background:none; color:var(--ink-2); border-color:var(--rule)}
+.btn.ghost:hover{color:var(--accent); border-color:var(--accent); background:none}
+.btn[disabled]{opacity:.3; cursor:not-allowed; pointer-events:none}
+.pz-status{font-family:var(--sans); font-size:11px; letter-spacing:.1em; color:var(--muted); margin-left:auto}
+.pz-done{margin-top:26px; padding-top:24px; border-top:1px solid var(--rule); display:none}
+.pz-done.show{display:block; animation:fade .8s ease}
+@keyframes fade{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+.pz-done h4{margin:0 0 14px; font-size:clamp(20px,2.6vw,26px); font-weight:400}
+.pz-pairs{list-style:none; margin:0 0 18px; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:6px 24px}
+.pz-pairs li{font-size:14.6px; color:var(--ink-2); display:flex; gap:8px; align-items:baseline; padding:6px 0; border-bottom:1px solid var(--rule-2)}
+.pz-pairs li b{font-weight:400; color:var(--ink)}
+.pz-pairs li i{font-style:normal; color:var(--green)}
+.pz-pairs li s{color:var(--muted); font-size:13px; text-decoration:none; margin-left:auto; font-family:var(--sans); letter-spacing:.04em}
+.pz-close{font-size:17px; font-style:italic; color:var(--ink); margin:0}
+.pz-seal{display:flex; justify-content:center; margin:6px 0 18px}
+.pz-seal svg{width:132px; height:132px; overflow:visible}
+.pz-seal .ray{opacity:.13; transition:opacity .5s ease}
+.pz-seal .ray.on{transition:opacity .5s ease}
+.pz-seal .ray.on{opacity:1}
+
 /* ── table ────────────────────────────────────────────────── */
 .tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
-table{border-collapse:collapse; width:100%; min-width:640px; font-size:15.5px}
+table{border-collapse:collapse; width:100%; min-width:660px; font-size:15.5px}
 caption{text-align:left; font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); padding-bottom:12px}
 th,td{text-align:left; padding:13px 14px 13px 0; border-bottom:1px solid var(--rule-2); vertical-align:baseline}
 th{font-family:var(--sans); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:600; border-bottom:1px solid var(--rule)}
 td.n{font-family:"Fell",var(--serif); color:var(--accent); width:44px}
 td.lat{font-family:"Fell",var(--serif); letter-spacing:.14em; text-transform:uppercase; font-size:13px}
-td.v{color:var(--green); font-weight:400}
+td.v{color:var(--green)}
 tr:hover td{background:rgba(255,255,255,.4)}
-
-.note{
-  margin-top:clamp(28px,4vw,44px); padding:clamp(20px,3vw,30px);
-  background:rgba(255,255,255,.45); border:1px solid var(--rule);
-}
-.note h4{
-  font-family:var(--sans); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--accent); margin:0 0 10px; font-weight:600;
-}
+.note{margin-top:clamp(28px,4vw,44px); padding:clamp(20px,3vw,30px); background:rgba(255,255,255,.45); border:1px solid var(--rule)}
+.note h4{font-family:var(--sans); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin:0 0 10px; font-weight:600}
 .note p{margin:0; font-size:15.6px; line-height:1.64; color:var(--ink-2)}
 
 /* ── glossary ─────────────────────────────────────────────── */
 dl.gloss{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 clamp(24px,4vw,56px); margin:0}
-dl.gloss div{display:grid; grid-template-columns:132px 1fr; gap:16px; padding:12px 0; border-bottom:1px solid var(--rule-2)}
+dl.gloss div{display:grid; grid-template-columns:136px 1fr; gap:16px; padding:12px 0; border-bottom:1px solid var(--rule-2)}
 dl.gloss dt{font-family:var(--serif); font-size:13.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); padding-top:3px}
 dl.gloss dd{margin:0; font-size:15.4px; line-height:1.55; color:var(--ink-2)}
 
 /* ── sources ──────────────────────────────────────────────── */
 ol.src{margin:0; padding:0; list-style:none; counter-reset:s; columns:2; column-gap:clamp(28px,5vw,64px); font-size:14.6px; line-height:1.56; color:var(--ink-2)}
 ol.src li{counter-increment:s; break-inside:avoid; margin:0 0 15px; padding-left:30px; position:relative}
-ol.src li::before{
-  content:counter(s,decimal-leading-zero); position:absolute; left:0; top:1px;
-  font-family:"Fell",var(--serif); font-size:11.5px; letter-spacing:.08em; color:var(--accent);
-}
+ol.src li::before{content:counter(s,decimal-leading-zero); position:absolute; left:0; top:1px; font-family:"Fell",var(--serif); font-size:11.5px; letter-spacing:.08em; color:var(--accent)}
 ol.src li i{font-style:italic}
 ol.src a{text-decoration-color:rgba(138,45,34,.35)}
 
-/* ── footer ───────────────────────────────────────────────── */
 footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40px,6vw,70px)}
 .foot{display:flex; flex-wrap:wrap; gap:18px 40px; align-items:flex-start; justify-content:space-between}
 .foot p{margin:0; font-size:13.6px; line-height:1.6; color:var(--muted); max-width:52ch}
-.foot .fmark{font-family:"Fell",var(--serif); font-size:22px; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-2)}
+.foot .fmark{font-family:"Fell",var(--serif); font-size:22px; letter-spacing:.26em; text-transform:uppercase; color:var(--ink-2)}
+.foot .fmark i{font-style:normal; color:var(--accent)}
 
-/* ── reveal ───────────────────────────────────────────────── */
 [data-rv]{opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1)}
 [data-rv].in{opacity:1; transform:none}
 
@@ -253,27 +232,19 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
   .sub{max-width:34ch}
   .usul{grid-template-columns:1fr; gap:26px}
   ol.src{columns:1}
+  .pz-board{grid-template-columns:1fr}
 }
 @media (max-width:820px){
   body{font-size:16.5px}
-  /* a phone does not always composite backdrop-filter on a sticky bar —
-     keep the paper almost solid so the text below cannot show through */
   .top{background:rgba(247,242,232,.975)}
   .top-in{height:auto; flex-wrap:wrap; padding-top:8px; padding-bottom:0; row-gap:0}
-  nav.links{
-    order:3; margin:0; padding:0; width:calc(100% + var(--gutter)*2); margin-left:calc(var(--gutter)*-1);
-    overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
-    border-top:1px solid var(--rule-2); padding-left:var(--gutter);
-  }
+  nav.links{order:3; margin:0; width:calc(100% + var(--gutter)*2); margin-left:calc(var(--gutter)*-1);
+    overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; border-top:1px solid var(--rule-2); padding-left:var(--gutter)}
   nav.links::-webkit-scrollbar{display:none}
   nav.links a{padding:9px 7px 10px; font-size:9.5px; letter-spacing:.07em; border-radius:0}
-  nav.links{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);
-            mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}
-  nav.links a.on{box-shadow:inset 0 -2px 0 var(--accent)}
   .tools{margin-left:auto; padding-left:10px}
   section{scroll-margin-top:104px}
-  .brand i{display:none}
-  .tools{margin-left:auto}
+  .brand span{display:none}
   .entry{grid-template-columns:1fr; gap:14px}
   .entry .rail{position:static; display:flex; align-items:center; gap:14px; flex-wrap:wrap}
   .entry .num{font-size:38px}
@@ -284,22 +255,25 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
   .meta div{padding:12px 12px 12px 0; border-bottom:1px solid var(--rule-2)}
   .meta div:nth-child(2n){border-right:0}
   .meta div:nth-child(n+3){border-bottom:0}
+  .card{font-size:14.2px; padding:12px 13px}
+  .slot .fill .tx{font-size:13.4px}
+}
+@media (max-width:720px){
+  .entry p.def::first-letter{font-size:1em; float:none; margin:0; color:inherit; line-height:inherit}
 }
 @media (max-width:520px){
   :root{--gutter:18px}
   .top-in{height:auto; min-height:52px; gap:10px; padding-top:8px}
-  .brand b{font-size:13px; letter-spacing:.24em}
+  .brand b{font-size:13px; letter-spacing:.18em}
   .lang button{padding:8px 7px; font-size:9.5px}
   .icon{width:30px; height:30px}
-  h1.title{font-size:clamp(58px,20vw,96px)}
+  h1.title{font-size:clamp(44px,16vw,88px)}
   .sub{font-size:18px}
   .sec-head .hint{display:none}
   blockquote{font-size:17.5px}
-  dl.gloss div{grid-template-columns:104px 1fr; gap:12px}
-}
-
-@media (max-width:720px){
-  .entry p.def::first-letter{font-size:1em; float:none; margin:0; color:inherit; line-height:inherit}
+  dl.gloss div{grid-template-columns:112px 1fr; gap:12px}
+  .pz-status{margin-left:0; width:100%}
+  .pz-actions .btn{flex:1 1 auto; text-align:center}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -307,7 +281,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
   [data-rv]{opacity:1; transform:none}
 }
 @media print{
-  .top, .icon, .lang{display:none}
+  .top,.icon,.lang,.puzzle{display:none}
   body{background:#fff; font-size:11pt}
   section{padding:16pt 0; break-inside:avoid}
   .entry{break-inside:avoid; border-top:1px solid #ccc}
@@ -320,28 +294,29 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#top" aria-label="YETTI">
+    <a class="brand" href="#top" aria-label="The Se7en">
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
         <path d="M12 2.6l2.3 6.2 6.2 2.3-6.2 2.3L12 19.6l-2.3-6.2L3.5 11l6.2-2.3z"/>
         <circle cx="12" cy="11" r="1.5" fill="currentColor" stroke="none"/>
       </svg>
-      <b>Yetti</b>
-      <i data-i18n="brand.sub">juftliklar</i>
+      <b>The Se<i>7</i>en</b>
+      <span data-i18n="brand.sub">gunoh va fazilat</span>
     </a>
-    <nav class="links" aria-label="Bo‘limlar">
+    <nav class="links" aria-label="Sections">
       <a href="#usul" data-nav="usul" data-i18n="nav.usul">Usul</a>
-      <a href="#yetti" data-nav="yetti" data-i18n="nav.yetti">Yetti juftlik</a>
+      <a href="#juftlik" data-nav="juftlik" data-i18n="nav.juftlik">Juftliklar</a>
+      <a href="#zanjir" data-nav="zanjir" data-i18n="nav.zanjir">Zanjir</a>
       <a href="#jadval" data-nav="jadval" data-i18n="nav.jadval">Jadval</a>
       <a href="#lugat" data-nav="lugat" data-i18n="nav.lugat">Lug‘at</a>
       <a href="#manbalar" data-nav="manbalar" data-i18n="nav.manbalar">Manbalar</a>
     </nav>
     <div class="tools">
-      <div class="lang" role="group" aria-label="Til">
+      <div class="lang" role="group" aria-label="Language">
         <button type="button" data-lang="uz" aria-pressed="true">UZB</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
         <button type="button" data-lang="ru" aria-pressed="false">RUS</button>
       </div>
-      <button class="icon" type="button" id="printBtn" title="Chop etish / PDF" aria-label="Chop etish">
+      <button class="icon" type="button" id="printBtn" data-i18n-title="ui.print" title="Chop etish / PDF" aria-label="Print">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 9V3h10v6M7 19H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 15h10v6H7z"/></svg>
       </button>
     </div>
@@ -350,69 +325,80 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 
 <main id="top">
 
-  <!-- ══ HERO ══ -->
   <section class="hero" style="padding-bottom:0">
     <div class="wrap">
-      <div class="kicker"><span data-i18n="hero.kicker">Ma’lumotnoma · 2026</span></div>
+      <div class="kicker"><span data-i18n="hero.kicker">Ma’lumotnoma · yetti juftlik · 2026</span></div>
       <div class="hero-grid">
         <div>
-          <h1 class="title">YETTI<span class="dot">.</span></h1>
-          <p class="sub" data-i18n="hero.sub">Gunoh va fazilat: bir ro‘yxatning ikki tomoni</p>
+          <h1 class="title">THE SE<span class="n">7</span>EN<span class="n">.</span></h1>
+          <p class="sub" data-i18n="hero.sub">Gunoh — me’yordan chiqish. Fazilat — o‘rta.</p>
         </div>
         <div>
-          <p class="lede" data-i18n="hero.lede">Yetti gunoh — ikki ming yillik ro‘yxat. Bu sahifa uni dahshat emas, oyna sifatida oladi: har bir gunohning qarshisiga uning teskarisi — yetti fazilat qo‘yiladi. Har bir fikr yonida manba bor.</p>
+          <p class="lede" data-i18n="hero.lede">Yetti gunoh — ikki ming yillik ro‘yxat. Bu sahifa uni dahshat emas, <strong>me’yor</strong> masalasi sifatida oladi: har bir gunoh chetga chiqish, uning qarshisida esa o‘rtani ushlab turuvchi fazilat turadi. Har fikr yonida manba bor.</p>
         </div>
       </div>
       <div class="meta" id="metaRow"></div>
     </div>
   </section>
 
-  <!-- ══ USUL ══ -->
   <section id="usul">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="no">01</span>
-        <h2 data-i18n="usul.title">Usul</h2>
-        <span class="hint" data-i18n="usul.hint">uch tamoyil</span>
-      </div>
+      <div class="sec-head"><span class="no">01</span><h2 data-i18n="usul.title">Usul</h2><span class="hint" data-i18n="usul.hint">uch tamoyil</span></div>
       <div class="usul">
-        <div data-rv>
-          <h3 data-i18n="usul.a.h">Nima bu</h3>
-          <p data-i18n="usul.a.t">Qiyosiy ma’lumotnoma: yetti tushuncha, ularning teskarisi va Markaziy Osiyo an’anasidagi muqobillari — bir sahifada, izchil tartibda.</p>
-        </div>
-        <div data-rv>
-          <h3 data-i18n="usul.b.h">Nima emas</h3>
-          <p data-i18n="usul.b.t">Dahshat hikoyalari to‘plami emas, diniy hukm chiqaruvchi risola emas va tasdiqlanmagan rivoyatlar yig‘indisi emas. Manbasiz da’vo sahifaga kirmagan.</p>
-        </div>
-        <div data-rv>
-          <h3 data-i18n="usul.c.h">Qanday tuzilgan</h3>
-          <p data-i18n="usul.c.t">Har bo‘lim olti qismdan: lotin nomi, o‘zbekcha nom, qisqa ta’rif, teskarisi — fazilat, mahalliy amaliyot va manbalar.</p>
-        </div>
+        <div data-rv><h3 data-i18n="usul.a.h">Nima bu</h3><p data-i18n="usul.a.t">Qiyosiy ma’lumotnoma: yetti tushuncha, ularning teskarisi va Markaziy Osiyo didaktik adabiyotidagi muqobillari — bir sahifada, izchil tartibda.</p></div>
+        <div data-rv><h3 data-i18n="usul.b.h">Nima emas</h3><p data-i18n="usul.b.t">Diniy risola emas, hukm chiqaruvchi qo‘llanma emas, dahshat hikoyalari to‘plami ham emas. Bu madaniyatlar tarixidagi bitta ro‘yxatning izohi.</p></div>
+        <div data-rv><h3 data-i18n="usul.c.h">Mantiq</h3><p data-i18n="usul.c.t">Har gunoh — me’yordan chiqish; fazilat — o‘rta. Aristotelning «me’yor» ta’limoti shu sahifaning o‘qiga olingan.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ══ SEVEN ══ -->
-  <section id="yetti">
+  <section id="juftlik">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="no">02</span>
-        <h2 data-i18n="yetti.title">Yetti juftlik</h2>
-        <span class="hint" data-i18n="yetti.hint">gunoh → fazilat</span>
-      </div>
-      <p class="lede" style="margin:0 0 clamp(24px,4vw,44px); max-width:64ch" data-i18n="yetti.intro">Tartib lotin an’anasidan: Gregory the Great, VI asr. Har bo‘limda avval gunoh — qisqa va neytral ta’rif bilan, keyin uning teskarisi.</p>
+      <div class="sec-head"><span class="no">02</span><h2 data-i18n="juftlik.title">Yetti juftlik</h2><span class="hint" data-i18n="juftlik.hint">gunoh → fazilat</span></div>
+      <p class="lede" style="margin:0 0 clamp(24px,4vw,44px); max-width:64ch" data-i18n="juftlik.intro">Tartib lotin an’anasidan. Har bo‘limda avval gunoh — qisqa va neytral ta’rif bilan, keyin uning teskarisi va shu fikrning mahalliy ildizi.</p>
       <div id="entries"></div>
     </div>
   </section>
 
-  <!-- ══ TABLE ══ -->
+  <section id="zanjir">
+    <div class="wrap">
+      <div class="sec-head"><span class="no">03</span><h2 data-i18n="zanjir.title">Zanjir</h2><span class="hint" data-i18n="zanjir.hint">jumboq · 7 varaq</span></div>
+      <p class="lede" style="margin:0 0 clamp(18px,3vw,26px); max-width:64ch" data-i18n="zanjir.lead">Gunohlar alohida turganda qo‘rqinchli ko‘rinadi. Ular aslida zanjir: har biri keyingisini tug‘diradi va yettinchisi yana birinchisiga qaytadi.</p>
+      <div class="puzzle" id="pz">
+        <p class="pz-intro" data-i18n="zanjir.intro">Quyida yetti varaq aralash yotadi. Har varaqning oxirgi gapi keyingi varaqning birinchi gapiga ulanadi. Yettinchisining uchi birinchisiga qaytadi — aylana yopiladi.</p>
+        <div class="pz-rule"><b data-i18n="zanjir.howh">Qanday o‘ynaladi</b><span data-i18n="zanjir.how">Varaqni tanlang, keyin bo‘sh katakni bosing. Xato joylashsa — varaq qaytadi. To‘g‘ri joylashgan varaq ochiladi va joyida qotadi.</span></div>
+        <div class="pz-board">
+          <div>
+            <p class="pz-col-t"><span data-i18n="zanjir.slots">Zanjir</span><em id="pzCount">0 / 7</em></p>
+            <ol class="slots" id="pzSlots"></ol>
+          </div>
+          <div>
+            <p class="pz-col-t"><span data-i18n="zanjir.deck">Varaqlar</span></p>
+            <ul class="deck" id="pzDeck"></ul>
+          </div>
+        </div>
+        <div class="pz-actions">
+          <button class="btn" id="pzCheck" data-i18n="zanjir.check">Tekshirish</button>
+          <button class="btn ghost" id="pzHint" data-i18n="zanjir.hintBtn">Yordam</button>
+          <button class="btn ghost" id="pzReset" data-i18n="zanjir.reset">Boshidan</button>
+          <span class="pz-status" id="pzStatus" aria-live="polite"></span>
+        </div>
+        <div class="pz-done" id="pzDone">
+          <div class="pz-seal" aria-hidden="true">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#2d534b" stroke-width="1.1" id="pzSeal"></svg>
+          </div>
+          <h4 data-i18n="zanjir.doneT">Zanjir yopildi</h4>
+          <ul class="pz-pairs" id="pzPairs"></ul>
+          <p class="pz-close" data-i18n="zanjir.doneC">Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.</p>
+        </div>
+      </div>
+      <div class="pz-putbar" id="pzPut"><span class="t" data-i18n="zanjir.which">Qaysi katak?</span></div>
+    </div>
+  </section>
+
   <section id="jadval">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="no">03</span>
-        <h2 data-i18n="jadval.title">Bir jadvalda</h2>
-        <span class="hint" data-i18n="jadval.hint">7 qator</span>
-      </div>
+      <div class="sec-head"><span class="no">04</span><h2 data-i18n="jadval.title">Bir jadvalda</h2><span class="hint" data-i18n="jadval.hint">7 qator</span></div>
       <div class="tbl-wrap">
         <table id="tbl">
           <caption data-i18n="jadval.cap">Yetti gunoh va ularning qarshisidagi fazilat</caption>
@@ -420,34 +406,21 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
           <tbody id="tblBody"></tbody>
         </table>
       </div>
-      <div class="note">
-        <h4 data-i18n="note.h">Bir eslatma</h4>
-        <p data-i18n="note.t">Lotin ro‘yxati va islom an’anasi bir xil yetti tushunchani sanamaydi. Hadisda «halokatli yetti gunoh» boshqacha: Allohga shirk keltirish, sehr, nohaq qotillik, sudxo‘rlik, yetim molini yeyish, jangdan qochish va pok ayollarga tuhmat (Sahih al-Bukhari 2766; Sahih Muslim 89). Bu sahifa lotin ro‘yxatini adabiy ramka sifatida oladi va har biriga mahalliy an’anada tan olingan fazilatni qo‘yadi.</p>
-      </div>
+      <div class="note"><h4 data-i18n="note.h">Bir eslatma</h4><p data-i18n="note.t"></p></div>
     </div>
   </section>
 
-  <!-- ══ GLOSSARY ══ -->
   <section id="lugat">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="no">04</span>
-        <h2 data-i18n="lugat.title">Lug‘at</h2>
-        <span class="hint" data-i18n="lugat.hint">12 atama</span>
-      </div>
+      <div class="sec-head"><span class="no">05</span><h2 data-i18n="lugat.title">Lug‘at</h2><span class="hint" data-i18n="lugat.hint">12 atama</span></div>
       <dl class="gloss" id="gloss"></dl>
     </div>
   </section>
 
-  <!-- ══ SOURCES ══ -->
   <section id="manbalar">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="no">05</span>
-        <h2 data-i18n="manbalar.title">Manbalar</h2>
-        <span class="hint" data-i18n="manbalar.hint">tekshirilgan</span>
-      </div>
-      <p class="lede" style="margin:0 0 clamp(20px,3vw,30px); max-width:60ch" data-i18n="manbalar.intro">Har bir bo‘lim oxiridagi manba satrlari shu ro‘yxatga ishora qiladi. Havolalar asl nashr va rasmiy bazalarga olib boradi.</p>
+      <div class="sec-head"><span class="no">06</span><h2 data-i18n="manbalar.title">Manbalar</h2><span class="hint" data-i18n="manbalar.hint">tekshirilgan</span></div>
+      <p class="lede" style="margin:0 0 clamp(20px,3vw,30px); max-width:60ch" data-i18n="manbalar.intro">Har bo‘lim oxiridagi manba satri shu ro‘yxatga ishora qiladi. Havolalar asl nashr va rasmiy bazalarga olib boradi.</p>
       <ol class="src" id="src"></ol>
     </div>
   </section>
@@ -455,9 +428,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 
 <footer>
   <div class="wrap foot">
-    <div>
-      <div class="fmark">Yetti</div>
-    </div>
+    <div class="fmark">The Se<i>7</i>en</div>
     <p data-i18n="foot.a">Matn — ochiq manbalar asosidagi ma’lumotnoma. Foydalanishda manbani ko‘rsating; tarjimalar mualliflik tarjimasi.</p>
     <p data-i18n="foot.b">Sahifa bir faylda: tashqi skript, reklama va kuzatuvchi yo‘q.</p>
   </div>
@@ -465,201 +436,235 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   YETTI — bitta fayl, uch til, tashqi resurs yo‘q.
-   Matn: neytral, manbali. Har bir da’vo yonida havola.
+   THE SE7EN — one file, three languages, no external requests.
+   Registered, non-judgemental, sourced. Every claim carries a link.
    ═══════════════════════════════════════════════════════════ */
 const DATA = {
 
 uz: {
-  brand:{sub:"juftliklar"},
-  nav:{usul:"Usul", yetti:"Yetti juftlik", jadval:"Jadval", lugat:"Lug‘at", manbalar:"Manbalar"},
-  hero:{
-    kicker:"Ma’lumotnoma · yetti juftlik · 2026",
-    sub:"Gunoh va fazilat: bir ro‘yxatning ikki tomoni",
-    lede:"Yetti gunoh — ikki ming yillik ro‘yxat. Bu sahifa uni dahshat emas, oyna sifatida oladi: har bir gunohning qarshisiga uning teskarisi — yetti fazilat qo‘yiladi. Har bir fikr yonida manba bor."
-  },
-  meta:[["7","juftlik"],["3","til"],["12","manba"],["0","bo‘rttirish"]],
-  usul:{
-    title:"Usul", hint:"uch tamoyil",
-    a:{h:"Nima bu", t:"Qiyosiy ma’lumotnoma: yetti tushuncha, ularning teskarisi va Markaziy Osiyo an’anasidagi muqobillari — bir sahifada, izchil tartibda."},
-    b:{h:"Nima emas", t:"Dahshat hikoyalari to‘plami emas, diniy hukm chiqaruvchi risola emas va tasdiqlanmagan rivoyatlar yig‘indisi emas. Manbasiz da’vo sahifaga kirmagan."},
-    c:{h:"Qanday tuzilgan", t:"Har bo‘lim olti qismdan: lotin nomi, o‘zbekcha nom, qisqa ta’rif, teskarisi — fazilat, mahalliy amaliyot va manbalar."}
-  },
-  yetti:{title:"Yetti juftlik", hint:"gunoh → fazilat",
-    intro:"Tartib lotin an’anasidan: Gregory the Great, VI asr. Har bo‘limda avval gunoh — qisqa va neytral ta’rif bilan, keyin uning teskarisi."},
-  labels:{vice:"Gunoh", virtue:"Teskarisi — fazilat", practice:"Amaliyotda", refs:"Manbalar", arabic:"arabcha"},
+  "brand.sub":"gunoh va fazilat",
+  nav:{usul:"Usul", juftlik:"Juftliklar", zanjir:"Zanjir", jadval:"Jadval", lugat:"Lug‘at", manbalar:"Manbalar"},
+  ui:{print:"Chop etish / PDF"},
+  hero:{kicker:"Ma’lumotnoma · yetti juftlik · 2026",
+    sub:"Gunoh — me’yordan chiqish. Fazilat — o‘rta.",
+    lede:"Yetti gunoh — ikki ming yillik ro‘yxat. Bu sahifa uni dahshat emas, me’yor masalasi sifatida oladi: har bir gunoh chetga chiqish, uning qarshisida esa o‘rtani ushlab turuvchi fazilat turadi. Har fikr yonida manba bor."},
+  meta:[["7","juftlik"],["7","varaq"],["3","til"],["10","manba"]],
+  usul:{title:"Usul", hint:"uch tamoyil",
+    a:{h:"Nima bu", t:"Qiyosiy ma’lumotnoma: yetti tushuncha, ularning teskarisi va Markaziy Osiyo didaktik adabiyotidagi muqobillari — bir sahifada, izchil tartibda."},
+    b:{h:"Nima emas", t:"Diniy risola emas, hukm chiqaruvchi qo‘llanma emas, dahshat hikoyalari to‘plami ham emas. Bu madaniyatlar tarixidagi bitta ro‘yxatning izohi."},
+    c:{h:"Mantiq", t:"Har gunoh — me’yordan chiqish; fazilat — o‘rta. Aristotelning «me’yor» ta’limoti shu sahifaning o‘qiga olingan."}},
+  juftlik:{title:"Yetti juftlik", hint:"gunoh → fazilat",
+    intro:"Tartib lotin an’anasidan. Har bo‘limda avval gunoh — qisqa va neytral ta’rif bilan, keyin uning teskarisi va shu fikrning mahalliy ildizi."},
+  labels:{virtue:"Teskarisi — fazilat", practice:"Amaliyotda", refs:"Manbalar", src:"manba"},
   entries:[
-    {n:"01", lat:"Superbia", name:"Kibr", gloss:"o‘zini ulug‘lash",
-     def:"Kibr — o‘zini boshqalardan ustun qo‘yish va haqiqatni tan olmaslik. Klassik ro‘yxatda u qolgan olti gunohning ildizi sanaladi: qolganlari shundan shox yasaydi.",
-     vlat:"Humilitas", vname:"Kamtarlik", var:"tavāḍuʻ",
-     vtext:"Kamtarlik — o‘z o‘rnini bilish, haqiqatni inkor qilmaslik va odamni kamsitmaslik. Kibr ko‘tariladi; kamtarlik o‘z balandligini biladi.",
-     practice:"Bahouddin Naqshband (1318–1389) ta’limotining tamoyili — «Dil ba yor, dast ba kor»: qalb Yaratguvchi bilan, qo‘l mehnat bilan band. Bu tamoyilda o‘zini ulug‘lashga na vaqt, na joy qoladi. Buxorodagi Bahouddin Naqshband majmuasi shu fikrning eng ko‘rinadigan joyi.",
-     quote:"Kibr — haqiqatni rad etish va odamlarni kamsitishdir.", qsrc:"Sahih Muslim 91",
-     refs:["Qur’on 31:18","Sahih Muslim 91","Moralia in Job, XXXI.xlv"]},
+    {n:"01", lat:"Superbia", name:"Kibr", gloss:"o‘zini ustun qo‘yish",
+     def:"Kibr — o‘zini boshqalardan ustun qo‘yish va tanqidni eshitmaslik. Klassik ro‘yxatda u ildiz sanaladi: qolgan oltisi shundan shox yasaydi.",
+     vlat:"Humilitas", vname:"Kamtarlik",
+     vtext:"Kamtarlik — o‘zini kamsitish emas, o‘zining haqiqiy o‘lchamini bilish. Aristotel bu fazilatni ikki xato orasiga qo‘yadi: o‘zini oshirib yuborish va o‘zini bekorga pastga urish.",
+     practice:"Mintaqaning eng qadimgi nasihat kitobi Qobusnoma (1082) ota tomonidan o‘g‘ilga yozilgan: unda tinglash, kattalar oldida o‘zini tutish va o‘zini maqtamaslik haqida alohida boblari bor. Qoida amaliy: tanqidni qabul qilgan odam o‘rganishda davom etadi.",
+     quote:"Hurmat qilsang — hurmat ko‘rasan.", qsrc:"O‘zbek xalq maqoli",
+     refs:["Aristotel, NE II.7","Qobusnoma, 1082","Maqollar to‘plami"]},
 
-    {n:"02", lat:"Avaritia", name:"Buxiylik", gloss:"yig‘ishga berilish, tamagirlik",
-     def:"Avaritia — to‘plashga berilish: keragi yo‘q narsani ham yig‘ish, ulashishdan qochish. O‘rta asr ta’rifi qisqa: bu ko‘p narsaga ega bo‘lish emas, narsaga qul bo‘lish.",
-     vlat:"Liberalitas", vname:"Saxovat", var:"sakho",
-     vtext:"Saxovat — qo‘lidagini bo‘lishish, lekin hisob-kitob bilan: isrof emas, ehtiyojga qarab berish. Bu boylikdan voz kechish emas — boylikni to‘g‘ri yo‘naltirish.",
-     practice:"Hashar — qishloqda birgalikda bajariladigan ish: uy qurish, ariq tozalash, hosilni yig‘ib olish. Unda haq so‘ralmaydi va hisob yuritilmaydi; bu saxovatning eng kundalik shakli. Zakot va sadqa ham shu mantiqda ishlaydi: boylik jamiyatda aylanadi.",
+    {n:"02", lat:"Avaritia", name:"Buxiylik", gloss:"yig‘ishga berilish",
+     def:"Buxiylik — to‘plashga berilish: keragi yo‘q narsani ham ushlab turish va hech narsa bermaslik. Muammo miqdorda emas, yopiq qo‘lda.",
+     vlat:"Liberalitas", vname:"Saxovat",
+     vtext:"Saxovat — isrof bilan ziqnalik o‘rtasidagi o‘rta: kerakli miqdorni, kerakli odamga, kerakli paytda berish. Aristotelning mezoni sovg‘aning kattaligi emas, berishdan keyin odam erkin qoladimi — shu.",
+     practice:"Hashar — qishloqning birgalikdagi ishi: uy qurish, ariq tozalash, hosilni yig‘ib olish. Haq so‘ralmaydi, hisob yuritilmaydi; aylanadigan narsa — mehnat, va u uy bo‘lib qaytadi.",
      quote:"Yaxshilik qil, daryoga tashla.", qsrc:"O‘zbek xalq maqoli",
-     refs:["Qur’on 2:261–274","Moralia in Job, XXXI.xlv","O‘zbek xalq maqollari (1990)"]},
+     refs:["Aristotel, NE II.7","Maqollar to‘plami"]},
 
     {n:"03", lat:"Luxuria", name:"Shahvat", gloss:"istakning me’yordan chiqishi",
-     def:"Shahvat — istakning me’yordan chiqishi; insonning o‘zini ham, boshqasini ham faqat vosita sifatida ko‘rishiga olib boradigan holat. Bu ro‘yxatdagi eng nozik mavzu, shuning uchun bu yerda u faqat ta’rif darajasida qoladi.",
-     vlat:"Castitas", vname:"Iffat", var:"ʻiffa",
-     vtext:"Iffat — o‘zini tuta bilish va boshqa odamning qadr-qimmatini himoya qilish. Bu tashqi ko‘rinish haqidagi qoidalar emas, avvalo nazar va niyat haqidagi me’yor.",
-     practice:"An’ana iffatni «uyat» bilan bog‘laydi: uyat — qo‘rquv emas, o‘z chegarasini bilish. Hadisda «uyat imondan» deyiladi; demak, u tashqi bosim emas, ichki tayanch.",
-     quote:"Uyat — imondan.", qsrc:"Sahih al-Bukhari, «Adab» kitobi",
-     refs:["Qur’on 24:30–31","Sahih al-Bukhari, «Adab»","Moralia in Job, XXXI.xlv"]},
+     def:"Shahvat — me’yordan chiqqan istak: boshqa odam shaxs emas, vosita bo‘lib qoladigan holat. Bu yerda mavzu faqat tushuncha darajasida qoladi.",
+     vlat:"Castitas", vname:"O‘zini tuta bilish",
+     vtext:"Bu fazilat ikki chet orasidagi o‘rta: bir tomonda indamaydigan to‘yim, ikkinchi tomonda har qanday zavqni rad etadigan qotib qolish. Mohiyati oddiy: xohlay olasan, lekin tanlay olasan.",
+     practice:"Mintaqa adabida tarbiyalangan odamning belgisi zohidlik emas, tekislik: mehmon hurmat qilinadi, aytilgan so‘z ustidan chiqiladi, va’da qizishib turib berilmaydi.",
+     quote:"O‘zingga ravo ko‘rmaganni boshqaga ham ravo ko‘rma.", qsrc:"O‘zbek xalq maqoli",
+     refs:["Aristotel, NE III.10–12","Maqollar to‘plami"]},
 
-    {n:"04", lat:"Ira", name:"G‘azab", gloss:"o‘zini tuta olmaslik",
-     def:"G‘azab — o‘zini tuta olmaslikdan tug‘iladigan javob. U adolat o‘rnini bosmaydi: g‘azablangan odam ko‘pincha kuch ishlatadi, dalil keltirmaydi.",
-     vlat:"Patientia", vname:"Sabr", var:"sabr / ḥilm",
-     vtext:"Sabr — jim o‘tirish emas, vaqtni o‘z foydasiga ishlatish. U uch joyda ko‘rinadi: javob berishdan oldin to‘xtash, uzoq kutish va yo‘qotishdan keyin ham davom etish.",
-     practice:"Hunarmand sabr bilan o‘rganadi — kulol loyni bir kunda o‘rganmaydi; dehqon hosilni kutadi. «Sabr qilgan moy oshar» degan maqol aynan shu uzoq mehnat haqida.",
-     quote:"Sabr — achchiq, mevasi shirin.", qsrc:"O‘zbek xalq maqoli",
-     refs:["Qur’on 2:153","Sahih al-Bukhari, «Adab»","Moralia in Job, XXXI.xlv"]},
+    {n:"04", lat:"Ira", name:"G‘azab", gloss:"o‘ylamasdan javob berish",
+     def:"G‘azab — fikrdan oldin keladigan javob: dalil o‘rnini kuch egallaydigan lahza.",
+     vlat:"Patientia", vname:"Sabr-toqat",
+     vtext:"Aristotel bu fazilatni ham ikki xato orasiga qo‘yadi: hamma narsaga portlaydigan jahldorlik va hech narsaga javob bermaydigan befarqlik. Fazilat — joyida va me’yorida achchiqlanish, keyin to‘xtay olish.",
+     practice:"Hunarmand buni birinchi bo‘lib o‘rganadi: kulol loyni shoshiltirmaydi. Maqol xuddi shu sabrni kundalik nonga bog‘laydi — sabr achchiq, mevasi shirin.",
+     quote:"Jahlning dushmani — sabr.", qsrc:"O‘zbek xalq maqoli",
+     refs:["Aristotel, NE IV.5","Maqollar to‘plami"]},
 
     {n:"05", lat:"Gula", name:"Ochko‘zlik", gloss:"me’yordan ortiq yeyish-ichish",
-     def:"Gula — me’yordan ortiq yeyish-ichish. Ko‘pincha u isrofgarchilikka aylanadi: ozgina kerak bo‘lgan narsa ko‘p talab qilinadi va ortig‘i tashlanadi.",
-     vlat:"Temperantia", vname:"Me’yor, qanoat", var:"qanāʻa",
-     vtext:"Me’yor — «yetarli» degan so‘zni bilish. Qanoat undan chuqurroq: mavjudiga shukr qilish va ortidan quvmaslik.",
-     practice:"Dasturxonda non muqaddas: u bosib o‘tilmaydi, behurmat qilinmaydi, ortig‘i tashlanmaydi. Kichik bir odat — me’yor madaniyatining eng kundalik ko‘rinishi.",
-     quote:"Yeng, iching, lekin isrof qilmang.", qsrc:"Qur’on 7:31",
-     refs:["Qur’on 7:31","Moralia in Job, XXXI.xlv"]},
+     def:"Ochko‘zlik — ehtiyojdan ortiq yeyish-ichish; ko‘pincha isrofga aylanadi: ozgina kerak, ko‘p olinadi, ortig‘i tashlanadi.",
+     vlat:"Temperantia", vname:"Me’yor",
+     vtext:"Me’yor — parhez emas, «yetarli» so‘zini bilish odati. Qanoat bir qadam narida: bor narsaga suyanish, keyingisi ortidan quvmaslik.",
+     practice:"Uyda non bosib o‘tilmaydi, betiga teskari qoldirilmaydi, tashlanmaydi. Kichkina qoida, lekin ortida katta fikr turibdi: mehnat bilan topilgan narsa isrof qilinmaydi.",
+     quote:"Boriga rozi bo‘l, yo‘g‘iga sabr qil.", qsrc:"O‘zbek xalq maqoli",
+     refs:["Aristotel, NE III.10–12","Maqollar to‘plami"]},
 
-    {n:"06", lat:"Invidia", name:"Hasad", gloss:"birovning yaxshiligidan xafa bo‘lish",
-     def:"Hasad — birovning yaxshiligidan xafa bo‘lish. Unda narsa kerak bo‘lgani uchun emas, boshqada borligi uchun og‘riydi; shuning uchun u hech qachon to‘ymaydi.",
-     vlat:"Benevolentia", vname:"Ko‘ngli ochiqlik", var:"nashr / ḥubb",
-     vtext:"Ko‘ngli ochiqlik — birovning yutug‘iga chin dildan quvonish. Bu hissiy saxiylik: o‘z hissingdan bo‘lishib berish.",
-     practice:"Mehmondo‘stlik hasadning amaliy dushmani: dasturxonga chaqirilgan odam begona bo‘lmaydi. «Ko‘ngli ochiq» iborasi ham shundan — uy ham, qalb ham ochiq bo‘lsin.",
+    {n:"06", lat:"Invidia", name:"Hasad", gloss:"birovning yaxshiligidan qiynalish",
+     def:"Hasad — birovning yaxshiligidan og‘riq. Narsa kerak bo‘lgani uchun emas, boshqada borligi uchun og‘riydi; shuning uchun hech qachon to‘ymaydi.",
+     vlat:"Benevolentia", vname:"Ko‘ngli ochiqlik",
+     vtext:"Aristotel hasadni adolatli norozilikdan ajratadi: hasad boshqasining yo‘qotishini xohlaydi, norozilik esa xatoni tuzatishni. Ko‘ngli ochiqlik engilroq va foydaliroq yo‘l: hisob yuritmasdan xursand bo‘lish.",
+     practice:"Mehmondo‘stlik — uning kundalik davosi: dasturxonga chaqirilgan odam begona bo‘lmaydi, to‘ydirilgan begonaga hasad qilish esa qiyin.",
      quote:"O‘zing yaxshi — olam yaxshi.", qsrc:"O‘zbek xalq maqoli",
-     refs:["Sahih al-Bukhari 13 / Muslim 45","Moralia in Job, XXXI.xlv"]},
+     refs:["Aristotel, NE II.7; Rhetorika II.10","Maqollar to‘plami"]},
 
-    {n:"07", lat:"Acedia", name:"Dangasalik", gloss:"ishdan va majburiyatdan qochish",
-     def:"Acedia — ishdan va majburiyatdan qochish; ba’zan esa chuqur befarqlik: hech narsa muhim tuyilmaydi. Klassik ro‘yxatda u «ruhning tushkunligi» deb ham ataladi.",
-     vlat:"Industria", vname:"Mehnatsevarlik", var:"ʻamal",
-     vtext:"Mehnatsevarlik — kuchli iroda emas, kichik qadamlar odati. Ishni boshlash va tugatish; natijani kutmasdan davom etish.",
-     practice:"«Mehnat — rohatning poydevori», deydi maqol. Qo‘l mehnati bilan topilgan non alohida qadrlanadi: hunar — meros, kasb — tayanch.",
+    {n:"07", lat:"Acedia", name:"Dangasalik", gloss:"ishdan va burchdan qochish",
+     def:"Dangasalik — ishdan va burchdan qochish; ba’zan chuqurroq holat: hech narsani boshlashga arzimaydigandek tuyuladi.",
+     vlat:"Industria", vname:"Mehnatsevarlik",
+     vtext:"Mehnatsevarlik — kuchli iroda emas, kichik qadamlar odati: boshla, tugat, yana boshla. Aristotelning fikri shu yerda ham ishlaydi: fazilat qaror bilan emas, takror bilan yasaladi.",
+     practice:"Qadimgi shogirdlik qoidasi: hunar avval ikki yil yomon ishlab o‘rganiladi. «Mehnat — rohatning poydevori» degan maqol ham shu haqda.",
      quote:"Mehnat — rohatning poydevori.", qsrc:"O‘zbek xalq maqoli",
-     refs:["Qur’on 62:10","Sahih al-Bukhari 2072","Moralia in Job, XXXI.xlv"]}
+     refs:["Aristotel, NE II.1–4","Qutadg‘u bilig, 1069–70","Maqollar to‘plami"]}
   ],
+  zanjir:{title:"Zanjir", hint:"jumboq · 7 varaq",
+    lead:"Gunohlar alohida turganda qo‘rqinchli ko‘rinadi. Ular aslida zanjir: har biri keyingisini tug‘diradi va yettinchisi yana birinchisiga qaytadi.",
+    intro:"Quyida yetti varaq aralash yotadi. Har varaqning oxirgi gapi keyingi varaqning birinchi gapiga ulanadi. Yettinchisining uchi birinchisiga qaytadi — aylana yopiladi.",
+    howh:"Qanday o‘ynaladi",
+    how:"Varaqni tanlang, keyin bo‘sh katakni bosing. Xato joylashsa — varaq qaytadi. To‘g‘ri joylashgan varaq ochiladi va joyida qotadi.",
+    slots:"Zanjir", deck:"Varaqlar", check:"Tekshirish", hintBtn:"Yordam", reset:"Boshidan",
+    which:"Qaysi katak?", pick:"Varaq tanlang — yoki bo‘sh katakni bosing", placed:"Joylashtirildi", empty:"Bo‘sh katak",
+    right:"To‘g‘ri", wrong:"Bu joy emas — varaq qaytdi", hintDone:"Birinchi halqa ochildi",
+    complete:"Zanjir yopildi. Yetti halqa bir-biriga ulandi.",
+    doneT:"Endi teskarisi", doneC:"Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.",
+    cuts:[["Kibr","Kamtarlik"],["Buxiylik","Saxovat"],["Shahvat","O‘zini tutish"],["G‘azab","Sabr"],["Ochko‘zlik","Me’yor"],["Hasad","Ko‘ngli ochiqlik"],["Dangasalik","Mehnatsevarlik"]],
+    cards:[
+      {k:"kibr", t:"U o‘zini boshqalardan bir qadam baland deb biladi — va eshitishni to‘xtatadi.", h:"U o‘zini hamma bilan o‘lchay boshlaydi."},
+      {k:"hasad", t:"O‘lchash odatga aylanadi: birovga kelgan har bir yaxshilik uning daftariga zarar bo‘lib yoziladi.", h:"U daftarning narigi tomonidagi narsani xohlaydi va ushlab qolishga o‘tadi."},
+      {k:"buxiylik", t:"Ushlab qolish boshlanadi: qo‘l yopiladi va undan hech narsa chiqmaydi.", h:"Qo‘l yopilgan joyda og‘iz ochiladi: ishtaha ko‘proq so‘raydi."},
+      {k:"ochkozlik", t:"Bir eshik ochilgan ishtaha hamma eshikni so‘raydi.", h:"Chegarasiz xohlash odamni odam sifatida ko‘rishdan voz kechtiradi."},
+      {k:"shahvat", t:"Odamlar vosita bo‘lib qoladi; biri vosita bo‘lishdan bosh tortsa, u avval hayron, keyin g‘azablangan bo‘ladi.", h:"Rad javobi kuch bilan beriladi."},
+      {k:"gazab", t:"Kuch uni yeb qo‘yadi; ortida yillar bo‘yi baqirgan odam qoladi.", h:"Endi hech narsa boshlashga arzimaydi — iroda jim qoladi."},
+      {k:"dangasalik", t:"U hech narsa qilmaydi va o‘zini bu ma’nosiz mehnatdan baland deb biladi —", h:"...va aylana yopiladi: u yana o‘zini boshqalardan bir qadam baland deb biladi."}
+    ]},
   jadval:{title:"Bir jadvalda", hint:"7 qator", cap:"Yetti gunoh va ularning qarshisidagi fazilat",
-    th:["№","Gunoh (lotin)","Nomi","Arabcha","Fazilat","Lotincha"]},
+    th:["№","Gunoh (lotin)","Nomi","Fazilat","Lotincha","Manba"]},
   note:{h:"Bir eslatma",
-    t:"Lotin ro‘yxati va islom an’anasi bir xil yetti tushunchani sanamaydi. Hadisda «halokatli yetti gunoh» boshqacha: Allohga shirk keltirish, sehr, nohaq qotillik, sudxo‘rlik, yetim molini yeyish, jangdan qochish va pok ayollarga tuhmat (Sahih al-Bukhari 2766; Sahih Muslim 89). Bu sahifa lotin ro‘yxatini adabiy ramka sifatida oladi va har biriga mahalliy an’anada tan olingan fazilatni qo‘yadi."},
+    t:"Yetti gunoh ro‘yxati Kitobda yo‘q — u antik davr oxirida Lotin G‘arbida shakllangan va o‘rta asrda qotib qolgan. Bu sahifa uni mazhab yoki hukm sifatida emas, madaniy ramka sifatida oladi: ro‘yxat Yevropada shakllangan, lekin o‘xshash savollar Markaziy Osiyo nasihat adabiyotida ham bor — Qobusnoma, Qutadg‘u bilig, Navoiyning «Mahbub ul-qulub»i. Shuning uchun har gunohning qarshisiga mahalliy manbada ham tan olingan fazilat qo‘yildi."},
   lugat:{title:"Lug‘at", hint:"12 atama",
     items:[["Superbia","Lotincha «yuqorida turish»; kibrning kitobiy nomi."],
-      ["Humilitas","Kamtarlik; «humus» — yer so‘zidan."],
+      ["Avaritia","Lotincha «achinish»; buxiylikning kitobiy nomi."],
+      ["Luxuria","Lotincha «to‘lib-toshish»; me’yordan chiqqan istak."],
       ["Acedia","Yunoncha «befarqlik»; dangasalikning kitobiy nomi."],
+      ["Humilitas","Kamtarlik; «humus» — yer so‘zidan."],
       ["Temperantia","Me’yor; «temperare» — chegaralash."],
-      ["Iffat","Arabcha «saqlanish»; poklik va o‘zini tutish."],
-      ["Qanoat","Arabcha «yetarli deb bilish»."],
-      ["Sabr","Arabcha «chidash»; «sabara» — bog‘lash bilan bir ildizda."],
-      ["Hilm","Arabcha «yumshoqlik»; g‘azabga qarshi fazilat."],
-      ["Tavāḍuʻ","Arabcha «o‘zini past tutish»."],
-      ["Saxovat","Arabcha «qo‘l ochiqlik»."],
-      ["Hasad","Arabcha «xafa bo‘lish»; birovning yaxshiligidan qiynalish."],
-      ["Isrof","Arabcha «chegaradan oshish»."]]},
+      ["Mesotes","Yunoncha «o‘rta»: Aristotelning me’yor tamoyili."],
+      ["Hexis","Yunoncha «odat»: fazilat takror orqali yasaladi."],
+      ["Qanoat","Arabcha «yetarli deb bilish» — kundalik o‘zbekcha atama."],
+      ["Sabr","Arabcha «chidash» — kundalik o‘zbekcha atama."],
+      ["Hashar","Birgalikdagi, haqsiz qishloq ishi."],
+      ["Nasihatnoma","Ota yoki ustozning o‘g‘il yoki shogirdga yozgan odob kitobi."]]},
   manbalar:{title:"Manbalar", hint:"tekshirilgan",
-    intro:"Har bir bo‘lim oxiridagi manba satrlari shu ro‘yxatga ishora qiladi. Havolalar asl nashr va rasmiy bazalarga olib boradi."},
+    intro:"Har bo‘lim oxiridagi manba satri shu ro‘yxatga ishora qiladi. Havolalar asl nashr va rasmiy bazalarga olib boradi."},
   foot:{a:"Matn — ochiq manbalar asosidagi ma’lumotnoma. Foydalanishda manbani ko‘rsating; tarjimalar mualliflik tarjimasi.",
     b:"Sahifa bir faylda: tashqi skript, reklama va kuzatuvchi yo‘q."}
 },
 
 en: {
-  brand:{sub:"pairs"},
-  nav:{usul:"Method", yetti:"Seven pairs", jadval:"Table", lugat:"Glossary", manbalar:"Sources"},
-  hero:{
-    kicker:"Reference · seven pairs · 2026",
-    sub:"Vice and virtue: two sides of one list",
-    lede:"The seven deadly sins are a two-thousand-year-old list. This page reads it not as horror but as a mirror: opposite each vice stands its reversal — one of the seven virtues. Every claim carries a source."
-  },
-  meta:[["7","pairs"],["3","languages"],["12","sources"],["0","embellishment"]],
-  usul:{
-    title:"Method", hint:"three principles",
-    a:{h:"What this is", t:"A comparative reference: seven concepts, their opposites, and the equivalents recognised in Central Asian tradition — on one page, in a fixed order."},
-    b:{h:"What this is not", t:"Not a collection of horror stories, not a religious ruling, not a gathering of unverified legends. No unsourced claim enters the page."},
-    c:{h:"How it is built", t:"Each entry has six parts: the Latin name, the Uzbek name, a short definition, the reversal — the virtue, a local practice, and sources."}
-  },
-  yetti:{title:"Seven pairs", hint:"vice → virtue",
-    intro:"The order follows the Latin tradition: Gregory the Great, 6th century. Each entry opens with the vice, defined briefly and neutrally, then turns to its opposite."},
-  labels:{vice:"Vice", virtue:"Its reversal — virtue", practice:"In practice", refs:"Sources", arabic:"Arabic"},
+  "brand.sub":"vice and virtue",
+  nav:{usul:"Method", juftlik:"Pairs", zanjir:"Chain", jadval:"Table", lugat:"Glossary", manbalar:"Sources"},
+  ui:{print:"Print / PDF"},
+  hero:{kicker:"Reference · seven pairs · 2026",
+    sub:"Vice is the extreme. Virtue is the mean.",
+    lede:"The seven deadly sins are a two-thousand-year-old list. This page reads the list not as horror but as a question of measure: every vice is an overshoot, and opposite it stands the virtue that holds the middle. Every claim carries a source."},
+  meta:[["7","pairs"],["7","cards"],["3","languages"],["10","sources"]],
+  usul:{title:"Method", hint:"three principles",
+    a:{h:"What this is", t:"A comparative reference: seven concepts, their reversals, and the equivalents found in the didactic literature of Central Asia — on one page, in a fixed order."},
+    b:{h:"What it is not", t:"Not a religious tract, not a book of rulings, not a collection of horror stories. It is a reading of one list inside cultural history."},
+    c:{h:"The logic", t:"Every vice is a departure from measure; the virtue is the middle. Aristotle’s doctrine of the mean is the axis of this page."}},
+  juftlik:{title:"Seven pairs", hint:"vice → virtue",
+    intro:"The order follows the Latin tradition. Each entry opens with the vice, defined briefly and neutrally, then turns to its reversal and to the local root of that idea."},
+  labels:{virtue:"Its reversal — virtue", practice:"In practice", refs:"Sources", src:"source"},
   entries:[
     {n:"01", lat:"Superbia", name:"Pride", gloss:"putting oneself above others",
-     def:"Pride is the habit of placing oneself above others and refusing to accept the truth. In the classical list it is the root of the other six vices: they branch out of it.",
-     vlat:"Humilitas", vname:"Humility", var:"tavāḍuʻ",
-     vtext:"Humility is knowing one’s own place, not denying the truth and not looking down on people. Pride rises; humility knows its own height.",
-     practice:"The guiding principle of Bahouddin Naqshband (1318–1389) is “Dil ba yor, dast ba kor” — the heart with the Creator, the hands at work. In such a life there is neither time nor room for self-exaltation. The Naqshband memorial complex in Bukhara is the most visible place of that idea.",
-     quote:"Pride is rejecting the truth and looking down on people.", qsrc:"Sahih Muslim 91",
-     refs:["Qur’an 31:18","Sahih Muslim 91","Moralia in Job, XXXI.xlv"]},
+     def:"Pride is the habit of placing oneself above others and refusing to hear correction. In the classical list it is the root: the other six grow out of it.",
+     vlat:"Humilitas", vname:"Humility",
+     vtext:"Humility is not self-belittlement; it is knowing your own true size. Aristotle sets this virtue between two errors — vanity, which overrates, and undue self-abasement, which underrates.",
+     practice:"The oldest advice book of the region, the Qabus-nama (1082), was written by a father for his son; whole chapters deal with listening, with holding oneself before elders, and with not praising oneself. The rule is practical: the person who accepts correction keeps learning.",
+     quote:"Respect others, and you will be respected.", qsrc:"Uzbek proverb",
+     refs:["Aristotle, NE II.7","Qabus-nama, 1082","Proverb collection"]},
 
     {n:"02", lat:"Avaritia", name:"Greed", gloss:"the urge to hoard",
-     def:"Avarice is the urge to accumulate: to keep what is not needed and to avoid sharing. The medieval definition is short — it is not having many things, but being owned by things.",
-     vlat:"Liberalitas", vname:"Generosity", var:"sakho",
-     vtext:"Generosity is sharing what one holds, but with measure: not waste, but giving according to need. It is not renouncing wealth — it is directing wealth rightly.",
-     practice:"Hashar is communal work in the village: raising a house, clearing an irrigation channel, bringing in the harvest. No wage is asked and no account is kept; it is generosity in its most everyday form. Zakat and sadaqa work on the same logic: wealth circulates through the community.",
+     def:"Greed is the urge to accumulate: holding what is not needed and giving nothing away. The problem is not the amount but the closed hand.",
+     vlat:"Liberalitas", vname:"Generosity",
+     vtext:"Generosity is the middle between waste and meanness: the right amount, to the right person, at the right time. Aristotle’s test is not the size of the gift but whether giving leaves you free.",
+     practice:"Hashar — the village working together: raising a house, clearing the irrigation channel, bringing in the harvest. No wage is asked and no account is kept; what circulates is labour, and it returns as a house.",
      quote:"Do good and cast it into the river.", qsrc:"Uzbek proverb",
-     refs:["Qur’an 2:261–274","Moralia in Job, XXXI.xlv","O‘zbek xalq maqollari (1990)"]},
+     refs:["Aristotle, NE II.7","Proverb collection"]},
 
     {n:"03", lat:"Luxuria", name:"Lust", gloss:"desire beyond measure",
-     def:"Lust is desire stepping outside its measure — a state in which a person treats himself, and others, as a means only. It is the most delicate subject on this list, and here it stays at the level of definition.",
-     vlat:"Castitas", vname:"Chastity", var:"ʻiffa",
-     vtext:"Chastity is self-command and the protection of another person’s dignity. It is not a set of rules about appearance; it is a measure of the gaze and the intention.",
-     practice:"Tradition links chastity with uyat — modesty: not fear, but knowing one’s own boundary. The hadith says “modesty is part of faith”, which makes it an inner support rather than outside pressure.",
-     quote:"Modesty is part of faith.", qsrc:"Sahih al-Bukhari, Book of Manners",
-     refs:["Qur’an 24:30–31","Sahih al-Bukhari, Adab","Moralia in Job, XXXI.xlv"]},
+     def:"Lust is desire that has left its measure: a state in which another person becomes a means rather than a person. The subject stays here at the level of idea, not scene.",
+     vlat:"Castitas", vname:"Self-command",
+     vtext:"The virtue lies between two edges: numbness that refuses all pleasure, and appetite that refuses all limits. Its core is simple — you may want, and still choose.",
+     practice:"In the advice literature of the region the mark of a disciplined person is not austerity but evenness: the guest is respected, the word given is kept, and no promise is made in heat.",
+     quote:"Do not wish for another what you would not wish for yourself.", qsrc:"Uzbek proverb",
+     refs:["Aristotle, NE III.10–12","Proverb collection"]},
 
-    {n:"04", lat:"Ira", name:"Wrath", gloss:"the loss of self-command",
-     def:"Wrath is the response that grows out of a failure to hold oneself. It does not replace justice: an angry person tends to use force instead of argument.",
-     vlat:"Patientia", vname:"Patience", var:"sabr / ḥilm",
-     vtext:"Patience is not sitting still; it is making time work for you. It shows in three places: pausing before answering, waiting long, and continuing after loss.",
-     practice:"A craftsman learns through patience — a potter does not master clay in a day; a farmer waits for the harvest. The proverb “patience is bitter, its fruit is sweet” is about exactly this long labour.",
-     quote:"Patience is bitter, but its fruit is sweet.", qsrc:"Uzbek proverb",
-     refs:["Qur’an 2:153","Sahih al-Bukhari, Adab","Moralia in Job, XXXI.xlv"]},
+    {n:"04", lat:"Ira", name:"Wrath", gloss:"answering before thinking",
+     def:"Wrath is the answer that arrives before the thought — the moment when force takes the place of argument.",
+     vlat:"Patientia", vname:"Even temper",
+     vtext:"Aristotle sets this virtue between two errors too: irascibility, which explodes at everything, and dullness, which never answers even a wrong worth answering. The virtue is to be angry at the right thing, at the right time, and then to stop.",
+     practice:"A craftsman learns this first: a potter does not hurry clay. The proverb ties the same patience to daily bread — patience is bitter, its fruit is sweet.",
+     quote:"The enemy of anger is patience.", qsrc:"Uzbek proverb",
+     refs:["Aristotle, NE IV.5","Proverb collection"]},
 
-    {n:"05", lat:"Gula", name:"Gluttony", gloss:"eating and drinking beyond measure",
-     def:"Gluttony is eating and drinking beyond measure. It often turns into waste: a little is needed, much is demanded, and the rest is thrown away.",
-     vlat:"Temperantia", vname:"Temperance", var:"qanāʻa",
-     vtext:"Temperance is knowing the word “enough”. Contentment goes deeper: gratitude for what is at hand, and no chase after what is not.",
-     practice:"Bread on the table is sacred: it is not stepped over, not treated with disrespect, not thrown away. A small habit — the most everyday form of a culture of measure.",
-     quote:"Eat and drink, but do not be excessive.", qsrc:"Qur’an 7:31",
-     refs:["Qur’an 7:31","Moralia in Job, XXXI.xlv"]},
+    {n:"05", lat:"Gula", name:"Gluttony", gloss:"eating and drinking beyond need",
+     def:"Gluttony is eating and drinking beyond need, and it usually ends in waste: a little is required, much is taken, the rest is thrown out.",
+     vlat:"Temperantia", vname:"Measure",
+     vtext:"Measure is not a diet; it is the habit of knowing where “enough” lies. Contentment is a step further: leaning on what you already have instead of chasing the next thing.",
+     practice:"In the house, bread is not stepped over, not left face-down, not thrown out. A small rule — and behind it a large idea: what is made by labour is not wasted.",
+     quote:"Be content with what you have; be patient with what you lack.", qsrc:"Uzbek proverb",
+     refs:["Aristotle, NE III.10–12","Proverb collection"]},
 
     {n:"06", lat:"Invidia", name:"Envy", gloss:"pain at another’s good",
-     def:"Envy is pain at another person’s good. It hurts not because the thing is wanted, but because someone else has it; that is why it is never satisfied.",
-     vlat:"Benevolentia", vname:"Goodwill", var:"nashr / ḥubb",
-     vtext:"Goodwill is genuine gladness at another’s success. It is an emotional generosity: sharing out what you feel.",
-     practice:"Hospitality is the practical enemy of envy: a guest at the table stops being a stranger. The Uzbek phrase “ko‘ngli ochiq” — open-hearted — comes from the same place: let the house and the heart both be open.",
+     def:"Envy is pain at another person’s good — not because the thing is wanted, but because someone else has it. That is why it is never satisfied.",
+     vlat:"Benevolentia", vname:"Goodwill",
+     vtext:"Aristotle separates envy from just resentment: envy wants the other to lose, resentment wants the wrong corrected. Goodwill is the lighter, better habit — gladness at another’s success, without keeping a score.",
+     practice:"Hospitality is its everyday cure: a guest at the table stops being a stranger, and a stranger who has been fed is harder to resent.",
      quote:"Be good yourself, and the world is good.", qsrc:"Uzbek proverb",
-     refs:["Sahih al-Bukhari 13 / Muslim 45","Moralia in Job, XXXI.xlv"]},
+     refs:["Aristotle, NE II.7; Rhetoric II.10","Proverb collection"]},
 
     {n:"07", lat:"Acedia", name:"Sloth", gloss:"flight from work and duty",
-     def:"Acedia is flight from work and obligation; sometimes a deeper indifference in which nothing seems to matter. The classical list also calls it the heaviness of the spirit.",
-     vlat:"Industria", vname:"Diligence", var:"ʻamal",
-     vtext:"Diligence is not a strong will but the habit of small steps: start the work, finish the work, keep going without waiting for the result.",
-     practice:"“Labour is the foundation of rest,” says the proverb. Bread earned by hand is valued differently: a craft is an inheritance, a trade is a support.",
+     def:"Sloth is flight from work and duty, and sometimes a deeper state in which nothing seems worth beginning.",
+     vlat:"Industria", vname:"Diligence",
+     vtext:"Diligence is not a strong will; it is the habit of small steps — begin, finish, begin again. Aristotle’s point holds here too: virtues are made by repetition, not by resolution.",
+     practice:"The old rule of apprenticeship: a craft is learned by doing it badly for two years. “Labour is the foundation of rest,” says the proverb.",
      quote:"Labour is the foundation of rest.", qsrc:"Uzbek proverb",
-     refs:["Qur’an 62:10","Sahih al-Bukhari 2072","Moralia in Job, XXXI.xlv"]}
+     refs:["Aristotle, NE II.1–4","Qutadgu Bilig, 1069–70","Proverb collection"]}
   ],
+  zanjir:{title:"The Chain", hint:"puzzle · 7 cards",
+    lead:"Seen one at a time, the vices look monstrous. In fact they are a chain: each one produces the next, and the seventh returns to the first.",
+    intro:"Seven cards lie shuffled below. The last sentence of each card is the hook for the first sentence of the next. The end of the seventh returns to the first — the circle closes.",
+    howh:"How to play",
+    how:"Pick a card, then tap an empty slot. If the placement is wrong, the card comes back. A correct card opens and locks in place.",
+    slots:"The chain", deck:"Cards", check:"Check", hintBtn:"Hint", reset:"Restart",
+    which:"Which slot?", pick:"Pick a card — or tap an empty slot", placed:"Placed", empty:"Empty slot",
+    right:"Correct", wrong:"Not this slot — the card returns", hintDone:"The first link is open",
+    complete:"The chain is closed. Seven links joined.",
+    doneT:"Now the reversal", doneC:"You do not have to cut all seven links to break the chain — one is enough.",
+    cuts:[["Pride","Humility"],["Greed","Generosity"],["Lust","Self-command"],["Wrath","Patience"],["Gluttony","Measure"],["Envy","Goodwill"],["Sloth","Diligence"]],
+    cards:[
+      {k:"kibr", t:"He is certain he stands a step above the others — and he stops listening.", h:"He begins to measure himself against everyone."},
+      {k:"hasad", t:"Measuring becomes a habit: every good thing that happens to anyone else is entered in his ledger as a loss.", h:"He wants what is on the other side of the ledger, and starts to keep."},
+      {k:"buxiylik", t:"Keeping begins: the hand closes and nothing leaves it.", h:"Where the hand closed, the mouth opens — appetite asks for more."},
+      {k:"ochkozlik", t:"An appetite given one door asks for all of them.", h:"Wanting without limit, he stops seeing people as people."},
+      {k:"shahvat", t:"People become instruments; when one refuses to be an instrument he is surprised — and then furious.", h:"The refusal is answered with force."},
+      {k:"gazab", t:"Force consumes him; what is left is a man who has been shouting for years.", h:"Nothing seems worth beginning now; the will goes quiet."},
+      {k:"dangasalik", t:"He does nothing, and tells himself he is above all this pointless labour —", h:"…and the circle closes: he is certain he stands a step above the others."}
+    ]},
   jadval:{title:"In one table", hint:"7 rows", cap:"The seven vices and the virtue set against each",
-    th:["№","Vice (Latin)","Name","Arabic","Virtue","Latin"]},
+    th:["№","Vice (Latin)","Name","Virtue","Latin","Source"]},
   note:{h:"One note",
-    t:"The Latin list and the Islamic tradition do not count the same seven things. The hadith names “the seven destructive sins” differently: associating partners with God, sorcery, unlawful killing, usury, consuming an orphan’s wealth, fleeing the battlefield, and slandering chaste women (Sahih al-Bukhari 2766; Sahih Muslim 89). This page takes the Latin list as a literary frame and sets against each vice a virtue recognised in local tradition."},
+    t:"The seven-sin list is not in the Bible — it took shape in the Latin West in late antiquity and hardened in the Middle Ages. This page treats it not as a doctrine or a verdict but as a cultural frame: the list was formed in Europe, yet similar questions run through the didactic literature of Central Asia too — the Qabus-nama, Qutadgu Bilig, Navoiy’s Mahbub ul-qulub. That is why each vice is paired with a virtue that local sources also recognise."},
   lugat:{title:"Glossary", hint:"12 terms",
     items:[["Superbia","Latin “to be above”; the book name of pride."],
-      ["Humilitas","Humility; from humus — earth."],
+      ["Avaritia","Latin “to grieve over”; the book name of greed."],
+      ["Luxuria","Latin “to overflow”; desire past its measure."],
       ["Acedia","Greek “indifference”; the book name of sloth."],
+      ["Humilitas","Humility; from humus — earth."],
       ["Temperantia","Measure; from temperare — to bound."],
-      ["Iffat","Arabic “self-preservation”; chastity and self-command."],
-      ["Qanoat","Arabic “to deem sufficient”."],
-      ["Sabr","Arabic “to endure”; shares a root with sabara — to bind."],
-      ["Hilm","Arabic “mildness”; the virtue set against wrath."],
-      ["Tavāḍuʻ","Arabic “to place oneself low”."],
-      ["Saxovat","Arabic “open-handedness”."],
-      ["Hasad","Arabic “to grieve”; pain at another’s good."],
-      ["Isrof","Arabic “to pass the limit”."]]},
+      ["Mesotes","Greek “the middle”: Aristotle’s principle of the mean."],
+      ["Hexis","Greek “habit”: virtue is made by repetition."],
+      ["Qanoat","Arabic “to deem sufficient” — an everyday Uzbek word."],
+      ["Sabr","Arabic “to endure” — an everyday Uzbek word."],
+      ["Hashar","Communal village labour, given without pay."],
+      ["Nasihatnama","An advice book written by a father or master for a son or apprentice."]]},
   manbalar:{title:"Sources", hint:"verified",
     intro:"The source line at the end of each entry points to this list. Links lead to the original editions and official databases."},
   foot:{a:"A reference text built on open sources. When quoting, name the source; translations are the author’s.",
@@ -667,97 +672,114 @@ en: {
 },
 
 ru: {
-  brand:{sub:"пары"},
-  nav:{usul:"Метод", yetti:"Семь пар", jadval:"Таблица", lugat:"Словарь", manbalar:"Источники"},
-  hero:{
-    kicker:"Справочник · семь пар · 2026",
-    sub:"Порок и добродетель: две стороны одного списка",
-    lede:"Семь смертных грехов — список возрастом в две тысячи лет. Эта страница читает его не как ужас, а как зеркало: напротив каждого порока стоит его обратная сторона — одна из семи добродетелей. У каждого утверждения есть источник."
-  },
-  meta:[["7","пар"],["3","языка"],["12","источников"],["0","вымысла"]],
-  usul:{
-    title:"Метод", hint:"три принципа",
-    a:{h:"Что это", t:"Сравнительный справочник: семь понятий, их обратная сторона и соответствия, признанные в традиции Центральной Азии — на одной странице, в строгом порядке."},
-    b:{h:"Чем это не является", t:"Это не сборник историй ужасов, не религиозное предписание и не собрание непроверенных преданий. Утверждение без источника на страницу не попадает."},
-    c:{h:"Как устроено", t:"В каждом разделе шесть частей: латинское имя, узбекское имя, краткое определение, обратная сторона — добродетель, местная практика и источники."}
-  },
-  yetti:{title:"Семь пар", hint:"порок → добродетель",
-    intro:"Порядок взят из латинской традиции: Григорий Великий, VI век. В каждом разделе сначала порок — кратко и нейтрально, затем его обратная сторона."},
-  labels:{vice:"Порок", virtue:"Обратная сторона — добродетель", practice:"На практике", refs:"Источники", arabic:"араб."},
+  "brand.sub":"порок и добродетель",
+  nav:{usul:"Метод", juftlik:"Пары", zanjir:"Цепь", jadval:"Таблица", lugat:"Словарь", manbalar:"Источники"},
+  ui:{print:"Печать / PDF"},
+  hero:{kicker:"Справочник · семь пар · 2026",
+    sub:"Порок — выход из меры. Добродетель — середина.",
+    lede:"Семь смертных грехов — список возрастом в две тысячи лет. Эта страница читает его не как ужас, а как вопрос о мере: каждый порок — крайность, и напротив него стоит добродетель, держащая середину. У каждого утверждения есть источник."},
+  meta:[["7","пар"],["7","карт"],["3","языка"],["10","источников"]],
+  usul:{title:"Метод", hint:"три принципа",
+    a:{h:"Что это", t:"Сравнительный справочник: семь понятий, их обратная сторона и соответствия в дидактической литературе Центральной Азии — на одной странице, в строгом порядке."},
+    b:{h:"Чем это не является", t:"Это не религиозный трактат, не книга предписаний и не сборник историй ужасов. Это разбор одного списка внутри истории культуры."},
+    c:{h:"Логика", t:"Каждый порок — уход от меры; добродетель — середина. Учение Аристотеля о середине взято осью этой страницы."}},
+  juftlik:{title:"Семь пар", hint:"порок → добродетель",
+    intro:"Порядок взят из латинской традиции. В каждом разделе сначала порок — кратко и нейтрально, затем его обратная сторона и местный корень этой мысли."},
+  labels:{virtue:"Обратная сторона — добродетель", practice:"На практике", refs:"Источники", src:"источник"},
   entries:[
     {n:"01", lat:"Superbia", name:"Гордыня", gloss:"поставить себя выше других",
-     def:"Гордыня — привычка ставить себя выше других и отказываться принять истину. В классическом списке она считается корнем остальных шести пороков: они вырастают из неё.",
-     vlat:"Humilitas", vname:"Смирение", var:"tavāḍuʻ",
-     vtext:"Смирение — знать своё место, не отвергать истину и не унижать людей. Гордыня поднимается; смирение знает свою высоту.",
-     practice:"Главный принцип Бахауддина Накшбанда (1318–1389) — «Дил ба ёр, даст ба кор»: сердце с Создателем, руки в труде. В такой жизни не остаётся ни времени, ни места для самовозвеличивания. Комплекс Бахауддина Накшбанда в Бухаре — самое зримое место этой мысли.",
-     quote:"Гордыня — это отвергать истину и смотреть на людей свысока.", qsrc:"Сахих Муслим 91",
-     refs:["Коран 31:18","Сахих Муслим 91","Moralia in Job, XXXI.xlv"]},
+     def:"Гордыня — привычка ставить себя выше других и не слышать поправок. В классическом списке она считается корнем: остальные шесть вырастают из неё.",
+     vlat:"Humilitas", vname:"Смирение",
+     vtext:"Смирение — не самоуничижение, а знание своего настоящего размера. Аристотель ставит эту добродетель между двумя ошибками: тщеславием, которое завышает, и напрасным самоуничижением, которое занижает.",
+     practice:"Самая старая книга наставлений региона — «Кабус-наме» (1082), написанная отцом для сына; целые главы в ней о том, как слушать, как держать себя перед старшими и как не хвалить себя. Правило практическое: кто принимает поправку, тот продолжает учиться.",
+     quote:"Уважай других — и тебя будут уважать.", qsrc:"Узбекская пословица",
+     refs:["Аристотель, NE II.7","Кабус-наме, 1082","Сборник пословиц"]},
 
     {n:"02", lat:"Avaritia", name:"Жадность", gloss:"стремление копить",
-     def:"Жадность — стремление копить: держать то, что не нужно, и избегать делиться. Средневековое определение коротко: это не обладание многим, а рабство у вещей.",
-     vlat:"Liberalitas", vname:"Щедрость", var:"sakho",
-     vtext:"Щедрость — делиться тем, что есть, но с мерой: не расточительство, а дарение по потребности. Это не отказ от достатка — это верное направление достатка.",
-     practice:"Хашар — совместная работа в селе: поставить дом, очистить арык, собрать урожай. Платы не просят и счёта не ведут; это щедрость в самом повседневном виде. Закят и садака работают по той же логике: богатство движется через общество.",
+     def:"Жадность — стремление копить: держать ненужное и ничего не отдавать. Дело не в количестве, а в закрытой руке.",
+     vlat:"Liberalitas", vname:"Щедрость",
+     vtext:"Щедрость — середина между расточительством и скупостью: нужное количество, нужному человеку, в нужный момент. Мерило Аристотеля — не размер дара, а остаёшься ли ты свободным, когда отдаёшь.",
+     practice:"Хашар — совместная работа села: поставить дом, очистить арык, собрать урожай. Платы не просят и счёта не ведут; в обороте труд, и он возвращается домом.",
      quote:"Сделай добро и брось его в реку.", qsrc:"Узбекская пословица",
-     refs:["Коран 2:261–274","Moralia in Job, XXXI.xlv","O‘zbek xalq maqollari (1990)"]},
+     refs:["Аристотель, NE II.7","Сборник пословиц"]},
 
     {n:"03", lat:"Luxuria", name:"Похоть", gloss:"желание вне меры",
-     def:"Похоть — желание, вышедшее из меры; состояние, в котором человек и себя, и другого видит только как средство. Это самая тонкая тема в списке, и здесь она остаётся на уровне определения.",
-     vlat:"Castitas", vname:"Целомудрие", var:"ʻiffa",
-     vtext:"Целомудрие — владение собой и защита достоинства другого. Это не правила о внешности, а мера взгляда и намерения.",
-     practice:"Традиция связывает целомудрие с уятом — стыдливостью: не со страхом, а со знанием своей границы. В хадисе сказано: «Стыдливость — часть веры»; значит, она опора изнутри, а не давление извне.",
-     quote:"Стыдливость — часть веры.", qsrc:"Сахих аль-Бухари, книга «Адаб»",
-     refs:["Коран 24:30–31","Сахих аль-Бухари, «Адаб»","Moralia in Job, XXXI.xlv"]},
+     def:"Похоть — желание, вышедшее из меры: состояние, в котором другой человек становится средством, а не человеком. Здесь тема остаётся на уровне понятия.",
+     vlat:"Castitas", vname:"Владение собой",
+     vtext:"Добродетель лежит между двумя краями: оцепенением, отвергающим всякое удовольствие, и аппетитом, не знающим границ. Суть проста: можно хотеть — и всё равно выбирать.",
+     practice:"В литературе наставлений региона признак воспитанного человека — не аскеза, а ровность: гостя уважают, данному слову следуют, обещание не дают в горячке.",
+     quote:"Не желай другому того, чего не желаешь себе.", qsrc:"Узбекская пословица",
+     refs:["Аристотель, NE III.10–12","Сборник пословиц"]},
 
-    {n:"04", lat:"Ira", name:"Гнев", gloss:"утрата власти над собой",
-     def:"Гнев — ответ, вырастающий из неумения держать себя. Он не заменяет справедливость: разгневанный чаще применяет силу, чем довод.",
-     vlat:"Patientia", vname:"Терпение", var:"sabr / ḥilm",
-     vtext:"Терпение — не сидеть сложа руки, а заставить время работать на себя. Оно видно в трёх вещах: остановиться перед ответом, долго ждать и продолжать после потери.",
-     practice:"Ремесленник учится терпением — гончар не осваивает глину за день; земледелец ждёт урожая. Пословица «Терпение горько, плод его сладок» именно об этом долгом труде.",
-     quote:"Терпение горько, но плод его сладок.", qsrc:"Узбекская пословица",
-     refs:["Коран 2:153","Сахих аль-Бухари, «Адаб»","Moralia in Job, XXXI.xlv"]},
+    {n:"04", lat:"Ira", name:"Гнев", gloss:"ответ раньше мысли",
+     def:"Гнев — ответ, приходящий раньше мысли: мгновение, когда сила занимает место довода.",
+     vlat:"Patientia", vname:"Ровность",
+     vtext:"Аристотель и здесь ставит добродетель между двумя ошибками: вспыльчивостью, которая взрывается из-за всего, и вялостью, которая не отвечает даже на настоящую несправедливость. Добродетель — злиться на верное, в верное время и уметь остановиться.",
+     practice:"Ремесленник узнаёт это первым: гончар не торопит глину. Пословица привязывает то же терпение к хлебу: терпение горько, плод его сладок.",
+     quote:"Враг гнева — терпение.", qsrc:"Узбекская пословица",
+     refs:["Аристотель, NE IV.5","Сборник пословиц"]},
 
-    {n:"05", lat:"Gula", name:"Обжорство", gloss:"есть и пить сверх меры",
-     def:"Обжорство — еда и питьё сверх меры. Часто оно превращается в расточительство: нужно немного, требуется много, а остальное выбрасывается.",
-     vlat:"Temperantia", vname:"Умеренность", var:"qanāʻa",
-     vtext:"Умеренность — знать слово «достаточно». Довольство идёт глубже: благодарность за то, что есть, и отсутствие погони за лишним.",
-     practice:"Хлеб на дастархане священен: через него не переступают, его не оскорбляют и не выбрасывают. Маленькая привычка — самая повседневная форма культуры меры.",
-     quote:"Ешьте и пейте, но не излишествуйте.", qsrc:"Коран 7:31",
-     refs:["Коран 7:31","Moralia in Job, XXXI.xlv"]},
+    {n:"05", lat:"Gula", name:"Обжорство", gloss:"есть и пить сверх нужды",
+     def:"Обжорство — еда и питьё сверх нужды, и обычно оно кончается расточительством: нужно немного, берут много, остальное выбрасывают.",
+     vlat:"Temperantia", vname:"Мера",
+     vtext:"Мера — не диета, а привычка знать, где лежит «достаточно». Довольство на шаг дальше: опираться на то, что есть, а не гнаться за следующим.",
+     practice:"В доме через хлеб не переступают, не кладут его лицевой стороной вниз, не выбрасывают. Маленькое правило — и за ним большая мысль: сделанное трудом не тратится впустую.",
+     quote:"Будь доволен тем, что есть, и терпелив к тому, чего нет.", qsrc:"Узбекская пословица",
+     refs:["Аристотель, NE III.10–12","Сборник пословиц"]},
 
     {n:"06", lat:"Invidia", name:"Зависть", gloss:"боль от чужого блага",
-     def:"Зависть — боль от чужого блага. Болит не потому, что вещь нужна, а потому, что она есть у другого; поэтому она никогда не насыщается.",
-     vlat:"Benevolentia", vname:"Доброжелательность", var:"nashr / ḥubb",
-     vtext:"Доброжелательность — искренняя радость за чужой успех. Это эмоциональная щедрость: делиться тем, что чувствуешь.",
-     practice:"Гостеприимство — практический враг зависти: приглашённый за дастархан перестаёт быть чужим. Узбекское «ko‘ngli ochiq» — «открытая душа» — отсюда же: пусть будут открыты и дом, и сердце.",
+     def:"Зависть — боль от чужого блага: не потому, что вещь нужна, а потому, что она есть у другого. Поэтому она никогда не насыщается.",
+     vlat:"Benevolentia", vname:"Доброжелательность",
+     vtext:"Аристотель отделяет зависть от праведного негодования: зависть хочет, чтобы другой потерял, негодование — чтобы ошибка была исправлена. Доброжелательность легче и полезнее: радость за чужой успех без счёта.",
+     practice:"Гостеприимство — её повседневное лекарство: приглашённый за дастархан перестаёт быть чужим, а накормленному чужому завидовать труднее.",
      quote:"Сам будь хорош — и мир хорош.", qsrc:"Узбекская пословица",
-     refs:["Сахих аль-Бухари 13 / Муслим 45","Moralia in Job, XXXI.xlv"]},
+     refs:["Аристотель, NE II.7; Риторика II.10","Сборник пословиц"]},
 
     {n:"07", lat:"Acedia", name:"Лень", gloss:"бегство от труда и долга",
-     def:"Акедия — бегство от труда и обязанности; иногда глубокое равнодушие, когда ничто не кажется важным. В классическом списке её называют также тяжестью духа.",
-     vlat:"Industria", vname:"Трудолюбие", var:"ʻamal",
-     vtext:"Трудолюбие — не сильная воля, а привычка малых шагов: начать, довести до конца и продолжать, не дожидаясь результата.",
-     practice:"«Труд — основа покоя», — говорит пословица. Хлеб, добытый руками, ценится иначе: ремесло — наследство, профессия — опора.",
+     def:"Лень — бегство от труда и обязанности, а иногда более глубокое состояние: кажется, что начинать ничего не стоит.",
+     vlat:"Industria", vname:"Трудолюбие",
+     vtext:"Трудолюбие — не сильная воля, а привычка малых шагов: начни, закончи, начни снова. Мысль Аристотеля работает и здесь: добродетель делается повторением, а не решением.",
+     practice:"Старое правило ученичества: ремесло осваивают, два года делая его плохо. «Труд — основа покоя», — говорит пословица.",
      quote:"Труд — основа покоя.", qsrc:"Узбекская пословица",
-     refs:["Коран 62:10","Сахих аль-Бухари 2072","Moralia in Job, XXXI.xlv"]}
+     refs:["Аристотель, NE II.1–4","Кутадгу билиг, 1069–70","Сборник пословиц"]}
   ],
+  zanjir:{title:"Цепь", hint:"головоломка · 7 карт",
+    lead:"Пороки, взятые по отдельности, кажутся чудовищами. На деле это цепь: каждый производит следующий, а седьмой возвращается к первому.",
+    intro:"Семь карт лежат вперемешку. Последняя фраза каждой карты — зацепка для первой фразы следующей. Конец седьмой возвращается к первой — круг замыкается.",
+    howh:"Как играть",
+    how:"Выберите карту, затем нажмите на пустую ячейку. Если место неверное, карта вернётся. Верная карта открывается и остаётся на месте.",
+    slots:"Цепь", deck:"Карты", check:"Проверить", hintBtn:"Подсказка", reset:"Заново",
+    which:"Какая ячейка?", pick:"Выберите карту — или нажмите на пустую ячейку", placed:"Размещено", empty:"Пустая ячейка",
+    right:"Верно", wrong:"Не это место — карта вернулась", hintDone:"Первое звено открыто",
+    complete:"Цепь замкнута. Семь звеньев соединены.",
+    doneT:"Теперь обратная сторона", doneC:"Чтобы разорвать цепь, не нужно рубить все семь звеньев — достаточно одного.",
+    cuts:[["Гордыня","Смирение"],["Жадность","Щедрость"],["Похоть","Владение собой"],["Гнев","Терпение"],["Обжорство","Мера"],["Зависть","Доброжелательность"],["Лень","Трудолюбие"]],
+    cards:[
+      {k:"kibr", t:"Он уверен, что стоит на шаг выше остальных, — и перестаёт слушать.", h:"Он начинает мерить себя со всеми."},
+      {k:"hasad", t:"Измерение становится привычкой: каждое чужое благо записывается в его счёт как убыток.", h:"Он хочет то, что на другой стороне счёта, и начинает удерживать."},
+      {k:"buxiylik", t:"Начинается удержание: рука закрывается, и из неё ничего не выходит.", h:"Где закрылась рука, открывается рот — аппетит просит большего."},
+      {k:"ochkozlik", t:"Аппетиту, которому открыли одну дверь, нужны все.", h:"Желание без границ перестаёт видеть в людях людей."},
+      {k:"shahvat", t:"Люди становятся орудиями; когда одно отказывается быть орудием, он сперва удивлён, потом в ярости.", h:"На отказ отвечают силой."},
+      {k:"gazab", t:"Сила съедает его; остаётся человек, который кричит уже годами.", h:"Теперь ничто не стоит начинания — воля замолкает."},
+      {k:"dangasalik", t:"Он ничего не делает и говорит себе, что выше этого бессмысленного труда, —", h:"…и круг замыкается: он снова уверен, что стоит на шаг выше остальных."}
+    ]},
   jadval:{title:"В одной таблице", hint:"7 строк", cap:"Семь пороков и противостоящая каждому добродетель",
-    th:["№","Порок (лат.)","Название","Араб.","Добродетель","Лат."]},
+    th:["№","Порок (лат.)","Название","Добродетель","Лат.","Источник"]},
   note:{h:"Одно замечание",
-    t:"Латинский список и исламская традиция считают не одно и то же. В хадисе «семь губительных грехов» названы иначе: придавание сотоварищей Аллаху, колдовство, неправедное убийство, ростовщичество, присвоение имущества сироты, бегство с поля боя и клевета на целомудренных женщин (Сахих аль-Бухари 2766; Сахих Муслим 89). Эта страница берёт латинский список как литературную рамку и ставит напротив каждого порока добродетель, признанную в местной традиции."},
+    t:"Списка семи грехов нет в Библии — он сложился в латинском Западе в поздней античности и застыл в Средние века. Эта страница берёт его не как вероучение и не как приговор, а как культурную рамку: список сложился в Европе, но похожие вопросы есть и в дидактической литературе Центральной Азии — «Кабус-наме», «Кутадгу билиг», «Махбуб уль-кулуб» Навои. Поэтому напротив каждого порока стоит добродетель, признанная и местными источниками."},
   lugat:{title:"Словарь", hint:"12 терминов",
     items:[["Superbia","Лат. «быть наверху»; книжное имя гордыни."],
-      ["Humilitas","Смирение; от humus — земля."],
+      ["Avaritia","Лат. «скорбеть»; книжное имя жадности."],
+      ["Luxuria","Лат. «переливаться»; желание вне меры."],
       ["Acedia","Греч. «равнодушие»; книжное имя лени."],
+      ["Humilitas","Смирение; от humus — земля."],
       ["Temperantia","Мера; от temperare — ограничивать."],
-      ["Iffat","Араб. «сохранность»; целомудрие и владение собой."],
-      ["Qanoat","Араб. «считать достаточным»."],
-      ["Sabr","Араб. «терпеть»; один корень с sabara — связывать."],
-      ["Hilm","Араб. «мягкость»; добродетель против гнева."],
-      ["Tavāḍuʻ","Араб. «ставить себя низко»."],
-      ["Saxovat","Араб. «щедрая рука»."],
-      ["Hasad","Араб. «скорбеть»; боль от чужого блага."],
-      ["Isrof","Араб. «переходить предел»."]]},
+      ["Mesotes","Греч. «середина»: принцип меры Аристотеля."],
+      ["Hexis","Греч. «привычка»: добродетель делается повторением."],
+      ["Qanoat","Араб. «считать достаточным» — обиходное узбекское слово."],
+      ["Sabr","Араб. «терпеть» — обиходное узбекское слово."],
+      ["Hashar","Совместный сельский труд без оплаты."],
+      ["Nasihatnama","Книга наставлений отца или учителя сыну или ученику."]]},
   manbalar:{title:"Источники", hint:"проверено",
     intro:"Строка источников в конце каждого раздела отсылает к этому списку. Ссылки ведут к оригинальным изданиям и официальным базам."},
   foot:{a:"Справочный текст на основе открытых источников. При цитировании указывайте источник; переводы — авторские.",
@@ -765,29 +787,34 @@ ru: {
 }
 };
 
-/* ── sources: 12 items ─────────────────────────────────────── */
+/* ── bibliography (language-neutral) ───────────────────────── */
 const SOURCES = [
-  {t:"Gregorius Magnus, <i>Moralia in Job</i>, lib. XXXI, § XLV — c. 590.",
-   href:"https://la.wikisource.org/wiki/Moralia_in_Job"},
-  {t:"Thomas Aquinas, <i>Summa Theologiae</i>, I–II, q. 84.", href:"https://www.newadvent.org/summa/2084.htm"},
-  {t:"<i>Catechism of the Catholic Church</i>, § 1866.", href:"https://www.vatican.va/archive/ENG0015/_INDEX.HTM"},
-  {t:"Evagrius Ponticus, <i>Praktikos</i>, 4th c.", href:"https://en.wikipedia.org/wiki/Evagrius_Ponticus"},
-  {t:"John Cassian, <i>De institutis coenobiorum</i>, c. 420.", href:"https://en.wikipedia.org/wiki/John_Cassian"},
-  {t:"Ṣaḥīḥ al-Bukhārī 2766; Ṣaḥīḥ Muslim 89.", href:"https://sunnah.com/bukhari:2766"},
-  {t:"Ṣaḥīḥ Muslim 91.", href:"https://sunnah.com/muslim:91"},
-  {t:"Ṣaḥīḥ al-Bukhārī 13; Ṣaḥīḥ Muslim 45.", href:"https://sunnah.com/bukhari:13"},
-  {t:"Qur’an 7:31 · 24:30–31 · 31:18 · 2:153 · 2:261–274 · 62:10.", href:"https://quran.com/7/31"},
-  {t:"Bahouddin Naqshband (1318–1389), “Dil ba yor, dast ba kor” — <i>Zenodo</i>, DOI 10.5281/zenodo.19437652.",
-   href:"https://zenodo.org/records/19437652"},
+  {t:"Aristoteles, <i>Ethica Nicomachea</i>, II.5–9 (doctrine of the mean); III.10–12; IV.5.",
+   href:"http://classics.mit.edu/Aristotle/nicomachaen.2.ii.html"},
+  {t:"Aristoteles, <i>Rhetorica</i>, II.10 (envy and just resentment).",
+   href:"http://classics.mit.edu/Aristotle/rhetoric.2.ii.html"},
+  {t:"Plato, <i>Respublica</i>, IV (the cardinal virtues).",
+   href:"http://classics.mit.edu/Plato/republic.5.iv.html"},
+  {t:"Encyclopaedia Britannica, “seven deadly sins” — the history of the list.",
+   href:"https://www.britannica.com/topic/seven-deadly-sins"},
+  {t:"Kaykovus, <i>Qobusnoma</i>, 1082–83 — advice of a father to his son.",
+   href:"https://uz.wikipedia.org/wiki/Qobusnoma"},
+  {t:"Yusuf Xos Hojib, <i>Qutadg‘u bilig</i>, 1069–70.", href:"https://uz.wikipedia.org/wiki/Yusuf_Xos_Hojib"},
+  {t:"Alisher Navoiy, <i>Mahbub ul-qulub</i>, 1499.", href:"https://uz.wikipedia.org/wiki/Mahbub_ul-qulub"},
   {t:"T. Mirzayev, A. Musoqulov, B. Sarimsoqov (eds.), <i>O‘zbek xalq maqollari</i>.",
    href:"https://n.ziyouz.com/books/uzbek_xalq_ogzaki_ijodi/"},
-  {t:"Dante Alighieri, <i>Purgatorio</i>, c. 1315.", href:"https://en.wikipedia.org/wiki/Purgatorio"}
+  {t:"Seneca, <i>De ira</i>; <i>De brevitate vitae</i> (Stoic readings on anger and time).",
+   href:"https://www.gutenberg.org/ebooks/author/1308"},
+  {t:"Dante Alighieri, <i>Purgatorio</i>, c. 1315 — the literary afterlife of the list.",
+   href:"https://en.wikipedia.org/wiki/Purgatorio"}
 ];
 
 /* ── render ────────────────────────────────────────────────── */
-const $ = (s, r=document) => r.querySelector(s);
-const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 let LANG = "uz";
+
+const get = (L, path) => path.split(".").reduce((o, k) => (o == null ? o : o[k]), L);
 
 function entriesHTML(L){
   return L.entries.map(e => `
@@ -803,96 +830,305 @@ function entriesHTML(L){
       <p class="def">${e.def}</p>
       <div class="virtue">
         <span class="lbl">${L.labels.virtue}</span>
-        <div class="names">
-          <span class="vname">${e.vname}</span>
-          <span class="vlat">${e.vlat}</span>
-          <span class="var">${L.labels.arabic}: ${e.var}</span>
-        </div>
+        <div class="names"><span class="vname">${e.vname}</span><span class="vlat">${e.vlat}</span></div>
         <p>${e.vtext}</p>
       </div>
       <p class="practice"><b>${L.labels.practice}</b>${e.practice}</p>
       <blockquote>${e.quote}<cite>${e.qsrc}</cite></blockquote>
-      <div class="refs">${e.refs.map(r=>`<span>${r}</span>`).join("")}</div>
+      <div class="refs">${e.refs.map(r => `<span>${r}</span>`).join("")}</div>
     </div>
   </article>`).join("");
 }
 
 function tableHTML(L){
-  $("#tblHead").innerHTML = L.jadval.th.map((h,i)=>`<th scope="col">${h}</th>`).join("");
-  $("#tblBody").innerHTML = L.entries.map(e=>`
+  $("#tblHead").innerHTML = L.jadval.th.map(h => `<th scope="col">${h}</th>`).join("");
+  $("#tblBody").innerHTML = L.entries.map((e, i) => `
     <tr>
       <td class="n">${e.n}</td>
       <td class="lat">${e.lat}</td>
       <td>${e.name}</td>
-      <td>${e.var}</td>
       <td class="v">${e.vname}</td>
       <td>${e.vlat}</td>
+      <td>${e.refs[0]}</td>
     </tr>`).join("");
 }
 
 function glossHTML(L){
-  $("#gloss").innerHTML = L.lugat.items.map(([t,d])=>`<div><dt>${t}</dt><dd>${d}</dd></div>`).join("");
+  $("#gloss").innerHTML = L.lugat.items.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join("");
 }
 
 function metaHTML(L){
-  $("#metaRow").innerHTML = L.meta.map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
+  $("#metaRow").innerHTML = L.meta.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("");
 }
 
 function srcHTML(){
-  $("#src").innerHTML = SOURCES.map(s=>`<li>${s.t} <a href="${s.href}" target="_blank" rel="noopener">↗</a></li>`).join("");
+  $("#src").innerHTML = SOURCES.map(s =>
+    `<li>${s.t} <a href="${s.href}" target="_blank" rel="noopener" aria-label="source">↗</a></li>`).join("");
 }
 
+/* ── the chain puzzle ──────────────────────────────────────── */
+const PZ = {
+  order: ["kibr","hasad","buxiylik","ochkozlik","shahvat","gazab","dangasalik"],
+  slots: [],     /* slot index -> key | null */
+  locked: [],    /* slot index -> bool */
+  pool: [],      /* keys still in the deck */
+  sel: null,
+  L: null,
+  hintStep: 0,
+
+  reset(L){
+    this.L = L;
+    this.slots = new Array(7).fill(null);
+    this.locked = new Array(7).fill(false);
+    this.sel = null;
+    this.hintStep = 0;
+    /* shuffled deck, but never in the solved order */
+    let arr = [...this.order];
+    for (let i = arr.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
+    if (arr.join() === this.order.join()) arr.push(arr.shift());
+    this.pool = arr;
+    $("#pzDone").classList.remove("show");
+    $("#pzCheck").style.display = "";
+    $("#pzHint").style.display = "";
+    this.paint();
+  },
+
+  byKey(k){ return this.L.zanjir.cards.find(c => c.k === k); },
+
+  paint(){
+    const L = this.L.zanjir;
+    const done = this.locked.filter(Boolean).length;
+    $("#pzCount").textContent = done + " / 7";
+    $("#pzSlots").innerHTML = this.slots.map((k, i) => {
+      const locked = this.locked[i];
+      const card = k ? this.byKey(k) : null;
+      return `<li class="slot ${k ? "filled" : ""} ${locked ? "locked" : ""}" data-slot="${i}">
+        <span class="idx">${i + 1}</span>
+        <span class="fill" ${locked ? "" : `role="button" tabindex="0"`}>
+          ${card
+            ? `<span class="nm">${this.nameOf(card.k)}</span><span class="tx">${card.t}</span>`
+            : `<span class="tx" style="color:#a99c88">${L.empty}</span>`}
+        </span>
+      </li>`;
+    }).join("");
+
+    $("#pzDeck").innerHTML = this.pool.map(k => {
+      const c = this.byKey(k);
+      return `<li><button class="card ${this.sel === k ? "sel" : ""}" data-card="${k}" type="button">
+        <span class="nm">${this.nameOf(k)}</span>${c.t}
+      </button></li>`;
+    }).join("");
+
+    $("#pzCheck").disabled = done === 7;
+    this.syncSeal(done);
+    this.paintPutbar();
+  },
+
+  nameOf(k){ return (this._names && this._names[k]) || ""; },
+
+  /* a language switch must not throw away what is already solved */
+  snapshot(){ return (this.slots && this.slots.length === 7) ? { slots: [...this.slots], locked: [...this.locked], pool: [...this.pool], hint: this.hintStep } : null; },
+  restore(snap){
+    if (!snap || !snap.slots || snap.slots.length !== 7) return;
+    this.slots = [...snap.slots]; this.locked = [...snap.locked];
+    this.pool = [...snap.pool]; this.hintStep = snap.hint;
+    if (this.locked.every(Boolean)) this.finish(); else { $("#pzDone").classList.remove("show"); $("#pzCheck").style.display = ""; $("#pzHint").style.display = ""; }
+    this.paint();
+  },
+
+  /* on a phone the slots sit above the deck, so a picked card would need a
+     long scroll to be placed: a bar at the bottom offers the seven slots. */
+  paintPutbar(){
+    const bar = $("#pzPut");
+    if (!bar) return;
+    const narrow = matchMedia("(max-width: 1000px)").matches;
+    const show = narrow && !!this.sel && !this.locked.every(Boolean);
+    bar.classList.toggle("show", show);
+    document.body.classList.toggle("pz-choosing", show);
+    if (!show) return;
+    const label = '<span class="t">' + this.L.zanjir.which + '</span>';
+    bar.innerHTML = label + this.slots.map((k, i) => {
+      const free = !this.locked[i] && !k;
+      return `<button type="button" data-put="${i}" ${free ? "" : "disabled"} aria-label="${i + 1}">${i + 1}</button>`;
+    }).join("");
+  },
+
+  syncSeal(n){
+    const rays = $$("#pzSeal .ray");
+    rays.forEach((r, i) => r.classList.toggle("on", i < n));
+  },
+
+  pick(k){
+    if (this.locked.some((l, i) => this.slots[i] === k && l)) return;
+    this.sel = (this.sel === k) ? null : k;
+    this.status("");
+    this.paint();
+  },
+
+  place(slot){
+    if (this.locked[slot]) return;
+    if (!this.sel){ this.status(this.L.zanjir.pick); return; }
+    const k = this.sel;
+    /* if the card sat in another slot, take it out first */
+    const prev = this.slots.indexOf(k);
+    if (prev > -1){ this.slots[prev] = null; }
+    this.pool = this.pool.filter(x => x !== k);
+    this.slots[slot] = k;
+    this.sel = null;
+    this.status("");
+    this.paint();
+  },
+
+  check(){
+    const L = this.L.zanjir;
+    let right = 0, wrong = 0;
+    this.slots.forEach((k, i) => {
+      if (!k || this.locked[i]) return;
+      if (k === this.order[i]){ this.locked[i] = true; right++; }
+      else {
+        wrong++;
+        const node = $(`[data-slot="${i}"]`);
+        if (node){ node.classList.add("wrong"); }
+        this.slots[i] = null;
+        this.pool.push(k);
+      }
+    });
+    if (right) this.status(L.right + " · " + right);
+    else if (wrong) this.status(L.wrong);
+    /* deck order follows the canonical list for readability */
+    this.pool.sort((a, b) => this.order.indexOf(a) - this.order.indexOf(b));
+    if (this.locked.every(Boolean)) this.finish();
+    this.paint();
+  },
+
+  hint(){
+    const L = this.L.zanjir;
+    const i = this.hintStep;
+    if (i >= 7) return;
+    /* reveal slot i: clear it, put the right card in, lock it */
+    const k = this.order[i];
+    const at = this.slots.indexOf(k);
+    if (at > -1) this.slots[at] = null;
+    this.pool = this.pool.filter(x => x !== k);
+    this.slots[i] = k;
+    this.locked[i] = true;
+    this.hintStep = i + 1;
+    this.sel = null;
+    this.status(L.hintDone + " · " + (this.hintStep) + " / 7");
+    if (this.locked.every(Boolean)) this.finish();
+    this.paint();
+  },
+
+  finish(){
+    const L = this.L.zanjir;
+    $("#pzPairs").innerHTML = L.cuts.map(([a, b]) => `<li><b>${a}</b> <span>→</span> <i>${b}</i></li>`).join("");
+    $("#pzDone").classList.add("show");
+    $("#pzCheck").style.display = "none";
+    $("#pzHint").style.display = "none";
+    this.status(L.complete);
+  },
+
+  status(t){ const el = $("#pzStatus"); if (el) el.textContent = t || ""; }
+};
+
+/* the seven-ray seal */
+function sealSVG(){
+  const cx = 50, cy = 50, R = 44;
+  let out = "";
+  for (let i = 0; i < 7; i++){
+    const a = -Math.PI / 2 + i * (2 * Math.PI / 7);
+    const x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
+    out += `<line class="ray" x1="${cx}" y1="${cy}" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}"/>`;
+    out += `<circle class="ray" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="1.8"/>`;
+  }
+  out += `<circle cx="${cx}" cy="${cy}" r="10" fill="none" stroke="#8a2d22" stroke-width="1.1"/>`;
+  out += `<circle cx="${cx}" cy="${cy}" r="2.4" fill="#8a2d22" stroke="none"/>`;
+  $("#pzSeal").innerHTML = out;
+}
+
+/* ── language ──────────────────────────────────────────────── */
 function apply(lang){
   const L = DATA[lang] || DATA.uz;
+  const keep = PZ.snapshot();
   LANG = lang;
   document.documentElement.lang = lang;
-  $$("[data-i18n]").forEach(el=>{
-    const path = el.dataset.i18n.split(".");
-    let v = L;
-    for (const p of path){ v = v && v[p]; }
-    if (typeof v === "string") el.textContent = v;
+  $$("[data-i18n]").forEach(el => {
+    const v = get(L, el.dataset.i18n);
+    if (typeof v === "string" && v) el.textContent = v;
   });
-  $$(".lang button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  $$("[data-i18n-title]").forEach(el => {
+    const v = get(L, el.dataset.i18nTitle);
+    if (typeof v === "string" && v){ el.title = v; el.setAttribute("aria-label", v); }
+  });
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
   $("#entries").innerHTML = entriesHTML(L);
   tableHTML(L);
   glossHTML(L);
   metaHTML(L);
+  /* puzzle names come from the entries: keep the seven keys aligned */
+  PZ._names = {
+    kibr: L.entries[0].name, buxiylik: L.entries[1].name, shahvat: L.entries[2].name,
+    gazab: L.entries[3].name, ochkozlik: L.entries[4].name, hasad: L.entries[5].name,
+    dangasalik: L.entries[6].name
+  };
+  PZ.reset(L);
+  PZ.restore(keep);
   reveal();
-  try { localStorage.setItem("yetti.lang", lang); } catch(e){}
+  try { localStorage.setItem("se7en.lang", lang); } catch(e){}
 }
 
-/* ── reveal on scroll ──────────────────────────────────────── */
+/* ── reveal + nav ──────────────────────────────────────────── */
 let io = null;
 function reveal(){
-  if (!("IntersectionObserver" in window)){ $$("[data-rv]").forEach(e=>e.classList.add("in")); return; }
+  if (!("IntersectionObserver" in window)){ $$("[data-rv]").forEach(e => e.classList.add("in")); return; }
   if (io) io.disconnect();
-  io = new IntersectionObserver((es)=>{
-    es.forEach(en=>{ if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
-  }, { rootMargin:"0px 0px -8% 0px", threshold:0.06 });
-  $$("[data-rv]:not(.in)").forEach(e=>io.observe(e));
+  io = new IntersectionObserver(es => {
+    es.forEach(en => { if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+  $$("[data-rv]:not(.in)").forEach(e => io.observe(e));
 }
 
-/* ── nav highlight ─────────────────────────────────────────── */
 function spy(){
   const secs = $$("main section[id]");
   const links = $$("nav.links a");
   const onScroll = () => {
-    const y = scrollY + 120;
+    const y = scrollY + 130;
     let cur = secs[0] && secs[0].id;
-    secs.forEach(s=>{ if (s.offsetTop <= y) cur = s.id; });
-    links.forEach(a=>a.classList.toggle("on", a.dataset.nav === cur));
+    secs.forEach(s => { if (s.offsetTop <= y) cur = s.id; });
+    links.forEach(a => a.classList.toggle("on", a.dataset.nav === cur));
   };
-  addEventListener("scroll", onScroll, { passive:true });
+  addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 }
 
 /* ── boot ──────────────────────────────────────────────────── */
 (function boot(){
   let saved = null;
-  try { saved = localStorage.getItem("yetti.lang"); } catch(e){}
-  if (!saved) saved = "uz";   /* o‘zbekcha — asosiy til */
-  $$(".lang button").forEach(b=>b.addEventListener("click", ()=>apply(b.dataset.lang)));
-  const p = $("#printBtn"); if (p) p.addEventListener("click", ()=>window.print());
+  try { saved = localStorage.getItem("se7en.lang"); } catch(e){}
+  if (!saved) saved = "uz";
+  $$(".lang button").forEach(b => b.addEventListener("click", () => apply(b.dataset.lang)));
+  const p = $("#printBtn"); if (p) p.addEventListener("click", () => window.print());
+  sealSVG();
+  $$("#pzDeck").forEach(d => d.addEventListener("click", e => {
+    const b = e.target.closest("[data-card]");
+    if (b) PZ.pick(b.dataset.card);
+  }));
+  $("#pzSlots").addEventListener("click", e => {
+    const s = e.target.closest("[data-slot]");
+    if (s) PZ.place(+s.dataset.slot);
+  });
+  $("#pzSlots").addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const s = e.target.closest("[data-slot]");
+    if (s){ e.preventDefault(); PZ.place(+s.dataset.slot); }
+  });
+  $("#pzPut").addEventListener("click", e => {
+    const b = e.target.closest("[data-put]");
+    if (b && !b.disabled) PZ.place(+b.dataset.put);
+  });
+  $("#pzCheck").addEventListener("click", () => PZ.check());
+  $("#pzHint").addEventListener("click", () => PZ.hint());
+  $("#pzReset").addEventListener("click", () => PZ.reset(DATA[LANG] || DATA.uz));
   srcHTML();
   apply(saved);
   spy();
