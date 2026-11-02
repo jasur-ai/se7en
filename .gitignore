@@ -5,3 +5,4 @@ node_modules/
 .pki/
 .sudo_as_admin_successful
 _lab/.app.js
+_lab/_*.js
