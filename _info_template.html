@@ -3,9 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+(function(){
+  var t = null;
+  try { t = localStorage.getItem("se7en.theme"); } catch(e){}
+  var sys = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  document.documentElement.dataset.theme = (t === "dark" || t === "light") ? t : sys;
+  document.documentElement.dataset.themeAuto = t ? "0" : "1";
+})();
+</script>
 <title>The Se7en — gunoh va fazilat</title>
 <meta name="description" content="Yetti gunoh va ularning teskarisi — yetti fazilat. Me'yor haqidagi ma'lumotnoma: Aristotel, Qobusnoma, Qutadg'u bilig, xalq maqollari. UZB · EN · RUS.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta property="og:title" content="The Se7en — gunoh va fazilat">
 <meta property="og:description" content="Yetti juftlik, yetti qulf va bitta zanjir. Manbali, neytral ma'lumotnoma.">
 <meta property="og:type" content="article">
@@ -16,14 +25,37 @@
   font-weight:400; font-style:normal; font-display:swap;
 }
 :root{
+  color-scheme:light;
   --paper:#f7f2e8; --paper-2:#f0e8d8; --paper-3:#e9dfcb;
-  --ink:#191511; --ink-2:#3d352c; --ink-3:#5d5346; --muted:#8a7c69;
+  --ink:#191511; --ink-2:#3d352c; --ink-3:#5d5346; --muted:#7a6c58;
   --rule:#d7cab2; --rule-2:#e7ddc9;
   --accent:#8a2d22; --green:#2d534b; --gold:#8a6a2d;
+  --on-accent:#fdf8ee; --surface:#fffdf7;
+  --wash:rgba(255,255,255,.35); --wash-2:rgba(255,255,255,.55);
+  --hover:rgba(25,21,17,.045); --sel:rgba(138,45,34,.14);
+  --linkline:rgba(138,45,34,.45); --shadow:rgba(0,0,0,.5);
+  --locked-wash:rgba(45,83,75,.07); --locked-line:rgba(45,83,75,.3);
+  --topbar:rgba(247,242,232,.86); --topbar-solid:rgba(247,242,232,.985);
+  --glow-1:#fffdf7; --glow-2:#f3ecdc;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
   --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --maxw:1180px; --gutter:clamp(18px,5vw,64px);
+}
+/* night ink: the same letterpress page, printed on dark stock */
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#12100d; --paper-2:#17140f; --paper-3:#1e1a14;
+  --ink:#f1e8d7; --ink-2:#d8cbb6; --ink-3:#b5a68e; --muted:#94866f;
+  --rule:#3a3229; --rule-2:#2b251d;
+  --accent:#d9765c; --green:#7fb9a9; --gold:#d6ae6a;
+  --on-accent:#171310; --surface:#1a1611;
+  --wash:rgba(255,255,255,.045); --wash-2:rgba(255,255,255,.07);
+  --hover:rgba(255,255,255,.07); --sel:rgba(217,118,92,.24);
+  --linkline:rgba(217,118,92,.5); --shadow:rgba(0,0,0,.75);
+  --locked-wash:rgba(127,185,169,.12); --locked-line:rgba(127,185,169,.38);
+  --topbar:rgba(18,16,13,.86); --topbar-solid:rgba(18,16,13,.985);
+  --glow-1:#1c1813; --glow-2:#0d0b09;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
@@ -32,18 +64,18 @@ body{
   font-family:var(--serif); font-size:17.5px; line-height:1.66;
   font-kerning:normal; font-variant-ligatures:common-ligatures;
   background-image:
-    radial-gradient(1200px 700px at 18% -8%, #fffdf7 0%, rgba(255,253,247,0) 60%),
-    radial-gradient(900px 600px at 100% 0%, #f3ecdc 0%, rgba(243,236,220,0) 55%);
+    radial-gradient(1200px 700px at 18% -8%, var(--glow-1) 0%, transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, var(--glow-2) 0%, transparent 55%);
   background-attachment:fixed;
 }
-::selection{background:rgba(138,45,34,.14)}
-a{color:inherit; text-underline-offset:.22em; text-decoration-thickness:1px; text-decoration-color:rgba(138,45,34,.45)}
+::selection{background:var(--sel)}
+a{color:inherit; text-underline-offset:.22em; text-decoration-thickness:1px; text-decoration-color:var(--linkline)}
 a:hover{text-decoration-color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px}
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 var(--gutter)}
 
 /* ── header ───────────────────────────────────────────────── */
-.top{position:sticky; top:0; z-index:40; background:rgba(247,242,232,.86);
+.top{position:sticky; top:0; z-index:40; background:var(--topbar);
   -webkit-backdrop-filter:saturate(120%) blur(10px); backdrop-filter:saturate(120%) blur(10px);
   border-bottom:1px solid var(--rule)}
 .top-in{max-width:var(--maxw); margin:0 auto; padding:0 var(--gutter); height:60px; display:flex; align-items:center; gap:22px}
@@ -55,16 +87,19 @@ a:hover{text-decoration-color:var(--accent)}
 nav.links{display:flex; gap:2px; margin-left:auto; flex-wrap:nowrap}
 nav.links a{font-family:var(--sans); font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3);
   text-decoration:none; padding:9px 11px; border-radius:2px; white-space:nowrap; transition:color .25s, background .25s}
-nav.links a:hover{color:var(--ink); background:rgba(25,21,17,.045)}
+nav.links a:hover{color:var(--ink); background:var(--hover)}
 nav.links a.on{color:var(--accent); box-shadow:inset 0 -2px 0 var(--accent)}
 .tools{display:flex; align-items:center; gap:6px; flex:0 0 auto; padding-left:14px; border-left:1px solid var(--rule)}
-.lang{display:flex; border:1px solid var(--rule); background:rgba(255,255,255,.35)}
+.lang{display:flex; border:1px solid var(--rule); background:var(--wash)}
 .lang button{font-family:var(--sans); font-size:10px; letter-spacing:.10em; text-transform:uppercase;
   background:none; border:0; color:var(--ink-3); padding:7px 8px; cursor:pointer; line-height:1}
 .lang button+button{border-left:1px solid var(--rule)}
-.lang button[aria-pressed="true"]{background:var(--accent); color:#fdf8ee}
+.lang button[aria-pressed="true"]{background:var(--accent); color:var(--on-accent)}
 .icon{width:32px; height:30px; display:grid; place-items:center; background:none; border:1px solid var(--rule); color:var(--ink-3); cursor:pointer}
 .icon:hover{color:var(--accent); border-color:var(--accent)}
+.theme .i-moon{display:none}
+html[data-theme="dark"] .theme .i-sun{display:none}
+html[data-theme="dark"] .theme .i-moon{display:block}
 
 /* ── hero ─────────────────────────────────────────────────── */
 .hero{padding:clamp(48px,9vw,104px) 0 clamp(30px,5vw,52px); overflow:hidden}
@@ -72,6 +107,9 @@ nav.links a.on{color:var(--accent); box-shadow:inset 0 -2px 0 var(--accent)}
 .hero .kicker::after{content:""; height:1px; flex:1; background:linear-gradient(90deg,var(--rule),transparent)}
 h1.title{font-family:"Fell",var(--serif); font-weight:400; font-size:clamp(44px,9.4vw,118px); line-height:.9; white-space:nowrap; letter-spacing:.015em; margin:clamp(16px,3vw,28px) 0 0}
 h1.title .n{color:var(--accent)}
+/* IM Fell draws 7 as an old-style figure that hangs below the baseline:
+   lift it by its own descender so the wordmark sits on one line */
+.s7{display:inline-block; transform:translateY(-.235em)}
 .sub{font-size:clamp(19px,2.6vw,28px); line-height:1.32; font-style:italic; color:var(--ink-2); margin:18px 0 0; max-width:26ch}
 .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(24px,5vw,72px); align-items:end}
 .lede{font-size:clamp(16.5px,1.5vw,19px); line-height:1.62; color:var(--ink-2); max-width:56ch; margin:clamp(24px,4vw,38px) 0 0}
@@ -121,27 +159,38 @@ blockquote cite{display:block; font-style:normal; font-family:var(--sans); font-
 /* ── puzzle ───────────────────────────────────────────────── */
 .puzzle{background:linear-gradient(180deg,var(--paper-2),var(--paper)); border:1px solid var(--rule); padding:clamp(20px,3.4vw,40px)}
 .pz-intro{max-width:66ch; margin:0 0 clamp(18px,3vw,26px); color:var(--ink-2); font-size:16.4px}
-.pz-rule{margin:0 0 24px; padding:14px 16px; border-left:3px solid var(--accent); background:rgba(255,255,255,.55); font-size:15.4px; color:var(--ink-2)}
+.pz-rule{margin:0 0 24px; padding:14px 16px; border-left:3px solid var(--accent); background:var(--wash-2); font-size:15.4px; color:var(--ink-2)}
 .pz-rule b{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px; font-weight:600}
+.pz-hud{display:flex; flex-wrap:wrap; gap:6px 26px; margin:0 0 20px; padding:10px 0; border-top:1px solid var(--rule-2); border-bottom:1px solid var(--rule-2); font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.pz-hud span{display:inline-flex; align-items:baseline; gap:8px}
+.pz-hud b{font-family:var(--mono); font-size:13px; letter-spacing:.04em; color:var(--ink); font-variant-numeric:tabular-nums}
+.pz-hud b.rec{color:var(--green)}
+.pz-mini{margin-left:auto}
+.pz-mini svg{width:34px; height:34px; color:var(--green)}
+.pz-mini .ray{opacity:.16; transition:opacity .45s ease}
+.pz-mini .ray.on{opacity:1}
 .pz-board{display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,3vw,34px); align-items:start}
 .pz-col-t{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 10px; display:flex; justify-content:space-between; align-items:center}
 .pz-col-t em{font-style:normal; color:var(--accent)}
 .slots{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
-.slot{display:flex; align-items:stretch; min-height:56px; border:1px dashed var(--rule); background:rgba(255,255,255,.35); transition:border-color .25s, background .25s}
+.slot{position:relative; display:flex; align-items:stretch; min-height:56px; border:1px dashed var(--rule); background:var(--wash); transition:border-color .25s, background .25s}
 .slot .idx{width:38px; display:grid; place-items:center; font-family:"Fell",var(--serif); font-size:13px; color:var(--muted); border-right:1px dashed var(--rule)}
 .slot .fill{flex:1; padding:10px 12px; display:flex; gap:10px; align-items:baseline; cursor:pointer}
 .slot .fill .nm{font-family:var(--sans); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); flex:0 0 auto}
 .slot .fill .tx{font-size:13.6px; line-height:1.42; color:var(--ink-2)}
-.slot.filled{border-style:solid; border-color:var(--ink-3); background:#fffdf7}
-.slot.locked{border-color:var(--green); background:rgba(45,83,75,.07)}
-.slot.locked .idx{color:var(--green); border-right-color:rgba(45,83,75,.3)}
+.slot .fill .tx.empty{color:var(--muted); font-style:italic}
+.slot.filled{border-style:solid; border-color:var(--ink-3); background:var(--surface)}
+.slot.locked{border-color:var(--green); background:var(--locked-wash)}
+.slot.locked .idx{color:var(--green); border-right-color:var(--locked-line)}
 .slot.locked .fill{cursor:default}
+.slot.locked + .slot.locked::before{content:""; position:absolute; left:18px; top:-9px; width:1px; height:9px; background:var(--green)}
+.slot.locked + .slot.locked::after{content:""; position:absolute; left:15.5px; top:-5px; width:6px; height:6px; border:1px solid var(--green); border-radius:50%; background:var(--paper-2)}
 .slot.wrong{animation:shake .4s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 .deck{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
-.card{position:relative; text-align:left; width:100%; border:1px solid var(--rule); background:#fffdf7; padding:11px 13px; cursor:pointer;
+.card{position:relative; text-align:left; width:100%; border:1px solid var(--rule); background:var(--surface); padding:11px 13px; cursor:pointer;
   font-family:var(--serif); color:var(--ink-2); font-size:13.8px; line-height:1.45; transition:transform .2s, box-shadow .2s, border-color .2s; display:block}
-.card:hover{border-color:var(--accent); box-shadow:0 6px 18px -12px rgba(0,0,0,.5)}
+.card:hover{border-color:var(--accent); box-shadow:0 6px 18px -12px var(--shadow)}
 .card .nm{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:5px}
 .card .hook{color:var(--gold); font-style:italic}
 .card.sel{border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
@@ -153,19 +202,36 @@ blockquote cite{display:block; font-style:normal; font-family:var(--sans); font-
   .pz-putbar{
     position:fixed; left:0; right:0; bottom:0; z-index:60; align-items:center; gap:8px;
     padding:10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
-    background:rgba(247,242,232,.985); border-top:1px solid var(--rule);
-    box-shadow:0 -14px 34px -24px rgba(0,0,0,.55);
+    background:var(--topbar-solid); border-top:1px solid var(--rule);
+    box-shadow:0 -14px 34px -24px var(--shadow);
   }
   .pz-putbar.show{display:flex}
   .pz-putbar .t{font-family:var(--sans); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-right:2px}
   .pz-putbar button{
-    flex:1 1 0; min-width:0; height:40px; border:1px solid var(--ink-3); background:#fffdf7;
+    flex:1 1 0; min-width:0; height:40px; border:1px solid var(--ink-3); background:var(--surface);
     font-family:"Fell",var(--serif); font-size:15px; color:var(--ink); cursor:pointer;
   }
   .pz-putbar button[disabled]{opacity:.25; pointer-events:none}
+  .pz-win{letter-spacing:.1em; gap:4px 0}
+  .pz-win-actions{flex-direction:column; align-items:stretch}
+  .pz-win-actions .btn{width:100%}
   body.pz-choosing{padding-bottom:78px}
   .slot{min-height:46px}
 }
+.pz-seam{margin:16px 0 0; min-height:0; font-size:14.4px; line-height:1.5; color:var(--ink-2); display:none}
+.pz-seam.on{display:block; padding:11px 14px; border-left:2px solid var(--green); background:var(--locked-wash)}
+.pz-seam b{font-family:var(--sans); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--green); font-weight:600; margin-right:8px}
+.pz-seam q{quotes:"«" "»"; font-style:italic}
+.slot.hot{border-color:var(--accent); border-style:solid; background:var(--sel)}
+.slot.ok{animation:okflash .9s ease}
+.slot.bad{animation:shake .45s ease, badflash .9s ease}
+@keyframes okflash{0%{box-shadow:inset 0 0 0 2px var(--green)}100%{box-shadow:inset 0 0 0 0 transparent}}
+@keyframes badflash{0%,60%{box-shadow:inset 0 0 0 2px var(--accent)}100%{box-shadow:inset 0 0 0 0 transparent}}
+body.dragging-card{user-select:none; cursor:grabbing}
+body.dragging-card .card{cursor:grabbing}
+.card.dragging{opacity:.35}
+.drag-ghost{position:fixed; left:0; top:0; z-index:200; pointer-events:none; margin:0;
+  box-shadow:0 22px 40px -22px var(--shadow); transform-origin:0 0; border-color:var(--accent)}
 .pz-actions{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:22px}
 .btn{font-family:var(--sans); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; padding:11px 18px; cursor:pointer;
   border:1px solid var(--ink); background:var(--ink); color:var(--paper); transition:.25s}
@@ -183,9 +249,16 @@ blockquote cite{display:block; font-style:normal; font-family:var(--sans); font-
 .pz-pairs li b{font-weight:400; color:var(--ink)}
 .pz-pairs li i{font-style:normal; color:var(--green)}
 .pz-pairs li s{color:var(--muted); font-size:13px; text-decoration:none; margin-left:auto; font-family:var(--sans); letter-spacing:.04em}
+.pz-win{margin:18px 0 0; display:flex; flex-wrap:wrap; justify-content:center; gap:6px 0; font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.pz-win .st{display:inline-flex; align-items:baseline; gap:6px; white-space:nowrap}
+.pz-win .st+.st{border-left:1px solid var(--rule); margin-left:12px; padding-left:12px}
+.pz-win em{border-bottom:1px solid var(--green); padding-bottom:1px}
+.pz-win b{font-family:var(--mono); font-size:12.5px; letter-spacing:.04em; color:var(--ink); font-variant-numeric:tabular-nums}
+.pz-win em{font-style:normal; color:var(--green)}
+.pz-win-actions{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:22px}
 .pz-close{font-size:17px; font-style:italic; color:var(--ink); margin:0}
 .pz-seal{display:flex; justify-content:center; margin:6px 0 18px}
-.pz-seal svg{width:132px; height:132px; overflow:visible}
+.pz-seal svg{width:132px; height:132px; overflow:visible; color:var(--green)}
 .pz-seal .ray{opacity:.13; transition:opacity .5s ease}
 .pz-seal .ray.on{transition:opacity .5s ease}
 .pz-seal .ray.on{opacity:1}
@@ -199,8 +272,8 @@ th{font-family:var(--sans); font-size:9.5px; letter-spacing:.16em; text-transfor
 td.n{font-family:"Fell",var(--serif); color:var(--accent); width:44px}
 td.lat{font-family:"Fell",var(--serif); letter-spacing:.14em; text-transform:uppercase; font-size:13px}
 td.v{color:var(--green)}
-tr:hover td{background:rgba(255,255,255,.4)}
-.note{margin-top:clamp(28px,4vw,44px); padding:clamp(20px,3vw,30px); background:rgba(255,255,255,.45); border:1px solid var(--rule)}
+tr:hover td{background:var(--wash-2)}
+.note{margin-top:clamp(28px,4vw,44px); padding:clamp(20px,3vw,30px); background:var(--wash-2); border:1px solid var(--rule)}
 .note h4{font-family:var(--sans); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin:0 0 10px; font-weight:600}
 .note p{margin:0; font-size:15.6px; line-height:1.64; color:var(--ink-2)}
 
@@ -236,7 +309,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 }
 @media (max-width:820px){
   body{font-size:16.5px}
-  .top{background:rgba(247,242,232,.975)}
+  .top{background:var(--topbar-solid)}
   .top-in{height:auto; flex-wrap:wrap; padding-top:8px; padding-bottom:0; row-gap:0}
   nav.links{order:3; margin:0; width:calc(100% + var(--gutter)*2); margin-left:calc(var(--gutter)*-1);
     overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; border-top:1px solid var(--rule-2); padding-left:var(--gutter)}
@@ -281,7 +354,12 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
   [data-rv]{opacity:1; transform:none}
 }
 @media print{
-  .top,.icon,.lang,.puzzle{display:none}
+  html[data-theme="dark"]{
+    --paper:#fff; --ink:#111; --ink-2:#222; --ink-3:#444; --muted:#666;
+    --rule:#bbb; --rule-2:#ddd; --accent:#7a2a20; --green:#2d534b;
+    --surface:#fff; --wash:transparent; --wash-2:transparent; --glow-1:#fff; --glow-2:#fff;
+  }
+  .top,.icon,.lang,.puzzle,.theme{display:none}
   body{background:#fff; font-size:11pt}
   section{padding:16pt 0; break-inside:avoid}
   .entry{break-inside:avoid; border-top:1px solid #ccc}
@@ -299,7 +377,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
         <path d="M12 2.6l2.3 6.2 6.2 2.3-6.2 2.3L12 19.6l-2.3-6.2L3.5 11l6.2-2.3z"/>
         <circle cx="12" cy="11" r="1.5" fill="currentColor" stroke="none"/>
       </svg>
-      <b>The Se<i>7</i>en</b>
+      <b>The Se<i class="s7">7</i>en</b>
       <span data-i18n="brand.sub">gunoh va fazilat</span>
     </a>
     <nav class="links" aria-label="Sections">
@@ -316,6 +394,11 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
         <button type="button" data-lang="ru" aria-pressed="false">RUS</button>
       </div>
+      <button class="icon theme" type="button" id="themeBtn" aria-pressed="false"
+              data-i18n-title="ui.theme" title="Kunduzgi / tungi" aria-label="Theme">
+        <svg class="i-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2.1M12 19.5v2.1M2.4 12h2.1M19.5 12h2.1M5.2 5.2l1.5 1.5M17.3 17.3l1.5 1.5M18.8 5.2l-1.5 1.5M6.7 17.3l-1.5 1.5"/></svg>
+        <svg class="i-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.7 8.7 0 1 0 11.1 11.1z"/></svg>
+      </button>
       <button class="icon" type="button" id="printBtn" data-i18n-title="ui.print" title="Chop etish / PDF" aria-label="Print">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 9V3h10v6M7 19H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 15h10v6H7z"/></svg>
       </button>
@@ -330,7 +413,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
       <div class="kicker"><span data-i18n="hero.kicker">Ma’lumotnoma · yetti juftlik · 2026</span></div>
       <div class="hero-grid">
         <div>
-          <h1 class="title">THE SE<span class="n">7</span>EN<span class="n">.</span></h1>
+          <h1 class="title">THE SE<span class="n s7">7</span>EN<span class="n">.</span></h1>
           <p class="sub" data-i18n="hero.sub">Gunoh — me’yordan chiqish. Fazilat — o‘rta.</p>
         </div>
         <div>
@@ -367,6 +450,12 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
       <div class="puzzle" id="pz">
         <p class="pz-intro" data-i18n="zanjir.intro">Quyida yetti varaq aralash yotadi. Har varaqning oxirgi gapi keyingi varaqning birinchi gapiga ulanadi. Yettinchisining uchi birinchisiga qaytadi — aylana yopiladi.</p>
         <div class="pz-rule"><b data-i18n="zanjir.howh">Qanday o‘ynaladi</b><span data-i18n="zanjir.how">Varaqni tanlang, keyin bo‘sh katakni bosing. Xato joylashsa — varaq qaytadi. To‘g‘ri joylashgan varaq ochiladi va joyida qotadi.</span></div>
+        <div class="pz-hud" id="pzHud">
+          <span><i data-i18n="zanjir.hudTime">vaqt</i><b id="pzTime">0:00</b></span>
+          <span><i data-i18n="zanjir.hudChecks">tekshiruv</i><b id="pzChecks">0</b></span>
+          <span><i data-i18n="zanjir.hudBest">eng yaxshi</i><b id="pzBest">—</b></span>
+          <span class="pz-mini" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" id="pzSealMini"></svg></span>
+        </div>
         <div class="pz-board">
           <div>
             <p class="pz-col-t"><span data-i18n="zanjir.slots">Zanjir</span><em id="pzCount">0 / 7</em></p>
@@ -377,6 +466,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
             <ul class="deck" id="pzDeck"></ul>
           </div>
         </div>
+        <p class="pz-seam" id="pzSeam" aria-live="polite"></p>
         <div class="pz-actions">
           <button class="btn" id="pzCheck" data-i18n="zanjir.check">Tekshirish</button>
           <button class="btn ghost" id="pzHint" data-i18n="zanjir.hintBtn">Yordam</button>
@@ -385,11 +475,16 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
         </div>
         <div class="pz-done" id="pzDone">
           <div class="pz-seal" aria-hidden="true">
-            <svg viewBox="0 0 100 100" fill="none" stroke="#2d534b" stroke-width="1.1" id="pzSeal"></svg>
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1" id="pzSeal"></svg>
           </div>
           <h4 data-i18n="zanjir.doneT">Zanjir yopildi</h4>
           <ul class="pz-pairs" id="pzPairs"></ul>
           <p class="pz-close" data-i18n="zanjir.doneC">Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.</p>
+          <p class="pz-win" id="pzWin"></p>
+          <div class="pz-win-actions">
+            <button class="btn ghost" id="pzShare" data-i18n="zanjir.share">Natijani nusxalash</button>
+            <button class="btn" id="pzAgain" data-i18n="zanjir.again">Yana o‘ynash</button>
+          </div>
         </div>
       </div>
       <div class="pz-putbar" id="pzPut"><span class="t" data-i18n="zanjir.which">Qaysi katak?</span></div>
@@ -428,7 +523,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
 
 <footer>
   <div class="wrap foot">
-    <div class="fmark">The Se<i>7</i>en</div>
+    <div class="fmark">The Se<i class="s7">7</i>en</div>
     <p data-i18n="foot.a">Matn — ochiq manbalar asosidagi ma’lumotnoma. Foydalanishda manbani ko‘rsating; tarjimalar mualliflik tarjimasi.</p>
     <p data-i18n="foot.b">Sahifa bir faylda: tashqi skript, reklama va kuzatuvchi yo‘q.</p>
   </div>
@@ -444,7 +539,7 @@ const DATA = {
 uz: {
   "brand.sub":"gunoh va fazilat",
   nav:{usul:"Usul", juftlik:"Juftliklar", zanjir:"Zanjir", jadval:"Jadval", lugat:"Lug‘at", manbalar:"Manbalar"},
-  ui:{print:"Chop etish / PDF"},
+  ui:{print:"Chop etish / PDF", theme:"Kunduzgi yoki tungi ko‘rinish"},
   hero:{kicker:"Ma’lumotnoma · yetti juftlik · 2026",
     sub:"Gunoh — me’yordan chiqish. Fazilat — o‘rta.",
     lede:"Yetti gunoh — ikki ming yillik ro‘yxat. Bu sahifa uni dahshat emas, me’yor masalasi sifatida oladi: har bir gunoh chetga chiqish, uning qarshisida esa o‘rtani ushlab turuvchi fazilat turadi. Har fikr yonida manba bor."},
@@ -517,10 +612,14 @@ uz: {
     lead:"Gunohlar alohida turganda qo‘rqinchli ko‘rinadi. Ular aslida zanjir: har biri keyingisini tug‘diradi va yettinchisi yana birinchisiga qaytadi.",
     intro:"Quyida yetti varaq aralash yotadi. Har varaqning oxirgi gapi keyingi varaqning birinchi gapiga ulanadi. Yettinchisining uchi birinchisiga qaytadi — aylana yopiladi.",
     howh:"Qanday o‘ynaladi",
-    how:"Varaqni tanlang, keyin bo‘sh katakni bosing. Xato joylashsa — varaq qaytadi. To‘g‘ri joylashgan varaq ochiladi va joyida qotadi.",
+    how:"Varaqni tanlang va bo‘sh katakni bosing — yoki varaqni katakka sudrab tashlang. Xato joylashsa varaq qaytadi; to‘g‘ri joylashgani qulflanib, muhrning bitta nuri yonadi. Klaviaturada 1–7 raqamlari tanlangan varaqni joylashtiradi.",
     slots:"Zanjir", deck:"Varaqlar", check:"Tekshirish", hintBtn:"Yordam", reset:"Boshidan",
     which:"Qaysi katak?", pick:"Varaq tanlang — yoki bo‘sh katakni bosing", placed:"Joylashtirildi", empty:"Bo‘sh katak",
-    right:"To‘g‘ri", wrong:"Bu joy emas — varaq qaytdi", hintDone:"Birinchi halqa ochildi",
+    right:"To‘g‘ri", wrong:"Bu joy emas — varaq qaytdi", hintDone:"Halqa ochildi",
+    early:"Erta — bu halqa keyinroq turadi", late:"Kech — bu halqa avvalroq turadi",
+    seam:"Ulanish", hudTime:"vaqt", hudChecks:"tekshiruv", hudBest:"eng yaxshi",
+    hintsWord:"yordam", newBest:"yangi rekord",
+    share:"Natijani nusxalash", shared:"Nusxalandi", again:"Yana o‘ynash",
     complete:"Zanjir yopildi. Yetti halqa bir-biriga ulandi.",
     doneT:"Endi teskarisi", doneC:"Zanjirni uzish uchun yettitasini ham kesish shart emas — bitta halqani uzish yetarli.",
     cuts:[["Kibr","Kamtarlik"],["Buxiylik","Saxovat"],["Shahvat","O‘zini tutish"],["G‘azab","Sabr"],["Ochko‘zlik","Me’yor"],["Hasad","Ko‘ngli ochiqlik"],["Dangasalik","Mehnatsevarlik"]],
@@ -559,7 +658,7 @@ uz: {
 en: {
   "brand.sub":"vice and virtue",
   nav:{usul:"Method", juftlik:"Pairs", zanjir:"Chain", jadval:"Table", lugat:"Glossary", manbalar:"Sources"},
-  ui:{print:"Print / PDF"},
+  ui:{print:"Print / PDF", theme:"Day or night view"},
   hero:{kicker:"Reference · seven pairs · 2026",
     sub:"Vice is the extreme. Virtue is the mean.",
     lede:"The seven deadly sins are a two-thousand-year-old list. This page reads the list not as horror but as a question of measure: every vice is an overshoot, and opposite it stands the virtue that holds the middle. Every claim carries a source."},
@@ -632,10 +731,14 @@ en: {
     lead:"Seen one at a time, the vices look monstrous. In fact they are a chain: each one produces the next, and the seventh returns to the first.",
     intro:"Seven cards lie shuffled below. The last sentence of each card is the hook for the first sentence of the next. The end of the seventh returns to the first — the circle closes.",
     howh:"How to play",
-    how:"Pick a card, then tap an empty slot. If the placement is wrong, the card comes back. A correct card opens and locks in place.",
+    how:"Pick a card and tap an empty slot — or drag the card onto it with a mouse. A wrong card returns; a right one locks in and lights one ray of the seal. On a keyboard, digits 1–7 place the selected card.",
     slots:"The chain", deck:"Cards", check:"Check", hintBtn:"Hint", reset:"Restart",
     which:"Which slot?", pick:"Pick a card — or tap an empty slot", placed:"Placed", empty:"Empty slot",
-    right:"Correct", wrong:"Not this slot — the card returns", hintDone:"The first link is open",
+    right:"Correct", wrong:"Not this slot — the card returns", hintDone:"Link opened",
+    early:"Too early — this link comes later", late:"Too late — this link comes earlier",
+    seam:"Joint", hudTime:"time", hudChecks:"checks", hudBest:"best",
+    hintsWord:"hints", newBest:"new best",
+    share:"Copy result", shared:"Copied", again:"Play again",
     complete:"The chain is closed. Seven links joined.",
     doneT:"Now the reversal", doneC:"You do not have to cut all seven links to break the chain — one is enough.",
     cuts:[["Pride","Humility"],["Greed","Generosity"],["Lust","Self-command"],["Wrath","Patience"],["Gluttony","Measure"],["Envy","Goodwill"],["Sloth","Diligence"]],
@@ -674,7 +777,7 @@ en: {
 ru: {
   "brand.sub":"порок и добродетель",
   nav:{usul:"Метод", juftlik:"Пары", zanjir:"Цепь", jadval:"Таблица", lugat:"Словарь", manbalar:"Источники"},
-  ui:{print:"Печать / PDF"},
+  ui:{print:"Печать / PDF", theme:"Дневной или ночной вид"},
   hero:{kicker:"Справочник · семь пар · 2026",
     sub:"Порок — выход из меры. Добродетель — середина.",
     lede:"Семь смертных грехов — список возрастом в две тысячи лет. Эта страница читает его не как ужас, а как вопрос о мере: каждый порок — крайность, и напротив него стоит добродетель, держащая середину. У каждого утверждения есть источник."},
@@ -747,10 +850,14 @@ ru: {
     lead:"Пороки, взятые по отдельности, кажутся чудовищами. На деле это цепь: каждый производит следующий, а седьмой возвращается к первому.",
     intro:"Семь карт лежат вперемешку. Последняя фраза каждой карты — зацепка для первой фразы следующей. Конец седьмой возвращается к первой — круг замыкается.",
     howh:"Как играть",
-    how:"Выберите карту, затем нажмите на пустую ячейку. Если место неверное, карта вернётся. Верная карта открывается и остаётся на месте.",
+    how:"Выберите карту и нажмите на пустую ячейку — или перетащите карту мышью. Неверная карта возвращается, верная закрепляется и зажигает один луч печати. На клавиатуре цифры 1–7 ставят выбранную карту.",
     slots:"Цепь", deck:"Карты", check:"Проверить", hintBtn:"Подсказка", reset:"Заново",
     which:"Какая ячейка?", pick:"Выберите карту — или нажмите на пустую ячейку", placed:"Размещено", empty:"Пустая ячейка",
-    right:"Верно", wrong:"Не это место — карта вернулась", hintDone:"Первое звено открыто",
+    right:"Верно", wrong:"Не это место — карта вернулась", hintDone:"Звено открыто",
+    early:"Рано — это звено стоит позже", late:"Поздно — это звено стоит раньше",
+    seam:"Стык", hudTime:"время", hudChecks:"проверки", hudBest:"рекорд",
+    hintsWord:"подсказки", newBest:"новый рекорд",
+    share:"Скопировать результат", shared:"Скопировано", again:"Сыграть снова",
     complete:"Цепь замкнута. Семь звеньев соединены.",
     doneT:"Теперь обратная сторона", doneC:"Чтобы разорвать цепь, не нужно рубить все семь звеньев — достаточно одного.",
     cuts:[["Гордыня","Смирение"],["Жадность","Щедрость"],["Похоть","Владение собой"],["Гнев","Терпение"],["Обжорство","Мера"],["Зависть","Доброжелательность"],["Лень","Трудолюбие"]],
@@ -869,31 +976,52 @@ function srcHTML(){
 /* ── the chain puzzle ──────────────────────────────────────── */
 const PZ = {
   order: ["kibr","hasad","buxiylik","ochkozlik","shahvat","gazab","dangasalik"],
-  slots: [],     /* slot index -> key | null */
-  locked: [],    /* slot index -> bool */
-  pool: [],      /* keys still in the deck */
-  sel: null,
-  L: null,
-  hintStep: 0,
+  slots: [], locked: [], pool: [], sel: null, L: null,
+  checks: 0, hints: 0, started: false, t0: 0, timer: null, won: false,
+  _lastDrag: 0,
 
   reset(L){
     this.L = L;
     this.slots = new Array(7).fill(null);
     this.locked = new Array(7).fill(false);
     this.sel = null;
-    this.hintStep = 0;
+    this.checks = 0; this.hints = 0; this.started = false; this.t0 = 0; this.won = false;
+    this.stopClock();
     /* shuffled deck, but never in the solved order */
     let arr = [...this.order];
     for (let i = arr.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
     if (arr.join() === this.order.join()) arr.push(arr.shift());
     this.pool = arr;
     $("#pzDone").classList.remove("show");
-    $("#pzCheck").style.display = "";
-    $("#pzHint").style.display = "";
+    $("#pzCheck").style.display = ""; $("#pzHint").style.display = "";
+    $("#pzSeam").classList.remove("on"); $("#pzSeam").innerHTML = "";
+    $("#pzTime").textContent = "0:00"; $("#pzChecks").textContent = "0";
+    this.status("");
     this.paint();
   },
 
   byKey(k){ return this.L.zanjir.cards.find(c => c.k === k); },
+  nameOf(k){ return (this._names && this._names[k]) || ""; },
+
+  /* clock + counters */
+  startClock(){
+    if (this.started || this.won) return;
+    this.started = true; this.t0 = Date.now();
+    this.timer = setInterval(() => this.hud(), 1000);
+    this.hud();
+  },
+  stopClock(){ if (this.timer){ clearInterval(this.timer); this.timer = null; } },
+  elapsed(){ return this.started ? Math.max(0, Math.floor((Date.now() - this.t0) / 1000)) : 0; },
+  clock(sec){ const m = Math.floor(sec / 60), r = sec % 60; return m + ":" + String(r).padStart(2, "0"); },
+  best(){ try { const v = parseInt(localStorage.getItem("se7en.best"), 10); return isFinite(v) ? v : null; } catch(e){ return null; } },
+  hud(){
+    const t = $("#pzTime"); if (!t) return;
+    t.textContent = this.clock(this.elapsed());
+    $("#pzChecks").textContent = String(this.checks);
+    const b = this.best(), el = $("#pzBest");
+    el.textContent = b === null ? "—" : this.clock(b);
+    el.classList.add("rec");
+  },
 
   paint(){
     const L = this.L.zanjir;
@@ -903,18 +1031,18 @@ const PZ = {
       const locked = this.locked[i];
       const card = k ? this.byKey(k) : null;
       return `<li class="slot ${k ? "filled" : ""} ${locked ? "locked" : ""}" data-slot="${i}">
-        <span class="idx">${i + 1}</span>
+        <span class="idx">${locked ? "✓" : i + 1}</span>
         <span class="fill" ${locked ? "" : `role="button" tabindex="0"`}>
           ${card
             ? `<span class="nm">${this.nameOf(card.k)}</span><span class="tx">${card.t}</span>`
-            : `<span class="tx" style="color:#a99c88">${L.empty}</span>`}
+            : `<span class="tx empty">${L.empty}</span>`}
         </span>
       </li>`;
     }).join("");
 
     $("#pzDeck").innerHTML = this.pool.map(k => {
       const c = this.byKey(k);
-      return `<li><button class="card ${this.sel === k ? "sel" : ""}" data-card="${k}" type="button">
+      return `<li><button class="card ${this.sel === k ? "sel" : ""}" data-card="${k}" type="button" aria-pressed="${this.sel === k}">
         <span class="nm">${this.nameOf(k)}</span>${c.t}
       </button></li>`;
     }).join("");
@@ -922,27 +1050,15 @@ const PZ = {
     $("#pzCheck").disabled = done === 7;
     this.syncSeal(done);
     this.paintPutbar();
+    this.hud();
+    this.applyFlash();
   },
 
-  nameOf(k){ return (this._names && this._names[k]) || ""; },
-
-  /* a language switch must not throw away what is already solved */
-  snapshot(){ return (this.slots && this.slots.length === 7) ? { slots: [...this.slots], locked: [...this.locked], pool: [...this.pool], hint: this.hintStep } : null; },
-  restore(snap){
-    if (!snap || !snap.slots || snap.slots.length !== 7) return;
-    this.slots = [...snap.slots]; this.locked = [...snap.locked];
-    this.pool = [...snap.pool]; this.hintStep = snap.hint;
-    if (this.locked.every(Boolean)) this.finish(); else { $("#pzDone").classList.remove("show"); $("#pzCheck").style.display = ""; $("#pzHint").style.display = ""; }
-    this.paint();
-  },
-
-  /* on a phone the slots sit above the deck, so a picked card would need a
-     long scroll to be placed: a bar at the bottom offers the seven slots. */
   paintPutbar(){
     const bar = $("#pzPut");
     if (!bar) return;
     const narrow = matchMedia("(max-width: 1000px)").matches;
-    const show = narrow && !!this.sel && !this.locked.every(Boolean);
+    const show = narrow && !!this.sel && !this.won;
     bar.classList.toggle("show", show);
     document.body.classList.toggle("pz-choosing", show);
     if (!show) return;
@@ -954,78 +1070,252 @@ const PZ = {
   },
 
   syncSeal(n){
-    const rays = $$("#pzSeal .ray");
-    rays.forEach((r, i) => r.classList.toggle("on", i < n));
+    /* the last ray is lit only when the whole chain closes — then all seven
+       light one after another */
+    const closing = n === 7 && !this._sealClosed;
+    this._sealClosed = n === 7;
+    $$("#pzSeal .ray, #pzSealMini .ray").forEach(r => {
+      r.style.transitionDelay = closing ? (+r.dataset.ray * 65) + "ms" : "0ms";
+      r.classList.toggle("on", +r.dataset.ray < n);
+    });
   },
 
   pick(k){
     if (this.locked.some((l, i) => this.slots[i] === k && l)) return;
     this.sel = (this.sel === k) ? null : k;
     this.status("");
+    this.startClock();
     this.paint();
   },
 
   place(slot){
-    if (this.locked[slot]) return;
+    if (this.locked[slot] || this.won) return;
+    /* tapping a card that already sits in a slot takes it back to the deck */
+    if (this.slots[slot] && !this.sel){
+      const back = this.slots[slot];
+      this.slots[slot] = null;
+      this.pool.push(back);
+      this.pool.sort((a, b) => this.order.indexOf(a) - this.order.indexOf(b));
+      this.status("");
+      this.paint();
+      return;
+    }
     if (!this.sel){ this.status(this.L.zanjir.pick); return; }
     const k = this.sel;
-    /* if the card sat in another slot, take it out first */
     const prev = this.slots.indexOf(k);
-    if (prev > -1){ this.slots[prev] = null; }
+    if (prev > -1) this.slots[prev] = null;
     this.pool = this.pool.filter(x => x !== k);
     this.slots[slot] = k;
     this.sel = null;
     this.status("");
+    this.startClock();
     this.paint();
+  },
+
+  flash(i, cls){
+    /* the board is re-rendered after every change, so the class is applied
+       once the new rows exist */
+    this._flash = this._flash || [];
+    this._flash.push([i, cls]);
+  },
+  applyFlash(){
+    const list = this._flash || [];
+    this._flash = [];
+    requestAnimationFrame(() => list.forEach(([i, cls]) => {
+      const node = $(`[data-slot="${i}"]`);
+      if (!node) return;
+      node.classList.add(cls);
+      setTimeout(() => node.classList.remove(cls), 950);
+    }));
+  },
+
+  /* the last sentence of one card and the first of the next: the joint */
+  split(t){
+    const parts = (t.match(/[^.!?…]+[.!?…]+/g) || [t]).map(x => x.trim());
+    return { head: parts[0] || t, tail: parts[parts.length - 1] || t };
+  },
+  clip(t, n){ return t.length > n ? t.slice(0, n - 1).trim() + "…" : t; },
+
+  seam(i){
+    /* joint between slot i-1 and slot i (or 7 -> 1 when i is 0 and everything is locked) */
+    const prevK = i === 0 ? this.slots[6] : this.slots[i - 1];
+    const curK = i === 0 ? this.slots[0] : this.slots[i];
+    if (!prevK || !curK) return "";
+    const tail = this.clip(this.split(this.byKey(prevK).t).tail, 62);
+    const head = this.clip(this.split(this.byKey(curK).t).head, 62);
+    return `<b>${this.L.zanjir.seam}</b><q>${tail}</q> → <q>${head}</q>`;
+  },
+  showSeam(html){
+    const el = $("#pzSeam");
+    if (!html){ el.classList.remove("on"); el.innerHTML = ""; return; }
+    el.innerHTML = html; el.classList.add("on");
   },
 
   check(){
     const L = this.L.zanjir;
-    let right = 0, wrong = 0;
+    if (this.won) return;
+    const filled = this.slots.some((k, i) => k && !this.locked[i]);
+    if (!filled){ this.status(L.pick); return; }
+    this.checks++; this.startClock();
+    let right = 0; const wrong = [];
     this.slots.forEach((k, i) => {
       if (!k || this.locked[i]) return;
-      if (k === this.order[i]){ this.locked[i] = true; right++; }
-      else {
-        wrong++;
-        const node = $(`[data-slot="${i}"]`);
-        if (node){ node.classList.add("wrong"); }
-        this.slots[i] = null;
-        this.pool.push(k);
-      }
+      if (k === this.order[i]){ this.locked[i] = true; right++; this.flash(i, "ok"); }
+      else { wrong.push([i, k]); this.slots[i] = null; this.pool.push(k); this.flash(i, "bad"); }
     });
-    if (right) this.status(L.right + " · " + right);
-    else if (wrong) this.status(L.wrong);
     /* deck order follows the canonical list for readability */
     this.pool.sort((a, b) => this.order.indexOf(a) - this.order.indexOf(b));
+
+    if (right){
+      const last = this.locked.map((l, i) => l ? i : -1).filter(i => i >= 0).pop();
+      this.showSeam(this.seam(last));
+      this.status(L.right + " · " + right);
+    } else if (wrong.length === 1){
+      const [i, k] = wrong[0];
+      this.status(this.order.indexOf(k) > i ? L.early : L.late);
+    } else if (wrong.length){
+      this.status(L.wrong);
+    }
     if (this.locked.every(Boolean)) this.finish();
     this.paint();
   },
 
   hint(){
+    if (this.won) return;
     const L = this.L.zanjir;
-    const i = this.hintStep;
-    if (i >= 7) return;
-    /* reveal slot i: clear it, put the right card in, lock it */
+    const i = this.locked.findIndex(l => !l);
+    if (i < 0) return;
     const k = this.order[i];
     const at = this.slots.indexOf(k);
     if (at > -1) this.slots[at] = null;
     this.pool = this.pool.filter(x => x !== k);
-    this.slots[i] = k;
-    this.locked[i] = true;
-    this.hintStep = i + 1;
-    this.sel = null;
-    this.status(L.hintDone + " · " + (this.hintStep) + " / 7");
+    this.slots[i] = k; this.locked[i] = true; this.hints++; this.sel = null;
+    this.startClock();
+    this.flash(i, "ok");
+    this.showSeam(this.seam(i));
+    this.status(L.hintDone + " · " + this.locked.filter(Boolean).length + " / 7");
     if (this.locked.every(Boolean)) this.finish();
     this.paint();
   },
 
   finish(){
     const L = this.L.zanjir;
+    this.won = true;
+    this.stopClock();
+    this.sel = null;
+    const secs = this.elapsed();
+    const prev = this.best();
+    let fresh = false;
+    if (prev === null || secs < prev){
+      fresh = true;
+      try { localStorage.setItem("se7en.best", String(secs)); } catch(e){}
+    }
+    /* the seventh link closes back on the first */
+    this.showSeam(this.seam(0));
     $("#pzPairs").innerHTML = L.cuts.map(([a, b]) => `<li><b>${a}</b> <span>→</span> <i>${b}</i></li>`).join("");
+    $("#pzWin").innerHTML =
+      `<span class="st"><b>${this.clock(secs)}</b>${L.hudTime}</span>` +
+      `<span class="st"><b>${this.checks}</b>${L.hudChecks}</span>` +
+      `<span class="st"><b>${this.hints}</b>${L.hintsWord}</span>` +
+      (fresh ? `<span class="st"><em>${L.newBest}</em></span>` : "");
     $("#pzDone").classList.add("show");
     $("#pzCheck").style.display = "none";
     $("#pzHint").style.display = "none";
     this.status(L.complete);
+    this.paint();
+  },
+
+  shareText(){
+    const L = this.L.zanjir;
+    return `The Se7en — ${L.title}: 7/7 · ${this.clock(this.elapsed())} · ${this.checks} ${L.hudChecks.toLowerCase()} · se7en-omega.vercel.app`;
+  },
+  async share(){
+    const L = this.L.zanjir;
+    const txt = this.shareText();
+    let ok = false;
+    if (navigator.share){
+      try { await navigator.share({ title: this.L.zanjir.title, text: txt }); ok = true; }
+      catch(e){ return; }   /* the reader closed the sheet */
+    }
+    if (!ok) try { await navigator.clipboard.writeText(txt); ok = true; }
+    catch(e){
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove();
+      } catch(e2){ ok = false; }
+    }
+    const b = $("#pzShare");
+    b.textContent = ok ? this.L.zanjir.shared : txt;
+    setTimeout(() => { b.textContent = this.L.zanjir.share; }, 2200);
+  },
+
+  /* a language switch must not throw away what is already solved */
+  snapshot(){
+    return (this.slots && this.slots.length === 7)
+      ? { slots: [...this.slots], locked: [...this.locked], pool: [...this.pool],
+          checks: this.checks, hints: this.hints, started: this.started, t0: this.t0, won: this.won }
+      : null;
+  },
+  restore(snap){
+    if (!snap || !snap.slots || snap.slots.length !== 7) return;
+    this.slots = [...snap.slots]; this.locked = [...snap.locked]; this.pool = [...snap.pool];
+    this.checks = snap.checks; this.hints = snap.hints; this.started = snap.started; this.t0 = snap.t0;
+    this.won = false;
+    $("#pzDone").classList.remove("show");
+    $("#pzCheck").style.display = ""; $("#pzHint").style.display = "";
+    if (this.started && !snap.won && this.timer === null) this.timer = setInterval(() => this.hud(), 1000);
+    this.paint();
+    if (snap.won) this.finish();
+  },
+
+  /* drag a card onto a slot — mouse and pen; touch keeps tap + the numbered bar */
+  initDrag(){
+    const deck = $("#pzDeck");
+    if (!deck) return;
+    deck.addEventListener("pointerdown", e => {
+      if (e.pointerType === "touch" || e.button !== 0) return;
+      const card = e.target.closest(".card");
+      if (!card) return;
+      const key = card.dataset.card;
+      const sx = e.clientX, sy = e.clientY;
+      let ghost = null, hot = null, dragging = false;
+      const move = ev => {
+        if (!dragging){
+          if (Math.hypot(ev.clientX - sx, ev.clientY - sy) < 7) return;
+          dragging = true;
+          const r = card.getBoundingClientRect();
+          ghost = card.cloneNode(true);
+          ghost.className = "card drag-ghost";
+          ghost.style.width = r.width + "px";
+          document.body.appendChild(ghost);
+          card.classList.add("dragging");
+          document.body.classList.add("dragging-card");
+        }
+        ghost.style.transform = `translate(${ev.clientX - 46}px, ${ev.clientY - 24}px) rotate(-.9deg)`;
+        const el = document.elementFromPoint(ev.clientX, ev.clientY);
+        const slot = el && el.closest ? el.closest(".slot") : null;
+        if (hot && hot !== slot) hot.classList.remove("hot");
+        hot = (slot && !slot.classList.contains("locked")) ? slot : null;
+        if (hot) hot.classList.add("hot");
+      };
+      const up = () => {
+        window.removeEventListener("pointermove", move);
+        window.removeEventListener("pointerup", up);
+        window.removeEventListener("pointercancel", up);
+        if (ghost) ghost.remove();
+        card.classList.remove("dragging");
+        document.body.classList.remove("dragging-card");
+        if (hot) hot.classList.remove("hot");
+        if (dragging){
+          this._lastDrag = Date.now();
+          if (hot){ this.sel = key; this.place(+hot.dataset.slot); }
+        }
+      };
+      window.addEventListener("pointermove", move);
+      window.addEventListener("pointerup", up);
+      window.addEventListener("pointercancel", up);
+    });
   },
 
   status(t){ const el = $("#pzStatus"); if (el) el.textContent = t || ""; }
@@ -1038,12 +1328,14 @@ function sealSVG(){
   for (let i = 0; i < 7; i++){
     const a = -Math.PI / 2 + i * (2 * Math.PI / 7);
     const x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
-    out += `<line class="ray" x1="${cx}" y1="${cy}" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}"/>`;
-    out += `<circle class="ray" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="1.8"/>`;
+    out += `<line class="ray" data-ray="${i}" x1="${cx}" y1="${cy}" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}"/>`;
+    out += `<circle class="ray" data-ray="${i}" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="1.8"/>`;
   }
-  out += `<circle cx="${cx}" cy="${cy}" r="10" fill="none" stroke="#8a2d22" stroke-width="1.1"/>`;
-  out += `<circle cx="${cx}" cy="${cy}" r="2.4" fill="#8a2d22" stroke="none"/>`;
+  out += `<circle class="ring" cx="${cx}" cy="${cy}" r="46" fill="none" stroke="currentColor" stroke-width=".8" opacity=".28"/>`;
+  out += `<circle cx="${cx}" cy="${cy}" r="10" fill="none" stroke="currentColor" stroke-width="1.1"/>`;
+  out += `<circle cx="${cx}" cy="${cy}" r="2.4" fill="currentColor" stroke="none"/>`;
   $("#pzSeal").innerHTML = out;
+  const m = $("#pzSealMini"); if (m) m.innerHTML = out;
 }
 
 /* ── language ──────────────────────────────────────────────── */
@@ -1109,10 +1401,11 @@ function spy(){
   $$(".lang button").forEach(b => b.addEventListener("click", () => apply(b.dataset.lang)));
   const p = $("#printBtn"); if (p) p.addEventListener("click", () => window.print());
   sealSVG();
-  $$("#pzDeck").forEach(d => d.addEventListener("click", e => {
+  $("#pzDeck").addEventListener("click", e => {
+    if (Date.now() - PZ._lastDrag < 350) return;   /* a drag ends with a click we should ignore */
     const b = e.target.closest("[data-card]");
     if (b) PZ.pick(b.dataset.card);
-  }));
+  });
   $("#pzSlots").addEventListener("click", e => {
     const s = e.target.closest("[data-slot]");
     if (s) PZ.place(+s.dataset.slot);
@@ -1129,6 +1422,37 @@ function spy(){
   $("#pzCheck").addEventListener("click", () => PZ.check());
   $("#pzHint").addEventListener("click", () => PZ.hint());
   $("#pzReset").addEventListener("click", () => PZ.reset(DATA[LANG] || DATA.uz));
+  $("#pzAgain").addEventListener("click", () => PZ.reset(DATA[LANG] || DATA.uz));
+  $("#pzShare").addEventListener("click", () => PZ.share());
+  PZ.initDrag();
+
+  /* keyboard: 1–7 put the selected card, Escape lets go of it */
+  document.addEventListener("keydown", e => {
+    if (e.target.matches("input, textarea, select, [contenteditable]")) return;
+    if (e.key === "Escape" && PZ.sel){ e.preventDefault(); PZ.sel = null; PZ.paint(); return; }
+    if (/^[1-7]$/.test(e.key) && PZ.sel && !PZ.won){ e.preventDefault(); PZ.place(+e.key - 1); }
+  });
+
+  /* theme */
+  const themeBtn = $("#themeBtn");
+  const syncTheme = () => themeBtn.setAttribute("aria-pressed", String(document.documentElement.dataset.theme === "dark"));
+  themeBtn.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("se7en.theme", next); } catch(e){}
+    syncTheme();
+  });
+  syncTheme();
+  /* until the reader picks a side, follow the system */
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ev => {
+    let chosen = null;
+    try { chosen = localStorage.getItem("se7en.theme"); } catch(e){}
+    if (!chosen){
+      document.documentElement.dataset.theme = ev.matches ? "dark" : "light";
+      syncTheme();
+    }
+  });
+
   srcHTML();
   apply(saved);
   spy();

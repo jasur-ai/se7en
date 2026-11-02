@@ -28,8 +28,10 @@ def main() -> int:
     html = tpl.replace(PLACEHOLDER, font_b64)
     OUT.write_text(html, encoding="utf-8")
 
-    m = re.search(r"<script>(.*)</script>", html, re.S)
-    (ROOT / "_lab" / ".app.js").write_text(m.group(1), encoding="utf-8") if m else None
+    # the page script is the last one; the first is the tiny theme bootstrap
+    m = list(re.finditer(r"<script>(.*?)</script>", html, re.S))
+    if m:
+        (ROOT / "_lab" / ".app.js").write_text(m[-1].group(1), encoding="utf-8")
 
     print(f"built index.html  {len(html.encode())} bytes  (font {FONT.stat().st_size} -> {len(font_b64)} b64)")
     return 0
