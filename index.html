@@ -72,6 +72,11 @@ body{
 a{color:inherit; text-underline-offset:.22em; text-decoration-thickness:1px; text-decoration-color:var(--linkline)}
 a:hover{text-decoration-color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+.cta{display:inline-flex; align-items:center; gap:10px; margin-top:22px; padding:11px 18px; border:1px solid var(--ink);
+  font-family:var(--sans); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; color:var(--ink); transition:.25s}
+.cta:hover{background:var(--accent); border-color:var(--accent); color:var(--on-accent)}
+.cta i{font-style:normal; color:var(--accent); transition:.25s}
+.cta:hover i{color:var(--on-accent)}
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 var(--gutter)}
 
 /* ── header ───────────────────────────────────────────────── */
@@ -374,6 +379,78 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
   a{text-decoration:none}
   .virtue{background:#f4f0e6}
 }
+
+/* ── accounts, rating, endless run ─────────────────────────── */
+.pz-more{margin-top:30px; padding-top:26px; border-top:1px solid var(--rule)}
+.pz-more-h{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 16px; margin-bottom:8px}
+.pz-more-h h3{margin:0; font-weight:400; font-size:clamp(22px,3vw,30px)}
+.pz-more-h .tag{font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent)}
+.pz-more p.lead2{margin:0 0 18px; max-width:66ch; font-size:15.6px; color:var(--ink-2)}
+
+.acc{display:grid; gap:14px; grid-template-columns:1.05fr .95fr; align-items:start}
+.acc-card{border:1px solid var(--rule); background:var(--surface); padding:16px}
+.acc-tabs{display:flex; margin:-16px -16px 14px; border-bottom:1px solid var(--rule)}
+.acc-tabs button{flex:1; font-family:var(--sans); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; padding:11px 8px; background:none; border:0; color:var(--muted); cursor:pointer}
+.acc-tabs button[aria-pressed="true"]{color:var(--accent); box-shadow:inset 0 -2px 0 var(--accent)}
+.acc label{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 5px}
+.acc input{width:100%; font-family:var(--serif); font-size:16px; color:var(--ink); background:var(--wash); border:1px solid var(--rule); padding:9px 11px; margin:0 0 12px}
+.acc input:focus{outline:none; border-color:var(--accent)}
+.acc .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.acc .err{margin:10px 0 0; font-size:13.6px; color:var(--accent); min-height:1.2em}
+.acc .fine{margin:12px 0 0; font-size:12.6px; line-height:1.5; color:var(--muted)}
+.who{display:flex; align-items:center; gap:10px; flex-wrap:wrap; border:1px solid var(--locked-line); background:var(--locked-wash); padding:12px 14px}
+.who b{font-size:17px}
+.who span{font-family:var(--sans); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.who .sp{flex:1}
+
+.lb{margin:16px 0 0; border:1px solid var(--rule); background:var(--surface)}
+.lb-hd{display:flex; align-items:baseline; gap:10px; padding:11px 14px; border-bottom:1px solid var(--rule)}
+.lb-hd b{font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:600}
+.lb-hd em{margin-left:auto; font-style:normal; font-family:var(--sans); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.lb table{width:100%; border-collapse:collapse}
+.lb th,.lb td{text-align:left; padding:8px 14px; border-bottom:1px solid var(--rule-2); font-size:14px}
+.lb th{font-family:var(--sans); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600}
+.lb td.n{font-family:var(--mono); color:var(--muted); width:34px}
+.lb td.s{font-family:var(--mono); color:var(--ink)}
+.lb td.d{font-family:var(--sans); font-size:11px; color:var(--muted)}
+.lb tr.me td{background:var(--locked-wash)}
+.lb tr.me td.s{color:var(--green)}
+.lb .empty{padding:16px 14px; font-size:14px; color:var(--muted); font-style:italic}
+
+.run{margin-top:16px; border:1px solid var(--rule); background:var(--surface); padding:clamp(14px,2.6vw,22px)}
+.run-top{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:12px}
+.run-top .k{font-family:var(--sans); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+.run-top b{font-family:var(--mono); font-size:20px; color:var(--ink)}
+.run-top .sp{flex:1}
+.run-top .best{display:inline-flex; align-items:baseline; gap:8px}
+.run-top .rec{font-family:var(--mono); font-size:20px; color:var(--green)}
+.run-acts{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:16px}
+.run-seal{width:52px; height:52px; color:var(--green); margin-left:auto; flex:0 0 auto}
+.run-seal .ray{opacity:.14; transition:opacity .35s ease}
+.run-seal .ray.on{opacity:1}
+.run-bar{height:3px; background:var(--rule-2); overflow:hidden; margin:0 0 16px}
+.run-bar i{display:block; height:100%; width:100%; background:var(--green); transform-origin:0 50%; transition:background .3s}
+.run-bar.low i{background:var(--accent)}
+.run-open{border-left:2px solid var(--accent); padding:10px 14px; background:var(--wash); font-size:16px; line-height:1.55; margin:0 0 14px}
+.run-open .nm{display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:4px}
+.run-open .gap{background:var(--sel); font-style:italic; color:var(--accent)}
+.run-cands{list-style:none; margin:0; padding:0; display:grid; gap:7px}
+.run-cands button{width:100%; text-align:left; font-family:var(--serif); font-size:15px; color:var(--ink-2); background:var(--wash); border:1px solid var(--rule); padding:9px 12px; cursor:pointer; display:grid; grid-template-columns:16px 1fr; gap:9px}
+.run-cands button:hover{border-color:var(--green); color:var(--ink); background:var(--locked-wash)}
+.run-cands button .k{font-family:var(--mono); font-size:10px; color:var(--muted)}
+.run-cands button.bad{border-color:var(--accent); animation:shake .4s ease}
+.run-over{display:none; text-align:center; padding:8px 0 4px}
+.run-over.show{display:block; animation:fade .5s ease}
+.run-over h4{margin:0 0 6px; font-weight:400; font-size:clamp(22px,3vw,28px)}
+.run-over .big{font-family:var(--mono); font-size:clamp(34px,7vw,54px); color:var(--accent); line-height:1}
+.run-over p{margin:8px 0 0; color:var(--ink-2); font-size:15px}
+.run-over .acts{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px}
+.run-fresh{display:inline-block; margin-left:8px; font-family:var(--sans); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--green); border-bottom:1px solid var(--green)}
+.run-lock{padding:14px; border:1px dashed var(--rule); color:var(--muted); font-size:14.4px; text-align:center}
+@media (max-width:900px){
+  .acc{grid-template-columns:1fr}
+  .lb th:nth-child(5), .lb td:nth-child(5){display:none}
+}
 </style>
 </head>
 <body>
@@ -429,6 +506,7 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
         </div>
       </div>
       <div class="meta" id="metaRow"></div>
+      <a class="cta" href="#zanjir" id="heroCta"><span data-i18n="hero.cta">Cheksiz rejim va reyting</span> <i>→</i></a>
     </div>
   </section>
 
@@ -483,6 +561,59 @@ footer{border-top:1px solid var(--rule); padding:clamp(30px,5vw,56px) 0 clamp(40
           <summary data-i18n="zanjir.whyT">Nega bu sizni ushlab turadi</summary>
           <div class="pz-why-body" id="pzWhyBody"></div>
         </details>
+        <div class="pz-more" id="more">
+          <div class="pz-more-h">
+            <h3 data-i18n="e.title">Cheksiz zanjir</h3>
+            <span class="tag" data-i18n="e.tag">reyting · hisob · rekord</span>
+          </div>
+          <p class="lead2" data-i18n="e.lead">Bir marta oʻrgandingiz — endi tezlik sinovi. Har toʻgʻri ulanish bir halqa beradi; xato yoki vaqt tugashi zanjirni uzadi. Har aylanada vaqt qisqaradi, shuning uchun rekord har safar yangilanadi.</p>
+
+          <!-- account -->
+          <div id="accBox"></div>
+
+          <!-- rating -->
+          <div class="lb" id="lb">
+            <div class="lb-hd"><b data-i18n="b.title">Reyting</b><em data-i18n="b.local">eng yaxshi 10 · shu qurilma</em></div>
+            <div id="lbBody"></div>
+          </div>
+
+          <!-- the endless run -->
+          <div class="run" id="run">
+            <div class="run-top">
+              <span class="k" data-i18n="e.score">halqa</span><b id="runScore">0</b>
+              <span class="k" data-i18n="e.level">daraja</span><b id="runLevel">1</b>
+              <span class="sp"></span>
+              <span class="best"><span class="k" data-i18n="e.best">rekord</span><b class="rec" id="runBest">—</b></span>
+              <span class="run-seal" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" id="runSeal"></svg></span>
+            </div>
+            <div class="run-bar" id="runBar"><i></i></div>
+            <div id="runLock" class="run-lock" data-i18n="e.need">Boshlash uchun yuqorida roʻyxatdan oʻting — rekord va reyting hisobingizga bogʻlanadi.</div>
+            <div id="runIdle" style="display:none; text-align:center; padding:6px 0 4px">
+              <p style="margin:0 0 14px; color:var(--ink-2); font-size:15px" data-i18n="e.idle">Tayyormisiz? Har toʻgʻri ulanish — bir halqa. Xato yoki vaqt tugashi — zanjir uziladi.</p>
+              <div class="run-acts">
+                <button class="btn" id="runStart" data-i18n="e.start">Boshlash</button>
+                <span class="pz-status" id="runStatus2" aria-live="polite"></span>
+              </div>
+            </div>
+            <div id="runPlay" style="display:none">
+              <div class="run-open" id="runOpen"></div>
+              <ul class="run-cands" id="runCands"></ul>
+              <div class="pz-actions" style="margin-top:14px">
+                <button class="btn ghost" id="runStop" data-i18n="e.stop">Toʻxtatish</button>
+                <span class="pz-status" id="runStatus" aria-live="polite"></span>
+              </div>
+            </div>
+            <div class="run-over" id="runOver">
+              <h4 data-i18n="e.over">Zanjir uzildi</h4>
+              <div class="big" id="runBig">0</div>
+              <p id="runOverTxt"></p>
+              <div class="acts">
+                <button class="btn" id="runAgain" data-i18n="e.again">Yana urinish</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="pz-done" id="pzDone">
           <div class="pz-seal" aria-hidden="true">
             <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1" id="pzSeal"></svg>
@@ -551,7 +682,7 @@ uz: {
   nav:{usul:"Usul", juftlik:"Juftliklar", zanjir:"Zanjir", jadval:"Jadval", lugat:"Lug‘at", manbalar:"Manbalar"},
   ui:{print:"Chop etish / PDF", theme:"Kunduzgi yoki tungi ko‘rinish"},
   hero:{kicker:"Ma’lumotnoma · yetti juftlik · 2026",
-    sub:"Gunoh — me’yordan chiqish. Fazilat — o‘rta.",
+    sub:"Gunoh — me’yordan chiqish. Fazilat — o‘rta.", cta:"Cheksiz rejim va reyting",
     lede:"Yetti gunoh — ikki ming yillik ro‘yxat. Bu sahifa uni dahshat emas, me’yor masalasi sifatida oladi: har bir gunoh chetga chiqish, uning qarshisida esa o‘rtani ushlab turuvchi fazilat turadi. Har fikr yonida manba bor."},
   meta:[["7","juftlik"],["7","varaq"],["3","til"],["%n","manba"]],
   usul:{title:"Usul", hint:"uch tamoyil",
@@ -618,6 +749,18 @@ uz: {
      quote:"Mehnat — rohatning poydevori.", qsrc:"O‘zbek xalq maqoli",
      refs:["Aristotel, NE II.1–4","Qutadg‘u bilig, 1069–70","Maqollar to‘plami"]}
   ],
+  e:{title:"Cheksiz zanjir", tag:"reyting · hisob · rekord",
+    lead:"Bir marta oʻrgandingiz — endi tezlik sinovi. Har toʻgʻri ulanish bir halqa beradi; xato yoki vaqt tugashi zanjirni uzadi. Har aylanada vaqt qisqaradi, shuning uchun rekord har safar yangilanadi.",
+    score:"halqa", level:"daraja", best:"rekord", start:"Boshlash", stop:"Toʻxtatish",
+    idle:"Tayyormisiz? Har toʻgʻri ulanish — bir halqa. Xato yoki vaqt tugashi — zanjir uziladi.",
+    need:"Boshlash uchun yuqorida roʻyxatdan oʻting — rekord va reyting hisobingizga bogʻlanadi.",
+    over:"Zanjir uzildi", again:"Yana urinish", overT:"{n} halqa · {l}-daraja · {t}",
+    newBest:"yangi rekord!", circle:"Aylana yopildi — daraja {l}", wrong:"Xato ulanish.", timeout:"Vaqt tugadi.", quit:"Toʻxtatildi."},
+  a:{signup:"Roʻyxatdan oʻtish", login:"Kirish", name:"Foydalanuvchi nomi", pass:"Parol",
+    go:"Davom etish", logout:"Chiqish", hi:"Kirildi:", you:"siz", note:"Hisob shu qurilmada saqlanadi: server yoʻq, parol ochiq matnda saqlanmaydi (PBKDF2-SHA256, 120 000 takror).",
+    errName:"Nom 3–16 belgi: harflar, raqamlar, pastki chiziq.", errPass:"Parol kamida 4 belgi.",
+    errTaken:"Bu nom allaqachon olingan.", errBad:"Nom yoki parol xato.", errBusy:"Tekshirilmoqda…"},
+  b:{title:"Reyting", local:"eng yaxshi 10 · shu qurilma", empty:"Hali natija yoʻq — birinchi boʻling.", rank:"#", name:"ism", score:"halqa", level:"daraja", date:"sana"},
   zanjir:{title:"Zanjir: uzilgan gap", hint:"jumboq · 7 halqa",
     lead:"Gunohlar alohida turganda qo‘rqinchli ko‘rinadi. Ular aslida zanjir: har biri keyingisini tug‘diradi va yettinchisi yana birinchisiga qaytadi.",
     intro:"Quyida bitta gap yetti bo‘lakka bo‘lingan. Har bo‘lak oldingi gapning yarim qolgan uchini tugatadi — va o‘zi yana yarim gap bilan uziladi.",
@@ -678,7 +821,7 @@ en: {
   nav:{usul:"Method", juftlik:"Pairs", zanjir:"Chain", jadval:"Table", lugat:"Glossary", manbalar:"Sources"},
   ui:{print:"Print / PDF", theme:"Day or night view"},
   hero:{kicker:"Reference · seven pairs · 2026",
-    sub:"Vice is the extreme. Virtue is the mean.",
+    sub:"Vice is the extreme. Virtue is the mean.", cta:"Endless mode and rating",
     lede:"The seven deadly sins are a two-thousand-year-old list. This page reads the list not as horror but as a question of measure: every vice is an overshoot, and opposite it stands the virtue that holds the middle. Every claim carries a source."},
   meta:[["7","pairs"],["7","cards"],["3","languages"],["%n","sources"]],
   usul:{title:"Method", hint:"three principles",
@@ -745,6 +888,18 @@ en: {
      quote:"Labour is the foundation of rest.", qsrc:"Uzbek proverb",
      refs:["Aristotle, NE II.1–4","Qutadgu Bilig, 1069–70","Proverb collection"]}
   ],
+  e:{title:"Endless chain", tag:"rating · account · record",
+    lead:"Once you have learned it, the test is speed. Every correct join is a link; one wrong choice or a drained clock breaks the chain. Each circle leaves less time, so the record keeps moving.",
+    score:"links", level:"level", best:"record", start:"Start", stop:"Stop",
+    idle:"Ready? Every correct join is a link. One wrong choice or a drained clock ends it.",
+    need:"Register above to begin — your record and rating are tied to your account.",
+    over:"The chain broke", again:"Try again", overT:"{n} links · level {l} · {t}",
+    newBest:"new record!", circle:"Circle closed — level {l}", wrong:"Wrong join.", timeout:"Time ran out.", quit:"Stopped."},
+  a:{signup:"Sign up", login:"Sign in", name:"Username", pass:"Password",
+    go:"Continue", logout:"Sign out", hi:"Signed in:", you:"you", note:"The account lives in this browser: there is no server, and the password is never stored in plain text (PBKDF2-SHA256, 120,000 rounds).",
+    errName:"Name 3–16 characters: letters, digits, underscore.", errPass:"Password at least 4 characters.",
+    errTaken:"That name is already taken.", errBad:"Wrong name or password.", errBusy:"Checking…"},
+  b:{title:"Rating", local:"top 10 · this device", empty:"No results yet — be the first.", rank:"#", name:"name", score:"links", level:"level", date:"date"},
   zanjir:{title:"The Chain: a broken sentence", hint:"puzzle · 7 links",
     lead:"Seen one at a time, the vices look monstrous. In fact they are a chain: each one produces the next, and the seventh returns to the first.",
     intro:"Below, one sentence has been cut into seven pieces. Each piece finishes the half-sentence the one before it left hanging — and leaves a new half-sentence open.",
@@ -805,7 +960,7 @@ ru: {
   nav:{usul:"Метод", juftlik:"Пары", zanjir:"Цепь", jadval:"Таблица", lugat:"Словарь", manbalar:"Источники"},
   ui:{print:"Печать / PDF", theme:"Дневной или ночной вид"},
   hero:{kicker:"Справочник · семь пар · 2026",
-    sub:"Порок — выход из меры. Добродетель — середина.",
+    sub:"Порок — выход из меры. Добродетель — середина.", cta:"Бесконечный режим и рейтинг",
     lede:"Семь смертных грехов — список возрастом в две тысячи лет. Эта страница читает его не как ужас, а как вопрос о мере: каждый порок — крайность, и напротив него стоит добродетель, держащая середину. У каждого утверждения есть источник."},
   meta:[["7","пар"],["7","карт"],["3","языка"],["%n","источников"]],
   usul:{title:"Метод", hint:"три принципа",
@@ -872,6 +1027,18 @@ ru: {
      quote:"Труд — основа покоя.", qsrc:"Узбекская пословица",
      refs:["Аристотель, NE II.1–4","Кутадгу билиг, 1069–70","Сборник пословиц"]}
   ],
+  e:{title:"Бесконечная цепь", tag:"рейтинг · аккаунт · рекорд",
+    lead:"Вы уже поняли правила — теперь проверка на скорость. Каждое верное соединение даёт звено; ошибка или истёкшее время рвут цепь. С каждым кругом времени меньше, поэтому рекорд всё время движется.",
+    score:"звенья", level:"уровень", best:"рекорд", start:"Начать", stop:"Остановить",
+    idle:"Готовы? Каждое верное соединение — звено. Ошибка или истёкшее время рвут цепь.",
+    need:"Зарегистрируйтесь выше, чтобы начать — рекорд и рейтинг привязаны к аккаунту.",
+    over:"Цепь разорвана", again:"Ещё попытка", overT:"{n} звеньев · уровень {l} · {t}",
+    newBest:"новый рекорд!", circle:"Круг замкнут — уровень {l}", wrong:"Неверное соединение.", timeout:"Время вышло.", quit:"Остановлено."},
+  a:{signup:"Регистрация", login:"Вход", name:"Имя пользователя", pass:"Пароль",
+    go:"Продолжить", logout:"Выйти", hi:"Вход выполнен:", you:"вы", note:"Аккаунт хранится в этом браузере: сервера нет, пароль не хранится открытым текстом (PBKDF2-SHA256, 120 000 итераций).",
+    errName:"Имя 3–16 символов: буквы, цифры, подчёркивание.", errPass:"Пароль не короче 4 символов.",
+    errTaken:"Это имя уже занято.", errBad:"Неверное имя или пароль.", errBusy:"Проверяем…"},
+  b:{title:"Рейтинг", local:"топ-10 · это устройство", empty:"Результатов пока нет — станьте первым.", rank:"#", name:"имя", score:"звенья", level:"уровень", date:"дата"},
   zanjir:{title:"Цепь: разорванная фраза", hint:"головоломка · 7 звеньев",
     lead:"Пороки, взятые по отдельности, выглядят чудовищами. На деле они — цепь: каждый порождает следующий, а седьмой возвращается к первому.",
     intro:"Ниже одно предложение разрезано на семь частей. Каждая часть заканчивает половину фразы, оставленную предыдущей, — и сама оставляет новую половину открытой.",
@@ -1301,7 +1468,278 @@ function sealSVG(){
   out += `<circle cx="${cx}" cy="${cy}" r="2.4" fill="currentColor" stroke="none"/>`;
   $("#pzSeal").innerHTML = out;
   const m = $("#pzSealMini"); if (m) m.innerHTML = out;
+  const r2 = $("#runSeal"); if (r2) r2.innerHTML = out;
 }
+
+/* ── accounts, rating, endless run ───────────────────────────
+   Everything here lives in this browser: there is no server, so the
+   rating is a device-local board. Passwords are never stored in the
+   clear — PBKDF2-SHA256 over a random salt. If the page is opened in
+   an insecure context (no crypto.subtle), accounts are disabled
+   rather than silently weakened.                                   */
+
+const Store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; } },
+  del(k){ try { localStorage.removeItem(k); } catch(e){} }
+};
+
+const hex = buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+
+const Auth = {
+  user: null,
+  can(){ return !!(window.crypto && crypto.subtle && crypto.subtle.deriveBits); },
+  async digest(pass, saltHex, rounds){
+    const enc = new TextEncoder();
+    const salt = Uint8Array.from(saltHex.match(/.{2}/g).map(h => parseInt(h, 16)));
+    const key = await crypto.subtle.importKey("raw", enc.encode(pass), "PBKDF2", false, ["deriveBits"]);
+    const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: rounds, hash: "SHA-256" }, key, 256);
+    return hex(bits);
+  },
+  randHex(n){
+    const a = new Uint8Array(n); crypto.getRandomValues(a);
+    return [...a].map(b => b.toString(16).padStart(2, "0")).join("");
+  },
+  users(){ return Store.get("se7en.users", {}); },
+  load(){ this.user = Store.get("se7en.session", null); return this.user; },
+  validName(n){ return /^[A-Za-z0-9_ʻ’\u0400-\u04FF]{3,16}$/.test(n); },
+  async register(name, pass){
+    if (!this.validName(name)) return { ok: false, err: "name" };
+    if (!pass || pass.length < 4) return { ok: false, err: "pass" };
+    const users = this.users();
+    if (users[name.toLowerCase()]) return { ok: false, err: "taken" };
+    const salt = this.randHex(16), rounds = 120000;
+    let hash = null;
+    if (this.can()) hash = await this.digest(pass, salt, rounds);
+    else return { ok: false, err: "nocrypto" };
+    users[name.toLowerCase()] = { name, salt, hash, rounds, ts: Date.now() };
+    Store.set("se7en.users", users);
+    this.user = { name, key: name.toLowerCase() };
+    Store.set("se7en.session", this.user);
+    return { ok: true };
+  },
+  async login(name, pass){
+    const users = this.users(), u = users[String(name || "").toLowerCase()];
+    if (!u) return { ok: false, err: "bad" };
+    if (!this.can()) return { ok: false, err: "nocrypto" };
+    const hash = await this.digest(pass, u.salt, u.rounds || 120000);
+    if (hash !== u.hash) return { ok: false, err: "bad" };
+    this.user = { name: u.name, key: String(name).toLowerCase() };
+    Store.set("se7en.session", this.user);
+    return { ok: true };
+  },
+  logout(){ this.user = null; Store.del("se7en.session"); }
+};
+
+const Board = {
+  all(){ return Store.get("se7en.board", []); },
+  bestOf(key){ const r = this.all().find(x => x.key === key); return r ? r.score : 0; },
+  /* one row per player: the best run wins, and it can always be improved */
+  submit(key, name, score, level, ms){
+    const rows = this.all();
+    let row = rows.find(r => r.key === key);
+    let fresh = false;
+    if (!row){ row = { key, name, score, level, ms, ts: Date.now() }; rows.push(row); fresh = true; }
+    else if (score > row.score){ row.score = score; row.level = level; row.ms = ms; row.ts = Date.now(); row.name = name; fresh = true; }
+    rows.sort((a, b) => b.score - a.score || b.level - a.level || a.ms - b.ms);
+    Store.set("se7en.board", rows.slice(0, 50));
+    return { fresh, rank: rows.findIndex(r => r.key === key) + 1 };
+  },
+  html(L){
+    const rows = this.all();
+    if (!rows.length) return `<div class="empty">${L.b.empty}</div>`;
+    const me = Auth.user ? Auth.user.key : null;
+    const body = rows.slice(0, 10).map((r, i) => `<tr class="${r.key === me ? "me" : ""}">
+      <td class="n">${i + 1}</td>
+      <td>${r.name}${r.key === me ? ` <span style="color:var(--green)">·</span>` : ""}</td>
+      <td class="s">${r.score}</td>
+      <td class="s">${r.level}</td>
+      <td class="d">${new Date(r.ts).toLocaleDateString()}</td></tr>`).join("");
+    return `<table><thead><tr><th>${L.b.rank}</th><th>${L.b.name}</th><th>${L.b.score}</th><th>${L.b.level}</th><th>${L.b.date}</th></tr></thead><tbody>${body}</tbody></table>`;
+  },
+  paint(L){
+    const el = $("#lbBody"); if (!el) return;
+    el.innerHTML = this.html(L);
+    const hd = $("#lb .lb-hd em"); if (hd) hd.textContent = L.b.local;
+  }
+};
+
+/* ── the endless run: one wrong join or one drained clock ends it ── */
+const Run = {
+  on: false, score: 0, level: 1, idx: 0, order: null, startedAt: 0,
+  deadline: 0, raf: null, timer: null, L: null,
+
+  secsFor(level){ return Math.max(3.6, 12 - (level - 1) * 1.15); },
+
+  reset(L){
+    this.L = L;
+    this.on = false; this.score = 0; this.level = 1; this.idx = 0;
+    $("#runPlay").style.display = "none";
+    $("#runOver").classList.remove("show");
+    const idle = $("#runIdle");
+    if (idle) idle.style.display = Auth.user ? "block" : "none";
+    $("#runScore").textContent = "0";
+    $("#runLevel").textContent = "1";
+    $("#runBest").textContent = String(Board.bestOf(Auth.user ? Auth.user.key : "") || "—");
+    $("#runBar").querySelector("i").style.transform = "scaleX(1)";
+    this.locked(!Auth.user);
+  },
+
+  locked(state){
+    $("#runLock").style.display = state ? "block" : "none";
+    const idle = $("#runIdle");
+    if (idle) idle.style.display = (!state && !this.on && !$("#runOver").classList.contains("show")) ? "block" : "none";
+  },
+
+  start(){
+    if (!Auth.user){ this.locked(true); return; }
+    const L = this.L;
+    this.on = true; this.score = 0; this.level = 1; this.idx = 0;
+    /* each level starts at a different point of the circle, so the order
+       itself cannot be memorised — the joints still can */
+    this.order = [...PZ.order];
+    this.startedAt = performance.now();
+    $("#runOver").classList.remove("show");
+    $("#runIdle").style.display = "none";
+    $("#runPlay").style.display = "block";
+    $("#runLock").style.display = "none";
+    this.status("");
+    this.step();
+  },
+
+  step(){
+    const L = this.L, seconds = this.secsFor(this.level);
+    this.deadline = performance.now() + seconds * 1000;
+    this.tick(seconds * 1000);
+    const cur = this.order[this.idx % 7];
+    const card = PZ.byKey(cur);
+    $("#runOpen").innerHTML = `<span class="nm">${PZ.nameOf(cur)}</span>${card.in ? `<span class="fit">…${card.in}</span> ` : ""}${card.mid} <span class="gap">${card.out || "…"}</span>`;
+    const next = this.order[(this.idx + 1) % 7];
+    const pool = PZ.order.filter(k => k !== next);
+    for (let i = pool.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+    const opts = [next, ...pool.slice(0, 5)];
+    for (let i = opts.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [opts[i], opts[j]] = [opts[j], opts[i]]; }
+    const Lz = this.L.zanjir;
+    $("#runCands").innerHTML = opts.map((k, i) => {
+      const c = PZ.byKey(k);
+      const frag = c.in || c.mid;
+      const cut = frag.length > 96 ? frag.slice(0, 95).replace(/[,;:\s]+$/, "") + "…" : frag;
+      return `<li><button type="button" data-run="${k}"><span class="k">${i + 1}</span><span>…${cut}</span></button></li>`;
+    }).join("");
+    $("#runScore").textContent = String(this.score);
+    $("#runLevel").textContent = String(this.level);
+    const b = Board.bestOf(Auth.user ? Auth.user.key : "");
+    $("#runBest").textContent = b ? String(b) : "—";
+    const rays = $$("#runSeal .ray");
+    rays.forEach(r => r.classList.toggle("on", +r.dataset.ray < this.idx));
+  },
+
+  tick(ms){
+    const bar = $("#runBar"), fill = bar.querySelector("i"), total = ms;
+    bar.classList.remove("low");
+    cancelAnimationFrame(this.raf);
+    const loop = () => {
+      if (!this.on) return;
+      const left = this.deadline - performance.now();
+      const k = Math.max(0, left / total);
+      fill.style.transform = `scaleX(${k.toFixed(4)})`;
+      bar.classList.toggle("low", k < .34);
+      if (left <= 0){ this.lose("timeout"); return; }
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  },
+
+  pick(k){
+    if (!this.on) return;
+    const next = this.order[(this.idx + 1) % 7];
+    if (k !== next){
+      const btn = $(`#runCands [data-run="${k}"]`);
+      if (btn) btn.classList.add("bad");
+      this.lose("wrong");
+      return;
+    }
+    this.score++; this.idx++;
+    if (this.idx % 7 === 0){
+      this.level++;
+      this.status(this.L.e.circle.replace("{l}", this.level));
+    } else this.status("");
+    this.step();
+  },
+
+  lose(why){
+    if (!this.on) return;
+    this.on = false;
+    cancelAnimationFrame(this.raf);
+    const ms = Math.round(performance.now() - this.startedAt);
+    const u = Auth.user;
+    const res = Board.submit(u.key, u.name, this.score, this.level, ms);
+    $("#runPlay").style.display = "none";
+    $("#runIdle").style.display = "none";
+    $("#runOver").classList.add("show");
+    $("#runBig").textContent = String(this.score);
+    const t = Math.floor(ms / 1000);
+    $("#runOverTxt").innerHTML = this.L.e.overT.replace("{n}", this.score).replace("{l}", this.level).replace("{t}", PZ.clock(t)) +
+      (res.fresh && this.score > 0 ? ` <span class="run-fresh">${this.L.e.newBest}</span>` : "") +
+      `<br><span style="font-family:var(--sans); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)">${this.L.b.rank} ${res.rank} · ${this.L.b.score} ${this.score} · ${this.L.b.level} ${this.level}</span>`;
+    $("#runBest").textContent = String(Board.bestOf(u.key));
+    Board.paint(this.L);
+    this.status(this.L.e[why] || "");
+  },
+
+  stop(){
+    if (!this.on) return;
+    this.lose("quit");
+  },
+
+  status(t){ const el = $("#runStatus"); if (el) el.textContent = t || ""; },
+
+  renderAuth(){
+    const L = this.L, box = $("#accBox");
+    if (!box) return;
+    if (Auth.user){
+      const best = Board.bestOf(Auth.user.key);
+      box.innerHTML = `<div class="who"><b>${Auth.user.name}</b><span>${L.a.hi} ${best ? best + " " + L.e.score : L.e.best + " —"}</span><span class="sp"></span><button class="btn ghost" id="accOut">${L.a.logout}</button></div>`;
+      $("#accOut").addEventListener("click", () => { Auth.logout(); this.renderAuth(); this.reset(this.L); Board.paint(this.L); });
+      $("#runStart").textContent = L.e.start;
+      this.locked(false);
+      return;
+    }
+    const tab = this._tab || "signup";
+    box.innerHTML = `<div class="acc">
+      <div class="acc-card">
+        <div class="acc-tabs">
+          <button type="button" data-tab="signup" aria-pressed="${tab === "signup"}">${L.a.signup}</button>
+          <button type="button" data-tab="login" aria-pressed="${tab === "login"}">${L.a.login}</button>
+        </div>
+        <form id="accForm" autocomplete="on">
+          <label for="accName">${L.a.name}</label>
+          <input id="accName" name="username" autocomplete="username" maxlength="16" required>
+          <label for="accPass">${L.a.pass}</label>
+          <input id="accPass" name="password" type="password" autocomplete="current-password" minlength="4" required>
+          <div class="row"><button class="btn" type="submit" id="accGo">${L.a.go}</button><span class="err" id="accErr"></span></div>
+          <p class="fine">${L.a.note}</p>
+        </form>
+      </div>
+    </div>`;
+    box.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => { this._tab = b.dataset.tab; this.renderAuth(); }));
+    $("#accForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const name = $("#accName").value.trim(), pass = $("#accPass").value;
+      const err = $("#accErr");
+      err.textContent = L.a.errBusy;
+      const fn = (this._tab === "login") ? Auth.login : Auth.register;
+      const res = await fn.call(Auth, name, pass);
+      if (!res.ok){
+        err.textContent = res.err === "name" ? L.a.errName : res.err === "pass" ? L.a.errPass
+          : res.err === "taken" ? L.a.errTaken : res.err === "nocrypto" ? L.a.errBad : L.a.errBad;
+        return;
+      }
+      this.renderAuth(); Board.paint(this.L); this.reset(this.L);
+    });
+    this.locked(true);
+  }
+};
 
 /* ── language ──────────────────────────────────────────────── */
 function apply(lang){
@@ -1331,6 +1769,14 @@ function apply(lang){
   };
   PZ.reset(L);
   PZ.restore(keep);
+  if (Run.on){ Run.L = L; }
+  Run.L = L;
+  Run.renderAuth();
+  Board.paint(L);
+  if (!Run.on) Run.reset(L);
+  $("#runStart").textContent = L.e.start;
+  $("#runStop").textContent = L.e.stop;
+  $("#runAgain").textContent = L.e.again;
   reveal();
   try { localStorage.setItem("se7en.lang", lang); } catch(e){}
 }
@@ -1367,6 +1813,25 @@ function spy(){
   $$(".lang button").forEach(b => b.addEventListener("click", () => apply(b.dataset.lang)));
   const p = $("#printBtn"); if (p) p.addEventListener("click", () => window.print());
   sealSVG();
+  /* accounts + rating + endless run */
+  Auth.load();
+  Run.reset(DATA[LANG] || DATA.uz);
+  Run.renderAuth();
+  Board.paint(DATA[LANG] || DATA.uz);
+  $("#runStart").addEventListener("click", () => Run.start());
+  $("#runAgain").addEventListener("click", () => Run.start());
+  $("#runStop").addEventListener("click", () => Run.stop());
+  $("#runCands").addEventListener("click", e => {
+    const b = e.target.closest("[data-run]");
+    if (b) Run.pick(b.dataset.run);
+  });
+  document.addEventListener("keydown", e => {
+    if (!Run.on || e.target.matches("input, textarea, select")) return;
+    if (/^[1-6]$/.test(e.key)){
+      const b = $$("#runCands [data-run]")[+e.key - 1];
+      if (b){ e.preventDefault(); Run.pick(b.dataset.run); }
+    }
+  });
   /* on a phone the long rule would push the game below the fold: fold it */
   const rule = $("#pzRule");
   if (rule && matchMedia("(max-width: 1000px)").matches) rule.open = false;
